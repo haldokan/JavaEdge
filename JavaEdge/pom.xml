@@ -56,5 +56,6 @@
 	</dependencies>
   <modules>
     <module>graph-algorithms</module>
+    <module>search-and-sort</module>
   </modules>
 </project>
