@@ -3,7 +3,7 @@ package org.haldokan.edge.bitwise;
 import java.util.Deque;
 import java.util.LinkedList;
 
-public class JdkBitSet {
+public class Bitmask {
     public static void main(String[] args) {
 	int bitmask = 0x000F;
 	int val = 0x2222;
