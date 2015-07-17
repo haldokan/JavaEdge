@@ -15,7 +15,7 @@ import com.google.common.collect.Sets;
 // TODO: enhance for directed graphs - In fact could be a simplifiation.
 
 //interesting take on this algo is that it is a flavor of dynamic programming: every step provide enougth info for
-//the next step (recurrence relationship). Same goes for Graph MST.
+//the next step (recurrence relationship). Same goes for Graph shortest path.
 public class GraphMST<E> {
 	private Set<Vertex<E>> inTree = new HashSet<>();
 

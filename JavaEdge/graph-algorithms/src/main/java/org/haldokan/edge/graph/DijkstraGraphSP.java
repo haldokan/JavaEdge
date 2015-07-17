@@ -14,7 +14,7 @@ import java.util.Set;
 
 import com.google.common.collect.Sets;
 
-// interesting take on this algo is that it is a flavor of dynamic programming: every step provide enougth info for
+// interesting take on this algo is that it is a flavor of dynamic programming: every step provides enougth info for
 // the next step (recurrence relationship). Same goes for Graph MST.
 // this class gets the shortest paths from start to all other vertexex
 public class DijkstraGraphSP<E> {
