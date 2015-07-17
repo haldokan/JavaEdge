@@ -4,6 +4,13 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Map;
 
+/**
+ * Breadth Frist Search of a graph. Iteration (not recursion) is used for BFS.
+ * 
+ * @author haldokan
+ *
+ * @param <E>
+ */
 public class GraphBFS<E> {
     private enum State {
 	DISCOVERED, UNDISCOVERED, PROCESSED

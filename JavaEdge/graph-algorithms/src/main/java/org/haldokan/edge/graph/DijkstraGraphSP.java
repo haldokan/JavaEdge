@@ -15,9 +15,11 @@ import java.util.Set;
 import com.google.common.collect.Sets;
 
 /**
- * An interesting take on this algo is that it is a flavor of dynamic programming: every step provides enougth info for
- * the next step (recurrence relationship). Same goes for Graph MST. this class gets the shortest paths from start to
- * all other vertexes
+ * Dijkstra algorithm for finding shortest paths from a start vertex to all other vertexes. I use Guava Table data
+ * structure to represent the graph as an adjacency list.
+ * 
+ * An interesting take on this algorithm is that it is a flavor of dynamic programming: every step provides enough info
+ * for the next step (recurrence relationship). Same goes for Graph MST.
  * 
  * @author haldokan
  *

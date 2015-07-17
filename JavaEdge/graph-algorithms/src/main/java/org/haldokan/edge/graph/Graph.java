@@ -7,7 +7,14 @@ import java.util.Set;
 import com.google.common.collect.HashBasedTable;
 import com.google.common.collect.Sets;
 import com.google.common.collect.Table;
-
+/**
+ * A Guava Table is use to represent the graph as an adjacency list
+ * 
+ * @author haldokan
+ *
+ * @param <V>
+ * @param <E>
+ */
 public class Graph<V, E extends IEdge<V>> {
     private Table<V, V, E> adjList = HashBasedTable.create();
     private boolean directed;

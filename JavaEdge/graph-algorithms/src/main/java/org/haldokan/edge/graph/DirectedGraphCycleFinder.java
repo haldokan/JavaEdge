@@ -5,6 +5,14 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * Use DFS to detect cycles in directed graphs. Cycle exist when a graph has a backward edge: An edge that points back to
+ * an ancestor vertex in the DFS tree that is not the parent of the edge's start vertex.
+ * 
+ * @author haldokan
+ *
+ * @param <E>
+ */
 public class DirectedGraphCycleFinder<E> {
     private enum State {
 	DISCOVERED, PROCESSED
@@ -63,6 +71,7 @@ public class DirectedGraphCycleFinder<E> {
 	return false;
     }
 
+    //TODO: recurse over the parent map
     private List<Vertex<E>> getCyclePath(Vertex<E> v1, Vertex<E> v2) {
 	LinkedList<Vertex<E>> path = new LinkedList<>();
 

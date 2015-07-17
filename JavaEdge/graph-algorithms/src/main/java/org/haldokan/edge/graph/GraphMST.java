@@ -13,11 +13,10 @@ import java.util.Set;
 import com.google.common.collect.Sets;
 
 /**
- * This is the Prim algo for MST for undirected graphs. // TODO: enhance for directed graphs - In fact could be a
- * simplifiation.
+ * Prim algorithm for graph Minium Spanning Tree (MST). Greedy algorithm.
  * 
- * An interesting take on this algo is that it is a flavor of dynamic programming: every step provide enougth info for
- * the next step (recurrence relationship). Same goes for Graph shortest path.
+ * An interesting take on this algorithm is that it is a flavor of dynamic programming: every step provides enough info
+ * for the next step (recurrence relationship). Same goes for Graph shortest path.
  * 
  * @author haldokan
  *

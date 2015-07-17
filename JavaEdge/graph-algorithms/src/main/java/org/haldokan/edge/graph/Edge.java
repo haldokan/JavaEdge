@@ -1,5 +1,11 @@
 package org.haldokan.edge.graph;
 
+/**
+ * Edge in the graph
+ * @author haldokan
+ *
+ * @param <V>
+ */
 public class Edge<V> implements IEdge<V> {
     private V v1, v2;
     private final double weight;

@@ -1,5 +1,10 @@
 package org.haldokan.edge.graph;
-
+/**
+ * Vertex in the graph
+ * @author haldokan
+ *
+ * @param <E>
+ */
 public class Vertex<E> {
     private final E id;
     private final double x, y;

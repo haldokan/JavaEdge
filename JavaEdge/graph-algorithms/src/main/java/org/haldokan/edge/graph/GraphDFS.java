@@ -4,6 +4,13 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Map;
 
+/**
+ * Depth First Search of graph. DFS uses recursion
+ * 
+ * @author haldokan
+ *
+ * @param <E>
+ */
 public class GraphDFS<E> {
     private enum State {
 	DISCOVERED, PROCESSED
