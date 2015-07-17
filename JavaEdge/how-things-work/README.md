@@ -1,4 +1,4 @@
-In order to appreciate the issues in designing algorithms and using data structures I re-implementation:
+In order to appreciate the issues in designing algorithms and using data structures I re-implemented:
 
 concurrent hash map with multiple hash spaces, using open addressing for handling collisions
 
