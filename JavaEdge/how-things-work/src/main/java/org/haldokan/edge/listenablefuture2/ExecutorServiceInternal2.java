@@ -5,26 +5,25 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.TimeUnit;
 
 public class ExecutorServiceInternal2 implements ExecutorService2 {
-	private final ExecutorService es;
+    private final ExecutorService es;
 
-	public ExecutorServiceInternal2(ExecutorService es) {
-		this.es = es;
-	}
+    public ExecutorServiceInternal2(ExecutorService es) {
+	this.es = es;
+    }
 
-	@Override
-	public <E> ListenableFuture2<E> submit(Callable<E> c) {
-		return new FutureTask2<E>(es.submit(c));
-	}
+    @Override
+    public <E> ListenableFuture2<E> submit(Callable<E> c) {
+	return new FutureTask2<E>(es.submit(c));
+    }
 
-	@Override
-	public boolean awaitTermination(long timeout, TimeUnit unit)
-			throws InterruptedException {
-		return es.awaitTermination(timeout, unit);
-	}
+    @Override
+    public boolean awaitTermination(long timeout, TimeUnit unit) throws InterruptedException {
+	return es.awaitTermination(timeout, unit);
+    }
 
-	@Override
-	public void shutdown() {
-		es.shutdown();
-	}
+    @Override
+    public void shutdown() {
+	es.shutdown();
+    }
 
 }

@@ -1,15 +1,15 @@
 package org.haldokan.edge.validator;
 
 public interface Vehicle {
-	String getManufacturer();
+    String getManufacturer();
 
-	String getLicensePlate();
+    String getLicensePlate();
 
-	public int getSeatCount();
+    public int getSeatCount();
 
-	boolean isPassedVehicleInspection();
+    boolean isPassedVehicleInspection();
 
-	Driver getDriver();
+    Driver getDriver();
 
-	int getPassengerCount();
+    int getPassengerCount();
 }

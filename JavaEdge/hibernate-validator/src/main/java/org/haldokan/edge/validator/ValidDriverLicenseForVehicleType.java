@@ -15,10 +15,13 @@ import javax.validation.Payload;
 @Constraint(validatedBy = DriverLicenseToVehicleTypeValidator.class)
 @Documented
 public @interface ValidDriverLicenseForVehicleType {
-	String message() default "Driver is not entitled to drive this vehicle type";
-	//default has to be empty
-	Class<?>[] groups() default {};
-	//default has to be empty
-	Class<? extends Payload>[] payload() default {};
-	VehicleType value() default VehicleType.STANDARD;
+    String message() default "Driver is not entitled to drive this vehicle type";
+
+    // default has to be empty
+    Class<?>[] groups() default {};
+
+    // default has to be empty
+    Class<? extends Payload>[] payload() default {};
+
+    VehicleType value() default VehicleType.STANDARD;
 }

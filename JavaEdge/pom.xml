@@ -63,5 +63,6 @@
     <module>bitwise</module>
     <module>dynamic-programming</module>
     <module>lunch-box</module>
+    <module>java8</module>
   </modules>
 </project>

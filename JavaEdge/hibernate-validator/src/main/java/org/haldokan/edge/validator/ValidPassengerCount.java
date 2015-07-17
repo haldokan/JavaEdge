@@ -15,10 +15,13 @@ import javax.validation.Payload;
 @Constraint(validatedBy = PassengerCountValidator.class)
 @Documented
 public @interface ValidPassengerCount {
-	String message() default "Too many passerngers";
-	//default has to be empty
-	Class<?>[] groups() default {};
-	//default has to be empty
-	Class<? extends Payload>[] payload() default {};
-	VehicleType value() default VehicleType.STANDARD;
+    String message() default "Too many passerngers";
+
+    // default has to be empty
+    Class<?>[] groups() default {};
+
+    // default has to be empty
+    Class<? extends Payload>[] payload() default {};
+
+    VehicleType value() default VehicleType.STANDARD;
 }
