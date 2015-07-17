@@ -60,5 +60,6 @@
     <module>guava</module>
     <module>how-things-work</module>
     <module>hibernate-validator</module>
+    <module>bitwise</module>
   </modules>
 </project>
