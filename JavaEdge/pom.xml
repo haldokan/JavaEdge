@@ -57,5 +57,6 @@
   <modules>
     <module>graph-algorithms</module>
     <module>search-and-sort</module>
+    <module>guava</module>
   </modules>
 </project>
