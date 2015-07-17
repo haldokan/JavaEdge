@@ -11,7 +11,7 @@ import java.util.Queue;
 import java.util.Set;
 
 import com.google.common.collect.Sets;
-// This is an Prim algo for MST for undirected graphs.
+// This is Prim algo for MST for undirected graphs.
 // TODO: enhance for directed graphs - In fact could be a simplifiation.
 
 //interesting take on this algo is that it is a flavor of dynamic programming: every step provide enougth info for
