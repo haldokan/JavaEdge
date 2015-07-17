@@ -61,5 +61,7 @@
     <module>how-things-work</module>
     <module>hibernate-validator</module>
     <module>bitwise</module>
+    <module>dynamic-programming</module>
+    <module>lunch-box</module>
   </modules>
 </project>
