@@ -25,11 +25,11 @@ public class BSTreeTest {
 	n2.setLeft(n5);
 
 	BSTree1<Integer> tree = new BSTree1<>();
-	tree.itrav(n1);
+	tree.inorder(n1);
 	System.out.println();
-	tree.prtrav(n1);
+	tree.preorder(n1);
 	System.out.println();
-	tree.potrav(n1);
+	tree.postorder(n1);
     }
 
     @Test

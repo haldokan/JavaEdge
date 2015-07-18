@@ -8,27 +8,27 @@ import java.util.Map;
 public class BSTree1<E extends Comparable<E>> {
     private Node<E> tree = null;
 
-    public void itrav(Node<E> tree) {
+    public void inorder(Node<E> tree) {
 	if (tree == null)
 	    return;
-	itrav(tree.left);
+	inorder(tree.left);
 	System.out.println(tree.value);
-	itrav(tree.right);
+	inorder(tree.right);
     }
 
-    public void prtrav(Node<E> tree) {
+    public void preorder(Node<E> tree) {
 	if (tree == null)
 	    return;
 	System.out.println(tree.getValue());
-	itrav(tree.getLeft());
-	itrav(tree.getRight());
+	preorder(tree.getLeft());
+	preorder(tree.getRight());
     }
 
-    public void potrav(Node<E> tree) {
+    public void postorder(Node<E> tree) {
 	if (tree == null)
 	    return;
-	itrav(tree.getLeft());
-	itrav(tree.getRight());
+	postorder(tree.getLeft());
+	postorder(tree.getRight());
 	System.out.println(tree.getValue());
     }
 

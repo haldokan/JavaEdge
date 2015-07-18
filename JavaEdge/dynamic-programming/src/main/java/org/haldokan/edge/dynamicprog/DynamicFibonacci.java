@@ -7,7 +7,7 @@ package org.haldokan.edge.dynamicprog;
  * @author haldokan
  *
  */
-public class DynamicFibonnocci {
+public class DynamicFibonacci {
     public static void main(String[] args) {
 	int num = 50;
 
