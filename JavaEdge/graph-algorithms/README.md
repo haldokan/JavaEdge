@@ -8,4 +8,4 @@ Breadth first search (BFS)
 
 Depth first search (DFS)
 
-Finding Cycles in directed graphs
+Finding cycles in directed graphs
