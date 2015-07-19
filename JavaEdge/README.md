@@ -3,7 +3,7 @@ Just learning libs an apis by example.
 
 Rough run-down:
    
-Graph algorithms: implementations of classic graph algos
+Graph algorithms: implementations of classic graph algorithms
 
 How things work: has some interesting re-implementations of Java/guava/etc constructs: Executor service, 
                  listenable futures, concurrent hash map, sliding window, latch, etc. They are meant as exercises
@@ -13,7 +13,7 @@ Search and sort: implementations of BSTs, merge/quick sort, approximate string m
 
 Bitwise: implementations of hash functions, checksum, bit arrays, etc.
 
-Dynamic programming: approximate string matching, dynamic fibonocci, some backtracking algos, etc.
+Dynamic programming: approximate string matching, dynamic fibonacci, some backtracking algorithms, etc.
 
 Guava: examples of using the different data structures and concurrency constructs.
 
