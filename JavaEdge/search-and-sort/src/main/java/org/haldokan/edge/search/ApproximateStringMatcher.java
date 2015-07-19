@@ -11,7 +11,12 @@ import com.google.common.collect.Table;
  * programming but its time is exponential. The dynamic version runs in O(n2).
  * 
  * The implementation is ported from the algorithm and C implementation presented by Steven S. Skiena in his book
- * Algorithm Design Manual
+ * Algorithm Design Manual. His algorithm has a bug in that it does not count the cost of the first char in the string.
+ * 
+ * Running the program on these 2 strings 'thou shalt not' and 'you should not' shows the cost of converting the first
+ * string to the second and how to do that (D delete, S substitute, I insert, M match):
+ * 
+ * matching cost: 5, DSMMMMMISMSMMMM
  * 
  * @author haldokan
  *
@@ -62,6 +67,7 @@ public class ApproximateStringMatcher {
 	return tbl.get(cellCoords[0], cellCoords[1]).cost;
     }
 
+    // clever use of recursion to find the modification path
     public void path(String search, String text, int i, int j) {
 	Cell cell = tbl.get(i, j);
 	if (cell.parent == -1)

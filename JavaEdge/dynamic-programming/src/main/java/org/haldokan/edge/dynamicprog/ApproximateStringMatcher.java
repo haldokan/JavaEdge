@@ -11,7 +11,12 @@ import com.google.common.collect.Table;
  * programming but its time is exponential. The dynamic version runs in O(n2).
  * 
  * The implementation is ported from the algorithm and C implementation presented by Steven S. Skiena in his book
- * Algorithm Design Manual
+ * Algorithm Design Manual. His algorithm has a bug in that it does not count the cost of the first char in the string.
+ * 
+ * Running the program on these 2 strings 'thou shalt not' and 'you should not' shows the cost of converting the first
+ * string to the second and how to do that (D delete, S substitute, I insert, M match):
+ * 
+ * matching cost: 5, DSMMMMMISMSMMMM
  * 
  * @author haldokan
  *
@@ -25,8 +30,10 @@ public class ApproximateStringMatcher {
 
     public static void main(String[] args) {
 	ApproximateStringMatcher matcher = new ApproximateStringMatcher();
-	String search = "thou shalt not";
-	String text = "you should not";
+	// lets see how to convert 'search' string to the actual string in 'text. I add a space at the start to overcome
+	// the bug in the algo
+	String search = " " + "thou shalt not";
+	String text = " " + "you should not";
 	System.out.println("search: " + search);
 	System.out.println("text: " + text);
 
@@ -37,6 +44,7 @@ public class ApproximateStringMatcher {
 	matcher.path(search, text, coords[0], coords[1]);
     }
 
+    // clever use of recursion to find the modification path
     private int approxMatch(String search, String text) {
 	int[] op = new int[3];
 	initFirstColumn(search);
