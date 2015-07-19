@@ -2,9 +2,14 @@ package org.haldokan.edge.concurhashmap2;
 
 import java.util.function.Function;
 
+/**
+ * Hash function that uses bitwise programming to hash strings and native values. 
+ * @author haldokan
+ *
+ */
 public class BitwiseHasher implements Function<Object, Integer> {
 
-    // TODO not meant to cover every type conversion etc. tho I suspect it does
+    // TODO not meant to cover every type conversion etc. tho I suspect it does cover most
     @Override
     public Integer apply(Object obj) {
 	Class<?> clazz = obj.getClass();
@@ -21,11 +26,13 @@ public class BitwiseHasher implements Function<Object, Integer> {
 	return 31 * (int) obj;
     }
 
+    // since the 32 MSB will drop from the long make sure to ^ to the 32 LSB
     private int hashLong(long l) {
 	// unsigned right shift
 	return 31 * (int) (l ^ (l >>> 32));
     }
 
+    // get the string bytes and ^ with Long.MAX_VALUE
     private int hashString(String s) {
 	byte[] bytes = s.getBytes();
 	int hash = Integer.MAX_VALUE;

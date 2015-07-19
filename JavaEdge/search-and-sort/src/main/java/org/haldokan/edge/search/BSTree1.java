@@ -5,6 +5,14 @@ import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.Map;
 
+/**
+ * BST that show in-order, pre-order and post order walk if the tree, number of nodes, number of nodes greater that a
+ * value. It also presents a somewhat tricky problem of finding all the tree nodes that fall wihin a value range.
+ * 
+ * @author haldokan
+ *
+ * @param <E>
+ */
 public class BSTree1<E extends Comparable<E>> {
     private Node<E> tree = null;
 
@@ -54,7 +62,7 @@ public class BSTree1<E extends Comparable<E>> {
 	    tree = n;
     }
 
-    // We want the size and possibly the tree that have all its nodes in a
+    // We want the size and possibly the path that have all its nodes in a
     // range [a, b]
     public Deque<Node<E>> rangePath(Node<E> t, E a, E b) {
 	Map<Node<E>, Node<E>> parent = new LinkedHashMap<>();

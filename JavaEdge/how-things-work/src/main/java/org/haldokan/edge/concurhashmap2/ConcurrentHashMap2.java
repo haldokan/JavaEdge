@@ -4,8 +4,16 @@ import java.util.Arrays;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
 import java.util.function.Function;
 
-// TODO defect: if an insert run reaches the end of a range and finds it taken hashing fails. 
-// It may be better to have separate hash arrays for each range and support hash space extension.
+/**
+ * Concurrent hash map that supports multiple hash spaces to increase concurrency. It resolves collisions using open
+ * addressing (vs chaining). The hash function is provided to the map as a function. The hash function is implemented
+ * using bitwise in BitwiseHasher.
+ * 
+ * @author haldokan
+ *
+ * @param <K>
+ * @param <V>
+ */
 public class ConcurrentHashMap2<K, V> {
     private static final int SLOT_NOT_FOUND = -1;
     private HashEntry<K, V>[] hashSpace;
@@ -76,8 +84,7 @@ public class ConcurrentHashMap2<K, V> {
     }
 
     // removal from open-addressing hashspace can create gaps making entries
-    // unaccessible
-    // we want to re-insert any entry runs that happen after gap
+    // unaccessible. We want to re-insert any entry runs that happen after gap
     private void reinsertRunAfterRemovedSlot(K k, int slot, HashRange range) {
 	if (slot == 0 || slot == (range.high - 1) || hashSpace[slot + 1] == null)
 	    return;
@@ -184,11 +191,6 @@ public class ConcurrentHashMap2<K, V> {
 	    return hash >= low && hash < high;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see java.lang.Object#toString()
-	 */
 	@Override
 	public String toString() {
 	    return "HashRange [low=" + low + ", high=" + high + "]";

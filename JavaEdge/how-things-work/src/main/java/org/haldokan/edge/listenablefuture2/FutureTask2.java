@@ -6,6 +6,13 @@ import java.util.concurrent.Future;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 
+/**
+ * Our own FutureTask2 relies on the JDK Future task but add new api calls, namely addListener: which is a runnable task that runs
+ * on it's own executor; similar to Guava.
+ * @author haldokan
+ *
+ * @param <E>
+ */
 public class FutureTask2<E> implements ListenableFuture2<E> {
     private Future<E> f;
 

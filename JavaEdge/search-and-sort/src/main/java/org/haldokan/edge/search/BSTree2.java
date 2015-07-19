@@ -1,7 +1,13 @@
 package org.haldokan.edge.search;
 
 import java.util.Random;
-
+/**
+ * BST that show find, successor and insert operations. We can pass to the methods any Comparable classes
+ * 
+ * @author haldokan
+ *
+ * @param <E>
+ */
 public class BSTree2<E extends Comparable<E>> {
     private enum Order {
 	IN, PR, PO

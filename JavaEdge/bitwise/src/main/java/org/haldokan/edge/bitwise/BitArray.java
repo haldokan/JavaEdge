@@ -1,8 +1,7 @@
 package org.haldokan.edge.bitwise;
 
 /**
- * Implement a Bit array that supports some of the java.util.BitSet operations BitSet is a re-sizable array of words
- * with each word being 64-bit long on 64-bit JVMs (32-bit on 32-bit JVMs)
+ * Implement a Bit array that supports some of the java.util.BitSet operations.
  * 
  * @author haldokan
  *

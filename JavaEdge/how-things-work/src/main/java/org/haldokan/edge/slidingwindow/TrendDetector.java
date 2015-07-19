@@ -6,6 +6,13 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 import java.util.concurrent.PriorityBlockingQueue;
 
+/**
+ * Think of detecting trending hash tags on twitter. Of course there it is done concurrently using Storm. Here we
+ * present the concept using out SlidingTimeWindow.
+ * 
+ * @author haldokan
+ *
+ */
 public class TrendDetector {
     private PriorityHeap<TagRank> trendQueue;
     private ConcurrentMap<String, Integer> updatesPerTag;

@@ -5,6 +5,13 @@ import java.util.List;
 import java.util.PriorityQueue;
 import java.util.Queue;
 
+/**
+ * Implementation of all heap operations: pop, push, heapify and bubbleup. In the JDK PriorityQueue is implemented using
+ * the heap data structure
+ * 
+ * @author haldokan
+ *
+ */
 public class HeapSort {
     private List<Integer> heap = new ArrayList<>();
 

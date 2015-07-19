@@ -3,7 +3,7 @@ package org.haldokan.edge.lunchbox;
 import java.util.Arrays;
 
 /**
- * find the indexes of the shortest and longest streches of 1s, and 0s in the array
+ * Find the indexes of the shortest and longest streches of 1s, and 0s in the array
  * naming of variable in this class is shameful. the problem is generalized and solved in the another
  * class in this package LongestStretch
  * 

@@ -1,5 +1,12 @@
 package org.haldokan.edge.search;
 
+/**
+ * find an element ina sorted array using binary search
+ * 
+ * @author haldokan
+ *
+ * @param <E>
+ */
 public class BinarySearch<E extends Comparable<E>> {
 
     public static void main(String[] args) {

@@ -11,6 +11,16 @@ import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.RunnableFuture;
 import java.util.concurrent.SynchronousQueue;
 
+/**
+ * Executor service that uses fixed size thread pool. It implements the 'submit' method to return a future. New tasks
+ * (callables) are added to a service queue. The executor takes the tasks from the service queue and hands them over to
+ * an available warm thread from the pool returning a future immediately to the calling client code. Blocking on
+ * unavailable resources (when all threads are in usage for example) is done using blocking queues.
+ * 
+ * @author haldokan
+ *
+ * @param <V>
+ */
 public class FixedThreadPoolExecutorService<V> implements ExecutorService2<V> {
     private final BlockingQueue<FutureTask<V>> serviceQu;
     private final BlockingQueue<PoolThread<V>> availableWorkers;
@@ -50,6 +60,7 @@ public class FixedThreadPoolExecutorService<V> implements ExecutorService2<V> {
 	}).start();
     }
 
+    // get done thread back to the pool to do more work
     private void slaveDriver() {
 	new Thread(new Runnable() {
 	    @Override

@@ -1,5 +1,11 @@
 package org.haldokan.edge.lockmonitor;
 
+/**
+ * Latch implementation using wait and notify
+ * 
+ * @author haldokan
+ *
+ */
 public class Latch2 {
     private static final Object LOCK = new Object();
     private int count;

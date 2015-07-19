@@ -4,7 +4,11 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
-// 64-bit long checksum
+/**
+ * 64-bit checksum algorithm. It can be extended to any length easily
+ * @author haldokan
+ *
+ */
 public class Checksum {
 
     public static void main(String[] args) throws IOException {

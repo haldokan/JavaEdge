@@ -1,16 +1,16 @@
 package org.haldokan.edge.dynamicprog;
 
+import java.util.Arrays;
+
 /**
- * This algo is actually belongs in "Backtracking" and is not dynamic
- * programming. Should be removed to an appropriate folder
+ * This algo is actually belongs in "Backtracking" and is not dynamic programming. Should be removed to an appropriate
+ * folder
  * 
- * Solution is a port for the C implementation presented by Steven S. Skiena in his Book Algorithm Design Manual
+ * Solution is a port from the C implementation presented by Steven S. Skiena in his Book Algorithm Design Manual
+ * 
  * @author haldokan
  *
  */
-
-import java.util.Arrays;
-
 public class AllSubSetsInSet {
     public static void main(String[] args) {
 	AllSubSetsInSet ass = new AllSubSetsInSet();

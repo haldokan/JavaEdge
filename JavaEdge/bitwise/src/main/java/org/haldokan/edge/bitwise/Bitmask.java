@@ -1,6 +1,10 @@
 package org.haldokan.edge.bitwise;
 
-
+/**
+ * how to find out if a bit is set? How to apply a bitmask; for example Linux file permission rwx
+ * @author haldokan
+ *
+ */
 public class Bitmask {
 
     public static void main(String[] args) {

@@ -1,12 +1,21 @@
 package org.haldokan.edge.dynamicprog;
 
-/**
- * * Solution is a port dynamic programming implementation in C presented by
- * Steven S. Skiena in his book Algorithm Design Manual
- */
 import com.google.common.collect.HashBasedTable;
 import com.google.common.collect.Table;
 
+/**
+ * A dynamic programming algorithm that shows how approximate string matching works. When one types into the search bar
+ * "Java streem sampels" instead of the correct spelling "Java stream samples", this is the sort of algorithms used to
+ * do the matching and figure out the closet match. Google would of course cache common misspellings instead of running
+ * such algorithms every time. Note that this algorithm can be implemented using recursion instead of dynamic
+ * programming but its time is exponential. The dynamic version runs in O(n2).
+ * 
+ * The implementation is ported from the algorithm and C implementation presented by Steven S. Skiena in his book
+ * Algorithm Design Manual
+ * 
+ * @author haldokan
+ *
+ */
 public class ApproximateStringMatcher {
     private static int MATCH = 0;
     private static int INSERT = 1;

@@ -2,6 +2,11 @@ package org.haldokan.edge.bitwise;
 
 import java.nio.ByteBuffer;
 
+/**
+ * Hash function that uses our checksum class. I also show how to has a long to an int value
+ * @author haldokan
+ *
+ */
 public class HashFunction1 {
     public static void main(String[] args) {
 	ByteBuffer bf = ByteBuffer.allocate(64);

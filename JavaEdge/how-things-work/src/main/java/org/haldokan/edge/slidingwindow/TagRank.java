@@ -1,5 +1,11 @@
 package org.haldokan.edge.slidingwindow;
 
+/**
+ * Think of twitter hash tags, the rank helps with detecting trending tags.
+ * 
+ * @author haldokan
+ *
+ */
 public class TagRank {
     private final String tag;
     private final int rank;

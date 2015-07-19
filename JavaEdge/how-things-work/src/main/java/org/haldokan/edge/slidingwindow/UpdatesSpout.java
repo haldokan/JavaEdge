@@ -5,7 +5,13 @@ import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-//TODO REVIEW how dpds should be set in spout
+/**
+ * Push the updates into the system and detect trending hash tags with the help of our SlidingTimeWindow and
+ * TrendDetecttor
+ * 
+ * @author haldokan
+ *
+ */
 public class UpdatesSpout {
     private final BlockingQueue<Update> updateQueue;
     private final HashMap<String, SlidingTimeWindow> windowPerTag;

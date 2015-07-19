@@ -2,6 +2,11 @@ package org.haldokan.edge.slidingwindow;
 
 import java.time.LocalTime;
 
+/**
+ * Update to a hash tag
+ * @author haldokan
+ *
+ */
 public class Update {
     private final String tag;
     private final int weight;
