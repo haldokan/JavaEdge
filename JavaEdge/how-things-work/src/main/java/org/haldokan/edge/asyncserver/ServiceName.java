@@ -1,5 +1,5 @@
 package org.haldokan.edge.asyncserver;
 
 public enum ServiceName {
-    WORD_COUNT
+    WORD_COUNT, ADMIN
 };

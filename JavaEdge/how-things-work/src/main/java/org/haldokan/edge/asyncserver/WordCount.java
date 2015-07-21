@@ -4,8 +4,8 @@ import java.util.Map;
 import java.util.concurrent.Future;
 
 public class WordCount implements ServiceRequest {
-    private String fileName;
-    private long threadId;
+    private final String fileName;
+    private final long threadId;
     private Future<Map<String, Long>> wordcount;
 
     public WordCount(String fileName, long threadId) {
@@ -21,26 +21,10 @@ public class WordCount implements ServiceRequest {
     }
 
     /**
-     * @param fileName
-     *            the fileName to set
-     */
-    public final void setFileName(String fileName) {
-	this.fileName = fileName;
-    }
-
-    /**
      * @return the threadId
      */
     public final long getThreadId() {
 	return threadId;
-    }
-
-    /**
-     * @param threadId
-     *            the threadId to set
-     */
-    public final void setThreadId(long threadId) {
-	this.threadId = threadId;
     }
 
     public Future<Map<String, Long>> getWordcount() {
