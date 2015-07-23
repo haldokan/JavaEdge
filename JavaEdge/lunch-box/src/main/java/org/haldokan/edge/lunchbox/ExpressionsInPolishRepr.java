@@ -43,7 +43,6 @@ public class ExpressionsInPolishRepr {
 	    if (isOperator(part)) {
 		String opn2 = deck.pop();
 		String opn1 = deck.pop();
-
 		deck.addFirst(compute(opn1, part, opn2));
 	    } else {
 		deck.addFirst(part);
