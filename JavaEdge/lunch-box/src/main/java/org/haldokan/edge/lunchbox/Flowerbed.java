@@ -6,9 +6,11 @@ import java.util.LinkedList;
 import java.util.List;
 
 /**
- * TODO FIX - Not working for the general case
  * 
- * My implementation of a linkedin-interview-question found on Careercup 0 of 0 votes 19 Answers
+ * My implementation of a linkedin-interview-question
+ * 
+ * I think using a stack to track the empty spots is a valid idea. However somehow when I try to translate that to
+ * available spots some use cases don't pass. I give up on this little sh*t.
  *
  * Suppose you have a long flowerbed in which some of the plots are planted and some are not. However, flowers cannot be
  * planted in adjacent plots - they would compete for water and both would die. Given a flowerbed (represented as an
@@ -31,77 +33,40 @@ import java.util.List;
 public class Flowerbed {
     public static void main(String[] args) {
 	Flowerbed fb = new Flowerbed();
-	// boolean[] bed = new boolean[] { true, false, false, false, false, false, true, false, false };
+	boolean[] bed = new boolean[] { true, false, false, false, false, false, true, false, false }; // ok
 	// boolean[] bed = new boolean[] {true, false, false, true, false, false, true, false, false, true};
 	// boolean[] bed = new boolean[] { true, false, false, true };
-	// boolean[] bed = new boolean[] {false, true, false, false, false, true};
-	boolean[] bed = new boolean[] { true, false, false, false, true };
-	// boolean[] bed = new boolean[] { false, false, false, false };
+	// boolean[] bed = new boolean[] {false, true, false, false, false, true}; // XXX
+	// boolean[] bed = new boolean[] { true, false, false, false, true }; //ok
+	// boolean[] bed = new boolean[] { false, false, false, false }; //ok
 
-	fb.canPlaceFlowers(bed, 3);
-    }
-
-    public int canPlaceFlowers1(boolean[] flowerbed, int numberToPlace) {
-	int availablePlaces = 0;
-	boolean prev = false;
-	boolean pendingPlaceAdded = false;
-	for (boolean curr : flowerbed) {
-	    if (!(curr || prev)) {
-		availablePlaces++;
-		pendingPlaceAdded = true;
-	    }
-	    if (curr && pendingPlaceAdded) {
-		availablePlaces--;
-		pendingPlaceAdded = false;
-	    }
-	    prev = curr;
-	}
-	return availablePlaces;
-    }
-
-    public int canPlaceFlowers2(boolean[] flowerbed, int numberToPlace) {
-	Deque<Boolean> deck = new LinkedList<>();
-	for (boolean spot : flowerbed) {
-	    if (deck.isEmpty()) {
-		deck.add(spot);
-		continue;
-	    }
-	    if (!(spot || deck.getFirst())) {
-		deck.addFirst(spot);
-	    } else if (spot || deck.getFirst()) {
-		deck.removeFirst();
-		if (spot)
-		    deck.addFirst(spot);
-	    }
-	}
-	if (deck.getLast())
-	    deck.removeLast();
-	System.out.println(deck);
-	return deck.size();
+	System.out.println(fb.canPlaceFlowers(bed, 3));
     }
 
     public boolean canPlaceFlowers(boolean[] flowerbed, int numberToPlace) {
-	// add check for empty array and 0 numberToPlace
-	if (numberToPlace > (flowerbed.length + 1) / 2)
-	    return false;
-
-	int k = 1;
-
-	int avspots = 0;
-	for (int i = 0; i < flowerbed.length; i += k) {
-	    boolean start = flowerbed[i];
-	    int stretch = 0;
-	    for (int j = i; j < flowerbed.length || !flowerbed[i]; j++) {
-		stretch++;
-		k++;
+	Deque<Boolean> deck = new LinkedList<>();
+	int emptySpots = 0;
+	for (Boolean spot : flowerbed) {
+	    Boolean top = deck.peekFirst();
+	    if (top == null) {
+		deck.add(spot);
+		emptySpots++;
+	    } else if (!top && !spot) {
+		deck.push(spot);
+		emptySpots++;
+	    } else if (!top && spot) {
+		deck.pop();
+		deck.push(spot);
+		emptySpots--;
+	    } else if (top && !spot) {
+		deck.pop();
 	    }
-	    boolean end = flowerbed[k];
-	    if (start && end) {
-		stretch -= 2;
-		avspots += stretch / 2;
-	    }
-	    System.out.println(avspots);
 	}
-	return false;
+
+	System.out.println("deck " + deck);
+	System.out.println("empty " + emptySpots);
+	int avSpots = (emptySpots + 1) / 2;
+	System.out.println("avl " + avSpots);
+	return (avSpots >= numberToPlace);
     }
 }
