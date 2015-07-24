@@ -70,7 +70,7 @@ public class FirstCommonAncestorInTree {
 		return n;
 	    n = n.p;
 	}
-	return n;
+	throw new IllegalStateException("Ancestor must have been found since root is the ultimate ancestor");
     }
     
     public boolean isAncestor(Node n1, Node n2) {
