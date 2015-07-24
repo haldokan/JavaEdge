@@ -1,7 +1,2 @@
-Different implementations to problems I read about
+My implementations to problems I read about or solutions to interview questions (many from Linkedin).
 
-Array equilibrium points
-
-Longest stretches in arrays
-
-Range insertion and merge
