@@ -45,11 +45,11 @@ public class SearchShiftedSortedArray {
     }
 
     public int shiftedBinsearch(int[] arr, int elem, int start, int end) {
-	int ascIndex = findInfectionPoint(arr);
-	if (ascIndex == -1 || elem <= arr[arr.length - 1])
-	    return binsearch(arr, elem, ascIndex, arr.length);
+	int infectionIndex = findInfectionPoint(arr);
+	if (infectionIndex == -1 || elem <= arr[arr.length - 1])
+	    return binsearch(arr, elem, infectionIndex, arr.length);
 	else
-	    return binsearch(arr, elem, 0, ascIndex);
+	    return binsearch(arr, elem, 0, infectionIndex);
     }
 
     // going to assume the shifted array was sorted in asc order (implicit in normal bin search)
