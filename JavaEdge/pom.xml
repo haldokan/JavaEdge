@@ -64,5 +64,6 @@
     <module>dynamic-programming</module>
     <module>lunch-box</module>
     <module>java8</module>
+    <module>interviewquest</module>
   </modules>
 </project>

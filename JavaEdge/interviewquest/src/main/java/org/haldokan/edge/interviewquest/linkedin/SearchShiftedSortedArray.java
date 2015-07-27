@@ -1,4 +1,4 @@
-package org.haldokan.edge.lunchbox;
+package org.haldokan.edge.interviewquest.linkedin;
 
 import org.junit.Assert;
 

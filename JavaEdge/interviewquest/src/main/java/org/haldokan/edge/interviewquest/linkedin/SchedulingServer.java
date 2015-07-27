@@ -1,4 +1,4 @@
-package org.haldokan.edge.lunchbox;
+package org.haldokan.edge.interviewquest.linkedin;
 
 import java.time.LocalTime;
 import java.time.temporal.ChronoUnit;
