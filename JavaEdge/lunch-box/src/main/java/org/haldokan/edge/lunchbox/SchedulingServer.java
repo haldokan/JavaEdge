@@ -143,7 +143,7 @@ public class SchedulingServer {
 		@Override
 		public void run() {
 		    due = true;
-		    signalQu.offer("Done");
+		    signalQu.offer("take him!");
 		}
 	    }, LocalTime.now().until(runTime, ChronoUnit.MILLIS), TimeUnit.MILLISECONDS);
 	    es.shutdown();
