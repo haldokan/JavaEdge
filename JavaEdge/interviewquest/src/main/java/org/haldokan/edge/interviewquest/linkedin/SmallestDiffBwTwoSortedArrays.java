@@ -50,11 +50,9 @@ public class SmallestDiffBwTwoSortedArrays {
 	int lastVal = arr[arr.length - 1];
 	if (v > lastVal)
 	    return new Diff(start, arr.length - 1, v, lastVal, Math.abs(v - lastVal));
-	// return new int[] { Math.abs(v - last), arr.length - 1 };
 	int firstVal = arr[0];
 	if (v < firstVal)
 	    return new Diff(start, 0, v, firstVal, Math.abs(v - firstVal));
-	// return new int[] { Math.abs(v - first), 0 };
 	for (int i = start; i < arr.length; i++) {
 	    int next = i + 1;
 	    if (next <= arr.length - 1) {
