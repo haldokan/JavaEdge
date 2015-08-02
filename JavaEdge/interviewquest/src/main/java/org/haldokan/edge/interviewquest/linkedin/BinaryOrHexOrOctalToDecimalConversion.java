@@ -1,6 +1,5 @@
 package org.haldokan.edge.interviewquest.linkedin;
 
-import java.util.Iterator;
 
 /**
  * My solution to a Linkedin interview question.
