@@ -1,9 +1,8 @@
 package org.haldokan.edge.interviewquest.linkedin;
 
 /**
- * My solution to a Linkedin interview question. There must be a better way to solve it. My solution *almost* works (one
- * space indentation is added occasionally). However, I think manipulating the text in a StringBuilder is a valid
- * approach.
+ * My solution to a Linkedin interview question. There must be a better way to solve it. However, I think manipulating
+ * the text in a StringBuilder is a valid approach.
  * 
  * Given a long text, print the formatted text such that each line has at most L characters and the text is left-right
  * justified. No breaking of words are allowed.
@@ -17,8 +16,10 @@ public class FormattingText {
 	String text = "Once upon a time I was playing in the bushes on the outskirts of the village. "
 		+ "Shrubs and fig trees and bees; it was heaven! But all of a sudden I saw a snake. "
 		+ "it slithered away in continuous and supple twists. I was not afraid and I stood there watching. "
-		+ "To this day I am not afraid of snakes. What I am really afraid of are those crawlers with many legs! "
-		+ "They do freak me out! What does trigger your fears?";
+		+ "To this day I am not afraid of snakes. What I am really afraid of are these crawlers with many legs! "
+		+ "They do freak me out! Also spiders; oh my dear God! But in a category of their owns are the scorpions. "
+		+ "My grandparents lived in a village where scorpions make it to the bedroom. My grandmother was stung so many "
+		+ "times that she developed immunity! What does trigger your fears my dears?";
 	FormattingText driver = new FormattingText();
 	driver.printFormatted(text, 50);
     }
@@ -35,17 +36,17 @@ public class FormattingText {
 	    ndx += lineLen;
 	    if (ndx >= editor.length()) {
 		ndx = ndx - (ndx - editor.length() + 1);
-		trim(editor, prevNdx, ndx);
+		trim(editor, prevNdx + 1, ndx);
 		editor.append('\n');
 		System.out.println(editor.toString());
 		break;
 	    } else if (isFullWord(editor, ndx)) {
-		ndx = trim(editor, prevNdx, ndx);
+		ndx = trim(editor, prevNdx + 1, ndx);
 		editor.insert(ndx + 1, '\n');
 		ndx++;
 	    } else {
-		ndx = trim(editor, prevNdx, ndx);
-		int spaceNdx = findIndexOfFirstSpaceBackwards(editor, ndx, lineLen);
+		ndx = trim(editor, prevNdx + 1, ndx);
+		int spaceNdx = findIndexOfFirstSpaceBackwards(editor, prevNdx, ndx);
 		if (spaceNdx == -1)
 		    throw new IllegalStateException("Word length is greater than max line length");
 		editor.replace(spaceNdx, spaceNdx + 1, "\n");
@@ -90,8 +91,8 @@ public class FormattingText {
 	return ndx1;
     }
 
-    private int findIndexOfFirstSpaceBackwards(StringBuilder editor, int ndx, int lineLen) {
-	for (int i = ndx; i >= ndx - lineLen; i--) {
+    private int findIndexOfFirstSpaceBackwards(StringBuilder editor, int start, int end) {
+	for (int i = end; i >= start; i--) {
 	    if (editor.charAt(i) == ' ') {
 		return i;
 	    }
