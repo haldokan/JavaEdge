@@ -29,9 +29,7 @@ public class FormattingText {
 	    return;
 	}
 	StringBuilder editor = new StringBuilder(text);
-
 	int ndx = 1;
-
 	for (;;) {
 	    int prevNdx = ndx;
 	    ndx += lineLen;
