@@ -15,19 +15,18 @@ import java.util.Set;
  * My solution to a Linkedin interview question. Running the program against the file pasted on the bottom of the class
  * produces this output:
  *
- * { autosuggest_backend : solrsearch10_01{212:3, 200:4, 333:1, 526:4} }
- *
- * { autofeedback_backend : solrsearch10_01{212:3, 200:4, 333:1, 526:4} }
- *
- * { navigtracking_backend : solrsearch10_01{212:3, 200:4, 333:1, 526:4} }
- *
- * { recommendshare_backend : fe02{246:4, 999:1, 200:4, 3291:3} }
- *
- * { imageshare_backend : fe01{451:4, 200:3, 296:4, 777:1} }
- *
- * { slideshare_backend : fe02{246:4, 999:1, 200:4, 3291:3} fe01{451:4, 200:3, 296:4, 777:1} }
- *
- *
+ * { autosuggest_backend : solrsearch10_01{212:2, 200:2, 526:2} }
+ * 
+ * { autofeedback_backend : solrsearch10_01{200:1, 333:1, 526:1} }
+ * 
+ * { navigtracking_backend : solrsearch10_01{212:1, 200:1, 526:1} }
+ * 
+ * { recommendshare_backend : fe02{246:1, 200:1, 3291:1} }
+ * 
+ * { imageshare_backend : fe01{451:1, 200:1, 296:1} }
+ * 
+ * { slideshare_backend : fe02{246:3, 999:1, 200:3, 3291:2} fe01{451:3, 200:2, 296:3, 777:1} }
+ * 
  * Program to count all Response codes individually per database (slideshare_backend_fe01 is one db) in the given log
  * file
  *
@@ -86,7 +85,7 @@ public class ScrapingLogFiles {
 	    StringBuilder sb = new StringBuilder();
 	    sb.append("{ " + backend + " : ");
 	    for (String db : dbsByBackend.get(backend)) {
-		sb.append(db).append("{").append(responseCodesByDb.get(db)).append("} ");
+		sb.append(responseCodesByDb.get(dbQualifiedName(backend, db)));
 	    }
 	    sb.append("}\n");
 	    System.out.print(sb.toString());
@@ -96,17 +95,23 @@ public class ScrapingLogFiles {
     private void scrapeLine(String line) {
 	Optional<String> backend = getBackendName(line);
 	if (backend.isPresent()) {
-	    dbsByBackend.computeIfAbsent(backend.get(), k -> new HashSet<String>());
+	    String backendName = backend.get();
+	    dbsByBackend.computeIfAbsent(backendName, k -> new HashSet<String>());
 	    String dbName = getDatabaseName(line).get();
-	    dbsByBackend.get(backend.get()).add(dbName);
+	    dbsByBackend.get(backendName).add(dbName);
 
+	    String dbQualifiedName = dbQualifiedName(backendName, dbName);
 	    List<Integer> responseCodes = getResponseCodes(line);
-	    DBResponseCodes codesForDb = responseCodesByDb.get(dbName);
+	    DBResponseCodes codesForDb = responseCodesByDb.get(dbQualifiedName);
 	    if (codesForDb == null)
-		responseCodesByDb.put(dbName, new DBResponseCodes(responseCodes));
+		responseCodesByDb.put(dbQualifiedName, new DBResponseCodes(dbName, responseCodes));
 	    else
 		codesForDb.addCodes(responseCodes);
 	}
+    }
+
+    private String dbQualifiedName(String backendName, String dbName) {
+	return backendName + "_" + dbName;
     }
 
     private Optional<String> getBackendName(String line) {
@@ -138,8 +143,10 @@ public class ScrapingLogFiles {
 
     private static class DBResponseCodes {
 	private Map<Integer, Integer> codeCountByCode = new HashMap<>();
+	private final String dbName;
 
-	public DBResponseCodes(List<Integer> codes) {
+	public DBResponseCodes(String dbName, List<Integer> codes) {
+	    this.dbName = dbName;
 	    addCodes(codes);
 	}
 
@@ -150,11 +157,13 @@ public class ScrapingLogFiles {
 
 	public String toString() {
 	    StringBuilder sb = new StringBuilder();
+	    sb.append(dbName).append("{");
 	    for (Integer code : codeCountByCode.keySet()) {
 		sb.append(code).append(":").append(codeCountByCode.get(code)).append(", ");
 	    }
 	    if (sb.length() > 1)
 		sb.delete(sb.length() - 2, sb.length());
+	    sb.append("} ");
 	    return sb.toString();
 	}
     }
@@ -236,6 +245,5 @@ public class ScrapingLogFiles {
  * Safari/537.36|http://www.slideshare.net/faroviejo/las-10-ciudades-ms-grandes-del-mundo-y-la-paz-bcs|} {|||||} "GET
  * /?q=las?10?ciudades?ma*&rows=5&wt=json&sort=frequency%20desc&fq=%2Bresults%3A%5B10%20TO%20*%5D&json.wrf=
  * jQuery17209988682114053518_1369853526684&_=1369853590254
- * 
  * HTTP/1.1"
  */
