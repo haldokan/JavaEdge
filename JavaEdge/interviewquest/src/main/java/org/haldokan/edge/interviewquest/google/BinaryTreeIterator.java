@@ -7,7 +7,7 @@ import java.util.concurrent.LinkedBlockingDeque;
 /**
  * My solution to a Google interview question.
  * 
- * TODO: solve the problem using SychronousQueue instead of LinkedBlockingQueue
+ * TODO: solve the problem using SynchronousQueue instead of LinkedBlockingQueue
  * 
  * Given a binary tree, implement an iterator that will iterate through its elements.
  * 
