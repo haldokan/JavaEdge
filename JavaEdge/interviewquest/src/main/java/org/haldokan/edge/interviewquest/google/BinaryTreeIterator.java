@@ -43,19 +43,19 @@ public class BinaryTreeIterator<E> implements Iterable<BinaryTreeIterator.Node<E
 	this.root = root;
     }
 
-    private void inorder(Node<E> tree, BlockingQueue<Node<E>> iteratorStep) {
+    private void inorder(Node<E> tree, BlockingQueue<Node<E>> iteratorQu) {
 	if (tree == null)
 	    return;
-	inorder(tree.left, iteratorStep);
-	iteratorStep.offer(tree);
-	inorder(tree.right, iteratorStep);
+	inorder(tree.left, iteratorQu);
+	iteratorQu.offer(tree);
+	inorder(tree.right, iteratorQu);
     }
 
     @Override
     public Iterator<BinaryTreeIterator.Node<E>> iterator() {
 	// I think it can be done using SychronousQueue but it requires more work
 	// BlockingQueue<Node<E>> iteratorStep = new SynchronousQueue<>();
-	BlockingQueue<Node<E>> iteratorStep = new LinkedBlockingDeque<>();
+	BlockingQueue<Node<E>> iteratorQu = new LinkedBlockingDeque<>();
 	// start a new thread so we can be traversing the tree and iterating at the same time: more space and time
 	// efficient. Note that there is a flaw in this sln when iteration is faster than the tree traversal:
 	// iterator may find the queue empty while the traversing thread is trying to get the next node. I think this can
@@ -65,28 +65,28 @@ public class BinaryTreeIterator<E> implements Iterable<BinaryTreeIterator.Node<E
 	new Thread(new Runnable() {
 	    @Override
 	    public void run() {
-		inorder(root, iteratorStep);
+		inorder(root, iteratorQu);
 	    }
 	}).start();
-	return new IteratorInternal<E>(iteratorStep);
+	return new IteratorInternal<E>(iteratorQu);
     }
 
     private static class IteratorInternal<E> implements Iterator<BinaryTreeIterator.Node<E>> {
-	private final BlockingQueue<Node<E>> iteratorStep;
+	private final BlockingQueue<Node<E>> iteratorQu;
 
-	public IteratorInternal(BlockingQueue<Node<E>> iteratorStep) {
-	    this.iteratorStep = iteratorStep;
+	public IteratorInternal(BlockingQueue<Node<E>> iteratorQu) {
+	    this.iteratorQu = iteratorQu;
 	}
 
 	@Override
 	public boolean hasNext() {
-	    return !iteratorStep.isEmpty();
+	    return !iteratorQu.isEmpty();
 	}
 
 	@Override
 	public Node<E> next() {
 	    try {
-		return iteratorStep.take();
+		return iteratorQu.take();
 	    } catch (InterruptedException e) {
 		throw new RuntimeException(e);
 	    }
