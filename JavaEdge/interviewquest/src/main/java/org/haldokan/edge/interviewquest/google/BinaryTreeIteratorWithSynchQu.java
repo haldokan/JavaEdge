@@ -1,6 +1,7 @@
 package org.haldokan.edge.interviewquest.google;
 
 import java.util.Iterator;
+import java.util.NoSuchElementException;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.SynchronousQueue;
 import java.util.concurrent.TimeUnit;
@@ -31,6 +32,7 @@ public class BinaryTreeIteratorWithSynchQu<E> implements Iterable<BinaryTreeIter
 	n3.right = n6;
 	n6.left = n7;
 
+	System.out.println("Typical iteration with next called after hasNext");
 	BinaryTreeIteratorWithSynchQu<Integer> driver = new BinaryTreeIteratorWithSynchQu<>(root);
 	for (Iterator<Node<Integer>> it = driver.iterator(); it.hasNext();) {
 	    Node<Integer> node = it.next();
@@ -43,6 +45,20 @@ public class BinaryTreeIteratorWithSynchQu<E> implements Iterable<BinaryTreeIter
 	    Node<Integer> node = it.next();
 	    System.out.println(node);
 	}
+
+	System.out.println("Calling next w/o hasNext should work and throws exception at the end of iteration");
+	Iterator<Node<Integer>> it = driver.iterator();
+	for (;;) {
+	    try {
+		Node<Integer> node = it.next();
+		System.out.println(node);
+	    } catch (NoSuchElementException e) {
+		System.out.println("Expected exception");
+		e.printStackTrace();
+		break;
+	    }
+	}
+
     }
 
     public BinaryTreeIteratorWithSynchQu(Node<E> root) {
@@ -90,8 +106,8 @@ public class BinaryTreeIteratorWithSynchQu<E> implements Iterable<BinaryTreeIter
 	    if (nextNode == null) {
 		for (;;) {
 		    try {
-			// the timeout is needed to give the thread the traverse the tree to start and put nodes on the
-			// synch queue
+			// the timeout is needed to give the thread that traverses the tree to start and put nodes on
+			// the synch queue
 			nextNode = iteratorQu.poll(10, TimeUnit.MILLISECONDS);
 			break;
 		    } catch (InterruptedException e) {
@@ -105,6 +121,10 @@ public class BinaryTreeIteratorWithSynchQu<E> implements Iterable<BinaryTreeIter
 
 	@Override
 	public Node<E> next() {
+	    if (nextNode == null) {
+		if (!hasNext())
+		    throw new NoSuchElementException("No more elements in iteration");
+	    }
 	    Node<E> next = nextNode;
 	    nextNode = null;
 	    return next;
