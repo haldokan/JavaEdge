@@ -9,18 +9,18 @@ public class PassengerCountValidator implements ConstraintValidator<ValidPasseng
     // note the params is the annotation
     @Override
     public void initialize(ValidPassengerCount validPassengerCount) {
-	this.carType = validPassengerCount.value();
+        this.carType = validPassengerCount.value();
     }
 
     @Override
     public boolean isValid(Vehicle vehicle, ConstraintValidatorContext context) {
-	System.out.println(this.hashCode());
-	if (VehicleType.STANDARD == carType || VehicleType.SUV == carType)
-	    return vehicle.getPassengerCount() <= vehicle.getSeatCount();
-	else if (VehicleType.TRUCK == carType)
-	    return true;
-	else
-	    throw new IllegalArgumentException("Invalid car type" + carType);
+        System.out.println(this.hashCode());
+        if (VehicleType.STANDARD == carType || VehicleType.SUV == carType)
+            return vehicle.getPassengerCount() <= vehicle.getSeatCount();
+        else if (VehicleType.TRUCK == carType)
+            return true;
+        else
+            throw new IllegalArgumentException("Invalid car type" + carType);
     }
 
 }

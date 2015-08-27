@@ -4,43 +4,40 @@ import javax.validation.constraints.AssertTrue;
 import javax.validation.constraints.Min;
 
 public class Driver extends Person {
-    VehicleType licensedFor;
-
     @Min(value = 18, message = "You have to be 18 to drive a car", groups = ValidationGroups.DriverChecks.class)
     public int age;
-
     @AssertTrue(message = "You first have to pass the driving test", groups = ValidationGroups.DriverChecks.class)
     public boolean hasDrivingLicense;
+    VehicleType licensedFor;
 
     public Driver(String name) {
-	super(name);
+        super(name);
     }
 
     public void passedDrivingTest(boolean b) {
-	hasDrivingLicense = b;
+        hasDrivingLicense = b;
     }
 
     public int getAge() {
-	return age;
+        return age;
     }
 
     public void setAge(int age) {
-	this.age = age;
+        this.age = age;
     }
 
     /**
      * @return the licensedFor
      */
     public VehicleType getLicensedFor() {
-	return licensedFor;
+        return licensedFor;
     }
 
     /**
-     * @param licensedFor
-     *            the licensedFor to set
+     * @param licensedFor the licensedFor to set
      */
     public void setLicensedFor(VehicleType licensedFor) {
-	this.licensedFor = licensedFor;
+        this.licensedFor = licensedFor;
     }
 
     /*
@@ -50,7 +47,7 @@ public class Driver extends Person {
      */
     @Override
     public String toString() {
-	return "Driver [licensedFor=" + licensedFor + ", age=" + age + ", hasDrivingLicense=" + hasDrivingLicense + "]";
+        return "Driver [licensedFor=" + licensedFor + ", age=" + age + ", hasDrivingLicense=" + hasDrivingLicense + "]";
     }
 
 }

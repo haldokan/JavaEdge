@@ -7,41 +7,40 @@ import java.util.Set;
 
 /**
  * My solution to a Linkedin interview question.
- * 
+ * <p>
  * The question is describe in comments for each method
  *
  * @author haldokan
- *
  */
 public class TwoSum {
     private List<Integer> nums = new ArrayList<>();
     private Set<Integer> sums = new HashSet<>();
 
     public static void main(String[] args) {
-	TwoSum twoSum = new TwoSum();
-	twoSum.store(1);
-	twoSum.store(-2);
-	twoSum.store(3);
-	twoSum.store(6);
-	System.out.println(twoSum.nums);
-	System.out.println(twoSum.sums);
+        TwoSum twoSum = new TwoSum();
+        twoSum.store(1);
+        twoSum.store(-2);
+        twoSum.store(3);
+        twoSum.store(6);
+        System.out.println(twoSum.nums);
+        System.out.println(twoSum.sums);
 
-	System.out.println(twoSum.test(4));
-	System.out.println(twoSum.test(-1));
-	System.out.println(twoSum.test(9));
-	System.out.println(twoSum.test(10));
-	System.out.println(twoSum.test(5));
-	System.out.println(twoSum.test(0));
+        System.out.println(twoSum.test(4));
+        System.out.println(twoSum.test(-1));
+        System.out.println(twoSum.test(9));
+        System.out.println(twoSum.test(10));
+        System.out.println(twoSum.test(5));
+        System.out.println(twoSum.test(0));
     }
 
     /**
      * Stores input in an internal data structure.
      */
     public void store(int input) {
-	for (Integer i : nums) {
-	    sums.add(i + input);
-	}
-	nums.add(input);
+        for (Integer i : nums) {
+            sums.add(i + input);
+        }
+        nums.add(input);
     }
 
     /**
@@ -50,6 +49,6 @@ public class TwoSum {
      * and 9, but false for 10, 5, and 0
      */
     public boolean test(int val) {
-	return sums.contains(val);
+        return sums.contains(val);
     }
 }

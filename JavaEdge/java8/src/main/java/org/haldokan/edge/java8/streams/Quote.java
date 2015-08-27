@@ -5,20 +5,20 @@ public class Quote {
     private final long time;
 
     public Quote(String symbol, long time) {
-	this.symbol = symbol;
-	this.time = time;
+        this.symbol = symbol;
+        this.time = time;
     }
 
     public String getSymbol() {
-	return symbol;
+        return symbol;
     }
 
     public long getTime() {
-	return time;
+        return time;
     }
 
     @Override
     public String toString() {
-	return "Quote [symbol=" + symbol + ", time=" + time + "]";
+        return "Quote [symbol=" + symbol + ", time=" + time + "]";
     }
 }

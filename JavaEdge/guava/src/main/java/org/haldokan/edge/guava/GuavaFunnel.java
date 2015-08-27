@@ -8,7 +8,7 @@ public enum GuavaFunnel implements Funnel<Account> {
 
     @Override
     public void funnel(Account from, PrimitiveSink into) {
-	into.putUnencodedChars(from.getId()).putUnencodedChars(from.getOwner()).putDouble(from.getBalance());
+        into.putUnencodedChars(from.getId()).putUnencodedChars(from.getOwner()).putDouble(from.getBalance());
     }
 
 }
