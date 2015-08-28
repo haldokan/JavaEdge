@@ -23,7 +23,7 @@ import static java.util.stream.Collectors.groupingBy;
  * @author haldokan
  */
 public class AsyncServer {
-    private static String FILE_REPO = "c:\\temp\\asyncserver";
+    private static String FILE_REPO = "/Users/haytham.aldokanji/dev/sink/asyncserver";
     // does not matter what Service request we create since pill is checked
     // using identity (==).
     private static ServiceRequest POISON_PILL = new AdminRequest(AdminRequestType.SHUTDOWN);
@@ -140,12 +140,7 @@ public class AsyncServer {
                 Future<Long> timeTaken = processWordCountRequest((WordCount) request);
                 // we don't wait on computing the service time
                 averageTimeByService.compute(ServiceName.WORD_COUNT,
-                        (k, v) -> v == null ? timeTaken : dispatcher.submit(new Callable<Long>() {
-                            @Override
-                            public Long call() throws Exception {
-                                return (v.get() + timeTaken.get()) / 2;
-                            }
-                        }));
+                        (k, v) -> v == null ? timeTaken : dispatcher.submit(() -> (v.get() + timeTaken.get()) / 2));
                 break;
             default:
                 throw new IllegalArgumentException("Unsupported service " + request.getServiceName());
@@ -188,9 +183,7 @@ public class AsyncServer {
                             .stream().map(e -> e.toString()).collect(Collectors.toList()));
                     return watch.elapsed(TimeUnit.MILLISECONDS);
                 } catch (InterruptedException | ExecutionException | IOException e) {
-                    // not necessarily the best exception handling but that is
-                    // not the
-                    // focus here
+                    // not necessarily the best exception handling but that is not the focus here
                     throw new RuntimeException(e);
                 }
             }

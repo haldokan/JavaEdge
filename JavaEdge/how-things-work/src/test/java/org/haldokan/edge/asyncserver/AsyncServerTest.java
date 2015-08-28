@@ -7,7 +7,7 @@ import java.util.concurrent.ExecutionException;
 public class AsyncServerTest {
     private static String sampleFile = "sample.txt";
 
-    // A valid test should have a know sample file and assert the values
+    // A valid test should have a known sample file and assert the values
     // This is just a driver to run the server and post some requests
     @Test
     public void testWordcount() throws InterruptedException, ExecutionException {
