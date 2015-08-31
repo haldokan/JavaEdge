@@ -14,14 +14,14 @@ public class ImageServerTest {
 
     @Test
     public void testWordcount() throws InterruptedException, ExecutionException {
-        ImageCacheServer server = new ImageCacheServer(10);
+        ImageCacheServer server = new ImageCacheServer(5, 30);
         Thread thrd = new Thread(() -> {
             server.startup();
         });
         thrd.start();
 
         // fire requests in separate threads
-        for (int i = 0; i < 20; i++) {
+        for (int i = 0; i < 100; i++) {
             final int ndx = i;
             new Thread(() -> {
                 try {

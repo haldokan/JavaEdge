@@ -9,16 +9,18 @@ import java.util.Random;
 import java.util.concurrent.*;
 
 /**
- * Design (I actullay implemented) an image server that can serve requests concurrently and keep the N most recently
- * served images in the cache.
+ * Design (I actullay implemented) an image server that can serve requests concurrently and
+ * (TODO) keep the N most recently served images in the cache.
  * <p>
  * My solution to a Google interview question
  * <p>
- * Created by haytham.aldokanji on 8/28/15.
+ * Created by haytham.aldokanji on 8/28/15.ß
  */
-//TODO support keeping in cache only the N last accessed images
+//TODO support keeping in cache only the N last accessed images: check LinkedHashMap.removeEldestEntry
+//TODO SHOULD handle the case when futures stored in the map throw exceptions
 public class ImageCacheServer {
-    private static String[] TAGS = new String[]{"funny", "cats", "aboriginal", "art", "Aztec", "war"};
+    private static String[] TAGS = new String[]{"funny", "cats", "aboriginal", "art", "aztec", "war"};
+    private final int maxCacheSize;
     private Random rand = new Random();
 
     private ExecutorService execService;
@@ -27,8 +29,10 @@ public class ImageCacheServer {
     private BlockingQueue<String> pendingUploads = new LinkedBlockingDeque<>();
     private Multiset<String> uploadingImages = ConcurrentHashMultiset.create();
 
-    public ImageCacheServer(int concurLevel) {
-        execService = Executors.newFixedThreadPool(concurLevel);
+    // skipping params validation
+    public ImageCacheServer(int concurLevel, int maxCacheSize) {
+        this.execService = Executors.newFixedThreadPool(concurLevel);
+        this.maxCacheSize = maxCacheSize;
     }
 
     public void startup() {
