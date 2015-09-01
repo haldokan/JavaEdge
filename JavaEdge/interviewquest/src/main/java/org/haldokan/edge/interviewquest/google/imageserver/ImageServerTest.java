@@ -13,7 +13,7 @@ public class ImageServerTest {
     private static Random rand = new Random();
 
     @Test
-    public void testWordcount() throws InterruptedException, ExecutionException {
+    public void tesImageServer() throws InterruptedException, ExecutionException {
         ImageCacheServer server = new ImageCacheServer(5, 30);
         Thread thrd = new Thread(() -> {
             server.startup();

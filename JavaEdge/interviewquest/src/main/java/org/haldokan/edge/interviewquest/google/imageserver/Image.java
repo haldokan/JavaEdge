@@ -1,15 +1,12 @@
 package org.haldokan.edge.interviewquest.google.imageserver;
 
-import java.time.LocalTime;
-
 /**
- * Created by haytham.aldokanji on 8/28/15.
+ * Created by haytham.aldokanji on 9/1/15.
  */
 public class Image {
-    private String id;
-    private String tag;
-    private String descr;
-    private LocalTime loadedAt;
+    private final String id;
+    private final String tag;
+    private final String descr;
 
     public Image(String id, String tag, String descr) {
         this.id = id;
@@ -29,17 +26,12 @@ public class Image {
         return descr;
     }
 
-    public void setLoadedAt(LocalTime time) {
-        this.loadedAt = time;
-    }
-
     @Override
     public String toString() {
         return "Image{" +
                 "id='" + id + '\'' +
                 ", tag='" + tag + '\'' +
                 ", descr='" + descr + '\'' +
-                ", loadedAt=" + loadedAt +
                 '}';
     }
 }

@@ -2,14 +2,13 @@ package org.haldokan.edge.interviewquest.google.imageserver;
 
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutionException;
-import java.util.concurrent.Future;
 
 /**
  * Created by haytham.aldokanji on 8/28/15.
  */
 public class ReqParkSpot {
     private CountDownLatch signal;
-    private Future<Image> image;
+    private ImageContainer imageContainer;
 
     // we can pass the latch count as param for a more general sln
     public ReqParkSpot() {
@@ -17,22 +16,22 @@ public class ReqParkSpot {
     }
 
     // throwing these exceptions does not make sense. In commercial code proper handling of exceptions is needed
-    public Image getImage() throws ExecutionException, InterruptedException {
-        //in case the image is loaded even before we call await
-        if (image != null)
-            return image.get();
+    public Image getImageContainer() throws ExecutionException, InterruptedException {
+        //in case the imageContainer is loaded even before we call await
+        if (imageContainer != null)
+            return imageContainer.getImage();
 
         for (; ; ) {
             try {
                 signal.await();
-                return image.get();
+                return imageContainer.getImage();
             } catch (InterruptedException e) {
             }
         }
     }
 
-    public void notify(Future<Image> image) {
-        this.image = image;
+    public void notify(ImageContainer imageContainer) {
+        this.imageContainer = imageContainer;
         this.signal.countDown();
     }
 }
