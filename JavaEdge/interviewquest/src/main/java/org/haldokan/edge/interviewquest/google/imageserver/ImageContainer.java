@@ -5,6 +5,8 @@ import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
 
 /**
+ * Image container of a future image and its access time
+ *
  * Created by haytham.aldokanji on 8/28/15.
  */
 public class ImageContainer {
