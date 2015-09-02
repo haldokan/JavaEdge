@@ -3,7 +3,8 @@ recently access images.
 
 There are a few design and implementation challenges that are resolved:
 - Multiple requests for the same image that is not cached and has to be loaded from persistent storage. Request threads
-  have to be 'parked' and notified once the image become available in the cache.
+  have to be 'parked' and notified once the image become available in the cache. With java8 I could have used
+  ConcurrentHashMap.computeIfAbsent instead of actually implementing it.
 
 - Loading images have to be done concurrently which leads to storing 'Future' images in the cache instead of the fully
   loaded images.
