@@ -12,9 +12,5 @@ public class Main {
         Injector injector1 = Guice.createInjector(new SearchModule1());
         SearchApp app1 = injector1.getInstance(SearchApp.class);
         System.out.println(app1.search("Life is a precious thing to waste"));
-
-        Injector injector2 = Guice.createInjector(new SearchModule2());
-        SearchApp app2 = injector2.getInstance(SearchApp.class);
-        System.out.println(app2.search("Life is a precious thing to waste"));
     }
 }

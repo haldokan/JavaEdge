@@ -8,7 +8,15 @@ import com.google.inject.AbstractModule;
 public class SearchModule1 extends AbstractModule {
     @Override
     protected void configure() {
-        bind(SearchDomain.class).to(Web.class);
-        bind(SearchService.class).to(GoogleSearch.class);
+        // in order to map a type to more than one implementation we have to use binding annotations: the combination of
+        // the type and binding annotation forms a key for the binding
+        bind(SearchDomain.class).annotatedWith(WebDomain.WebBinding.class).to(WebDomain.class);
+        bind(SearchDomain.class).annotatedWith(ImageDomain.ImageBinding.class).to(WebDomain.class);
+        bind(SearchService.class).annotatedWith(GoogleSearch.GoogleSearchBinding.class).
+                to(GoogleSearch.class);
+        bind(SearchService.class).annotatedWith(YahooSearch.YahooSearchBinding.class).
+                to(YahooSearch.class);
+
+        // when creating objects become complex we use providers.
     }
 }

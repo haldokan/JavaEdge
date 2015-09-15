@@ -12,23 +12,24 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 /**
  * Created by haytham.aldokanji on 9/14/15.
  */
-public class YahooSearch implements SearchService {
-    private SearchDomain searchDomain;
+public class WebDomain implements SearchDomain {
+    private final DomainGraph domainGraph;
 
-    ;
     @Inject
-    public YahooSearch(@ImageDomain.ImageBinding SearchDomain searchDomain) {
-        this.searchDomain = searchDomain;
+    public WebDomain(DomainGraph domainGraph) {
+        this.domainGraph = domainGraph;
     }
 
     @Override
-    public String search(String query) {
-        return "Yahoo search for '" + query + "' using " + searchDomain.getFeatures();
+    public String getFeatures() {
+        return "WEB Search Features";
     }
 
+    ;
+
     @BindingAnnotation
-    @Target({FIELD, PARAMETER, METHOD})
+    @Target({FIELD, METHOD, PARAMETER})
     @Retention(RUNTIME)
-    public @interface YahooSearchBinding {
+    public @interface WebBinding {
     }
 }

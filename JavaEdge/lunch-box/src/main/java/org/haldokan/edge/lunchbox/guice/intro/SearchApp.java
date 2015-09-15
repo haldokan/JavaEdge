@@ -9,7 +9,7 @@ public class SearchApp {
     private final SearchService messageService;
 
     @Inject
-    public SearchApp(SearchService messageService) {
+    public SearchApp(@GoogleSearch.GoogleSearchBinding SearchService messageService) {
         this.messageService = messageService;
     }
 
