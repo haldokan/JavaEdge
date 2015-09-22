@@ -1,5 +1,6 @@
 package org.haldokan.edge.graph;
 
+import java.util.Deque;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Map;
@@ -16,7 +17,7 @@ public class GraphDFS<E> {
     Map<Vertex<E>, Integer> exitTime = new HashMap<>();
     private Map<Vertex<E>, State> vstate = new HashMap<>();
     private Integer time = 0;
-    private LinkedList<Vertex<E>> topoSort = new LinkedList<>();
+    private Deque<Vertex<E>> topoSort = new LinkedList<>();
 
     public void traverse(Graph<Vertex<E>, Edge<Vertex<E>>> g, Vertex<E> vx) {
         time++;

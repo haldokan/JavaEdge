@@ -1,5 +1,6 @@
 package org.haldokan.edge.graph;
 
+import java.util.Deque;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Map;
@@ -12,7 +13,7 @@ import java.util.Map;
  */
 public class GraphBFS<E> {
     public void traverse(Graph<Vertex<E>, Edge<Vertex<E>>> g, Vertex<E> start) {
-        LinkedList<Vertex<E>> undiscovered = new LinkedList<>();
+        Deque<Vertex<E>> undiscovered = new LinkedList<>();
         Map<Vertex<E>, Vertex<E>> parents = new HashMap<>();
         Map<Vertex<E>, State> vstate = new HashMap<>();
 

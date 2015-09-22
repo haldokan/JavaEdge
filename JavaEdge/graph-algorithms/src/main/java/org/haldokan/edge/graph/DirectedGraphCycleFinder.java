@@ -68,8 +68,7 @@ public class DirectedGraphCycleFinder<E> {
 
     //TODO: recurse over the parent map
     private List<Vertex<E>> getCyclePath(Vertex<E> v1, Vertex<E> v2) {
-        LinkedList<Vertex<E>> path = new LinkedList<>();
-
+        List<Vertex<E>> path = new LinkedList<>();
         return path;
     }
 
