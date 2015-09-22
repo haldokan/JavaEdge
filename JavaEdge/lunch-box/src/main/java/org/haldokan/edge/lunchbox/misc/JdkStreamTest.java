@@ -1,4 +1,4 @@
-package org.haldokan.edge.lunchbox;
+package org.haldokan.edge.lunchbox.misc;
 
 import org.junit.BeforeClass;
 import org.junit.Test;

@@ -1,4 +1,4 @@
-package org.haldokan.edge.lunchbox;
+package org.haldokan.edge.lunchbox.misc;
 
 public class Quote {
     private final String symbol;

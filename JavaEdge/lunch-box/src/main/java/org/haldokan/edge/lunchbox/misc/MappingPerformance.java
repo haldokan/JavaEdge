@@ -1,4 +1,4 @@
-package org.haldokan.edge.lunchbox;
+package org.haldokan.edge.lunchbox.misc;
 
 import com.google.common.base.Stopwatch;
 import org.junit.Test;
