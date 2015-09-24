@@ -39,4 +39,13 @@ public class FetchedData {
     public void setFailed(boolean failed) {
         this.failed = failed;
     }
+
+    @Override
+    public String toString() {
+        return "FetchedData{" +
+                "items=" + items +
+                ", next=" + next +
+                ", failed=" + failed +
+                '}';
+    }
 }

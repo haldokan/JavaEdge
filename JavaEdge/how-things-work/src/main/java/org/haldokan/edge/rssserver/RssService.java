@@ -9,21 +9,30 @@ import java.util.concurrent.atomic.AtomicBoolean;
  * Created by haytham.aldokanji on 9/23/15.
  */
 public class RssService {
+    private final Item POISON_PILL = new Item(null, null, null);
+
     private final BlockingQueue<Item> fetchedItems;
+    private final BlockingQueue mergeQu;
     private AtomicBoolean keepRunning = new AtomicBoolean(true);
     private RssFetcher fetcher;
     private ExecutorService executorService = Executors.newCachedThreadPool();
 
-    public RssService(RssFetcher fetcher, int maxPending) {
+    public RssService(RssFetcher fetcher, int maxPending, BlockingQueue mergeQu) {
         this.fetcher = fetcher;
         this.fetchedItems = new ArrayBlockingQueue<>(maxPending);
+        this.mergeQu = mergeQu;
+    }
+
+    public void start() {
+        executorService.submit(() -> fetchItems());
+        executorService.submit(() -> moveItemsToMergeQu());
     }
 
     public void stop() {
-        keepRunning.set(false);
+        fetchedItems.offer(POISON_PILL);
     }
 
-    public void run() {
+    public void fetchItems() {
         long waitTime = 0;
         while (keepRunning.get()) {
             // called on a separate thread assuming that we can do other work while fetching is taking place
@@ -48,15 +57,22 @@ public class RssService {
                 e.printStackTrace();
             }
         }
+        System.out.println("fetching items stopped");
     }
 
-    public Item getItem() {
-        for (; ; ) {
+    private void moveItemsToMergeQu() {
+        while (keepRunning.get()) {
             try {
-                return fetchedItems.take();
+                Item item = fetchedItems.take();
+                if (item == POISON_PILL) { //it is ==, not equals
+                    keepRunning.set(false);
+                } else {
+                    mergeQu.offer(item);
+                }
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
         }
+        System.out.println("Moving items to merge queue stopped");
     }
 }
