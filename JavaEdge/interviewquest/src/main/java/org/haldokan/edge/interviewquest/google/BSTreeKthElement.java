@@ -6,9 +6,9 @@ import java.util.IdentityHashMap;
 import java.util.Map;
 
 /**
- * My solution to a Google interview question. I think it would hard to resolve using recursion. That's why I used
- * iteration to traverse the tree. Also to identify processed nodes I used and IdentityHashMap which is suitable for such
- * purpose (read docs). I wonder it it would be possible to solve this problem iteratively w/o using the 'processed' map
+ * My solution to a Google interview question. I think it would be hard to resolve it using recursion. That's why I used
+ * iteration to traverse the tree. Also to identify processed nodes I used an IdentityHashMap which is suitable for such
+ * purpose (read docs). I wonder if it would be possible to solve this problem iteratively w/o using the 'processed' map
  * <p>
  * You are given a binary search tree and a positive integer K. Return the K-th element of the tree.
  * No pre-processing or modifying of the tree is allowed.
@@ -52,11 +52,11 @@ public class BSTreeKthElement {
         Node current = null;
         while (!stack.isEmpty()) {
             current = stack.peekFirst();
-            if (current.left == null || isProcessed(processed, current.left)) {
+            if (current.left == null || processed.containsKey(current.left)) {
                 processed.put(stack.pop(), true);
                 if (counter == 0)
                     break;
-                if (current.right != null && !isProcessed(processed, current.right)) {
+                if (current.right != null && !processed.containsKey(current.right)) {
                     stack.push(current.right);
                 }
                 counter--;
@@ -65,10 +65,6 @@ public class BSTreeKthElement {
             }
         }
         return current;
-    }
-
-    private boolean isProcessed(Map<Node, Boolean> processedMap, Node node) {
-        return processedMap.containsKey(node);
     }
 
     private static class Node {
