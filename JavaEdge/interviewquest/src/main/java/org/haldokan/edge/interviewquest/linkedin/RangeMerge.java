@@ -49,6 +49,7 @@ public class RangeMerge {
         ranges.add(insertIndex, nrange);
     }
 
+
     private boolean merge(int[] r1, int[] r2) {
         if (r1[0] >= r2[0] && r1[0] <= r2[1] || r1[1] >= r2[0] && r1[1] <= r2[1]) {
             int[] merged = new int[2];
