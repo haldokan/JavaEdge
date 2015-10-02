@@ -47,7 +47,7 @@ public class CalendarFreeIntervals {
     }
 
     public List<int[]> mergeRanges(List<int[]> ranges1, List<int[]> ranges2) {
-        List<int[]> mergedRanges = new ArrayList(ranges1);
+        List<int[]> mergedRanges = new ArrayList<>(ranges1);
         for (int[] range2 : ranges2) {
             Iterator<int[]> it = mergedRanges.iterator();
             while (it.hasNext()) {
