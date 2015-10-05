@@ -55,7 +55,6 @@ public class AggregatingDataFromLargeLogFiles {
     }
 
     public Measurement topMeasurement() {
-        // we cannot simply implement the comparator as m1.time - m2.time (have to cast long to int which I don't like).
         Collections.sort(measurements);
         System.out.println(measurements);
         int top = 0;
