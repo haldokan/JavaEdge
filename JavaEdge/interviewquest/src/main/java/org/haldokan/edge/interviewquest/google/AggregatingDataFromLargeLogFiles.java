@@ -2,6 +2,7 @@ package org.haldokan.edge.interviewquest.google;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 /**
@@ -97,6 +98,18 @@ public class AggregatingDataFromLargeLogFiles {
             return start == 1;
         }
 
+        public long getTime() {
+            return time;
+        }
+
+        public int getVal() {
+            return val;
+        }
+
+        public int getStart() {
+            return start;
+        }
+
         @Override
         public String toString() {
             return "Measurement{" +
@@ -108,9 +121,10 @@ public class AggregatingDataFromLargeLogFiles {
 
         @Override
         public int compareTo(Measurement o) {
+            return Comparator.comparing(Measurement::getTime).thenComparing(Measurement::getStart).compare(this, o);
             // if an interval starts at the same time that another interval ends we want to process the ending interval first.
             // This has implication on the calculated top values
-            return time - o.time > 0 ? 1 : time - o.time < 0 ? -1 : start - o.start;
+//            return time - o.time > 0 ? 1 : time - o.time < 0 ? -1 : start - o.start;
         }
     }
 }
