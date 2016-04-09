@@ -4,14 +4,15 @@ import java.util.ArrayDeque;
 import java.util.Deque;
 
 /**
- * My solution to an Amazon interview question. There may be a more elegant solution the does not need 'parent' in the node
- * <p>
+ * My solution to an Amazon interview question. Look at the other solution I provide using iteration and w/o the need
+ * to have 'parent' in the node definition (BTMinWeightPathWithIteration).
+ *
  * In a binary tree, find and print the path with smallest weight.
  * <p>
  * Criteria: the tree contains integer values in the nodes. It may not be balanced tree. Weight is calculated by sum
  * of values in the nodes in that path. Write code that returns the path as well as the minweight.
  */
-public class BTMinWeightPath {
+public class BTMinWeightPathWithRecursion {
 
     public static void main(String[] args) {
         Node root = new Node(7);
@@ -26,7 +27,7 @@ public class BTMinWeightPath {
         n2.right = n4;
         n2.left = n5;
         n3.right = n6;
-        n6.left = n7;
+        n3.left = n7;
 
         n7.parent = n3;
         n6.parent = n3;
