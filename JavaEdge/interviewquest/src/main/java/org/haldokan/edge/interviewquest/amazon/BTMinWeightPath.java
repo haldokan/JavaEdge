@@ -1,7 +1,10 @@
 package org.haldokan.edge.interviewquest.amazon;
 
+import java.util.ArrayDeque;
+import java.util.Deque;
+
 /**
- * My solution to an Amazon interview question
+ * My solution to an Amazon interview question. There may be a more elegant solution the does not need 'parent' in the node
  * <p>
  * In a binary tree, find and print the path with smallest weight.
  * <p>
@@ -10,33 +13,81 @@ package org.haldokan.edge.interviewquest.amazon;
  */
 public class BTMinWeightPath {
 
-    public Node minWeightPath(Node tree) {
-        if (tree == null) {
-            throw new IllegalArgumentException("tree is nul");
-        }
+    public static void main(String[] args) {
+        Node root = new Node(7);
+        Node n2 = new Node(4);
+        Node n3 = new Node(9);
+        Node n4 = new Node(6);
+        Node n5 = new Node(1);
+        Node n6 = new Node(12);
+        Node n7 = new Node(10);
+        root.left = n2;
+        root.right = n3;
+        n2.right = n4;
+        n2.left = n5;
+        n3.right = n6;
+        n6.left = n7;
 
-        Node minPath = new Node(0);
-        doMinWeightPath(tree, minPath);
+        n7.parent = n3;
+        n6.parent = n3;
+        n5.parent = n2;
+        n4.parent = n2;
+        n3.parent = root;
+        n2.parent = root;
+        root.parent = null;
 
-        return minPath;
+        System.out.println(minWeightPath(root, new ArrayDeque<>()));
     }
 
-    private void doMinWeightPath(Node tree, Node minPath) {
+    public static Deque<Node> minWeightPath(Node tree, Deque<Node> path) {
         if (tree == null) {
-            return;
+            return path;
         }
-        doMinWeightPath(tree.left, minPath);
 
-        doMinWeightPath(tree.right, minPath);
+        minWeightPath(tree.left, path);
+        minWeightPath(tree.right, path);
+
+        if (tree.leaf()) {
+            Deque<Node> currPath = path(tree);
+            if (path.isEmpty() || pathWeight(currPath) < pathWeight(path)) {
+                path.clear();
+                path.addAll(currPath);
+            }
+        }
+        return path;
+    }
+
+    private static Deque<Node> path(Node node) {
+        Deque<Node> deck = new ArrayDeque<>();
+
+        Node currNode = node;
+        while (currNode != null) {
+            deck.push(currNode);
+            currNode = currNode.parent;
+        }
+        return deck;
+    }
+
+    private static int pathWeight(Deque<Node> path) {
+        int weight = 0;
+        for (Node n : path) {
+            weight += n.val;
+        }
+        return weight;
     }
 
     private static class Node {
         private int val;
         private Node left;
         private Node right;
+        private Node parent;
 
         public Node(int val) {
             this.val = val;
+        }
+
+        public boolean leaf() {
+            return left == null && right == null;
         }
 
         @Override
