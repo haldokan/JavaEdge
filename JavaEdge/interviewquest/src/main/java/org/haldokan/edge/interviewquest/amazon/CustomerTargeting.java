@@ -70,8 +70,8 @@ public class CustomerTargeting {
         int trancheLen = groupedOrders.size() / 4;
 
         List<Optional<Order>> tranche1 = groupedOrders.subList(0, trancheLen);
-        List<Optional<Order>> tranche2 = groupedOrders.subList(trancheLen, trancheLen * 2);
-        List<Optional<Order>> tranche3 = groupedOrders.subList(trancheLen * 2, groupedOrders.size());
+        List<Optional<Order>> tranche2 = groupedOrders.subList(trancheLen, trancheLen * 3);
+        List<Optional<Order>> tranche3 = groupedOrders.subList(trancheLen * 3, groupedOrders.size());
 
         Map<Order, String> custMsgs = customerMessages(tranche1, "By more punk!");
         custMsgs.putAll(customerMessages(tranche2, "Good punk but still buy more!"));
