@@ -6,7 +6,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 /**
- * My solution to an Amazon interview question
+ * My solution to an Amazon interview question (this is basically the merge part of merge-sort).
  * <p>
  * Given a list of sorted arrays, like List<int[]>. Prepare and return a single sorted list.
  */
