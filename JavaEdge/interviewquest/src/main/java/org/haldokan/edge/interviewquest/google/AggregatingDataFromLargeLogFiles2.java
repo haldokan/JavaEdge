@@ -46,7 +46,11 @@ public class AggregatingDataFromLargeLogFiles2 {
     }
 
     public static void main(String[] args) throws IOException {
-        List<LogRecord> logRecords = list(get("/Users/haytham.aldokanji/misc/logs")).flatMap(uncheck(Files::lines)).map(LogRecord::new).collect(toList());
+        List<LogRecord> logRecords = list(get("/Users/haytham.aldokanji/misc/logs"))
+                .flatMap(uncheck(Files::lines))
+                .map(LogRecord::new)
+                .collect(toList());
+
         NavigableMap<Long, Integer> loadsByEvent = new TreeMap<>();
         logRecords.forEach(lr -> {
             loadsByEvent.put(lr.startTime, 0);
