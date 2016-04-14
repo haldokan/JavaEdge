@@ -35,8 +35,8 @@ public class HeapSort {
         }
     }
 
-    // heap maintains weak order: elements are not sorted but we can alway get
-    // the min (or max) element in O(1)
+    // heap maintains weak order: elements are not sorted but we can always get
+    // the min (or max) in log(n)
     private static void jdkheap() {
         Queue<Integer> heap = new PriorityQueue<>();
         heap.add(12);
