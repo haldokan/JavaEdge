@@ -8,7 +8,7 @@ import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * My solution to an Amazon interview question
- * 
+ * <p>
  * Design a data structure to keep track of top k elements out of 2 billion records.
  * Each record has a key which is 32 bit and a number which is count of how many times the customer has visited us.
  * Come up with a data structure so that the update of elements in 2 billion records is efficient, and getting top k
@@ -64,11 +64,9 @@ public class DataStructureToQueryAndUpdateLargeDataset {
     private void updateMostAccessed(Record record) {
         if (mostAccessed.size() < limit) {
             mostAccessed.add(record);
-        } else {
-            if (record.count > mostAccessed.first().count) {
-                mostAccessed.remove(mostAccessed.first());
-                mostAccessed.add(record);
-            }
+        } else if (record.count > mostAccessed.first().count) {
+            mostAccessed.remove(mostAccessed.first());
+            mostAccessed.add(record);
         }
     }
 
