@@ -82,7 +82,6 @@ public class MazeDeadEnds {
         System.out.println("connected->" + connected(j12, j00, new HashSet<>()));
         System.out.println("connected->" + connected(j01, j11, new HashSet<>()));
         System.out.println("connected->" + connected(j11, j01, new HashSet<>()));
-
     }
 
     public boolean connected(Joint j1, Joint j2, Set<Joint> visited) {
