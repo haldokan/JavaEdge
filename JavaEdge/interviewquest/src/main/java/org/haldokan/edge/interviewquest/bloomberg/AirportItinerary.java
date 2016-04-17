@@ -9,7 +9,7 @@ import java.util.stream.Collectors;
  * you have an vector like this
  * <p>
  * [JFK, LXA, SNA, RKJ, LXA, SNA, NWK, LGR]
- * each 2 group define a route. so,
+ * each 2 group define a route:
  * <p>
  * NWK -> LGR
  * JFK -> LXA
