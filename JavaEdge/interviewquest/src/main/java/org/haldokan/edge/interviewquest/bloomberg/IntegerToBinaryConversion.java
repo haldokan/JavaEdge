@@ -10,10 +10,10 @@ import java.util.stream.Collectors;
  */
 public class IntegerToBinaryConversion {
     public static void main(String[] args) {
-        System.out.println(Integer.toBinaryString(16));
+        System.out.println(Integer.toBinaryString(17));
 
         IntegerToBinaryConversion driver = new IntegerToBinaryConversion();
-        System.out.println(driver.convert(16));
+        System.out.println(driver.convert(17));
     }
 
     public String convert(Integer num) {
