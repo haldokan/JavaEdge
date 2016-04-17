@@ -6,26 +6,16 @@ import java.util.List;
 import java.util.Set;
 
 /**
- * My solution to an Amazon interview question
+ * My solution to an Amazon interview question - examine MazeDeadEnd2.java for a much more elegant solution I provide. No
+ * extra space or auxiliary data structures and with support for non-rectangular mazes
+ *
  * <p>
  * Suppose you are given a puzzle that is represented as a matrix with 0s and 1s, where a 0 indicates you’re allowed to
  * move into that position and 1 means you’re not allowed to move in that position. Write a function that given a start
  * position and an end position, returns a boolean value indicating if there exists a path from start to end.
  * you are only allowed to move up, left, right and down. Diagonal movement is not allowed.
  * <p>
- * Example #1
- * Input
- * 0 0 1 0 1
- * 0 0 0 0 0
- * 0 1 1 1 1
- * 0 1 1 0 0
- * <p>
- * start: 4,1
- * end 0,3
- * <p>
- * Output - true
- * <p>
- * Example #2
+ * Example:
  * Input
  * 0 0 1 1 1
  * 0 1 0 0 0
