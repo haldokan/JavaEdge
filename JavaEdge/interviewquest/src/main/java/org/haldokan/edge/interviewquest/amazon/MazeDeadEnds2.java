@@ -92,10 +92,9 @@ public class MazeDeadEnds2 {
 
     public boolean connected(int[][] maze, int[] joint1, int[] joint2) {
 //        System.out.println(joint1[0] + "," + joint1[1]);
-        // mark joint1 as visited
         int row = joint1[0];
         int col = joint1[1];
-        // if the cell contains 1 leave it as is but if it contains 1 change it to 2;
+        // mark joint1 as visited. If the cell contains 1 leave it as is but if it contains 1 change it to 2;
         maze[row][col] = (maze[row][col] ^ 0X1) + 1;
 
         List<int[]> joint1Neighbors = getNeighbors(maze, joint1);
