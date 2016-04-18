@@ -3,7 +3,7 @@ package org.haldokan.edge.interviewquest.facebook;
 import java.util.Arrays;
 
 /**
- * My solution of a Facebook interview question - quick sort with a twist
+ * My solution of a Facebook interview question - used quick sort with a twist
  * <p>
  * We have an array of objects A and an array of indexes B. Reorder objects in array A with given indexes in array B.
  * Do not change array A's length.
