@@ -3,7 +3,7 @@ package org.haldokan.edge.interviewquest.facebook;
 import java.util.Arrays;
 
 /**
- * My solution of a Facebook interview question - used quick sort with a twist
+ * My solution of a Facebook interview question. Look at SortingBuyIndex2.java for another solution using quick sort
  * <p>
  * We have an array of objects A and an array of indexes B. Reorder objects in array A with given indexes in array B.
  * Do not change array A's length.
@@ -23,29 +23,17 @@ public class SortingByIndex {
         String[] arr = new String[]{"C", "D", "E", "F", "G"};
         int[] indexes = new int[]{3, 0, 4, 1, 2};
 
-        sort(arr, indexes, 0, arr.length);
+        sort(arr, indexes);
         System.out.println(Arrays.toString(arr));
     }
 
-    // let's impl quick sort adding the twist this question requires
-    private static void sort(String[] arr, int[] indexes, int start, int end) {
-        int pivot = (start + end) / 2;
-
-        if (end <= start) {
-            return;
+    private static void sort(String[] arr, int[] indexes) {
+        String[] transposed = new String[arr.length];
+        for (int i = 0; i < arr.length; i++) {
+            transposed[indexes[i]] = arr[i];
         }
-        for (int i = 0; i < pivot; i++) {
-            if (indexes[i] > indexes[pivot]) {
-                String tmpVal = arr[i];
-                arr[i] = arr[pivot];
-                arr[pivot] = tmpVal;
 
-                int tmpIndex = indexes[i];
-                indexes[i] = indexes[pivot];
-                indexes[pivot] = tmpIndex;
-            }
-        }
-        sort(arr, indexes, start, pivot);
-        sort(arr, indexes, pivot + 1, end);
+        Arrays.sort(indexes);
+        System.arraycopy(transposed, 0, arr, 0, indexes.length);
     }
 }
