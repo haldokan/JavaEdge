@@ -27,9 +27,7 @@ public class ConstructingPermutations {
             for (int i = 0; i < numCandidates; i++) {
                 data[k] = candidates[i];
                 // makeMove(a, k, input)
-//                System.out.println("before k/input/a: " + k + "/" + input + "/" + Arrays.toString(a));
                 backtrack(data, k);
-//                System.out.println("after k/input/a: " + k + "/" + input + "/" + Arrays.toString(a));
                 // unmakeMove(a, k, input)
                 // if (finished) return;
             }
