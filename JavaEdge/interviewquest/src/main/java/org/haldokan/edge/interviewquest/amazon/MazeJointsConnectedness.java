@@ -29,10 +29,10 @@ import java.util.List;
  * end: 0,1
  * Output - true
  */
-public class MazeDeadEnds2 {
+public class MazeJointsConnectedness {
 
     public static void main(String[] args) {
-        MazeDeadEnds2 driver = new MazeDeadEnds2();
+        MazeJointsConnectedness driver = new MazeJointsConnectedness();
         driver.test1();
         driver.test2();
     }
