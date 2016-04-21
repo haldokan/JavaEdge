@@ -59,7 +59,7 @@ public class AirportItinerary {
     }
 
     private String getStartAirport(Map<String, String> routes) {
-        // keyset is just of view to the map so removing changes the map too
+        // keyset is just a view to the map so removing changes the map too
         Set<String> startAirports = new HashSet<>(routes.keySet());
         Set<String> endAirports = routes.values().stream().collect(Collectors.toSet());
 

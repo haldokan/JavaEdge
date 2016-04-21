@@ -1,5 +1,6 @@
 package org.haldokan.edge.interviewquest.facebook;
 
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -35,8 +36,10 @@ public class StringPermutations {
         } else {
             k = k + 1;
             numCandidates = candidates(dataAtStart, permutatingData, k, candidates);
+            System.out.println(Arrays.toString(permutatingData));
             for (int i = 0; i < numCandidates; i++) {
                 permutatingData[k] = candidates[i];
+//                System.out.println(k + "/" + Arrays.toString(candidates));
                 // makeMove(a, k, input)
                 backtrack(dataAtStart, permutatingData, k);
                 // unmakeMove(a, k, input)
@@ -54,7 +57,7 @@ public class StringPermutations {
         }
 
         int numCandidates = 0;
-        for (int i = 0; i < permutatingData.length; i++) {
+        for (int i = 0; i < dataAtStart.length; i++) {
             if (!inPermutation.contains(dataAtStart[i])) {
                 candidates[numCandidates++] = dataAtStart[i];
             }
