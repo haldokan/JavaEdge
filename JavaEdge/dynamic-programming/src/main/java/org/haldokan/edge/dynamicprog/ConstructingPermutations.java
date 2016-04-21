@@ -8,7 +8,7 @@ public class ConstructingPermutations {
 
     public static void main(String[] args) {
         ConstructingPermutations permutations = new ConstructingPermutations();
-        int dataLen = 3;
+        int dataLen = 5;
         //data has an empty slot at the end to simplify the algorithm
         int data[] = new int[dataLen + 1];
         permutations.backtrack(data, 0);
