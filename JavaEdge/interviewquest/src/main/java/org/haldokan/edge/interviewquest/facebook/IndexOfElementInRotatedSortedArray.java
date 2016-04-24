@@ -16,9 +16,6 @@ public class IndexOfElementInRotatedSortedArray {
     }
 
     public int index(int[] arr, int val) {
-//        if (arr[arr.length - 1] >= arr[0]) {
-//            return Arrays.binarySearch(arr, val);
-//        }
         return doIndex(arr, val, 0, arr.length);
     }
 
