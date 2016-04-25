@@ -23,17 +23,14 @@ public class SortingByIndex {
         String[] arr = new String[]{"C", "D", "E", "F", "G"};
         int[] indexes = new int[]{3, 0, 4, 1, 2};
 
-        sort(arr, indexes);
-        System.out.println(Arrays.toString(arr));
+        System.out.println(Arrays.toString(sort(arr, indexes)));
     }
 
-    private static void sort(String[] arr, int[] indexes) {
+    private static String[] sort(String[] arr, int[] indexes) {
         String[] transposed = new String[arr.length];
         for (int i = 0; i < arr.length; i++) {
             transposed[indexes[i]] = arr[i];
         }
-
-        Arrays.sort(indexes);
-        System.arraycopy(transposed, 0, arr, 0, indexes.length);
+        return transposed;
     }
 }
