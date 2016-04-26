@@ -31,7 +31,7 @@ public class HashFunction2 implements Function<Object, Integer> {
         return 31 * (int) (l ^ (l >>> 32));
     }
 
-    // hash a string by getting its bytes and xor'ing them with Long.MAX_VALUE on byte at a time
+    // hash a string by getting its bytes and xor'ing them with Long.MAX_VALUE one byte at a time
     private int hashString(String s) {
         byte[] bytes = s.getBytes();
         int hash = Integer.MAX_VALUE;

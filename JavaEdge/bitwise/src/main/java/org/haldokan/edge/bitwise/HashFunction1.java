@@ -3,7 +3,7 @@ package org.haldokan.edge.bitwise;
 import java.nio.ByteBuffer;
 
 /**
- * Hash function that uses our checksum class. I also show how to has a long to an int value
+ * Hash function that uses our checksum class. I also show how to hash a long to an int value
  *
  * @author haldokan
  */
@@ -26,8 +26,8 @@ public class HashFunction1 {
     public static int hashDouble(double d) {
         long ln = Double.doubleToLongBits(d);
         System.out.println(ln);
-        // hc in java is int. a long number size is 2 ints thus the 32 lower
-        // order bits can be the same b/w 2 longs and thus 2 different longs
+        // hashCode in java is int. A long number size is 2 ints thus the 32 lower
+        // order bits can be the same b/w 2 longs so 2 different longs
         // hash to the same value. To remedy that we xor the higer order 4 bytes
         // of the long to the lower order 4 bytes
         // now the higher order 4 bytes are shifted to be lower order 4 bytes
@@ -38,7 +38,7 @@ public class HashFunction1 {
         // different long number.
         // higher order 4 bytes
         long ln3 = ln ^ ln1;
-        // casting to int now removes the higher order 4 byes leaving us with
+        // casting to int now removes the higher order 4 bytes leaving us with
         // xor'ed lower order bytes integer.
         int in = (int) ln3;
         return in;

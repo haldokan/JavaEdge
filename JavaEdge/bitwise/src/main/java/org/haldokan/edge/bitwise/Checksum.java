@@ -15,6 +15,8 @@ public class Checksum {
         String s = "practice makes perfect!";
         long cs = checksum(s.getBytes());
         // System.out.println("0X" + Long.toHexString(cs));
+        System.out.println(-5 >>> 3);
+        System.out.println(-5 >> 3);
         test();
     }
 

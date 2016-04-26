@@ -42,9 +42,8 @@ public class BitArray {
 
     public boolean getBit(int i) {
         int[] index = bitindex(i);
-        // instead of '^' with 0 we can '&' with 1
-        long bit = bitarray[index[0]] >> index[1] ^ 0;
-        return bit == 1;
+        long bit = bitarray[index[0]] & (1L << index[1]);
+        return bit != 0;
     }
 
     private int[] bitindex(int i) {
