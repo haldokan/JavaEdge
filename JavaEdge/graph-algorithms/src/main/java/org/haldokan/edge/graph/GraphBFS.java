@@ -1,9 +1,6 @@
 package org.haldokan.edge.graph;
 
-import java.util.Deque;
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Breadth Frist Search of a graph. Iteration (not recursion) is used for BFS.
@@ -55,13 +52,13 @@ public class GraphBFS<E> {
     private void dumpShortestPath(Map<Vertex<E>, Vertex<E>> parents) {
         System.out.println("\nShortest paths:");
         for (Vertex<E> v : parents.keySet()) {
-            LinkedList<Vertex<E>> spath = new LinkedList<>();
+            Deque<Vertex<E>> spath = new ArrayDeque<>();
             shortestPathForVertex(spath, parents, v);
             System.out.println(spath);
         }
     }
 
-    private void shortestPathForVertex(LinkedList<Vertex<E>> spath, Map<Vertex<E>, Vertex<E>> parents, Vertex<E> v) {
+    private void shortestPathForVertex(Deque<Vertex<E>> spath, Map<Vertex<E>, Vertex<E>> parents, Vertex<E> v) {
         if (parents.get(v) == null) {
             spath.add(v);
             return;

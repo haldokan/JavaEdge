@@ -51,7 +51,7 @@ public class DijkstraGraphSP<E> {
         }
     }
 
-    public List<Vertex<E>> shortePathTo(Vertex<E> v) {
+    public List<Vertex<E>> shortestPathTo(Vertex<E> v) {
         Deque<Vertex<E>> path = new LinkedList<>();
         doShortestPathTo(v, path);
         return new ArrayList<>(path);

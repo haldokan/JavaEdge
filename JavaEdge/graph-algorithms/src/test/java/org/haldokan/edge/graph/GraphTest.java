@@ -66,11 +66,11 @@ public class GraphTest {
         gspath.dijkstra(g, seattle);
         // now we should be able to get shortest path from the start "Seattle"
         // to any other city
-        System.out.println(gspath.shortePathTo(boston));
-        System.out.println(gspath.shortePathTo(miami));
-        System.out.println(gspath.shortePathTo(ny));
-        System.out.println(gspath.shortePathTo(lv));
-        System.out.println(gspath.shortePathTo(la));
+        System.out.println(gspath.shortestPathTo(boston));
+        System.out.println(gspath.shortestPathTo(miami));
+        System.out.println(gspath.shortestPathTo(ny));
+        System.out.println(gspath.shortestPathTo(lv));
+        System.out.println(gspath.shortestPathTo(la));
     }
 
     private Graph<Vertex<Integer>, Edge<Vertex<Integer>>> makeGraph1() {
