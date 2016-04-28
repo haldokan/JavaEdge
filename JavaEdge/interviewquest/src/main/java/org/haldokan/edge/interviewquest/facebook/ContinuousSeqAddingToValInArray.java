@@ -27,27 +27,7 @@ public class ContinuousSeqAddingToValInArray {
 
     public static void main(String[] args) {
         ContinuousSeqAddingToValInArray driver = new ContinuousSeqAddingToValInArray();
-        int[] arr1 = new int[]{1, 3, 5, 7, 9, 12, 10, 1};
-
-        Sequence seq = driver.detectSequence(arr1, 8);
-        System.out.println(seq);
-        assertThat(seq.found, is(true));
-
-        seq = driver.detectSequence(arr1, 15);
-        System.out.println(seq);
-        assertThat(seq.found, is(true));
-
-        seq = driver.detectSequence(arr1, 11);
-        System.out.println(seq);
-        assertThat(seq.found, is(true));
-
-        seq = driver.detectSequence(arr1, 7);
-        System.out.println(seq);
-        assertThat(seq.found, is(true));
-
-        seq = driver.detectSequence(arr1, 6);
-        System.out.println(seq);
-        assertThat(seq.found, is(false));
+        driver.test();
     }
 
     public Sequence detectSequence(int[] arr, int targetVal) {
@@ -90,6 +70,30 @@ public class ContinuousSeqAddingToValInArray {
         return new Sequence(seq.arr, seq.end + 1, -1, 0);
     }
 
+    private void test() {
+        int[] arr1 = new int[]{1, 3, 5, 7, 9, 12, 10, 1};
+
+        Sequence seq = detectSequence(arr1, 8);
+        System.out.println(seq);
+        assertThat(seq.found, is(true));
+
+        seq = detectSequence(arr1, 15);
+        System.out.println(seq);
+        assertThat(seq.found, is(true));
+
+        seq = detectSequence(arr1, 11);
+        System.out.println(seq);
+        assertThat(seq.found, is(true));
+
+        seq = detectSequence(arr1, 7);
+        System.out.println(seq);
+        assertThat(seq.found, is(true));
+
+        seq = detectSequence(arr1, 6);
+        System.out.println(seq);
+        assertThat(seq.found, is(false));
+    }
+    
     private static class Sequence {
         private final boolean found;
         private final int start, end, sum;
