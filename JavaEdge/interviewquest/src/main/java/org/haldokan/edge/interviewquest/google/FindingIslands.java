@@ -6,7 +6,7 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 
 /**
- * My solution to a Google interview question - solution works for non square arrays
+ * My solution to a Google interview question - solution works for non square arrays.
  *
  * <p>
  * Given a map N x N, 2-D array
