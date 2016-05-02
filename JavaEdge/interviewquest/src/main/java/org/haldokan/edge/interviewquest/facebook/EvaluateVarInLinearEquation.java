@@ -8,7 +8,7 @@ import static org.junit.Assert.assertThat;
 
 /**
  * My solution to a Facebook interview question
- * It works for many expressions but it still fails for some nested expression. TODO: FIX
+ * It works for many expressions but it still fails for some nested expression. TODO: FIXIT
  * <p>
  * Given an expression (in a single variable) like 4x+13(x-(4x+x/3)) = 9, evaluate x
  * The expression is a string and the variable is always x.
