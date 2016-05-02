@@ -3,8 +3,12 @@ package org.haldokan.edge.interviewquest.facebook;
 import java.util.*;
 import java.util.function.BiFunction;
 
+import static org.hamcrest.CoreMatchers.is;
+import static org.junit.Assert.assertThat;
+
 /**
  * My solution to a Facebook interview question
+ * It works for many expressions but it still fails for some nested expression. TODO: FIX
  * <p>
  * Given an expression (in a single variable) like 4x+13(x-(4x+x/3)) = 9, evaluate x
  * The expression is a string and the variable is always x.
@@ -15,8 +19,22 @@ public class EvaluateVarInLinearEquation {
 
     public static void main(String[] args) {
         EvaluateVarInLinearEquation driver = new EvaluateVarInLinearEquation();
-        // TODO FIX has issue for this combinatin
-        System.out.println(driver.eval("4 + 2(4x - 2)/2 - 12= 10"));
+
+        String expression = "x + 1 = 9";
+        Double varValue = driver.eval(expression);
+        System.out.println(expression + " => " + varValue);
+        assertThat(varValue, is(-2.066666666666667));
+
+// TODO: FAILS for this example
+//        expression = "4x + 13(x - (4x + x/3)) = 9";
+//        varValue = driver.eval(expression);
+//        System.out.println(expression + " => " + varValue);
+//        assertThat(varValue, is(2.25));
+
+        expression = "420 + 36(10x - 120)/12 + 12 = 10";
+        varValue = driver.eval(expression);
+        System.out.println(expression + " => " + varValue);
+        assertThat(varValue, is(-2.066666666666667));
     }
 
     public double eval(String expr) {
@@ -26,6 +44,7 @@ public class EvaluateVarInLinearEquation {
         String[] exprParts = Arrays.stream(equationParts[0].trim().split(""))
                 .filter(s -> !s.equals(" "))
                 .toArray(String[]::new);
+        exprParts = combineDigits(exprParts);
 
         Deque<String> evalStack = new ArrayDeque<>();
 
@@ -41,6 +60,27 @@ public class EvaluateVarInLinearEquation {
             }
         }
         return solve(evalStack, expressionRightPart);
+    }
+
+    private String[] combineDigits(String[] expr) {
+        List<String> exprParts = new ArrayList<>();
+        StringBuilder number = new StringBuilder();
+
+        for (String part : expr) {
+            if (Operand.isNumber(part)) {
+                number.append(part);
+            } else {
+                if (number.length() > 0) {
+                    exprParts.add(number.toString());
+                    number.delete(0, number.length());
+                }
+                exprParts.add(part);
+            }
+        }
+        if (number.length() > 0) {
+            exprParts.add(number.toString());
+        }
+        return exprParts.toArray(new String[exprParts.size()]);
     }
 
     private Double solve(Deque<String> evalStack, Operand expressionRightPart) {
@@ -137,8 +177,8 @@ public class EvaluateVarInLinearEquation {
             Operand denominator = Operand.create(number);
             String candidateNumenator = evalStack.pop();
 
-            if (Operand.isNumber(candidateNumenator)) {
-                Operand numerator = Operand.create(evalStack.pop());
+            if (Operand.isNumber(candidateNumenator) || Operand.isVar(candidateNumenator)) {
+                Operand numerator = Operand.create(candidateNumenator);
                 evalStack.push(numerator.divide(denominator).getStringValue());
             } else if (ExpressionUtil.isEndSubExpr(candidateNumenator)) {
                 //the sub-expression will have been already reduced to 2 terms - examples: (2x + 3) or (x) or (3)
@@ -169,7 +209,7 @@ public class EvaluateVarInLinearEquation {
             evalStack.pop();
             evalStack.push(mult.getStringValue());
         } else {
-            throw new IllegalArgumentException("Malformatted expression - var is not proceeded by a number");
+            evalStack.push(var);
         }
     }
 
