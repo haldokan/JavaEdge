@@ -3,12 +3,11 @@ package org.haldokan.edge.interviewquest.facebook;
 import java.util.*;
 import java.util.function.BiFunction;
 
-import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.Matchers.*;
 import static org.junit.Assert.assertThat;
 
 /**
- * My solution to a Facebook interview question
- * It works for many expressions but it still fails for some nested expression. TODO: FIXIT
+ * My solution to a Facebook interview question - parses linear equations and resolve the value of the variable
  * <p>
  * Given an expression (in a single variable) like 4x+13(x-(4x+x/3)) = 9, evaluate x
  * The expression is a string and the variable is always x.
@@ -20,21 +19,42 @@ public class EvaluateVarInLinearEquation {
     public static void main(String[] args) {
         EvaluateVarInLinearEquation driver = new EvaluateVarInLinearEquation();
 
-        String expression = "x + 1 = 9";
-        Double varValue = driver.eval(expression);
-        System.out.println(expression + " => " + varValue);
-        assertThat(varValue, is(-2.066666666666667));
+        String expression1 = "x + (x + 2x) - 3 = 9";
+        Double value1 = driver.eval(expression1);
+        System.out.println(expression1 + " => " + value1);
+        assertThat(value1, is(3.0));
 
-// TODO: FAILS for this example
-//        expression = "4x + 13(x - (4x + x/3)) = 9";
-//        varValue = driver.eval(expression);
-//        System.out.println(expression + " => " + varValue);
-//        assertThat(varValue, is(2.25));
+        String expression2 = "420 + 36(10x - 120)/12 + 12 = 10";
+        Double value2 = driver.eval(expression2);
+        System.out.println(expression2 + " => " + value2);
+        assertThat(value2, greaterThan(-2.06667));
+        assertThat(value2, lessThan(-2.06666));
 
-        expression = "420 + 36(10x - 120)/12 + 12 = 10";
-        varValue = driver.eval(expression);
-        System.out.println(expression + " => " + varValue);
-        assertThat(varValue, is(-2.066666666666667));
+        String expression3 = "4x + 13(x - (4x + x/3)) = 9";
+        Double value3 = driver.eval(expression3);
+        System.out.println(expression3 + " => " + value3);
+        assertThat(value3, greaterThan(-0.22882));
+        assertThat(value3, lessThan(-0.22881));
+
+        String expression4 = "(((x + 2))) = 4";
+        Double value4 = driver.eval(expression4);
+        System.out.println(expression4 + " => " + value4);
+        assertThat(value4, is(2.0));
+
+        String expression5 = "(((x + 2))) + 4 = 4";
+        Double value5 = driver.eval(expression5);
+        System.out.println(expression5 + " => " + value5);
+        assertThat(value5, is(-2.0));
+
+        String expression6 = "(x + 2)/2 + 4 = 4";
+        Double value6 = driver.eval(expression6);
+        System.out.println(expression6 + " => " + value6);
+        assertThat(value6, is(-2.0));
+
+        String expression7 = "4(x + 2)/2 + 8 = 4";
+        Double value7 = driver.eval(expression7);
+        System.out.println(expression7 + " => " + value7);
+        assertThat(value7, is(-4.0));
     }
 
     public double eval(String expr) {
@@ -46,20 +66,55 @@ public class EvaluateVarInLinearEquation {
                 .toArray(String[]::new);
         exprParts = combineDigits(exprParts);
 
+        Deque<String> expressionQueue = new ArrayDeque<>();
+        expressionQueue.addAll(Arrays.asList(exprParts));
+
         Deque<String> evalStack = new ArrayDeque<>();
 
-        for (String part : exprParts) {
+        while (!expressionQueue.isEmpty()) {
+            String part = expressionQueue.removeFirst();
+
             if (Operand.isNumber(part)) {
                 evalNum(evalStack, part);
             } else if (Operand.isVar(part)) {
                 evalVar(evalStack, part);
             } else if (ExpressionUtil.isEndSubExpr(part)) {
-                evalSubExpression(evalStack);
+                String operatorB4StartExpr = evalStack.peek();
+                if (operatorB4StartExpr != null && ExpressionUtil.isEndSubExpr(operatorB4StartExpr)) {
+                    insureExprEvaluation(expressionQueue, part);
+                } else {
+                    evalSubExpression(evalStack);
+                }
+            } else if (ExpressionUtil.isStartSubExpr(part)) {
+                String operatorB4StartExpr = evalStack.peek();
+                if (operatorB4StartExpr != null && ExpressionUtil.isSubtraction(operatorB4StartExpr)) {
+                    insureExprNegation(evalStack);
+                }
+                evalStack.push(part);
+            } else if (ExpressionUtil.isAddOrSubtract(part)) {
+                String operatorB4StartExpr = evalStack.peek();
+                if (operatorB4StartExpr != null && ExpressionUtil.isEndSubExpr(operatorB4StartExpr)) {
+                    insureExprEvaluation(expressionQueue, part);
+                } else {
+                    evalStack.push(part);
+                }
             } else {
                 evalStack.push(part);
             }
         }
         return solve(evalStack, expressionRightPart);
+    }
+
+    private void insureExprEvaluation(Deque<String> expressionQueue, String part) {
+        expressionQueue.addFirst(part);
+        expressionQueue.addFirst("1");
+        expressionQueue.addFirst("/");
+    }
+
+    private void insureExprNegation(Deque<String> evalStack) {
+        evalStack.pop();
+        evalStack.push("+");
+        evalStack.push("-1");
     }
 
     private String[] combineDigits(String[] expr) {
@@ -84,8 +139,7 @@ public class EvaluateVarInLinearEquation {
     }
 
     private Double solve(Deque<String> evalStack, Operand expressionRightPart) {
-        //TODO logic here is similar to that of eval division proceeded by expr - try to extract method
-        evalSubExpression(evalStack); // should be of the form (x + 3) or or (x - 3) or 4x
+        evalSubExpression(evalStack, true); // should be of the form (x + 3) or or (x - 3) or 4x
         evalStack.pop(); // closing bracket
         Operand operand1 = Operand.create(evalStack.pop());
         String operator = evalStack.peek();
@@ -97,8 +151,8 @@ public class EvaluateVarInLinearEquation {
             if (ExpressionUtil.isSubtraction(operator)) {
                 operand1 = operand1.negate();
             }
-            evalStack.pop(); //closing bracket
         }
+        evalStack.pop(); //closing bracket
 
         if (!operand1.isVar && (!operand2.isPresent() || !operand2.get().isVar)) {
             throw new IllegalArgumentException("Expression has no variable: " + operand1 + "\n" + operand2);
@@ -117,11 +171,19 @@ public class EvaluateVarInLinearEquation {
         return rightPart.getValue() / leftPart.getValue();
     }
 
+
     private void evalSubExpression(Deque<String> evalStack) {
+        evalSubExpression(evalStack, false);
+    }
+
+    private void evalSubExpression(Deque<String> evalStack, boolean normalized) {
         List<Operand> parts = new ArrayList<>();
 
         while (!evalStack.isEmpty()) {
             String part = evalStack.pop();
+            if (normalized && ExpressionUtil.isStartOrEndExpression(part)) {
+                continue;
+            }
             if (ExpressionUtil.isStartSubExpr(part)) {
                 break;
             }
@@ -129,9 +191,13 @@ public class EvaluateVarInLinearEquation {
                 Operand operand = Operand.create(part);
 
                 String sign = evalStack.peek();
-                if (sign != null && ExpressionUtil.isSubtraction(sign)) {
-                    operand = operand.negate();
-                    evalStack.pop();
+                if (sign != null) {
+                    if (ExpressionUtil.isSubtraction(sign)) {
+                        operand = operand.negate();
+                        evalStack.pop();
+                    } else if (ExpressionUtil.isAddition(sign)) {
+                        evalStack.pop();
+                    }
                 }
                 parts.add(operand);
             }
@@ -181,23 +247,31 @@ public class EvaluateVarInLinearEquation {
                 Operand numerator = Operand.create(candidateNumenator);
                 evalStack.push(numerator.divide(denominator).getStringValue());
             } else if (ExpressionUtil.isEndSubExpr(candidateNumenator)) {
-                //the sub-expression will have been already reduced to 2 terms - examples: (2x + 3) or (x) or (3)
-                Operand numerator1 = Operand.create(evalStack.pop());
-                Optional<Operand> numerator2 = Optional.empty();
-
-                String operator = evalStack.pop(); // could be the opening bracket - ex: (3x)/4
-                if (!ExpressionUtil.isStartSubExpr(operator)) {
-                    numerator2 = Optional.of(Operand.create(evalStack.pop()));
-                    evalStack.pop(); // closing bracket
-                }
-                evalStack.push(numerator1.divide(denominator).getStringValue());
-                if (numerator2.isPresent()) {
-                    evalStack.push(operator);
-                    evalStack.push(numerator2.get().divide(denominator).getStringValue());
-                }
+                applyFuncToSubExpression(evalStack, number, Operand::divide);
             }
         } else {
             evalStack.push(number);
+        }
+    }
+
+    private void applyFuncToSubExpression(Deque<String> evalStack, String number, BiFunction<Operand, Operand, Operand> function) {
+        //the sub-expression will have been already reduced to 2 terms - examples: (2x + 3) or (x) or (3)
+        Operand operand1 = Operand.create(evalStack.pop());
+        Optional<Operand> operand2 = Optional.empty();
+
+        String operator = evalStack.pop(); // could be the closing bracket - ex: (3x)/4
+        if (!ExpressionUtil.isStartSubExpr(operator)) {
+            operand2 = Optional.of(Operand.create(evalStack.pop()));
+            evalStack.pop(); // opening bracket
+        }
+
+        Operand operand3 = Operand.create(number);
+        Operand result = function.apply(operand1, operand3);
+        evalStack.push(result.getStringValue());
+        if (operand2.isPresent()) {
+            evalStack.push(operator);
+            Operand result2 = function.apply(operand2.get(), operand3);
+            evalStack.push(result2.getStringValue());
         }
     }
 
@@ -228,7 +302,7 @@ public class EvaluateVarInLinearEquation {
                 if (value.length() == 1) {
                     this.value = 1d;
                 } else {
-                    this.value = Double.valueOf(value.substring(0, value.length() - 2));
+                    this.value = Double.valueOf(value.substring(0, value.length() - 1));
                 }
             } else {
                 this.value = Double.valueOf(value);
@@ -346,7 +420,7 @@ public class EvaluateVarInLinearEquation {
             return s != null && s.equals("-");
         }
 
-        public static boolean isAddOrDiv(String s) {
+        public static boolean isAddOrSubtract(String s) {
             return isAddition(s) || isSubtraction(s);
         }
 
@@ -356,6 +430,10 @@ public class EvaluateVarInLinearEquation {
 
         public static boolean isEndSubExpr(String s) {
             return s != null && s.equals(")");
+        }
+
+        public static boolean isStartOrEndExpression(String part) {
+            return isStartSubExpr(part) || isEndSubExpr(part);
         }
     }
 }
