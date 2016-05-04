@@ -1,10 +1,13 @@
 package org.haldokan.edge.interviewquest.facebook;
 
+import static org.hamcrest.Matchers.is;
+import static org.junit.Assert.assertThat;
+
 /**
- * @PENDING it can be solved with iteration but trying to find a solution using recursion
+ * My solution to a Facebook interview question - Look at org.haldokan.edge.interviewquest.google.BSTreeKthElement for
+ * another solution using iteration instead of recursion
  * <p>
  * Find the k'th largest element in a binary search tree. Write code for
- * <p>
  * struct Node {
  * int val;
  * struct Node *left;
@@ -17,37 +20,47 @@ package org.haldokan.edge.interviewquest.facebook;
 public class BSTreeKthElement {
 
     public static void main(String[] args) {
-        Node n1 = new Node(7);
+        Node root = new Node(7);
         Node n2 = new Node(4);
         Node n3 = new Node(9);
         Node n4 = new Node(6);
         Node n5 = new Node(1);
         Node n6 = new Node(12);
         Node n7 = new Node(10);
-        n1.left = n2;
-        n1.right = n3;
+        root.left = n2;
+        root.right = n3;
         n2.right = n4;
         n2.left = n5;
         n3.right = n6;
         n6.left = n7;
 
         BSTreeKthElement driver = new BSTreeKthElement();
-//        System.out.println(driver.kthElement(n1, 0));
-//        System.out.println(driver.kthElement(n1, 1));
-//        System.out.println(driver.kthElement(n1, 2));
-//        System.out.println(driver.kthElement(n1, 3));
-//        System.out.println(driver.kthElement(n1, 4));
-//        System.out.println(driver.kthElement(n1, 5));
-        System.out.println(driver.kthElement(n1, 6));
+        assertThat(driver.kthElement(root, 1), is(n5));
+        assertThat(driver.kthElement(root, 2), is(n2));
+        assertThat(driver.kthElement(root, 3), is(n4));
+        assertThat(driver.kthElement(root, 4), is(root));
+        assertThat(driver.kthElement(root, 5), is(n3));
+        assertThat(driver.kthElement(root, 6), is(n7));
+        assertThat(driver.kthElement(root, 7), is(n6));
     }
 
 
     public Node kthElement(Node node, int k) {
-        return doKthElement(node, k, 0);
+        return doKthElement(node, new int[]{k}, new Node[1]);
     }
 
-    private Node doKthElement(Node node, int k, int count) {
-        return null;
+    private Node doKthElement(Node node, int[] k, Node[] arr) {
+        if (node == null) {
+            return null;
+        }
+
+        doKthElement(node.left, k, arr);
+        k[0] -= 1;
+        if (k[0] >= 0) {
+            arr[0] = node;
+            doKthElement(node.right, k, arr);
+        }
+        return arr[0];
     }
 
     private static class Node {
