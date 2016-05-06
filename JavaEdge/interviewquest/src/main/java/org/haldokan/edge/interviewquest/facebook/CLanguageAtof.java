@@ -7,9 +7,10 @@ import java.util.Deque;
 import static org.hamcrest.Matchers.*;
 import static org.junit.Assert.assertThat;
 /**
- * My solution to a Facebook interview question
+ * My solution to a Facebook interview question - for good measure I made it to support formats like (e1 and -e1) which
+ * accept the number is implicitly 1. These formats are not supported in Java - not sure if C atof support them.
  *
- * Implement the C language atof function (ascii to float). Eg: +3.5e-2, .03e1, 1e1, 0.0
+ * Implement the C language atof function (ascii to float). Eg: +3.5e-2, -3.570e-2 .03e1, 1e1, 0.0
  *
  * Created by haytham.aldokanji on 5/4/16.
  */
@@ -19,33 +20,8 @@ public class CLanguageAtof {
     public static void main(String[] args) {
         CLanguageAtof driver = new CLanguageAtof();
 
-        String ascii = "+3.570e-2";
-        float number = driver.atof(ascii);
-        // floats are not exact
-        assertThat(number, lessThan(0.0357f));
-        assertThat(number, greaterThan(0.03569999f));
-        System.out.println(number);
-
-        ascii = ".03e1";
-        number = driver.atof(ascii);
-        assertThat(number, lessThan(0.3f));
-        assertThat(number, greaterThan(0.299f));
-        System.out.println(number);
-
-        ascii = "1e1";
-        number = driver.atof(ascii);
-        assertThat(number, is(10.0f));
-        System.out.println(number);
-
-        ascii = "e1";
-        number = driver.atof(ascii);
-//        assertThat(number, is(10.0f));
-        System.out.println(number);
-
-        ascii = "123";
-        number = driver.atof(ascii);
-        assertThat(number, is(123f));
-        System.out.println(number);
+        driver.test1();
+        driver.test2();
     }
 
     public float atof(String ascii) {
@@ -69,7 +45,7 @@ public class CLanguageAtof {
                 if (context == Context.INTEGRAL) {
                     integralPart = calculateIntegral(evalDeck, numberSign);
                 } else if (context == Context.DECIMAL) {
-                    decimalPart = calculateDecimal(evalDeck);
+                    decimalPart = calculateDecimal(evalDeck, numberSign);
                 }
                 context = Context.EXPONENT;
             } else if (isDecimalPoint(part)) {
@@ -88,12 +64,12 @@ public class CLanguageAtof {
         if (context == Context.INTEGRAL) {
             integralPart = calculateIntegral(evalDeck, numberSign);
         } else if (context == Context.DECIMAL) {
-            decimalPart = calculateDecimal(evalDeck);
+            decimalPart = calculateDecimal(evalDeck, numberSign);
         } else if (context == Context.EXPONENT) {
             exponentPart = calculateExponent(evalDeck, exponentSign);
         }
-
-        return (integralPart + decimalPart) * exponentPart;
+        float numberPart = integralPart + decimalPart;
+        return numberPart == 0f ? numberSign * exponentPart : numberPart * exponentPart;
     }
 
     private int[] multiplierSigns(char part, Context context) {
@@ -134,7 +110,7 @@ public class CLanguageAtof {
         return numberSign * integral;
     }
 
-    private float calculateDecimal(Deque<Character> evalDeck) {
+    private float calculateDecimal(Deque<Character> evalDeck, int numberSign) {
         float decimal = 0f;
         float divisor = 10;
 
@@ -142,7 +118,7 @@ public class CLanguageAtof {
             decimal += fromAsciiToDigit(evalDeck.remove()) / divisor;
             divisor *= 10;
         }
-        return decimal;
+        return numberSign * decimal;
     }
 
     private boolean isSign(char part) {
@@ -177,7 +153,67 @@ public class CLanguageAtof {
         return Arrays.binarySearch(DIGITS, part);
     }
 
-    private enum Context {INTEGRAL, DECIMAL, EXPONENT}
+    private void test1() {
+        String ascii = "+3.570e-2";
+        float number = atof(ascii);
+        // floats are not exact
+        System.out.println(number);
+        assertThat(number, lessThan(0.0357f));
+        assertThat(number, greaterThan(0.03569999f));
 
+        ascii = "+3.570e+2";
+        number = atof(ascii);
+        // floats are not exact
+        System.out.println(number);
+        assertThat(number, is(357.0f));
+
+        ascii = ".03e1";
+        number = atof(ascii);
+        System.out.println(number);
+        assertThat(number, lessThan(0.3f));
+        assertThat(number, greaterThan(0.299f));
+
+        ascii = "1e1";
+        System.out.println(number);
+        number = atof(ascii);
+        assertThat(number, is(10.0f));
+
+        ascii = "123";
+        System.out.println(number);
+        number = atof(ascii);
+        assertThat(number, is(123f));
+    }
+
+    private void test2() {
+        String ascii = "-3.570e-2";
+        float number = atof(ascii);
+        System.out.println(number);
+        assertThat(number, greaterThan(-0.0357f));
+        assertThat(number, lessThan(-0.03569999f));
+
+        ascii = "-.03e1";
+        number = atof(ascii);
+        System.out.println(number);
+        assertThat(number, greaterThan(-0.3f));
+        assertThat(number, lessThan(-0.299f));
+
+        ascii = "e1";
+        number = atof(ascii);
+        System.out.println(number);
+        assertThat(number, is(10.0f));
+        // Java doesn't support this format
+        ascii = "-e2";
+        number = atof(ascii);
+        System.out.println(number);
+        assertThat(number, is(-100f));
+
+        // Java doesn't support this format
+        ascii = "-e-2";
+        number = atof(ascii);
+        System.out.println(number);
+        assertThat(number, is(-0.01f));
+    }
+
+    private enum Context {INTEGRAL, DECIMAL, EXPONENT}
 }
 
