@@ -69,6 +69,7 @@ public class CLanguageAtof {
             exponentPart = calculateExponent(evalDeck, exponentSign);
         }
         float numberPart = integralPart + decimalPart;
+        // support formats like e2 or -e2 (number is considered 1 implicitly)
         return numberPart == 0f ? numberSign * exponentPart : numberPart * exponentPart;
     }
 
