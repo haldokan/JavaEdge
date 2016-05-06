@@ -4,8 +4,13 @@ import java.util.ArrayDeque;
 import java.util.Arrays;
 import java.util.Deque;
 
+import static org.hamcrest.Matchers.*;
+import static org.junit.Assert.assertThat;
 /**
- * @InProgress Implement atof function. eg., +3.5e-2, .03e1, 1e1, 0.0
+ * My solution to a Facebook interview question
+ *
+ * Implement the C language atof function (ascii to float). Eg: +3.5e-2, .03e1, 1e1, 0.0
+ *
  * Created by haytham.aldokanji on 5/4/16.
  */
 public class CLanguageAtof {
@@ -14,20 +19,32 @@ public class CLanguageAtof {
     public static void main(String[] args) {
         CLanguageAtof driver = new CLanguageAtof();
 
-        String ascii = "+3.5e-2";
+        String ascii = "+3.570e-2";
         float number = driver.atof(ascii);
+        // floats are not exact
+        assertThat(number, lessThan(0.0357f));
+        assertThat(number, greaterThan(0.03569999f));
         System.out.println(number);
 
         ascii = ".03e1";
         number = driver.atof(ascii);
+        assertThat(number, lessThan(0.3f));
+        assertThat(number, greaterThan(0.299f));
         System.out.println(number);
 
         ascii = "1e1";
         number = driver.atof(ascii);
+        assertThat(number, is(10.0f));
         System.out.println(number);
 
-        ascii = "0.0";
+        ascii = "e1";
         number = driver.atof(ascii);
+//        assertThat(number, is(10.0f));
+        System.out.println(number);
+
+        ascii = "123";
+        number = driver.atof(ascii);
+        assertThat(number, is(123f));
         System.out.println(number);
     }
 
@@ -45,10 +62,10 @@ public class CLanguageAtof {
 
         for (char part : parts) {
             if (isSign(part)) {
-                int[] multipliers = multiplierSigns(evalDeck, part);
+                int[] multipliers = multiplierSigns(part, context);
                 numberSign *= multipliers[0];
                 exponentSign *= multipliers[1];
-            } else if (isPower(part)) {
+            } else if (isExponent(part)) {
                 if (context == Context.INTEGRAL) {
                     integralPart = calculateIntegral(evalDeck, numberSign);
                 } else if (context == Context.DECIMAL) {
@@ -62,7 +79,7 @@ public class CLanguageAtof {
                 if (context == Context.INTEGRAL || context == Context.EXPONENT) {
                     evalDeck.push(part);
                 } else {
-                    evalDeck.addFirst(part);
+                    evalDeck.add(part);
                 }
             } else {
                 throw new IllegalArgumentException("ASCII string is malformatted");
@@ -70,6 +87,8 @@ public class CLanguageAtof {
         }
         if (context == Context.INTEGRAL) {
             integralPart = calculateIntegral(evalDeck, numberSign);
+        } else if (context == Context.DECIMAL) {
+            decimalPart = calculateDecimal(evalDeck);
         } else if (context == Context.EXPONENT) {
             exponentPart = calculateExponent(evalDeck, exponentSign);
         }
@@ -77,14 +96,13 @@ public class CLanguageAtof {
         return (integralPart + decimalPart) * exponentPart;
     }
 
-    private int[] multiplierSigns(Deque<Character> evalDeck, char part) {
+    private int[] multiplierSigns(char part, Context context) {
         int signMultiplier = getSignMultiplier(part);
-        Character val = evalDeck.peek();
 
         int[] multipliers = new int[]{1, 1};
-        if (val == null) {
+        if (context == Context.INTEGRAL) {
             multipliers[0] = signMultiplier;
-        } else if (isPower(part)) {
+        } else if (context == Context.EXPONENT) {
             multipliers[1] = signMultiplier;
         } else {
             throw new IllegalArgumentException("ASCII string is malformatted");
@@ -118,11 +136,11 @@ public class CLanguageAtof {
 
     private float calculateDecimal(Deque<Character> evalDeck) {
         float decimal = 0f;
-        int divisor = 10;
+        float divisor = 10;
 
         while (!evalDeck.isEmpty()) {
-            decimal += fromAsciiToDigit(evalDeck.removeFirst()) / divisor;
-            divisor /= 10;
+            decimal += fromAsciiToDigit(evalDeck.remove()) / divisor;
+            divisor *= 10;
         }
         return decimal;
     }
@@ -142,7 +160,7 @@ public class CLanguageAtof {
         return 1;
     }
 
-    private boolean isPower(char part) {
+    private boolean isExponent(char part) {
         return part == 'e' || part == 'E';
     }
 
