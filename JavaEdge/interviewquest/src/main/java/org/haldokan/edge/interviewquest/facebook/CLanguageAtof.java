@@ -7,7 +7,7 @@ import java.util.Deque;
 import static org.hamcrest.Matchers.*;
 import static org.junit.Assert.assertThat;
 /**
- * My solution to a Facebook interview question - for good measure I made it to support formats like (e1 and -e1) which
+ * My solution to a Facebook interview question - for good measure I made it to support formats like (e1 and -e-1) which
  * accept the number is implicitly 1. These formats are not supported in Java - not sure if C atof support them.
  *
  * Implement the C language atof function (ascii to float). Eg: +3.5e-2, -3.570e-2 .03e1, 1e1, 0.0
@@ -162,7 +162,7 @@ public class CLanguageAtof {
         assertThat(number, lessThan(0.0357f));
         assertThat(number, greaterThan(0.03569999f));
 
-        ascii = "+3.570e+2";
+        ascii = "+3.570E+2";
         number = atof(ascii);
         // floats are not exact
         System.out.println(number);
@@ -192,7 +192,7 @@ public class CLanguageAtof {
         assertThat(number, greaterThan(-0.0357f));
         assertThat(number, lessThan(-0.03569999f));
 
-        ascii = "-.03e1";
+        ascii = "-.03E1";
         number = atof(ascii);
         System.out.println(number);
         assertThat(number, greaterThan(-0.3f));
