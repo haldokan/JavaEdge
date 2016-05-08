@@ -3,6 +3,8 @@ package org.haldokan.edge.dynamicprog;
 import com.google.common.collect.HashBasedTable;
 import com.google.common.collect.Table;
 
+import java.util.Arrays;
+
 /**
  * A dynamic programming algorithm that shows how approximate string matching works. When one types into the search bar
  * "Java streem sampels" instead of the correct spelling "Java stream samples", this is the sort of algorithms used to
@@ -33,8 +35,6 @@ public class ApproximateStringMatcher {
         // the bug in the algo
         String search = " " + "thou shalt not";
         String text = " " + "you should not";
-        System.out.println("search: " + search);
-        System.out.println("text: " + text);
 
         int cost = matcher.approxMatch(search, text);
         System.out.println("matching cost: " + cost);
@@ -43,7 +43,6 @@ public class ApproximateStringMatcher {
         matcher.path(search, text, coords[0], coords[1]);
     }
 
-    // clever use of recursion to find the modification path
     private int approxMatch(String search, String text) {
         int[] op = new int[3];
         initFirstColumn(search);
@@ -63,12 +62,14 @@ public class ApproximateStringMatcher {
                     }
                 }
                 tbl.put(i, j, cell);
+                System.out.println(Arrays.toString(op));
             }
         }
         int[] cellCoords = goalCell(search, text);
         return tbl.get(cellCoords[0], cellCoords[1]).cost;
     }
 
+    // clever use of recursion to find the modification path
     public void path(String search, String text, int i, int j) {
         Cell cell = tbl.get(i, j);
         if (cell.parent == -1)
