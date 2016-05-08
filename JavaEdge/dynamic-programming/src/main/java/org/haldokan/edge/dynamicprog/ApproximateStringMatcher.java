@@ -3,8 +3,6 @@ package org.haldokan.edge.dynamicprog;
 import com.google.common.collect.HashBasedTable;
 import com.google.common.collect.Table;
 
-import java.util.Arrays;
-
 /**
  * A dynamic programming algorithm that shows how approximate string matching works. When one types into the search bar
  * "Java streem sampels" instead of the correct spelling "Java stream samples", this is the sort of algorithms used to
@@ -62,7 +60,6 @@ public class ApproximateStringMatcher {
                     }
                 }
                 tbl.put(i, j, cell);
-                System.out.println(Arrays.toString(op));
             }
         }
         int[] cellCoords = goalCell(search, text);
@@ -92,7 +89,6 @@ public class ApproximateStringMatcher {
         if (cell.parent == DELETE) {
             path(search, text, i - 1, j);
             System.out.print("D");
-            return;
         }
     }
 
