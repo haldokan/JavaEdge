@@ -13,9 +13,8 @@ import static org.junit.Assert.assertThat;
  * z n a b c f
  * f g f a b c
  * and given word is fnz, it is present. However, gng is not since you would be repeating g twice.
- *
  * You can move in all the 8 directions around an element.
- * <p>
+ *
  * Created by haytham.aldokanji on 5/8/16.
  */
 public class FindingWordInLetterMatrix {
