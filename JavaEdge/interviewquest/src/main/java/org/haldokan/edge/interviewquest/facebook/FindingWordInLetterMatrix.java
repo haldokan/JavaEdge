@@ -42,34 +42,34 @@ public class FindingWordInLetterMatrix {
     }
 
     // return the path for finding the word in the format
-    public Optional<Cell[]> find(String word) {
+    public Optional<MatrixCell[]> find(String word) {
         if (word == null || word.isEmpty()) {
             throw new IllegalArgumentException("Null of empty input: " + word);
         }
 
-        Set<Cell> usedPathStarts = new HashSet<>();
-        Deque<Cell> evalStack = new ArrayDeque<>();
+        Set<MatrixCell> usedPathStarts = new HashSet<>();
+        Deque<MatrixCell> evalStack = new ArrayDeque<>();
 
         boolean wordFound = false;
         boolean morePathsExist = true;
 
         while (!wordFound && morePathsExist) {
-            Optional<Cell> potentialPathStart = findPathStart(usedPathStarts, word.charAt(0));
+            Optional<MatrixCell> potentialPathStart = findPathStart(usedPathStarts, word.charAt(0));
             if (!potentialPathStart.isPresent()) {
                 morePathsExist = false;
                 continue;
             }
-            Cell pathStart = potentialPathStart.get();
+            MatrixCell pathStart = potentialPathStart.get();
             Deque<Character> letterQueue = queueWordLetters(word);
 
-            Map<Cell, Set<Cell>> cellVisitedNeighbors = new HashMap<>();
+            Map<MatrixCell, Set<MatrixCell>> cellVisitedNeighbors = new HashMap<>();
             evalStack.push(pathStart);
             letterQueue.remove();
 
             while (!(evalStack.isEmpty() || letterQueue.isEmpty())) {
-                Cell fromCell = evalStack.peek();
+                MatrixCell fromCell = evalStack.peek();
                 char nextLetter = letterQueue.peekFirst();
-                Optional<Cell> linkedCell = advanceToNextCell(fromCell, nextLetter, evalStack, cellVisitedNeighbors);
+                Optional<MatrixCell> linkedCell = advanceToNextCell(fromCell, nextLetter, evalStack, cellVisitedNeighbors);
 
                 if (!linkedCell.isPresent()) {
                     evalStack.pop();
@@ -96,11 +96,11 @@ public class FindingWordInLetterMatrix {
         return letterQueue;
     }
 
-    private Optional<Cell> findPathStart(Set<Cell> usedPathStarts, char letter) {
+    private Optional<MatrixCell> findPathStart(Set<MatrixCell> usedPathStarts, char letter) {
         for (int i = 0; i < matrix.length; i++) {
             char[] row = matrix[i];
             for (int j = 0; j < row.length; j++) {
-                Cell cell = new Cell(i, j);
+                MatrixCell cell = new MatrixCell(i, j);
                 if (!usedPathStarts.contains(cell) && matrix[i][j] == letter) {
                     usedPathStarts.add(cell);
                     return Optional.of(cell);
@@ -110,16 +110,16 @@ public class FindingWordInLetterMatrix {
         return Optional.empty();
     }
 
-    private Optional<Cell> advanceToNextCell(Cell fromCell, char letter, Deque<Cell> evalStack, Map<Cell, Set<Cell>> cellVisitedNeighbors) {
+    private Optional<MatrixCell> advanceToNextCell(MatrixCell fromCell, char letter, Deque<MatrixCell> evalStack, Map<MatrixCell, Set<MatrixCell>> cellVisitedNeighbors) {
 
         if (cellVisitedNeighbors.get(fromCell) == null) {
             cellVisitedNeighbors.put(fromCell, new HashSet<>());
         }
-        Optional<Cell> linkedCell = Optional.empty();
+        Optional<MatrixCell> linkedCell = Optional.empty();
 
         for (int i = fromCell.row - 1; i <= fromCell.row + 1; i++) {
             for (int j = fromCell.column - 1; j <= fromCell.column + 1; j++) {
-                Cell toCell = new Cell(i, j);
+                MatrixCell toCell = new MatrixCell(i, j);
                 if (!cellVisitedNeighbors.get(fromCell).contains(toCell)
                         && !evalStack.contains(toCell)
                         && !toCell.equals(fromCell)
@@ -135,12 +135,12 @@ public class FindingWordInLetterMatrix {
         return linkedCell;
     }
 
-    private Optional<Cell[]> getPath(Deque<Cell> evalStack) {
+    private Optional<MatrixCell[]> getPath(Deque<MatrixCell> evalStack) {
         if (evalStack.isEmpty()) {
             return Optional.empty();
         }
 
-        Cell[] path = new Cell[evalStack.size()];
+        MatrixCell[] path = new MatrixCell[evalStack.size()];
         int index = 0;
         while (!evalStack.isEmpty()) {
             path[index++] = evalStack.removeLast();
@@ -148,9 +148,9 @@ public class FindingWordInLetterMatrix {
         return Optional.of(path);
     }
 
-    private String fromPathToWord(Cell[] path) {
+    private String fromPathToWord(MatrixCell[] path) {
         StringBuilder word = new StringBuilder(path.length);
-        for (Cell cell : path) {
+        for (MatrixCell cell : path) {
             word.append(matrix[cell.row][cell.column]);
         }
         return word.toString();
@@ -191,62 +191,62 @@ public class FindingWordInLetterMatrix {
 
     private void test1() {
         String word = "ducksarecool";
-        Optional<Cell[]> path = find(word);
+        Optional<MatrixCell[]> path = find(word);
         assertThat(path.isPresent(), is(true));
         assertThat(fromPathToWord(path.get()), is(word));
     }
 
     private void test2() {
         String word = "smith";
-        Optional<Cell[]> path = find(word);
+        Optional<MatrixCell[]> path = find(word);
         assertThat(path.isPresent(), is(true));
         assertThat(fromPathToWord(path.get()), is(word));
     }
 
     private void test3() {
         String word = "moms";
-        Optional<Cell[]> path = find(word);
+        Optional<MatrixCell[]> path = find(word);
         assertThat(path.isPresent(), is(true));
         assertThat(fromPathToWord(path.get()), is(word));
     }
 
     private void test4() {
         String word = "homom";
-        Optional<Cell[]> path = find(word);
+        Optional<MatrixCell[]> path = find(word);
         assertThat(path.isPresent(), is(true));
         assertThat(fromPathToWord(path.get()), is(word));
     }
 
     private void test5() {
         String word = "homomss";
-        Optional<Cell[]> path = find(word);
+        Optional<MatrixCell[]> path = find(word);
         assertThat(path.isPresent(), is(true));
         assertThat(fromPathToWord(path.get()), is(word));
     }
 
     private void test6() {
         String word = "homomsm";
-        Optional<Cell[]> path = find(word);
+        Optional<MatrixCell[]> path = find(word);
         assertThat(path.isPresent(), is(false));
     }
 
     private void test7() {
         String word = "homomss";
-        Optional<Cell[]> path = find(word);
+        Optional<MatrixCell[]> path = find(word);
         assertThat(path.isPresent(), is(true));
         assertThat(fromPathToWord(path.get()), is(word));
     }
 
     private void test8() {
         String word = "homomsso";
-        Optional<Cell[]> path = find(word);
+        Optional<MatrixCell[]> path = find(word);
         assertThat(path.isPresent(), is(false));
     }
 
-    private static class Cell {
+    private static class MatrixCell {
         private final int row, column;
 
-        public Cell(int row, int column) {
+        public MatrixCell(int row, int column) {
             this.row = row;
             this.column = column;
         }
@@ -256,7 +256,40 @@ public class FindingWordInLetterMatrix {
             if (this == o) return true;
             if (o == null || getClass() != o.getClass()) return false;
 
-            Cell cell = (Cell) o;
+            MatrixCell cell = (MatrixCell) o;
+
+            if (row != cell.row) return false;
+            return column == cell.column;
+
+        }
+
+        @Override
+        public int hashCode() {
+            int result = row;
+            result = 31 * result + column;
+            return result;
+        }
+
+        @Override
+        public String toString() {
+            return "(" + row + ", " + column + ")";
+        }
+    }
+
+    private static class MatrixCell {
+        private final int row, column;
+
+        public MatrixCell(int row, int column) {
+            this.row = row;
+            this.column = column;
+        }
+
+        @Override
+        public boolean equals(Object o) {
+            if (this == o) return true;
+            if (o == null || getClass() != o.getClass()) return false;
+
+            MatrixCell cell = (MatrixCell) o;
 
             if (row != cell.row) return false;
             return column == cell.column;
@@ -278,7 +311,7 @@ public class FindingWordInLetterMatrix {
 
     private void test9() {
         String word = "homomsk";
-        Optional<Cell[]> path = find(word);
+        Optional<MatrixCell[]> path = find(word);
         assertThat(path.isPresent(), is(false));
     }
 }
