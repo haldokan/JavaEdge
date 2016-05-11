@@ -156,39 +156,6 @@ public class FindingWordInLetterMatrix {
         return word.toString();
     }
 
-    private static class Cell {
-        private final int row, column;
-
-        public Cell(int row, int column) {
-            this.row = row;
-            this.column = column;
-        }
-
-        @Override
-        public boolean equals(Object o) {
-            if (this == o) return true;
-            if (o == null || getClass() != o.getClass()) return false;
-
-            Cell cell = (Cell) o;
-
-            if (row != cell.row) return false;
-            return column == cell.column;
-
-        }
-
-        @Override
-        public int hashCode() {
-            int result = row;
-            result = 31 * result + column;
-            return result;
-        }
-
-        @Override
-        public String toString() {
-            return "(" + row + ", " + column + ")";
-        }
-    }
-
     private void test1() {
         String word = "ducksarecool";
         Optional<MatrixCell[]> path = find(word);
@@ -243,75 +210,75 @@ public class FindingWordInLetterMatrix {
         assertThat(path.isPresent(), is(false));
     }
 
-    private static class MatrixCell {
-        private final int row, column;
-
-        public MatrixCell(int row, int column) {
-            this.row = row;
-            this.column = column;
-        }
-
-        @Override
-        public boolean equals(Object o) {
-            if (this == o) return true;
-            if (o == null || getClass() != o.getClass()) return false;
-
-            MatrixCell cell = (MatrixCell) o;
-
-            if (row != cell.row) return false;
-            return column == cell.column;
-
-        }
-
-        @Override
-        public int hashCode() {
-            int result = row;
-            result = 31 * result + column;
-            return result;
-        }
-
-        @Override
-        public String toString() {
-            return "(" + row + ", " + column + ")";
-        }
-    }
-
-    private static class MatrixCell {
-        private final int row, column;
-
-        public MatrixCell(int row, int column) {
-            this.row = row;
-            this.column = column;
-        }
-
-        @Override
-        public boolean equals(Object o) {
-            if (this == o) return true;
-            if (o == null || getClass() != o.getClass()) return false;
-
-            MatrixCell cell = (MatrixCell) o;
-
-            if (row != cell.row) return false;
-            return column == cell.column;
-
-        }
-
-        @Override
-        public int hashCode() {
-            int result = row;
-            result = 31 * result + column;
-            return result;
-        }
-
-        @Override
-        public String toString() {
-            return "(" + row + ", " + column + ")";
-        }
-    }
-
     private void test9() {
         String word = "homomsk";
         Optional<MatrixCell[]> path = find(word);
         assertThat(path.isPresent(), is(false));
+    }
+
+    private static class Cell {
+        private final int row, column;
+
+        public Cell(int row, int column) {
+            this.row = row;
+            this.column = column;
+        }
+
+        @Override
+        public boolean equals(Object o) {
+            if (this == o) return true;
+            if (o == null || getClass() != o.getClass()) return false;
+
+            Cell cell = (Cell) o;
+
+            if (row != cell.row) return false;
+            return column == cell.column;
+
+        }
+
+        @Override
+        public int hashCode() {
+            int result = row;
+            result = 31 * result + column;
+            return result;
+        }
+
+        @Override
+        public String toString() {
+            return "(" + row + ", " + column + ")";
+        }
+    }
+
+    private static class MatrixCell {
+        private final int row, column;
+
+        public MatrixCell(int row, int column) {
+            this.row = row;
+            this.column = column;
+        }
+
+        @Override
+        public boolean equals(Object o) {
+            if (this == o) return true;
+            if (o == null || getClass() != o.getClass()) return false;
+
+            MatrixCell cell = (MatrixCell) o;
+
+            if (row != cell.row) return false;
+            return column == cell.column;
+
+        }
+
+        @Override
+        public int hashCode() {
+            int result = row;
+            result = 31 * result + column;
+            return result;
+        }
+
+        @Override
+        public String toString() {
+            return "(" + row + ", " + column + ")";
+        }
     }
 }
