@@ -248,4 +248,5 @@ public class FindingWordInLetterMatrix {
             return "(" + row + ", " + column + ")";
         }
     }
+
 }
