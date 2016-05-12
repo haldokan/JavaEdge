@@ -14,10 +14,10 @@ import static org.junit.Assert.assertThat;
  * <p>
  * Created by haytham.aldokanji on 5/8/16.
  */
-public class ReverseLinkedListWithRandPointers {
+public class CopyLinkedListWithRandPointers {
 
     public static void main(String[] args) {
-        ReverseLinkedListWithRandPointers driver = new ReverseLinkedListWithRandPointers();
+        CopyLinkedListWithRandPointers driver = new CopyLinkedListWithRandPointers();
 
         Node original = driver.makeList();
         Node copy = driver.copy(original);
