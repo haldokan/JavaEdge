@@ -19,34 +19,34 @@ public class AllSubSetsInSet {
         allSubSets.backtrack(data, 0, dataLen);
     }
 
-    public void backtrack(int[] data, int k, int dataLen) {
+    public void backtrack(int[] combinations, int currentSolutionLen, int dataLen) {
         int[] c = new int[2];
         int numCandidates = 0;
 
-        if (k == dataLen) {
-            printSolution(data, k);
+        if (currentSolutionLen == dataLen) {
+            printSolution(combinations, currentSolutionLen);
         } else {
-            k = k + 1;
-            numCandidates = candidates(data, k, dataLen, c);
+            currentSolutionLen = currentSolutionLen + 1;
+            numCandidates = candidates(combinations, currentSolutionLen, dataLen, c);
             for (int i = 0; i < numCandidates; i++) {
-                data[k] = c[i];
+                combinations[currentSolutionLen] = c[i];
                 // makeMove(a, k, input)
-                backtrack(data, k, dataLen);
+                backtrack(combinations, currentSolutionLen, dataLen);
                 // unmakeMove(a, k, input)
             }
         }
     }
 
-    private int candidates(int[] data, int k, int dataLen, int[] candidates) {
+    private int candidates(int[] combinations, int currentSolutionLen, int dataLen, int[] candidates) {
         candidates[0] = 1;
         candidates[1] = 0;
         return 2;
     }
 
-    private void printSolution(int[] data, int k) {
+    private void printSolution(int[] combinations, int solutionLen) {
         System.out.print("{");
-        for (int i = 1; i <= k; i++) {
-            if (data[i] == 1) {
+        for (int i = 1; i <= solutionLen; i++) {
+            if (combinations[i] == 1) {
                 System.out.print(i + ",");
             }
         }
