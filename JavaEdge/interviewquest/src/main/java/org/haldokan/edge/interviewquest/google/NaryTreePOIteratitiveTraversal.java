@@ -49,7 +49,7 @@ public class NaryTreePOIteratitiveTraversal {
         }
 
         Deque<Node> stack = new LinkedList<>();
-        stack.add(tree);
+        stack.push(tree);
         while (!stack.isEmpty()) {
             Node node = stack.peek();
             if (node.canProcess()) {
