@@ -7,7 +7,9 @@ import java.util.List;
 
 /**
  * My solution to a Google interview question. The solution modifies the data structure in order to mark the processed nodes
- * Post order traversal for an N-ary tree iterative way.
+ * Post order traversal for an N-ary tree iterative way. Instead of modifying the data structure I could have kept track
+ * of process nodes using a hash map
+ *
  * Given,
  * struct Node {
  * int val;
