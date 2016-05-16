@@ -1,4 +1,4 @@
-package org.haldokan.edge.interviewquest.google.imageserver;
+package org.haldokan.edge.interviewquest.google;
 
 import java.util.ArrayList;
 import java.util.List;
