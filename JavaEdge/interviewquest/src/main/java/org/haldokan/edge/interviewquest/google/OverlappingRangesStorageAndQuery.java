@@ -2,14 +2,22 @@ package org.haldokan.edge.interviewquest.google;
 
 import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Iterables;
+import com.google.common.collect.Sets;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
 
 /**
- * @InProgress We have a long string. We label some substrings with tags.
+ * My solution to a Google interview question - add the ranges to a sorted set by the start index. At each addition of
+ * a range intersect it with all the already existing ranges and create new ranges when there is overlapping. New ranges
+ * replace the old overlapping ranges. The final set of ranges will not have any overlapped ranges. Each range has the set
+ * of tags associated with it. Finding the ranges associated with a set of tags requires scanning the set of ranges in
+ * O(n) and returning the ranges with tag sets containing the search tag set.
+ *
+ * We have a long string. We label some substrings with tags.
  * <p>
  * - A tag entry is [startIndex, endIndex, tag].
  * - Query: 1 or more tags
@@ -48,13 +56,27 @@ public class OverlappingRangesStorageAndQuery {
 
     public static void main(String[] args) {
         OverlappingRangesStorageAndQuery driver = new OverlappingRangesStorageAndQuery();
-        driver.test1();
-        driver.test2();
-        driver.test3();
-        driver.test4();
+
+        driver.testRangeOverlapping();
+        driver.testRangeInnerContainment();
+        driver.testRangeLeftContainment();
+        driver.testRangeRightContainment();
+        driver.testNewRangeOverlappingWithExistingRange();
+        driver.testRangeOverlappingAndContainment();
+        driver.testFindTagsRanges();
     }
 
-    private void add(Range newRange) {
+    public Optional<List<Range>> find(Integer... tags) {
+        Set<Integer> tagSet = Arrays.stream(tags).collect(Collectors.toSet());
+        List<Range> matching = ranges.stream()
+                .filter(range -> Sets.difference(tagSet, range.tags).isEmpty())
+                .map(Range::copy)
+                .collect(Collectors.toList());
+
+        return matching.isEmpty() ? Optional.empty() : Optional.of(matching);
+    }
+
+    public void add(Range newRange) {
         if (ranges.isEmpty()) {
             ranges.add(newRange);
         } else {
@@ -62,7 +84,7 @@ public class OverlappingRangesStorageAndQuery {
             Range newRangeCopy = newRange;
             for (Iterator<Range> it = ranges.iterator(); it.hasNext(); ) {
                 Range range = it.next();
-                CombineResult combined = combine(range, newRangeCopy);
+                CombinedResult combined = combine(range, newRangeCopy);
 
                 if (combined.hasResults()) {
                     it.remove();
@@ -71,7 +93,7 @@ public class OverlappingRangesStorageAndQuery {
                 if (combined.rangeProcessed()) {
                     break;
                 }
-                newRangeCopy = combined.workingRange.get();
+                newRangeCopy = combined.carryRange.get();
             }
             if (newRangeCopy != null) {
                 newRanges.add(newRangeCopy);
@@ -80,28 +102,28 @@ public class OverlappingRangesStorageAndQuery {
         }
     }
 
-    public CombineResult combine(Range existingRange, Range newRange) {
-        CombineResult combineResult = CombineResult.create();
+    public CombinedResult combine(Range existingRange, Range newRange) {
+        CombinedResult combinedResult = CombinedResult.create();
         if (existingRange.same(newRange)) {
             existingRange.addTags(newRange.tags);
         } else if (existingRange.disjoint(newRange)) {
-            combineResult.updateRange(newRange);
+            combinedResult.updateRange(newRange);
         } else if (existingRange.contains(newRange)) {
-            combineResult.addResults(containedParts(existingRange, newRange));
+            combinedResult.addResults(containedParts(existingRange, newRange));
         } else if (newRange.contains(existingRange)) {
             List<Range> combinedResults = containedParts(newRange, existingRange);
             Range updatedRange = combinedResults.remove(combinedResults.size() - 1);
-            combineResult.addResults(combinedResults).updateRange(updatedRange);
+            combinedResult.addResults(combinedResults).updateRange(updatedRange);
         } else if (existingRange.dovetails(newRange)) {
             List<Range> combinedResults = dovtailedParts(existingRange, newRange);
             Range updatedRange = combinedResults.remove(combinedResults.size() - 1);
-            combineResult.addResults(combinedResults).updateRange(updatedRange);
+            combinedResult.addResults(combinedResults).updateRange(updatedRange);
         } else if (newRange.dovetails(existingRange)) {
-            combineResult.addResults(dovtailedParts(newRange, existingRange));
+            combinedResult.addResults(dovtailedParts(newRange, existingRange));
         } else {
             throw new RuntimeException("Unaccounted for period arrangement: " + existingRange + "\n" + newRange);
         }
-        return combineResult;
+        return combinedResult;
     }
 
     private List<Range> containedParts(Range r1, Range r2) {
@@ -137,16 +159,16 @@ public class OverlappingRangesStorageAndQuery {
         return rslt;
     }
 
-    private void test1() {
+    private void testRangeOverlapping() {
         ranges.clear();
-        Range p1 = new Range(1, 5).addTag(0);
-        add(p1);
+        Range r1 = new Range(1, 5).addTag(0);
+        add(r1);
 
-        Range p2 = new Range(2, 9).addTag(1);
-        add(p2);
+        Range r2 = new Range(2, 9).addTag(1);
+        add(r2);
 
-        Range p3 = new Range(4, 7).addTag(2);
-        add(p3);
+        Range r3 = new Range(4, 7).addTag(2);
+        add(r3);
 
         System.out.println(ranges);
         assertThat(Iterables.get(ranges, 0), is(new Range(1, 2)));
@@ -165,14 +187,33 @@ public class OverlappingRangesStorageAndQuery {
         assertThat(Iterables.get(ranges, 4).tags, is(ImmutableSet.of(1)));
     }
 
-    private void test2() {
+    private void testNewRangeOverlappingWithExistingRange() {
+        ranges.clear();
+        Range r1 = new Range(3, 6).addTag(0);
+        add(r1);
+
+        Range r2 = new Range(1, 4).addTag(1);
+        add(r2);
+
+        System.out.println(ranges);
+        assertThat(Iterables.get(ranges, 0), is(new Range(1, 3)));
+        assertThat(Iterables.get(ranges, 0).tags, is(ImmutableSet.of(1)));
+
+        assertThat(Iterables.get(ranges, 1), is(new Range(3, 4)));
+        assertThat(Iterables.get(ranges, 1).tags, is(ImmutableSet.of(0, 1)));
+
+        assertThat(Iterables.get(ranges, 2), is(new Range(4, 6)));
+        assertThat(Iterables.get(ranges, 2).tags, is(ImmutableSet.of(0)));
+    }
+
+    private void testRangeInnerContainment() {
         ranges.clear();
 
-        Range p1 = new Range(1, 6).addTag(0);
-        add(p1);
+        Range r1 = new Range(1, 6).addTag(0);
+        add(r1);
 
-        Range p2 = new Range(2, 3).addTag(1);
-        add(p2);
+        Range r2 = new Range(2, 3).addTag(1);
+        add(r2);
 
         System.out.println(ranges);
         assertThat(Iterables.get(ranges, 0), is(new Range(1, 2)));
@@ -185,14 +226,14 @@ public class OverlappingRangesStorageAndQuery {
         assertThat(Iterables.get(ranges, 2).tags, is(ImmutableSet.of(0)));
     }
 
-    private void test3() {
+    private void testRangeLeftContainment() {
         ranges.clear();
 
-        Range p1 = new Range(1, 5).addTag(0);
-        add(p1);
+        Range r1 = new Range(1, 5).addTag(0);
+        add(r1);
 
-        Range p2 = new Range(1, 3).addTag(1);
-        add(p2);
+        Range r2 = new Range(1, 3).addTag(1);
+        add(r2);
 
         System.out.println(ranges);
         assertThat(Iterables.get(ranges, 0), is(new Range(1, 3)));
@@ -202,14 +243,14 @@ public class OverlappingRangesStorageAndQuery {
         assertThat(Iterables.get(ranges, 1).tags, is(ImmutableSet.of(0)));
     }
 
-    private void test4() {
+    private void testRangeRightContainment() {
         ranges.clear();
 
-        Range p1 = new Range(1, 6).addTag(0);
-        add(p1);
+        Range r1 = new Range(1, 6).addTag(0);
+        add(r1);
 
-        Range p2 = new Range(3, 6).addTag(1);
-        add(p2);
+        Range r2 = new Range(3, 6).addTag(1);
+        add(r2);
 
         System.out.println(ranges);
         assertThat(Iterables.get(ranges, 0), is(new Range(1, 3)));
@@ -219,24 +260,119 @@ public class OverlappingRangesStorageAndQuery {
         assertThat(Iterables.get(ranges, 1).tags, is(ImmutableSet.of(0, 1)));
     }
 
-    private static class CombineResult {
+    private void testRangeOverlappingAndContainment() {
+        ranges.clear();
+        Range r1 = new Range(1, 5).addTag(0);
+        add(r1);
+
+        Range r2 = new Range(2, 9).addTag(1);
+        add(r2);
+
+        Range r3 = new Range(4, 7).addTag(2);
+        add(r3);
+
+        //contains the previous 3 ranges
+        Range r4 = new Range(0, 10).addTag(3);
+        add(r4);
+
+        System.out.println(ranges);
+        assertThat(Iterables.get(ranges, 0), is(new Range(0, 1)));
+        assertThat(Iterables.get(ranges, 0).tags, is(ImmutableSet.of(3)));
+
+        assertThat(Iterables.get(ranges, 1), is(new Range(1, 2)));
+        assertThat(Iterables.get(ranges, 1).tags, is(ImmutableSet.of(0, 3)));
+
+        assertThat(Iterables.get(ranges, 2), is(new Range(2, 4)));
+        assertThat(Iterables.get(ranges, 2).tags, is(ImmutableSet.of(0, 1, 3)));
+
+        assertThat(Iterables.get(ranges, 3), is(new Range(4, 5)));
+        assertThat(Iterables.get(ranges, 3).tags, is(ImmutableSet.of(0, 1, 2, 3)));
+
+        assertThat(Iterables.get(ranges, 4), is(new Range(5, 7)));
+        assertThat(Iterables.get(ranges, 4).tags, is(ImmutableSet.of(1, 2, 3)));
+
+        assertThat(Iterables.get(ranges, 5), is(new Range(7, 9)));
+        assertThat(Iterables.get(ranges, 5).tags, is(ImmutableSet.of(1, 3)));
+
+        assertThat(Iterables.get(ranges, 6), is(new Range(9, 10)));
+        assertThat(Iterables.get(ranges, 6).tags, is(ImmutableSet.of(3)));
+    }
+
+    private void testFindTagsRanges() {
+        ranges.clear();
+        Range r1 = new Range(1, 5).addTag(0);
+        add(r1);
+
+        Range r2 = new Range(2, 9).addTag(1);
+        add(r2);
+
+        Range r3 = new Range(4, 7).addTag(2);
+        add(r3);
+
+        List<Range> matching = find(0).get();
+        System.out.println(matching);
+        assertThat(matching.size(), is(3));
+        assertThat(Iterables.get(matching, 0), is(new Range(1, 2)));
+        assertThat(Iterables.get(matching, 0).tags, is(ImmutableSet.of(0)));
+        assertThat(Iterables.get(matching, 1), is(new Range(2, 4)));
+        assertThat(Iterables.get(matching, 1).tags, is(ImmutableSet.of(0, 1)));
+        assertThat(Iterables.get(matching, 2), is(new Range(4, 5)));
+        assertThat(Iterables.get(matching, 2).tags, is(ImmutableSet.of(0, 1, 2)));
+
+        matching = find(0, 1).get();
+        System.out.println(matching);
+        assertThat(matching.size(), is(2));
+        assertThat(Iterables.get(matching, 0), is(new Range(2, 4)));
+        assertThat(Iterables.get(matching, 0).tags, is(ImmutableSet.of(0, 1)));
+        assertThat(Iterables.get(matching, 1), is(new Range(4, 5)));
+        assertThat(Iterables.get(matching, 1).tags, is(ImmutableSet.of(0, 1, 2)));
+
+        matching = find(0, 1, 2).get();
+        System.out.println(matching);
+        assertThat(matching.size(), is(1));
+        assertThat(Iterables.get(matching, 0), is(new Range(4, 5)));
+        assertThat(Iterables.get(matching, 0).tags, is(ImmutableSet.of(0, 1, 2)));
+
+        matching = find(1).get();
+        System.out.println(matching);
+        assertThat(matching.size(), is(4));
+        assertThat(Iterables.get(matching, 0), is(new Range(2, 4)));
+        assertThat(Iterables.get(matching, 0).tags, is(ImmutableSet.of(0, 1)));
+        assertThat(Iterables.get(matching, 1), is(new Range(4, 5)));
+        assertThat(Iterables.get(matching, 1).tags, is(ImmutableSet.of(0, 1, 2)));
+        assertThat(Iterables.get(matching, 2), is(new Range(5, 7)));
+        assertThat(Iterables.get(matching, 2).tags, is(ImmutableSet.of(1, 2)));
+        assertThat(Iterables.get(matching, 3), is(new Range(7, 9)));
+        assertThat(Iterables.get(matching, 3).tags, is(ImmutableSet.of(1)));
+
+        matching = find(1, 2).get();
+        System.out.println(matching);
+        assertThat(matching.size(), is(2));
+        assertThat(Iterables.get(matching, 0), is(new Range(4, 5)));
+        assertThat(Iterables.get(matching, 0).tags, is(ImmutableSet.of(0, 1, 2)));
+        assertThat(Iterables.get(matching, 1), is(new Range(5, 7)));
+        assertThat(Iterables.get(matching, 1).tags, is(ImmutableSet.of(1, 2)));
+    }
+
+
+    private static class CombinedResult {
         private List<Range> ranges = new ArrayList<>();
-        private Optional<Range> workingRange = Optional.empty();
+        private Optional<Range> carryRange = Optional.empty();
 
-        private CombineResult() {
+        private CombinedResult() {
         }
 
-        public static CombineResult create() {
-            return new CombineResult();
+        public static CombinedResult create() {
+            return new CombinedResult();
         }
 
-        public CombineResult addResults(List<Range> ranges) {
+        public CombinedResult addResults(List<Range> ranges) {
             this.ranges.addAll(ranges);
             return this;
         }
 
-        public CombineResult updateRange(Range updatedRange) {
-            workingRange = Optional.of(updatedRange);
+        public CombinedResult updateRange(Range updatedRange) {
+            carryRange = Optional.of(updatedRange);
             return this;
         }
 
@@ -245,7 +381,7 @@ public class OverlappingRangesStorageAndQuery {
         }
 
         public boolean rangeProcessed() {
-            return !workingRange.isPresent();
+            return !carryRange.isPresent();
         }
     }
 
@@ -263,6 +399,10 @@ public class OverlappingRangesStorageAndQuery {
             this.start = start;
             this.end = end;
             this.valid = end > start;
+        }
+
+        public Range copy() {
+            return new Range(tags, start, end);
         }
 
         public Range addTag(Integer tag) {
