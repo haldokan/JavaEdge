@@ -6,7 +6,12 @@ import static org.junit.Assert.fail;
 
 /**
  * My solution to a Google interview question - ignored the size limitation and assumed that only positive digits are used.
- * Another version I present NumberPyramidLevelMaxes2 that takes these limitations into account
+ * I ignored the limitations because they are not clear enough. For example the max string length is 10^10 which is greater
+ * than Integer.MAX_VALUE. This means we cannot use String.length or convert the string into an array. But how about
+ * String.split("#") which will produce an array of length < Integer.MAX_VALUE. There is no way to tell if split will work
+ * on such a giant string. Also where does the string live? All in memory? How about serializing it to disk then streaming
+ * it back to memory? Why was it read whole into memory in the first place? All these questions indicate that problem is
+ * not well defined.
  * <p>
  * You have a row of numbers like below(a triangle).
  * By starting at the top of the triangle find the maximum number in each line and sum them up example below
@@ -48,6 +53,8 @@ public class NumberPyramidLevelMaxes {
 
         driver.testCanFormTriangle();
         driver.testPyramidRowMaxesSum();
+
+
     }
 
     public int sum(String string) {
