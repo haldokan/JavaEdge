@@ -5,7 +5,7 @@ import static org.junit.Assert.assertThat;
 
 /**
  * My implementation of a prefix trie inspired by descriptions of the algorithm on-line - chars are not stored explicitely
- * in the trie. They are rather represented by their ascii codes in each node children
+ * in the  They are rather represented by their ascii codes in each node children
  * <p>
  * Created by haytham.aldokanji on 5/18/16.
  */
@@ -18,7 +18,8 @@ public class PrefixTrie {
 
     public static void main(String[] args) {
         PrefixTrie trie = new PrefixTrie();
-        trie.test();
+        trie.testExactMatches();
+        trie.testApproximateMatches();
     }
 
     public PrefixTrie insert(String string) {
@@ -60,27 +61,62 @@ public class PrefixTrie {
         return true;
     }
 
-    private void test() {
-        PrefixTrie trie = new PrefixTrie();
+    // the DFS code in this method is copied from code I found online in response to a Google interview question
+    // Note that this works only if the search string shares prefixes and of length equal or greater than the strings
+    // in the prefix tree (look at the test case to see).
+    private boolean dfs(Node node, String string, int position, int count, int maxDiff) {
+        if (count > maxDiff) {
+            return false;
+        }
+        //otherwise shorter strings match any other string that has the same prefix
+        if (position == string.length()) {
+            return count == maxDiff;
+        }
 
-        trie.insert("Hello There!");
-        assertThat(trie.hasString("H"), is(true));
-        assertThat(trie.hasString("Hell"), is(true));
-        assertThat(trie.hasString("Hello"), is(true));
-        assertThat(trie.hasString("Hello "), is(true));
-        assertThat(trie.hasString("Hello There!"), is(true));
-        assertThat(trie.hasString("Hello X"), is(false));
-        assertThat(trie.hasString("I say Hello There!"), is(false));
+        for (int i = 0; i < 256; ++i) {
+            Node currentChild = node.children[i];
+            if (currentChild != null) {
+                if (string.charAt(position) == i
+                        && dfs(currentChild, string, position + 1, count, maxDiff)
+                        || string.charAt(position) != i
+                        && dfs(currentChild, string, position + 1, count + 1, maxDiff)) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
 
-        trie.insert("I say Hello There!");
-        assertThat(trie.hasString("I say Hello There!"), is(true));
-        assertThat(trie.hasString("I say Hello Dear!"), is(false));
+    private void testExactMatches() {
+        insert("Hello There!");
+        assertThat(hasString("H"), is(true));
+        assertThat(hasString("Hell"), is(true));
+        assertThat(hasString("Hello"), is(true));
+        assertThat(hasString("Hello "), is(true));
+        assertThat(hasString("Hello There!"), is(true));
+        assertThat(hasString("Hello X"), is(false));
+        assertThat(hasString("I say Hello There!"), is(false));
+
+        insert("I say Hello There!");
+        assertThat(hasString("I say Hello There!"), is(true));
+        assertThat(hasString("I say Hello Dear!"), is(false));
 
         //'I say Hello ' part is already inserted so it is not inserted again (but still the prefix trie
         // is space expensive
-        trie.insert("I say Hello Dear!");
-        assertThat(trie.hasString("I say Hello Dear!"), is(true));
+        insert("I say Hello Dear!");
+        assertThat(hasString("I say Hello Dear!"), is(true));
     }
+
+    private void testApproximateMatches() {
+        assertThat(dfs(root, "Hallo", 0, 0, 1), is(true));
+        assertThat(dfs(root, "Holla", 0, 0, 2), is(true));
+        assertThat(dfs(root, "Howdy", 0, 0, 4), is(true));
+
+        assertThat(dfs(root, "Hell", 0, 0, 1), is(false));
+        assertThat(dfs(root, "xHello", 0, 0, 1), is(false));
+        assertThat(dfs(root, "Helloxx", 0, 0, 2), is(true));
+    }
+
 
     private static class Node {
         // all ascii chars
