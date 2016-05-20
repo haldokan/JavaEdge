@@ -19,7 +19,7 @@ public class BinarySearch<E extends Comparable<E>> {
     }
 
     public int findIndex(E e, E[] a, int l, int h) {
-        if (h <= l) {
+        if (h - l <= 1) {
             return -1;
         }
 
@@ -31,6 +31,6 @@ public class BinarySearch<E extends Comparable<E>> {
         if (e.compareTo(a[m]) < 0)
             return findIndex(e, a, l, m);
         else
-            return findIndex(e, a, m + 1, h);
+            return findIndex(e, a, m, h);
     }
 }
