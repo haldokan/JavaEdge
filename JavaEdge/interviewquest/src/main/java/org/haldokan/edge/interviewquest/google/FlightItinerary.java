@@ -11,4 +11,7 @@ public class FlightItinerary {
     // Reading the queue gives the itinerary in order. This is referred to and topographical sort. A DFS with topo sort is
     // implemented in here:
     //org.haldokan.edge.graph.GraphDFS under graph-algorithms
+
+    // However for this simple DAG a hashmap can be used: the departure airport will exist only in the map keys, and
+    // the final destination will exist only in the map values. Starting at the departure key we can find the path.
 }
