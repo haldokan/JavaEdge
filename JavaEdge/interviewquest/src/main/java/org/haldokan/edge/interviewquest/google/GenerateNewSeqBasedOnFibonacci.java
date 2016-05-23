@@ -16,7 +16,7 @@ import static org.junit.Assert.assertThat;
  * <p>
  * As we know the fibonacci sequence is 1, 1, 2, 3, 5, 8, 13, 21...
  * so the pair sequence is:
- * [1, 1], [1, 2], [2, 3], [3, 5], [5, 8], [8, 3], [3, 1] ...
+ * [1, 1], [1, 2], [2, 3], [3, 5], [5, 8], [8, 13], [13, 21] ...
  * <p>
  * Write a function to output the first n pairs of this sequence.
  * void Outputpairs(int n)
@@ -26,7 +26,7 @@ public class GenerateNewSeqBasedOnFibonacci {
     public static void main(String[] args) {
         GenerateNewSeqBasedOnFibonacci driver = new GenerateNewSeqBasedOnFibonacci();
 
-        List<long[]> sequence = driver.fibBasedSequence(7);
+        List<long[]> sequence = driver.fibBasedSequence(8);
         sequence.stream().forEach(e -> System.out.println(Arrays.toString(e)));
         assertThat(sequence, contains(
                         new long[]{1, 1},
@@ -34,7 +34,8 @@ public class GenerateNewSeqBasedOnFibonacci {
                         new long[]{2, 3},
                         new long[]{3, 5},
                         new long[]{5, 8},
-                        new long[]{8, 13})
+                        new long[]{8, 13},
+                        new long[]{13, 21})
         );
     }
 
