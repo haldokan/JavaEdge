@@ -16,11 +16,11 @@ import static org.junit.Assert.assertThat;
  * <p>
  * Created by haytham.aldokanji on 5/22/16.
  */
-public class ReconstructBSTFromInAndPreOrderTraversal {
+public class ReconstructBSTFromPreAndPostOrderTraversals {
     private Node regeneratedTree;
 
     public static void main(String[] args) {
-        ReconstructBSTFromInAndPreOrderTraversal driver = new ReconstructBSTFromInAndPreOrderTraversal();
+        ReconstructBSTFromPreAndPostOrderTraversals driver = new ReconstructBSTFromPreAndPostOrderTraversals();
 
         driver.testRebuildTreeWithPreOrderTraversal();
         driver.testRebuildTreeWithPostOrderTraversal();
