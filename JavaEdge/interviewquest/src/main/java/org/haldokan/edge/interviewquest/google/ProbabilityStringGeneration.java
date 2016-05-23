@@ -12,7 +12,10 @@ import static org.hamcrest.Matchers.closeTo;
 import static org.junit.Assert.assertThat;
 
 /**
- * My solution to a Google interview question
+ * My solution to a Google interview question - probability is the overall probability of the chars in the text. A more
+ * involved solution will account to the chars probability of occurring after each other.
+ * One comment on Careercup, where the question is posted, suggested using a DAG to model such probability calculation.
+ * Seems plausible on the first glance.
  * <p>
  * This is a two part question related to Markov string generation.
  * <p>
