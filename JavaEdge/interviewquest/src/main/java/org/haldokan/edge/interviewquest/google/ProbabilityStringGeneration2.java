@@ -2,7 +2,6 @@ package org.haldokan.edge.interviewquest.google;
 
 import com.google.common.collect.HashBasedTable;
 import com.google.common.collect.Lists;
-import com.google.common.collect.Sets;
 import com.google.common.collect.Table;
 
 import java.util.ArrayList;
@@ -10,13 +9,15 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
-import java.util.stream.IntStream;
 
-import static org.hamcrest.Matchers.*;
+import static org.hamcrest.Matchers.is;
+import static org.hamcrest.Matchers.nullValue;
 import static org.junit.Assert.assertThat;
 
 /**
- * @InProgress My solution to a Google interview question - @InProgress
+ * My solution to a Google interview question - unlike the other solution that I presented in ProbabilityStringGeneration1.java
+ * I calculate the probability of a char coming after another char using a graph data structure to represent the links
+ * and frequencies.
  * <p>
  * This is a two part question related to Markov string generation.
  * <p>
@@ -29,83 +30,62 @@ import static org.junit.Assert.assertThat;
  * Created by haytham.aldokanji on 5/22/16.
  */
 public class ProbabilityStringGeneration2 {
-    private final List<CharProbabilityRange> charProbabilityRanges = new ArrayList<>();
-    ProbabilityGraph probabilityGraph = new ProbabilityGraph();
+    private static final int ASCII_SET_LEN = 256;
+    private final Vertex[] asciiCharVertexes = new Vertex[ASCII_SET_LEN];
+    private final ProbabilityGraph probabilityGraph = ProbabilityGraph.create();
+
 
     public static void main(String[] args) {
         ProbabilityStringGeneration2 driver = new ProbabilityStringGeneration2();
         driver.testBuildProbabilityGraph();
-//        driver.testTrainAlgorithm();
-//        driver.testGenerateStringWithProbability1();
-//        driver.testGenerateStringWithProbability2();
+        driver.testGenerateStringWithProbability1();
+        driver.testGenerateStringWithProbability2();
     }
 
-    public String generateStringWithProbability(int stringLen) {
-        if (charProbabilityRanges.isEmpty()) {
+    public String generateProbabilisticString(int stringLen) {
+        if (probabilityGraph.getVertexes().isEmpty()) {
             throw new IllegalStateException("Must train the algorithm first");
         }
-        StringBuilder generatedString = new StringBuilder(stringLen);
 
-        IntStream.range(0, stringLen).forEach(index -> {
+        StringBuilder generatedString = new StringBuilder(stringLen);
+        char lastChar = ' ';
+        for (int index = 0; index < stringLen; index++) {
             double probability = Math.random();
+            Vertex vertex = asciiCharVertexes[lastChar];
+
             // can use a modified binary search here to improve search to O(logn) - ranges already sorted
-            for (CharProbabilityRange range : charProbabilityRanges) {
+            for (CharProbabilityRange range : vertex.probabilitiesOfNextChars) {
                 if (range.inRange(probability)) {
                     generatedString.append(range.character);
+                    lastChar = range.character;
                     break;
                 }
             }
-        });
+        }
         return generatedString.toString();
     }
 
-    public void trainAlgorithm(List<String> strings) {
-        double[] charProbabilities = calculateProbability(strings);
-
-        double probabilityRange = 0d;
-        for (int charAscii = 0; charAscii < charProbabilities.length; charAscii++) {
-            double probability = charProbabilities[charAscii];
-
-            if (probability != 0d) {
-                charProbabilityRanges.add(new CharProbabilityRange((char) charAscii,
-                        probabilityRange,
-                        probabilityRange + probability));
-
-                probabilityRange += probability;
-            }
-        }
-    }
-
-    private double[] calculateProbability(List<String> strings) {
-        double[] charProbabilities = new double[256];
-
-        for (String string : strings) {
-            char[] chars = string.toCharArray();
-            for (char chr : chars) {
-                // avoid unicode chars that can go out of ascii range
-                if (chr < 256) {
-                    charProbabilities[chr] += 1d;
-                }
-            }
-        }
-        double sampleSize = strings.stream().collect(Collectors.summingDouble(String::length));
-        IntStream.range(0, charProbabilities.length).forEach(index ->
-                charProbabilities[index] = charProbabilities[index] / sampleSize);
-
-        return charProbabilities;
-    }
-
     private void buildProbabilityGraph(List<String> strings) {
-        double[] charProbabilities = new double[256];
-        char previousChar = ' ';
+        createAsciiCharVertexes();
+        calculateCharFrequencies(strings);
+        calculateNextCharProbabilities();
+    }
 
+    private void createAsciiCharVertexes() {
+        for (int i = 0; i < ASCII_SET_LEN; i++) {
+            asciiCharVertexes[i] = Vertex.create((char) i);
+        }
+    }
+
+    private void calculateCharFrequencies(List<String> strings) {
+        char previousChar = ' ';
         for (String string : strings) {
             char[] chars = string.toCharArray();
             for (char chr : chars) {
                 // avoid unicode chars that can go out of ascii range
-                if (chr < 256) {
-                    Vertex v1 = Vertex.create(previousChar);
-                    Vertex v2 = Vertex.create(chr);
+                if (chr < ASCII_SET_LEN) {
+                    Vertex v1 = asciiCharVertexes[previousChar];
+                    Vertex v2 = asciiCharVertexes[chr];
 
                     Edge edge = probabilityGraph.getEdge(v1, v2);
                     if (edge != null) {
@@ -119,7 +99,27 @@ public class ProbabilityStringGeneration2 {
         }
     }
 
+    private void calculateNextCharProbabilities() {
+        Set<Vertex> vertexes = probabilityGraph.getVertexes();
+
+        for (Vertex vertex : vertexes) {
+            Map<Vertex, Edge> adjacentVertexes = probabilityGraph.getAdjacent(vertex);
+            double probabilityRange = 0d;
+            double adjacentWeightSum = adjacentVertexes.values()
+                    .stream().collect(Collectors.summingDouble(edge -> edge.weight));
+
+            for (Map.Entry<Vertex, Edge> entry : adjacentVertexes.entrySet()) {
+                double probability = entry.getValue().weight / adjacentWeightSum;
+                vertex.addProbabilityRange(new CharProbabilityRange(entry.getKey().character,
+                        probabilityRange, probabilityRange + probability));
+
+                probabilityRange += probability;
+            }
+        }
+    }
+
     private void testBuildProbabilityGraph() {
+        probabilityGraph.clear();
         String string = "these this those hose";
         buildProbabilityGraph(Lists.newArrayList(string));
 
@@ -134,34 +134,31 @@ public class ProbabilityStringGeneration2 {
         assertThat(probabilityGraph.getEdge(Vertex.create('h'), Vertex.create('e')).weight, is(1d));
         assertThat(probabilityGraph.getEdge(Vertex.create('t'), Vertex.create('o')), nullValue());
         assertThat(probabilityGraph.getEdge(Vertex.create(' '), Vertex.create('x')), nullValue());
-    }
 
-    private void testTrainAlgorithm() {
-        charProbabilityRanges.clear();
-        String string = "thou shalt not lie";
-        trainAlgorithm(Lists.newArrayList(string));
-
-        double firstRangeProbability = charProbabilityRanges.get(0).end;
-        assertThat(firstRangeProbability, closeTo(0.166, 0.006));
-
-        double lastRangeProbability = charProbabilityRanges.get(charProbabilityRanges.size() - 1).end;
-        assertThat(lastRangeProbability, closeTo(1d, 0.0000000000001d));
+        Set<Vertex> vertexes = probabilityGraph.getVertexes();
+        vertexes.forEach(v -> {
+            List<CharProbabilityRange> ranges = v.probabilitiesOfNextChars;
+            if (!ranges.isEmpty()) {
+                assertThat(ranges.get(0).start, is(0d));
+                assertThat(ranges.get(ranges.size() - 1).end, is(1d));
+            }
+        });
     }
 
     private void testGenerateStringWithProbability1() {
-        charProbabilityRanges.clear();
+        probabilityGraph.clear();
         String string = "ttttttttttttttttttttttttttttttttttttttttsssssssssssssssssssszzzzzzzzzzxxxxx" +
                 "abcdefghijklmnopqrstuvwxyz";
-        trainAlgorithm(Lists.newArrayList(string));
+        buildProbabilityGraph(Lists.newArrayList(string));
 
         // can't test random so let's print the strings generated with probabilities based on the trained algorithm
         for (int i = 1; i <= 30; i++) {
-            System.out.println(generateStringWithProbability(20));
+            System.out.println(generateProbabilisticString(20));
         }
     }
 
     private void testGenerateStringWithProbability2() {
-        charProbabilityRanges.clear();
+        probabilityGraph.clear();
         String string1 = "Q: What causes global warming?" +
                 "A: Global warming occurs when carbon dioxide (CO2) and other air pollutants collect in the atmosphere and absorb sunlight and solar radiation that have bounced off the earth’s surface. Normally, this radiation would escape into space—but these pollutants, which can last for years to centuries in the atmosphere, trap the heat and cause the planet to get hotter." +
                 "In the United States, the burning of fossil fuels to make electricity is the largest source of heat-trapping pollution, producing about two billion tons of CO2 every year. Coal-burning power plants are by far the biggest polluters. The country’s second-largest source of carbon pollution is the transportation sector, which generates about 1.7 billion tons of CO2 emissions a year." +
@@ -213,11 +210,11 @@ public class ProbabilityStringGeneration2 {
                 "Climate crisis and climate change are terms that can be uttered almost without taking thought, whereas global warming is a phrase over which one is obliged to linger at least momentarily. So linger a while before the attorneys general make it a thought crime to hold a different opinion." +
                 "  Share this on Facebook (155)" +
                 "  Tweet";
-        trainAlgorithm(Lists.newArrayList(string1, string2));
+        buildProbabilityGraph(Lists.newArrayList(string1, string2));
 
         // can't test random so let's print the strings generated with probabilities based on the trained algorithm
         for (int i = 0; i < 80; i++) {
-            System.out.println(generateStringWithProbability(40));
+            System.out.println(generateProbabilisticString(80));
         }
     }
 
@@ -244,6 +241,10 @@ public class ProbabilityStringGeneration2 {
     private static class ProbabilityGraph {
         private Table<Vertex, Vertex, Edge> graph = HashBasedTable.create();
 
+        public static ProbabilityGraph create() {
+            return new ProbabilityGraph();
+        }
+
         public void add(Vertex v1, Vertex v2, Edge e) {
             graph.put(v1, v2, e);
         }
@@ -253,7 +254,7 @@ public class ProbabilityStringGeneration2 {
         }
 
         public Set<Vertex> getVertexes() {
-            return Sets.union(graph.rowKeySet(), graph.columnKeySet());
+            return graph.rowKeySet();
         }
 
         public Map<Vertex, Edge> getAdjacent(Vertex v) {
@@ -264,9 +265,15 @@ public class ProbabilityStringGeneration2 {
             return graph.contains(v1, v2);
         }
 
+        public void clear() {
+            graph.clear();
+        }
+
         @Override
         public String toString() {
-            return "ProbabilityGraph [graph=" + graph + "]";
+            return "ProbabilityGraph{" +
+                    "graph=" + graph +
+                    '}';
         }
     }
 
@@ -284,17 +291,28 @@ public class ProbabilityStringGeneration2 {
         public void addWeight(double amount) {
             this.weight += amount;
         }
+
+        @Override
+        public String toString() {
+            return String.valueOf(weight);
+        }
     }
 
     private static class Vertex {
         private final char character;
+        private final List<CharProbabilityRange> probabilitiesOfNextChars;
 
         private Vertex(char character) {
             this.character = character;
+            probabilitiesOfNextChars = new ArrayList<>();
         }
 
         public static Vertex create(char character) {
             return new Vertex(character);
+        }
+
+        public void addProbabilityRange(CharProbabilityRange range) {
+            probabilitiesOfNextChars.add(range);
         }
 
         @Override
@@ -318,5 +336,4 @@ public class ProbabilityStringGeneration2 {
             return String.valueOf(character);
         }
     }
-
 }

@@ -12,10 +12,8 @@ import static org.hamcrest.Matchers.closeTo;
 import static org.junit.Assert.assertThat;
 
 /**
- * My solution to a Google interview question - probability is the overall probability of the chars in the text. A more
- * involved solution will account to the chars probability of occurring after each other.
- * One comment on Careercup, where the question is posted, suggested using a DAG to model such probability calculation.
- * Seems plausible on the first glance.
+ * My solution to a Google interview question - probability is the overall probability of the chars in the text. I wrote
+ * another solution which accounts for the probability of chars occurring after each other here: ProbabilityStringGeneration2.java
  * <p>
  * This is a two part question related to Markov string generation.
  * <p>
@@ -27,11 +25,11 @@ import static org.junit.Assert.assertThat;
  * <p>
  * Created by haytham.aldokanji on 5/22/16.
  */
-public class ProbabilityStringGeneration {
+public class ProbabilityStringGeneration1 {
     private final List<CharProbabilityRange> charProbabilityRanges = new ArrayList<>();
 
     public static void main(String[] args) {
-        ProbabilityStringGeneration driver = new ProbabilityStringGeneration();
+        ProbabilityStringGeneration1 driver = new ProbabilityStringGeneration1();
         driver.testCalculateProbability();
         driver.testTrainAlgorithm();
         driver.testGenerateStringWithProbability1();
