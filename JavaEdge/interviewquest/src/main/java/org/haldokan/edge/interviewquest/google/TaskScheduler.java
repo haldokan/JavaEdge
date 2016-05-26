@@ -2,16 +2,21 @@ package org.haldokan.edge.interviewquest.google;
 
 import com.google.common.collect.HashBasedTable;
 import com.google.common.collect.Table;
+import com.google.common.eventbus.EventBus;
+import com.google.common.eventbus.Subscribe;
 
 import java.time.LocalTime;
 import java.util.*;
 import java.util.concurrent.*;
 import java.util.stream.IntStream;
+import java.util.stream.LongStream;
 
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
 
 /**
+ * My solution to a Google interview question - @Inprogress
+ *
  * Given the interface below, implement a task scheduler. As a topper support parallel task execution
  * <p>
  * interface Task {
@@ -26,8 +31,15 @@ import static org.junit.Assert.assertThat;
  * Created by haytham.aldokanji on 5/24/16.
  */
 public class TaskScheduler {
-    private final Map<String, TaskRunState> taskRunStateMap = new ConcurrentHashMap<>();
-    private final ExecutorService taskRunner = Executors.newCachedThreadPool();
+    private final Map<String, TaskRunState> taskRunStateMap;
+    private final ExecutorService taskRunner;
+    private final EventBus taskEventBus;
+
+    private TaskScheduler() {
+        taskRunStateMap = new ConcurrentHashMap<>();
+        taskRunner = Executors.newCachedThreadPool();
+        taskEventBus = new EventBus("TaskEvents");
+    }
 
     public static void main(String[] args) throws Exception {
         TaskScheduler scheduler = TaskScheduler.create();
@@ -132,17 +144,17 @@ public class TaskScheduler {
                     tasksToRun.add(t);
                 }
             });
-            // todo: run tasks serially in order of dependency - inefficient in that we can't run independent tasks concurrently
-            // todo: When a task fails we should fail only the tasks dependent on it
-            Arrays.stream(tasks).forEach(Task::run);
+            Arrays.stream(tasks).forEach(taskRunner::submit);
             return Optional.of(tasksToRun.toArray(new Task[tasksToRun.size()]));
         }
     }
 
-    private class Task {
+    private class Task implements Runnable {
         private final String id;
         private final LocalTime time;
         private final Set<Task> dependencies;
+        private volatile boolean abort;
+        private CountDownLatch latch;
 
         private Task(String id, LocalTime time) {
             this.id = id;
@@ -158,7 +170,23 @@ public class TaskScheduler {
             if (taskRunStateMap.get(id) != TaskRunState.PENDING) {
                 System.out.println("Skipping running task '"
                         + id + "' because it is in state '" + taskRunStateMap.get(id) + "'");
+                taskEventBus.post(new RunStateEvent(id, TaskRunState.COMPLETED));
                 return;
+            }
+            latch = new CountDownLatch(dependencies.size());
+            for (; ; ) {
+                try {
+                    latch.await();
+                    if (abort) {
+                        System.out.println("@" + id + ": abort");
+                        taskRunStateMap.put(id, TaskRunState.IN_ERROR);
+                        taskEventBus.post(new RunStateEvent(id, TaskRunState.IN_ERROR));
+                        return;
+                    }
+                    break;
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
             }
             taskRunStateMap.put(id, TaskRunState.RUNNING);
             System.out.print(id);
@@ -168,11 +196,28 @@ public class TaskScheduler {
                 try {
                     Thread.sleep(100);
                 } catch (Exception e) {
+                    taskRunStateMap.put(id, TaskRunState.IN_ERROR);
+                    taskEventBus.post(new RunStateEvent(id, TaskRunState.IN_ERROR));
                     e.printStackTrace();
                 }
             });
             taskRunStateMap.put(id, TaskRunState.COMPLETED);
+            taskEventBus.post(new RunStateEvent(id, TaskRunState.COMPLETED));
             System.out.println("-->" + taskRunStateMap.get(id).toString().toLowerCase());
+        }
+
+        @Subscribe
+        public void onEvent(RunStateEvent event) {
+            boolean isDependency = dependencies.stream().map(d -> d.id).anyMatch(id -> id.equals(event.taskId));
+            if (isDependency) {
+                System.out.println("@" + id + ": " + event);
+                if (event.state == TaskRunState.IN_ERROR) {
+                    abort = true;
+                    LongStream.range(0l, latch.getCount()).forEach(i -> latch.countDown());
+                } else {
+                    latch.countDown();
+                }
+            }
         }
 
         public Set<Task> getDependencies() {
@@ -198,6 +243,21 @@ public class TaskScheduler {
         @Override
         public String toString() {
             return id;
+        }
+    }
+
+    private class RunStateEvent {
+        private final String taskId;
+        private final TaskRunState state;
+
+        public RunStateEvent(String taskId, TaskRunState state) {
+            this.taskId = taskId;
+            this.state = state;
+        }
+
+        @Override
+        public String toString() {
+            return taskId + "->" + state;
         }
     }
 
