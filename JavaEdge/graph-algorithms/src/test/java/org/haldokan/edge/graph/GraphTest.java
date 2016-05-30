@@ -42,7 +42,7 @@ public class GraphTest {
     public void dfsearchTest() {
         Graph<Vertex<Integer>, Edge<Vertex<Integer>>> g = makeGraph();
         GraphDFS<Integer> dfs = new GraphDFS<>();
-        dfs.traverse(g, v1);
+        dfs.traverse(g, v2);
     }
 
     @Test
@@ -88,13 +88,14 @@ public class GraphTest {
     }
 
     private Graph<Vertex<Integer>, Edge<Vertex<Integer>>> makeGraph() {
-        Graph<Vertex<Integer>, Edge<Vertex<Integer>>> g = new Graph<>(false);
+        Graph<Vertex<Integer>, Edge<Vertex<Integer>>> g = new Graph<>(true);
         g.add(v2, v1, new Edge<Vertex<Integer>>(1));
         g.add(v1, v5, new Edge<Vertex<Integer>>(7));
-        g.add(v6, v1, new Edge<Vertex<Integer>>(3));
+        g.add(v1, v6, new Edge<Vertex<Integer>>(3));
         g.add(v2, v3, new Edge<Vertex<Integer>>(1));
         g.add(v2, v5, new Edge<Vertex<Integer>>(4));
         g.add(v3, v4, new Edge<Vertex<Integer>>(5));
+        g.add(v2, v4, new Edge<Vertex<Integer>>(5));
         g.add(v4, v5, new Edge<Vertex<Integer>>(6));
         g.add(v5, v6, new Edge<Vertex<Integer>>(3));
 
