@@ -1,7 +1,7 @@
 package org.haldokan.edge.search;
 
 /**
- * find an element ina sorted array using binary search
+ * find an element in a sorted array using binary search
  *
  * @param <E>
  * @author haldokan
@@ -16,21 +16,25 @@ public class BinarySearch<E extends Comparable<E>> {
         System.out.println(bs.findIndex(77, a, 0, a.length));
         System.out.println(bs.findIndex(17, a, 0, a.length));
         System.out.println(bs.findIndex(555, a, 0, a.length));
+
+        a = new Integer[]{1};
+        System.out.println("->" + bs.findIndex(1, a, 0, a.length));
+        System.out.println("->" + bs.findIndex(5, a, 0, a.length));
     }
 
-    public int findIndex(E e, E[] a, int l, int h) {
-        if (h - l <= 1) {
+    public int findIndex(E element, E[] arr, int start, int end) {
+        if (end <= start) {
             return -1;
         }
 
-        int m = (l + h) / 2;
-        if (e.compareTo(a[m]) == 0) {
-            return m;
+        int mid = (start + end) / 2;
+        if (element.compareTo(arr[mid]) == 0) {
+            return mid;
         }
 
-        if (e.compareTo(a[m]) < 0)
-            return findIndex(e, a, l, m);
+        if (element.compareTo(arr[mid]) < 0)
+            return findIndex(element, arr, start, mid - 1);
         else
-            return findIndex(e, a, m, h);
+            return findIndex(element, arr, mid + 1, end);
     }
 }
