@@ -1,7 +1,7 @@
 package org.haldokan.edge.search;
 
 /**
- * find an element in a sorted array using binary search
+ * find an element in a sorted array using binary search.
  *
  * @param <E>
  * @author haldokan
