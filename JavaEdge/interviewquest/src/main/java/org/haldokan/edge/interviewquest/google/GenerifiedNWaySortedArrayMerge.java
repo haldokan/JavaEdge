@@ -52,7 +52,9 @@ public class GenerifiedNWaySortedArrayMerge<T extends Comparable<T>> {
         }
 
         @SuppressWarnings("unchecked")
-        T[] mergedArr = (T[]) Array.newInstance(klass, Arrays.stream(arrays).collect(Collectors.summingInt(array -> array.length)));
+        T[] mergedArr = (T[]) Array.newInstance(klass,
+                Arrays.stream(arrays).collect(Collectors.summingInt(array -> array.length)));
+
         int[] activeIndexes = new int[arrays.length];
         int mergeIndex = 0;
         for (; ; ) {
@@ -91,7 +93,7 @@ public class GenerifiedNWaySortedArrayMerge<T extends Comparable<T>> {
             activeIndex = activeIndexes[i];
 
             if (activeIndex != -1) {
-                if (arrays[i][activeIndex].compareTo(arrays[minLocation[0]][minLocation[1]]) == -1) {
+                if (arrays[i][activeIndex].compareTo(arrays[minLocation[0]][minLocation[1]]) <= 0) {
                     minLocation[0] = i;
                     minLocation[1] = activeIndex;
                 }
