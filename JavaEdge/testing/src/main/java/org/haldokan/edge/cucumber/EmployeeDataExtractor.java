@@ -35,8 +35,8 @@ public class EmployeeDataExtractor {
     private final ObjectMapper jsonMapper;
 
     private EmployeeDataExtractor(String[] runConfigs) {
-        restTemplate = new RestTemplate();
         runConfigsTable = parseRunConfigs(runConfigs);
+        restTemplate = new RestTemplate();
         jsonMapper = new ObjectMapper();
         System.out.println("Run Configs: " + runConfigsTable);
     }
@@ -47,15 +47,15 @@ public class EmployeeDataExtractor {
     }
 
     public void run() {
-        String extract = downloadExtract();
+        String authenticationToken = getAuthenticationToken();
+        String extract = downloadExtract(authenticationToken);
         uploadExtract(extract);
     }
 
-    private String downloadExtract() {
-        String authenticationToken = getAuthenticationToken();
+    private String downloadExtract(String authenticationToken) {
 
         HttpHeaders headers = new HttpHeaders();
-        headers.put(CONN_AUTH_HEADER_KEY, Arrays.asList(TOKEN_PREFIX + " " + authenticationToken));
+        headers.put(CONN_AUTH_HEADER_KEY, Arrays.asList(TOKEN_PREFIX, " ", authenticationToken));
         HttpEntity<String> request = new HttpEntity<>(headers);
 
         String dataUrl = runConfigsTable.get(URL_KEY) + runConfigsTable.get(DATA_ENDPOINT_KEY);
@@ -65,7 +65,7 @@ public class EmployeeDataExtractor {
     }
 
     public void uploadExtract(String extract) {
-        System.out.printf("%s%n", extract);
+        System.out.printf("Extract: %s%n", extract);
     }
 
     Map<String, String> parseRunConfigs(String[] runConfigs) {
@@ -102,7 +102,7 @@ public class EmployeeDataExtractor {
         String authenticationUrl = runConfigsTable.get(URL_KEY) + runConfigsTable.get(AUTH_ENDPOINT_KEY);
         System.out.println("authenticating using endpoint: " + authenticationUrl);
 
-        String credentials = new Credentials(runConfigsTable.get(USERNAME_KEY),
+        String credentials = new CredentialsConverter(runConfigsTable.get(USERNAME_KEY),
                 runConfigsTable.get(PASSWORD_KEY)).toJson(jsonMapper);
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
@@ -113,17 +113,17 @@ public class EmployeeDataExtractor {
                 authenticationRequest,
                 String.class);
 
-        return AuthenticationToken.fromJson(jsonMapper, authenticationResponse).getAccessToken();
+        return AuthenticationTokenConverter.fromJson(jsonMapper, authenticationResponse).getAccessToken();
     }
 
-    private static class AuthenticationToken {
+    private static class AuthenticationTokenConverter {
         private long expires;
         @JsonProperty(value = "access_token")
         private String accessToken;
 
-        private static AuthenticationToken fromJson(ObjectMapper jsonMapper, String token) {
+        private static AuthenticationTokenConverter fromJson(ObjectMapper jsonMapper, String token) {
             try {
-                return jsonMapper.readValue(token, AuthenticationToken.class);
+                return jsonMapper.readValue(token, AuthenticationTokenConverter.class);
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
@@ -138,11 +138,11 @@ public class EmployeeDataExtractor {
         }
     }
 
-    private static class Credentials {
+    private static class CredentialsConverter {
         private final String username;
         private final String password;
 
-        public Credentials(String username, String password) {
+        public CredentialsConverter(String username, String password) {
             this.username = username;
             this.password = password;
         }
