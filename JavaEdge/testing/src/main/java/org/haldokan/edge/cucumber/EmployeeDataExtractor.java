@@ -4,15 +4,15 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.base.Throwables;
+import com.google.common.collect.Lists;
 import org.apache.commons.vfs2.*;
-import org.apache.commons.vfs2.provider.local.LocalFile;
+import org.apache.commons.vfs2.provider.sftp.IdentityInfo;
 import org.apache.commons.vfs2.provider.sftp.SftpFileSystemConfigBuilder;
 import org.springframework.http.*;
 import org.springframework.web.client.RestTemplate;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.Arrays;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
@@ -28,8 +28,11 @@ public class EmployeeDataExtractor {
     private static final String URL_KEY = "url";
     private static final String FTP_HOST_KEY = "ftpHost";
     private static final String FTP_PORT_KEY = "ftpPort";
-    private static final String FTP_KEY_FILE_KEY = "ftpKeyFile";
+    private static final String FTP_PRIVATE_KEY_FILE_KEY = "ftpKeyFile";
     private static final String FTP_USER_KEY = "ftpUser";
+    private static final String FTP_LOCAL_DIR_KEY = "ftpLocalDir";
+    private static final String FTP_REMOTE_DIR_KEY = "ftpRemoteDir";
+    private static final String FTP_REMOTE_FILE_KEY = "ftpRemoteFile";
     private static final String AUTH_ENDPOINT_KEY = "authEPoint";
     private static final String DATA_ENDPOINT_KEY = "dataEPoint";
     private static final String TOKEN_PREFIX = "Bearer";
@@ -37,8 +40,12 @@ public class EmployeeDataExtractor {
     private static final String DEFAULT_AUTH_ENDPOINT = "/api/auth/token";
     private static final String DEFAULT_DATA_ENDPOINT = "/api/platform/employees";
     private static final String DEFAULT_TOKEN_PREFIX = "Bearer";
+    private static final String DEFAULT_FTP_LOCAL_DIR = System.getProperty("java.io.tmpdir");
+    private static final String DEFAULT_FTP_REMOTEL_DIR = "replace";
+    private static final String DEFAULT_FTP_REMOTEL_File = "employee-contacts";
     private static final int DEFAULT_FTP_PORT = 22;
-    private static final String DEFAULT_FTP_KEY_FILE = "IONTrading-ossh.ppk";
+    //Note: the one Evrebridge provides does not work: has first to be converted to ossh using puttyGen
+    private static final String DEFAULT_FTP_PRIVATE_KEY_FILE = "/Users/haytham.aldokanji/misc/IONTrading-ossh.ppk";
 
     private final RestTemplate restTemplate;
     private final Map<String, String> runConfigsTable;
@@ -69,7 +76,7 @@ public class EmployeeDataExtractor {
 
     private String downloadExtract(String authenticationToken) {
         HttpHeaders headers = new HttpHeaders();
-        headers.put(CONN_AUTH_HEADER_KEY, Arrays.asList(TOKEN_PREFIX + " " + authenticationToken));
+        headers.put(CONN_AUTH_HEADER_KEY, Lists.newArrayList(TOKEN_PREFIX + " " + authenticationToken));
         HttpEntity<String> request = new HttpEntity<>(headers);
 
         String dataUrl = runConfigsTable.get(URL_KEY) + runConfigsTable.get(DATA_ENDPOINT_KEY);
@@ -78,20 +85,16 @@ public class EmployeeDataExtractor {
         return response.getBody();
     }
 
-
-    public void uploadExtract(String extract) {
+    private void uploadExtract(String extract) {
         // do transformation and create file
         try {
-            ftp(runConfigsTable.get(FTP_HOST_KEY),
-                    runConfigsTable.get(FTP_USER_KEY), "/Users/haytham.aldokanji/misc/IONTrading-ossh.ppk",
-                    "replace", "Testfile3", "/Users/haytham.aldokanji/misc/", "everbridge");
+            ftp("everbridge");
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
-
     }
 
-    public String getAuthenticationToken() {
+    private String getAuthenticationToken() {
         String authenticationUrl = runConfigsTable.get(URL_KEY) + runConfigsTable.get(AUTH_ENDPOINT_KEY);
         System.out.println("authenticating using endpoint: " + authenticationUrl);
 
@@ -109,6 +112,7 @@ public class EmployeeDataExtractor {
         return AuthenticationTokenConverter.fromJson(jsonMapper, authenticationResponse).getAccessToken();
     }
 
+    // TODO: this will go away once we used Springboot
     private Map<String, String> parseRunConfigs(String[] runConfigs) {
         Map<String, String> paramMap = new LinkedHashMap<>();
 
@@ -142,33 +146,44 @@ public class EmployeeDataExtractor {
         if (!paramMap.containsKey(FTP_PORT_KEY)) {
             paramMap.put(FTP_PORT_KEY, String.valueOf(DEFAULT_FTP_PORT));
         }
-        if (!paramMap.containsKey(FTP_KEY_FILE_KEY)) {
-            paramMap.put(FTP_KEY_FILE_KEY, DEFAULT_FTP_KEY_FILE);
+        if (!paramMap.containsKey(FTP_PRIVATE_KEY_FILE_KEY)) {
+            paramMap.put(FTP_PRIVATE_KEY_FILE_KEY, DEFAULT_FTP_PRIVATE_KEY_FILE);
         }
-
+        if (!paramMap.containsKey(FTP_LOCAL_DIR_KEY)) {
+            paramMap.put(FTP_LOCAL_DIR_KEY, DEFAULT_FTP_LOCAL_DIR);
+        }
+        if (!paramMap.containsKey(FTP_REMOTE_DIR_KEY)) {
+            paramMap.put(FTP_REMOTE_DIR_KEY, DEFAULT_FTP_REMOTEL_DIR);
+        }
+        if (!paramMap.containsKey(FTP_REMOTE_FILE_KEY)) {
+            paramMap.put(FTP_REMOTE_FILE_KEY, DEFAULT_FTP_REMOTEL_File);
+        }
         return paramMap;
     }
 
-    public void ftp(String server, String userName, String openSSHPrivateKey,
-                    String remoteDir, String remoteFile, String localDir, String localFileName) throws IOException {
-
+    private void ftp(String fileName) {
         FileSystemOptions fsOptions = new FileSystemOptions();
-        FileSystemManager fsManager = null;
-        String remoteURL = "sftp://" + userName + "@" + server + "/" + remoteDir + "/" + remoteFile;
-        String localURL = "file://" + localDir + "/" + localFileName;
+        FileSystemManager fsManager;
+        //TODO: constructing the urls should be done once (at least for the remote url)
+        String remoteURL = "sftp://" + runConfigsTable.get(FTP_USER_KEY) + "@" + runConfigsTable.get(FTP_HOST_KEY)
+                + "/" + runConfigsTable.get(FTP_REMOTE_DIR_KEY) + "/" + runConfigsTable.get(FTP_REMOTE_FILE_KEY);
+        String localURL = "file://" + runConfigsTable.get(FTP_LOCAL_DIR_KEY) + "/" + fileName;
 
         try {
-            SftpFileSystemConfigBuilder.getInstance().setStrictHostKeyChecking(fsOptions, "no");
-            SftpFileSystemConfigBuilder.getInstance().setIdentities(fsOptions, new File(openSSHPrivateKey));
-            fsManager = VFS.getManager();
+            SftpFileSystemConfigBuilder sftpConfigs = SftpFileSystemConfigBuilder.getInstance();
 
+            sftpConfigs.setStrictHostKeyChecking(fsOptions, "no");
+            IdentityInfo privateKey = new IdentityInfo(new File(runConfigsTable.get(FTP_PRIVATE_KEY_FILE_KEY)));
+            sftpConfigs.setIdentityInfo(fsOptions, privateKey);
+
+            fsManager = VFS.getManager();
             FileObject remoteFileObject = fsManager.resolveFile(remoteURL, fsOptions);
-            LocalFile localFile = (LocalFile) fsManager.resolveFile(localURL);
+            FileObject localFile = fsManager.resolveFile(localURL);
             remoteFileObject.copyFrom(localFile, Selectors.SELECT_SELF);
+
             System.out.println("copied " + localFile + " -> " + remoteFileObject);
         } catch (FileSystemException e) {
-            e.printStackTrace();
-            throw new IOException(e);
+            throw new RuntimeException(e);
         }
     }
 
