@@ -2,7 +2,10 @@ package org.haldokan.edge.cucumber;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.dataformat.csv.CsvMapper;
+import com.fasterxml.jackson.dataformat.csv.CsvSchema;
 import com.google.common.base.Throwables;
 import com.google.common.collect.Lists;
 import org.apache.commons.vfs2.*;
@@ -13,15 +16,19 @@ import org.springframework.web.client.RestTemplate;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.Writer;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.time.LocalDate;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
  * Extract all employee data from ConnectION and ftp it to Everbridge
- * Created by haytham.aldokanji on 6/3/16.
+ *
  */
-
-//TODO REPLACE all sout with the logging
 public class EmployeeDataExtractor {
     private static final String USERNAME_KEY = "uname";
     private static final String PASSWORD_KEY = "pwd";
@@ -42,7 +49,7 @@ public class EmployeeDataExtractor {
     private static final String DEFAULT_TOKEN_PREFIX = "Bearer";
     private static final String DEFAULT_FTP_LOCAL_DIR = System.getProperty("java.io.tmpdir");
     private static final String DEFAULT_FTP_REMOTEL_DIR = "replace";
-    private static final String DEFAULT_FTP_REMOTEL_File = "employee-contacts";
+    private static final String DEFAULT_FTP_FILE_NAME = "employee-contacts";
     private static final int DEFAULT_FTP_PORT = 22;
     //Note: the one Evrebridge provides does not work: has first to be converted to ossh using puttyGen
     private static final String DEFAULT_FTP_PRIVATE_KEY_FILE = "/Users/haytham.aldokanji/misc/IONTrading-ossh.ppk";
@@ -68,13 +75,13 @@ public class EmployeeDataExtractor {
         }
     }
 
-    public void run() {
+    public void run() throws IOException {
         String authenticationToken = getAuthenticationToken();
-        String extract = downloadExtract(authenticationToken);
-        uploadExtract(extract);
+        List<Contact> contactsExtract = downloadContactsExtract(authenticationToken);
+        uploadContactsExtract(contactsExtract);
     }
 
-    private String downloadExtract(String authenticationToken) {
+    private List<Contact> downloadContactsExtract(String authenticationToken) throws IOException {
         HttpHeaders headers = new HttpHeaders();
         headers.put(CONN_AUTH_HEADER_KEY, Lists.newArrayList(TOKEN_PREFIX + " " + authenticationToken));
         HttpEntity<String> request = new HttpEntity<>(headers);
@@ -82,19 +89,26 @@ public class EmployeeDataExtractor {
         String dataUrl = runConfigsTable.get(URL_KEY) + runConfigsTable.get(DATA_ENDPOINT_KEY);
         ResponseEntity<String> response = restTemplate.exchange(dataUrl, HttpMethod.GET, request, String.class);
 
-        return response.getBody();
+        List<Contact> contacts = jsonMapper.readValue(response.getBody(), new TypeReference<List<Contact>>() {
+        });
+        System.out.printf("downloaded %d %s%n", contacts.size(), "contacts");
+
+        return contacts;
     }
 
-    private void uploadExtract(String extract) {
-        // do transformation and create file
-        try {
-            ftp("everbridge");
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
+    private void uploadContactsExtract(List<Contact> contacts) throws IOException {
+        CsvMapper mapper = new CsvMapper();
+        CsvSchema schema = mapper.schemaFor(Contact.class).withHeader();
+
+        String fileName = DEFAULT_FTP_FILE_NAME + LocalDate.now();
+        Path ftpLocalPath = Paths.get(runConfigsTable.get(FTP_LOCAL_DIR_KEY), fileName);
+        Writer writer = Files.newBufferedWriter(ftpLocalPath);
+        mapper.writer(schema).writeValue(writer, contacts);
+
+        ftpContacts(ftpLocalPath);
     }
 
-    private String getAuthenticationToken() {
+    private String getAuthenticationToken() throws IOException {
         String authenticationUrl = runConfigsTable.get(URL_KEY) + runConfigsTable.get(AUTH_ENDPOINT_KEY);
         System.out.println("authenticating using endpoint: " + authenticationUrl);
 
@@ -110,6 +124,28 @@ public class EmployeeDataExtractor {
                 String.class);
 
         return AuthenticationTokenConverter.fromJson(jsonMapper, authenticationResponse).getAccessToken();
+    }
+
+    private void ftpContacts(Path ftpLocalPath) throws IOException {
+        FileSystemOptions fsOptions = new FileSystemOptions();
+        FileSystemManager fsManager;
+        //TODO: constructing the urls should be done once (at least for the remote url)
+        String remoteURL = "sftp://" + runConfigsTable.get(FTP_USER_KEY) + "@" + runConfigsTable.get(FTP_HOST_KEY)
+                + "/" + runConfigsTable.get(FTP_REMOTE_DIR_KEY) + "/" + runConfigsTable.get(FTP_REMOTE_FILE_KEY);
+        String localURL = "file://" + ftpLocalPath;
+
+        SftpFileSystemConfigBuilder sftpConfigs = SftpFileSystemConfigBuilder.getInstance();
+
+        sftpConfigs.setStrictHostKeyChecking(fsOptions, "no");
+        IdentityInfo privateKey = new IdentityInfo(new File(runConfigsTable.get(FTP_PRIVATE_KEY_FILE_KEY)));
+        sftpConfigs.setIdentityInfo(fsOptions, privateKey);
+
+        fsManager = VFS.getManager();
+        FileObject remoteFileObject = fsManager.resolveFile(remoteURL, fsOptions);
+        FileObject localFile = fsManager.resolveFile(localURL);
+        remoteFileObject.copyFrom(localFile, Selectors.SELECT_SELF);
+
+        System.out.println("copied " + localFile + " -> " + remoteFileObject);
     }
 
     // TODO: this will go away once we used Springboot
@@ -156,35 +192,9 @@ public class EmployeeDataExtractor {
             paramMap.put(FTP_REMOTE_DIR_KEY, DEFAULT_FTP_REMOTEL_DIR);
         }
         if (!paramMap.containsKey(FTP_REMOTE_FILE_KEY)) {
-            paramMap.put(FTP_REMOTE_FILE_KEY, DEFAULT_FTP_REMOTEL_File);
+            paramMap.put(FTP_REMOTE_FILE_KEY, DEFAULT_FTP_FILE_NAME);
         }
         return paramMap;
-    }
-
-    private void ftp(String fileName) {
-        FileSystemOptions fsOptions = new FileSystemOptions();
-        FileSystemManager fsManager;
-        //TODO: constructing the urls should be done once (at least for the remote url)
-        String remoteURL = "sftp://" + runConfigsTable.get(FTP_USER_KEY) + "@" + runConfigsTable.get(FTP_HOST_KEY)
-                + "/" + runConfigsTable.get(FTP_REMOTE_DIR_KEY) + "/" + runConfigsTable.get(FTP_REMOTE_FILE_KEY);
-        String localURL = "file://" + runConfigsTable.get(FTP_LOCAL_DIR_KEY) + "/" + fileName;
-
-        try {
-            SftpFileSystemConfigBuilder sftpConfigs = SftpFileSystemConfigBuilder.getInstance();
-
-            sftpConfigs.setStrictHostKeyChecking(fsOptions, "no");
-            IdentityInfo privateKey = new IdentityInfo(new File(runConfigsTable.get(FTP_PRIVATE_KEY_FILE_KEY)));
-            sftpConfigs.setIdentityInfo(fsOptions, privateKey);
-
-            fsManager = VFS.getManager();
-            FileObject remoteFileObject = fsManager.resolveFile(remoteURL, fsOptions);
-            FileObject localFile = fsManager.resolveFile(localURL);
-            remoteFileObject.copyFrom(localFile, Selectors.SELECT_SELF);
-
-            System.out.println("copied " + localFile + " -> " + remoteFileObject);
-        } catch (FileSystemException e) {
-            throw new RuntimeException(e);
-        }
     }
 
     private static class AuthenticationTokenConverter {
@@ -192,12 +202,8 @@ public class EmployeeDataExtractor {
         @JsonProperty(value = "access_token")
         private String accessToken;
 
-        private static AuthenticationTokenConverter fromJson(ObjectMapper jsonMapper, String token) {
-            try {
-                return jsonMapper.readValue(token, AuthenticationTokenConverter.class);
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
+        private static AuthenticationTokenConverter fromJson(ObjectMapper jsonMapper, String token) throws IOException {
+            return jsonMapper.readValue(token, AuthenticationTokenConverter.class);
         }
 
         public long getExpires() {
