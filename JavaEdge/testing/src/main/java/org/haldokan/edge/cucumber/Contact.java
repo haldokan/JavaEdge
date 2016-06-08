@@ -2,17 +2,20 @@ package org.haldokan.edge.cucumber;
 
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
-@JsonPropertyOrder(value = {"id", "firstName", "lastName", "externalId", "workEmail", "address1", "recordType",
+@JsonPropertyOrder(value = {"id", "firstName", "lastName", "externalId", "workEmail", "recordType",
         "location1", "country1", "city1", "state1", "postalCode1", "country2", "workPhone", "sms1", "personalPhone", "sms2"})
 public class Contact {
+    private static final String DEFAULT_RECORD_TYPE = "employee";
+    private static final String CSV_HEADER = "ID,First Name,Last Name,External ID,Email Address 1,Record Type,Location 1," +
+            "Country,City 1,State/Province 1,Postal Code 1,Country 1,Phone 1,SMS 1,Phone 2,SMS 2\n";
+    
     private String id;
     private String firstName;
     private String lastName;
     private String externalId;
     private String workEmail;
     private String personalEmail;
-    private String address1;
-    private String recordType;
+    private String recordType = DEFAULT_RECORD_TYPE;
     private String location1;
     private String country1;
     private String country2;
@@ -25,10 +28,9 @@ public class Contact {
     private String sms2;
     private String sms1;
 
-    //First Name	Last Name	External ID	Email Address 1	Record Type	Location 1	Country	City 1	State/Province 1
-    // Postal Code 1	Country 1	Phone 1	SMS 1	Phone 2	SMS 2
-    //Paul	Gunning	p.gunning@iontrading.com	p.gunning@iontrading.com	Employee	London	GB	London		E1 8EU
-    // GB	61481142842	61481142842	+61-423-450-734	+61-423-450-734
+    public static String getCsvHeader() {
+        return CSV_HEADER;
+    }
 
     public String getId() {
         return id;
@@ -48,10 +50,6 @@ public class Contact {
 
     public String getWorkEmail() {
         return workEmail;
-    }
-
-    public String getAddress1() {
-        return address1;
     }
 
     public String getRecordType() {
@@ -102,6 +100,10 @@ public class Contact {
         return homePhone;
     }
 
+    public String getPersonalEmail() {
+        return personalEmail;
+    }
+
     @Override
     public String toString() {
         return "Contact{" +
@@ -111,7 +113,6 @@ public class Contact {
                 ", externalId='" + externalId + '\'' +
                 ", workEmail='" + workEmail + '\'' +
                 ", personalEmail='" + personalEmail + '\'' +
-                ", address1='" + address1 + '\'' +
                 ", recordType='" + recordType + '\'' +
                 ", location1='" + location1 + '\'' +
                 ", country1='" + country1 + '\'' +
@@ -126,9 +127,4 @@ public class Contact {
                 ", sms1='" + sms1 + '\'' +
                 '}';
     }
-
-    public String getPersonalEmail() {
-        return personalEmail;
-    }
-
 }
