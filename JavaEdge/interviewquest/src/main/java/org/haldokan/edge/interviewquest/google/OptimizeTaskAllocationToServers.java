@@ -20,7 +20,7 @@ import java.util.stream.Collectors;
  * Task capacity needs: 4
  * For this example, program should return false.
  * <p>
- * Created by haytham.aldokanji on 6/5/16.
+ * Created by haytham.aldokanji on 6/5/16 .
  */
 public class OptimizeTaskAllocationToServers {
 
