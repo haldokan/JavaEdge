@@ -7,9 +7,8 @@ import java.util.*;
 import java.util.concurrent.*;
 
 /**
- * <p>
  * My solution to a Google interview question
- * <p>
+ * The Question: 5_STAR
  * Design (I actullay implemented) an image server that can serve requests concurrently and
  * keep only the N most recently served images in the cache.
  *
@@ -153,7 +152,6 @@ public class ImageCacheServer {
             parkedThread.notify(image);
         }
     }
-
 
     /**
      * Update image access chain replacing old entries with most recent ones. Note how we avoid using and expensive sorted
