@@ -10,7 +10,9 @@ import static org.junit.Assert.assertThat;
  * My solution to a Google interview question - inserting the nodes in pre-order traversal reconstructs the tree. Also
  * inserting the nodes in reverse post-order traversal reconstructs the tree. Only in-order traversal forgets
  * the structure of the tree. I present here reconstructing the tree based on each of pre- and post-order traversals.
- * <p>
+ *
+ * The Question: 3_STAR
+ *
  * You are given printouts from an algorithm which ran over a sorted binary tree. One printout is from an in-order run
  * and another from a pre-order run. Can you reconstruct the tree? If so, then write an algorithm.
  * <p>

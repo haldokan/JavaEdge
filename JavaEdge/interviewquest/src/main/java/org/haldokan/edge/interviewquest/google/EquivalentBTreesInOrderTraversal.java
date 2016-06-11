@@ -7,7 +7,9 @@ import java.util.concurrent.TimeUnit;
 /**
  * My solution to a Google interview question. It short-circuit traversing the trees at the first non-equal nodes.
  * I think it can be resolved w/o using an instance variable 'equivalent' but this would be more involved
- * <p>
+ *
+ * The Question: 4_STAR
+ *
  * Given two binary trees ( not BST) , return true if both of them have same inorder else return false.
  * Eg.
  * <p>

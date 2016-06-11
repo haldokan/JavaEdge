@@ -17,6 +17,8 @@ import static org.junit.Assert.assertThat;
  * of tags associated with it. Finding the ranges associated with a set of tags requires scanning the set of ranges in
  * O(n) and returning the ranges with tag sets containing the search tag set.
  *
+ * The Question: 4_STAR
+ *
  * We have a long string. We label some substrings with tags.
  * <p>
  * - A tag entry is [startIndex, endIndex, tag].

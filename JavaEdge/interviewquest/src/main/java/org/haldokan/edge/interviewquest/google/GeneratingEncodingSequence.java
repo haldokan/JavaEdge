@@ -9,7 +9,9 @@ import static org.junit.Assert.assertThat;
 
 /**
  * My solution to a Google interview question
- * <p>
+ *
+ * The Question: 3_STAR
+ * 
  * Look at the sequence below:
  * 1, 11, 21, 1211, 111221, 312211, ...
  * Starting at index 2 each element in the sequence describes the previous element. the 21 at index there means that

@@ -5,7 +5,9 @@ import java.util.List;
 
 /**
  * My solution to a Google interview question
- * <p>
+ *
+ * The Question: 3_STAR
+ *
  * Number list compression.
  * Given an sorted array (example):
  * 1, 2, 3,10, 25, 26, 30, 31, 32, 33

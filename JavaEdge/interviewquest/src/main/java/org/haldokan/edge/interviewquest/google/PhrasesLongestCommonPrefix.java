@@ -7,6 +7,8 @@ import java.util.List;
  * My solution to a Google interview question. Similar approach can be implemented iterating over the phrases chars. A
  * more complex approach is using prefix arrays or tries.
  * <p>
+ * The Question (3_STARS):
+ *
  * Find the longest common prefix in a list of phrases. For instance; "i love all dogs", "i love cats" should return
  * "i love".
  *
@@ -15,8 +17,8 @@ import java.util.List;
 public class PhrasesLongestCommonPrefix {
     public static void main(String[] args) {
         PhrasesLongestCommonPrefix driver = new PhrasesLongestCommonPrefix();
-        List<String> phrases = Arrays.asList(new String[]{"If I had a million dollars", "If I had a chance",
-                "If I had married her"});
+        List<String> phrases = Arrays.asList("If I had a million dollars", "If I had a chance",
+                "If I had married her");
         System.out.println(driver.longestCommonPrefix(phrases));
     }
 

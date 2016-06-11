@@ -5,7 +5,9 @@ import java.util.stream.Stream;
 
 /**
  * My solution to a Google interview question
- * <p>
+ *
+ * The Question: 3_STAR
+ *
  * Consider a setup where a program is continuously receiving floats as inputs (a stream of numbers).
  * Write a method that at any given time returns a moving average. That is the average of the last K numbers received.
  * If the method is called before the program has received K numbers, simply return the average of however many numbers

@@ -9,7 +9,9 @@ import static org.junit.Assert.assertThat;
 
 /**
  * My solution to a Google interview question - O(n) space and O(nlogn) time.
- * <p>
+ *
+ * The Question: 3_STAR
+ *
  * Given an unsorted array of natural numbers where numbers repeat in array. Output up to N numbers in order of frequency.
  * N is passed as parameter.
  * <p>

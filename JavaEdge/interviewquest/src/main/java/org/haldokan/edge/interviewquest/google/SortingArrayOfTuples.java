@@ -9,7 +9,9 @@ import static org.junit.Assert.assertThat;
 /**
  * My solution to a Google interview question - used my other solution for a different Google question
  * GenerifiedNWaySortedArrayMerge to merge the tuples. Solution works for any number of tuples.
- * <p>
+ *
+ * The Question: 4_STAR
+ *
  * There is an array of 3-tuple, in the form of (a, 1, 5). The first element in the tuple is the id, the second and
  * third elements are both integers, and the third is always larger than or equal to the second. Assume that the array
  * is sorted based on the second element of the tuple. Write a function that breaks each of the 3-tuple into

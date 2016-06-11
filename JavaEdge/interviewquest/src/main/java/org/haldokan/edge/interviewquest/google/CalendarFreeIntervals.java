@@ -6,9 +6,10 @@ import java.util.Iterator;
 import java.util.List;
 
 /**
- * My solution to a Google interview question. It is actually a slight variation on a Linked in question that I resolved
+ * My solution to a Google interview question. It is actually a slight variation on a LinkedIn question that I resolved
  * under linkedin/RangeMerge.
  *
+ * The Question: 3_STAR
  * Given a set of busy time intervals of two persons as in a calendar, find the free time intervals of both persons so
  * as to arrange a new meeting input: increasing sequence of pair of numbers
  * person 1: (1,5) (10, 14) (19,20) (27,30)

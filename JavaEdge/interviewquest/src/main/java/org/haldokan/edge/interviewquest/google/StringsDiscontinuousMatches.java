@@ -16,7 +16,9 @@ import static org.junit.Assert.assertThat;
  * dynamic programming we build an index table that keeps track of a char index in the different developing matches. As
  * for complexity, for every char we examine the previous char matching indexes which leads to O(n^2) + m time where n is
  * the length of the first string and m is the length of the second string.
- * <p>
+ *
+ * The Question: 5_STAR
+ *
  * Question: Given two strings, find number of discontinuous matches.
  * Example: “cat”, “catapult”
  * Output: 3   => “CATapult”, “CatApulT”, “CAtapulT”

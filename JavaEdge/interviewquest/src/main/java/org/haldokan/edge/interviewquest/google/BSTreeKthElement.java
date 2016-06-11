@@ -9,6 +9,7 @@ import java.util.Map;
  * My solution to a Google interview question - to identify processed nodes I used an IdentityHashMap which is suitable for such
  * purpose (read docs). I wonder if it would be possible to solve this problem iteratively w/o using the 'processed' map
  * <p>
+ * The Question: 3_STAR
  * You are given a binary search tree and a positive integer K. Return the K-th element of the tree.
  * No pre-processing or modifying of the tree is allowed.
  * Created by haytham.aldokanji on 9/30/15.

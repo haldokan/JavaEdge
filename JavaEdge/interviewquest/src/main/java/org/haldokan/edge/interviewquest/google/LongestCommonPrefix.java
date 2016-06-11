@@ -12,7 +12,9 @@ import static org.junit.Assert.assertThat;
  * and n is the number of phrases
  * The problem can be solved using prefix trie in O(m + n) but that is very inefficient in space: insert every phrase
  * in the prefix tries keeping track of the length longest prefix path in the trie.
- * <p>
+ *
+ * The Question: 3_STAR
+ *
  * Find the longest common prefix in a list of phrases.
  * For instance; "i love all dogs", "i love cats" should return "i love".
  * <p>

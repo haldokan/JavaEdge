@@ -8,7 +8,9 @@ import static org.junit.Assert.assertThat;
 /**
  * My solution to a Google interview question - I solved for the general case of N words. In this solution I used another
  * solution that I provided to a different Google interview question: it does an N-way merge of sorted arrays.
- * <p>
+ *
+ * The Question (4_STARS):
+ *
  * We have words and there positions in a paragraph in sorted order. Write an algorithm to find the least distance
  * for a given 3 words.
  * eg. for 3 words

@@ -19,6 +19,7 @@ import static org.junit.Assert.assertThat;
  * complexity.
  *
  * The Question (5_STARS):
+ *
  * There are at most eight servers in a data center. Each server has got a capacity/memory limit.
  * There can be at most 8 tasks that need to be scheduled on those servers. Each task requires certain capacity/memory
  * to run, and each server can handle multiple tasks as long as the capacity limit is not hit.

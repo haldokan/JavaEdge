@@ -14,7 +14,9 @@ import static org.junit.Assert.assertThat;
  * reverse order to build the longest sequence. The complexity of the algorithm: At every index i we
  * have to scan all elements less than i so the number of iterations is the sum of this sequence 0 + 1 + 2 + 3 + ..... + n
  * which is quadratic: O(n^2).
- * <p>
+ *
+ * The Question: 5_STAR
+ *
  * You are given an unsorted sequence of integers 'a'. Find the longest subsequence 'b' such that elements of this
  * subsequence are strictly increasing numbers. Elements in the subsequence 'b' must appear in the same relative order
  * as in the sequence 'a'. You may assume that 'a' can fit to the memory.

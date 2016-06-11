@@ -5,7 +5,9 @@ import static org.junit.Assert.assertThat;
 
 /**
  * My solution to a Google interview question
- * <p>
+ *
+ * The Question: 3_STAR
+ *
  * A book contains pages numbered from 1 - N. Imagine now that you concatenate all page numbers in the book such
  * that you obtain a sequence of numbers which can be represented as a string. You can compute number of occurrences 'k'
  * of certain digit 'd' in this string.

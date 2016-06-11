@@ -8,6 +8,7 @@ import static org.junit.Assert.assertThat;
  * previous node in an array of size 1 to avoid null values for 'previous' node when the recursive calls are popped off
  * the call stack. There must be a better solution
  * <p>
+ * The Question: 3_STAR
  * Given an input BST, find the minimum value difference between any two nodes in the tree.
  * <p>
  * e.g:

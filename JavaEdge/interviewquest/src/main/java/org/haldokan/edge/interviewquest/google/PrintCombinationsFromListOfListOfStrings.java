@@ -10,7 +10,9 @@ import java.util.stream.Collectors;
 
 /**
  * My solution to a Google interview question - a nice twist on n-arry tree BFS
- * <p>
+ *
+ * The Question: 4_STAR
+ *
  * Print combinations of strings from List of List of String
  * <p>
  * Example input: [[quick, slow], [brown, red], [fox, dog]]

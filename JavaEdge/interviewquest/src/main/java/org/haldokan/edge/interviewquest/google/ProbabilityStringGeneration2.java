@@ -18,7 +18,9 @@ import static org.junit.Assert.assertThat;
  * My solution to a Google interview question - unlike the other solution that I presented in ProbabilityStringGeneration1.java
  * I calculate the probability of a char coming after another char using a graph data structure to represent the links
  * and frequencies.
- * <p>
+ *
+ * The Question: 5_STAR
+ *
  * This is a two part question related to Markov string generation.
  * <p>
  * Part 1: Read a training set of strings. For each character in any of the strings, calculate the probability of

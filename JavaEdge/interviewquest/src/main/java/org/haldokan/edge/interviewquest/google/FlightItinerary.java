@@ -1,7 +1,7 @@
 package org.haldokan.edge.interviewquest.google;
 
 /**
- * Given an bunch of airline tickets with [from, to], for example [MUC, LHR], [CDG, MUC], [SFO, SJC],
+ * Given a bunch of airline tickets with [from, to], for example [MUC, LHR], [CDG, MUC], [SFO, SJC],
  * [LHR, SFO]. Reconstruct the itinerary in order,
  * for example: [ CDG, MUC, LHR, SFO, SJC ].
  * Created by haytham.aldokanji on 9/22/15.

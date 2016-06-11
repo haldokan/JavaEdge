@@ -7,7 +7,9 @@ import java.util.List;
 /**
  * My solution to a Google interview question: Storing the 10 billion longs in memory would take 10b * 8 bytes / 1b = 80 gigabytes.
  * By using a BitSet the needed size in memory is 10b / (8 * 1b) = 1.25 gigabytes.
- * <p>
+ *
+ * The Question: 4_STAR
+ *
  * We have numbers in between 0-9_999_999_999 (10-digits) which are assigned someone (does not matter which number assigned who)
  * <p>
  * Write two methods called "getNumber" and "requestNumber" as follows

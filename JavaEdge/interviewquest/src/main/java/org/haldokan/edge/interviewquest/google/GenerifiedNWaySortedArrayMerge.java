@@ -13,7 +13,8 @@ import static org.junit.Assert.assertThat;
  * the arrays. Space and time complexity are (O(n)) where n is the sum of the arrays lengths. This solution is better than
  * the one proposed on Careercup suggesting using a min heap since the cost of other other algorithm is O(nlogn).
  * <p>
- * <p>
+ * The Question (4_STARS):
+ *
  * Write a Code to merge N sorted array.
  * <p>
  * Created by haytham.aldokanji on 5/27/16.

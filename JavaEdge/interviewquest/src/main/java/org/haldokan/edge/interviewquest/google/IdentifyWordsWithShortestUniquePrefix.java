@@ -6,7 +6,9 @@ import static org.junit.Assert.assertThat;
 /**
  * My solution to a Google interview question - used a modified Prefix Trie where nodes keep track of num of passes thru
  * them while constructing the tree
- * <p>
+ *
+ * The Question: 5_STAR
+ *
  * Use the shortest unique prefix to represent each word in the array
  * input: ["zebra", "dog", "duck",”dot”]
  * output: {zebra: z, dog: do, duck: du}

@@ -6,7 +6,9 @@ import java.util.LinkedList;
 
 /**
  * My solution to a Google interview question
- * <p>
+ *
+ * The Question: 3_STAR
+ *
  * Given a string representing relative path write a function which normalizes this path (i.e. replaces "..").
  * <p>
  * Example: input: \a\b\..\foo.txt => output: \a\foo.txt

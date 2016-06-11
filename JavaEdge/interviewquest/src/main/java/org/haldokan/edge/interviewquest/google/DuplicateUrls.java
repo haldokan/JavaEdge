@@ -6,7 +6,9 @@ import java.util.*;
  * My solution to a Google interview question. This is an easy question which leads me to think that we have to consider
  * aspects to the question that are not readily available.
  * Given a table of [Url, Content] pairs produce a new table of [Url, Set of duplicate Urls].
- * <p>
+ *
+ * The Question: 2_STAR
+ *
  * Example Input:
  * a.com => <html>a</html>
  * b.com => <html>b</html>

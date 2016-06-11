@@ -2,7 +2,8 @@ package org.haldokan.edge.interviewquest.google;
 
 /**
  * My solution to a Google interview question
- * <p>
+ *
+ * The Question: 3_STAR
  * Given a BST with unique values find in a given tree a value closest to a given value X.
  *
  * @author haldokan

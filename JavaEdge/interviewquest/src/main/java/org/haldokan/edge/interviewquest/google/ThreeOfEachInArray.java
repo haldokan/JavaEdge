@@ -12,7 +12,9 @@ import static org.junit.Assert.assertThat;
 /**
  * My solution to a Google interview question - O(n) time and O(1) space since we remove the entries that have repetitions
  * of 3 as soon as we find them
- * <p>
+ *
+ * The Question: 3_STAR
+ *
  * You have an array of integers. Each integer in the array should be listed three times in the array.
  * Find the integer which does not comply to that rule.
  * <p>

@@ -2,6 +2,8 @@ package org.haldokan.edge.interviewquest.google;
 
 /**
  * My solution to a Google interview question. A popular num would be one of those at index 0, len/4, len/2, 3len/4
+ *
+ * The Question: 3_STAR
  * Find popular item in sorted array of natural numbers.
  * An item is popular is if its repeated n/4 times or more.
  * For Ex:

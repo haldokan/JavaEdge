@@ -7,7 +7,8 @@ import static org.junit.Assert.assertThat;
 
 /**
  * My solution to a Google interview question - solution works for non square arrays.
- * <p>
+ *
+ * The Question: 5_STAR
  * <p>
  * Given a map N x N, 2-D array
  * 0 - sea

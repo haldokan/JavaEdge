@@ -8,7 +8,9 @@ import static org.junit.Assert.assertThat;
 
 /**
  * My solution to a Google interview question - it handles the case of child spirals
- * <p>
+ *
+ * The Question: 5_STAR
+ *
  * You are given a list of n float numbers x_1, x_2, x_3, ... x_n, where x_i > 0.
  * A traveler starts at point (0, 0) and moves x_1 metres to the north, then x_2 metres to the west,
  * x_3 to the south, x_4 to the east and so on (after each lastMove his direction changes counter-clockwise)

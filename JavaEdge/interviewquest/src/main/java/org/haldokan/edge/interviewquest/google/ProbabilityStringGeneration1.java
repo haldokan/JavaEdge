@@ -14,7 +14,9 @@ import static org.junit.Assert.assertThat;
 /**
  * My solution to a Google interview question - probability is the overall probability of the chars in the text. I wrote
  * another solution which accounts for the probability of chars occurring after each other here: ProbabilityStringGeneration2.java
- * <p>
+ *
+ * The Question: 4_STAR
+ *
  * This is a two part question related to Markov string generation.
  * <p>
  * Part 1: Read a training set of strings. For each character in any of the strings, calculate the probability of

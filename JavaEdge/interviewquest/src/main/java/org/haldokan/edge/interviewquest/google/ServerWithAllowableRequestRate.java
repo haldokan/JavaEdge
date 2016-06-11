@@ -7,7 +7,9 @@ import java.util.concurrent.TimeUnit;
 
 /**
  * My solution to a Google interview question
- * <p>
+ *
+ * The Question: 3_STAR
+ *
  * Implement the interface specified below:
  * <p>
  * interface RateLimit {

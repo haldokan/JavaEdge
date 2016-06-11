@@ -8,7 +8,9 @@ import java.util.Set;
  * My solution to a Google interview question. It really all depends on what they mean by "efficient". My sln can be
  * made more efficient in space since we can intersect the 2nd doc on-the-go w/o parsing it to a set, and by removing
  * any matching ngrams from doc1 materialized set.
- * <p>
+ *
+ * The Question: 3_STAR
+ *
  * You are given 2 documents. We want to know how similar they are through N-Grams.
  * <p>
  * Given an input n (n = number of word in the Ngram) and two documents(strings) find the intersection of the NGrams of

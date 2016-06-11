@@ -1,11 +1,12 @@
 package org.haldokan.edge.interviewquest.google;
 
 import java.util.Arrays;
-import java.util.Comparator;
 
 /**
  * My solution to a Google interview question.
- * <p>
+ *
+ * The Question: 3_STAR
+ *
  * You are given two strings. String T is a string where characters need to be reordered. String O contains characters
  * (none of them repeated) which defines the order/precendence to be used while reordering the string T.
  * Write an algorithm to do the reordering.
@@ -27,12 +28,7 @@ public class ReorderStringCharsUsingOrderPattern {
         for (int i = 0; i < s.length(); i++) {
             chars[i] = s.charAt(i);
         }
-        Arrays.sort(chars, new Comparator<Character>() {
-            @Override
-            public int compare(Character o1, Character o2) {
-                return order.indexOf(o1) - order.indexOf(o2);
-            }
-        });
+        Arrays.sort(chars, (o1, o2) -> order.indexOf(o1) - order.indexOf(o2));
         String reordered = "";
         for (Character c : chars) {
             reordered += c;

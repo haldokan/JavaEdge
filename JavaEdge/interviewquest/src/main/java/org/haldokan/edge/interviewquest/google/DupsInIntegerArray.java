@@ -5,7 +5,8 @@ import static org.junit.Assert.assertThat;
 
 /**
  * My solution to a Google interview question - in situ with O(n) time
- * <p>
+ *
+ * The Question: 2_STAR
  * <p>
  * Find the duplicate in an array of length n. The values are positive integers in the range between 1 .. n-1.
  * <p>

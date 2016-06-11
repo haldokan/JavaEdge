@@ -9,6 +9,8 @@ import java.util.concurrent.TimeUnit;
 /**
  * My solution to a Google interview question.
  * <p>
+ * * The Question (3_STARS):
+ * <p>
  * Given a binary tree, implement an iterator that will iterate through its elements.
  *
  * @author haldokan

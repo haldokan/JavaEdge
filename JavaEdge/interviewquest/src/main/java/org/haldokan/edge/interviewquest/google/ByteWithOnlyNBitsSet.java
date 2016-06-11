@@ -6,7 +6,8 @@ import static org.junit.Assert.assertThat;
 /**
  * My solution to a Google interview question - I made a general solution for checking if N bits set on a byte
  * Given 1 byte. Write a function that checks that it have exactly 3 set bits.
- * <p>
+ * The Question: 3_STAR
+ *
  * Created by haytham.aldokanji on 5/21/16.
  */
 public class ByteWithOnlyNBitsSet {

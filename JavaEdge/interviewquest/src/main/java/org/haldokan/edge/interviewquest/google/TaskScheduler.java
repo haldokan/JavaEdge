@@ -26,8 +26,9 @@ import static org.junit.Assert.fail;
  * run statuses are communicated to other running tasks via an event bus (Guava EventBus). Every task runs in its own
  * pooled thread and it is 'awaited' on a latch that is counted down every time a dependency of the task completes successfully.
  * No synchronization constructs were used in this solution apart from the R/W lock built into to the Java ConcurrentHashMap.
- * <p>
- * <p>
+ *
+ * The Question (5_STARS):
+ *
  * Given the interface below, implement a task scheduler that concurrently runs tasks
  * interface Task {
  * void Run();

@@ -10,7 +10,9 @@ import static org.junit.Assert.assertThat;
  * My solution to a Google interview question - World population is about 7.5 billions so we cannot fit their ages in an
  * array since Integer max value is about 2 billions and 147 million. I assumed that we can fit the array in memory and
  * provided 2 solutions: one assuming the array is sorted and another assuming it is not.
- * <p>
+ *
+ * The Question: 3_STAR
+ *
  * You have a sorted array containing the age of every person on Earth.
  * [0, 0, 0, 0, ..., 1, 1, ..., 28, 28, ..., 110, ...]
  * Find out how many people have each age.

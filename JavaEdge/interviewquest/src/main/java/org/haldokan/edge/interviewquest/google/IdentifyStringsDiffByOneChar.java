@@ -7,7 +7,8 @@ import static org.junit.Assert.assertThat;
  * My solution to a Google interview question - used a Prefix Trie. The matching algorithm is not as powerful as the dynamic
  * programming solution I present here: org.haldokan.edge.dynamicprog.ApproximateStringMatcher
  * <p>
- * <p>
+ * The Question (4_STARS):
+ *
  * Given a string and array of strings, find whether the array contains a string with one character difference from the
  * given string. Array may contain string of different lengths.
  * <p>

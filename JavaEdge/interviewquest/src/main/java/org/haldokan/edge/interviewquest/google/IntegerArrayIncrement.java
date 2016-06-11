@@ -5,6 +5,8 @@ import java.util.Arrays;
 /**
  * My solution to a Google interview question.
  * <p>
+ * The Question: 3_STAR
+ *
  * Given an integer array of variable length like so [9, 8, 8, 3] where each item in array could be 0 to 9,
  * write a function that would interpret the array [9, 8, 8, 3] as a number 9883 and increment it by 1.
  * The return of the function would be an integer array containing the addition like so [9,8,8,4].

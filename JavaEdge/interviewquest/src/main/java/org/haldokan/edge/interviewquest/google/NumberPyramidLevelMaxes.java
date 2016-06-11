@@ -12,7 +12,9 @@ import static org.junit.Assert.fail;
  * on such a giant string. Also where does the string live? All in memory? How about serializing it to disk then streaming
  * it back to memory? Why was it read whole into memory in the first place? All these questions indicate that problem is
  * not well defined.
- * <p>
+ *
+ * The Question: 3_STAR
+ *
  * You have a row of numbers like below(a triangle).
  * By starting at the top of the triangle find the maximum number in each line and sum them up example below
  * 5

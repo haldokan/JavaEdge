@@ -12,7 +12,9 @@ import static org.junit.Assert.fail;
 
 /**
  * My solution to a Google interview question - a question that doesn't cause brain pain for a change!
- * <p>
+ *
+ * The Question: 4_STAR
+ *
  * Write a method that combines an array of iterators into a new one, such that, e.g. for input [A B C] where:
  * A.next() returns a1, a2, respectively;
  * B.next() returns b1;
