@@ -9,7 +9,7 @@ import static org.junit.Assert.assertThat;
 
 /**
  * My solution to a Facebook interview question
- * <p>
+ * The Question: 3_STAR
  * You are given an array of non-negative integers (0, 1, 2 etc). The value in each element represents the
  * number of hops you may take to the next destination. Write a function that determines when you start
  * from the first element whether you will be able to reach the last element of the array.

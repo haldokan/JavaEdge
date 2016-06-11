@@ -9,7 +9,7 @@ import static org.junit.Assert.assertThat;
 /**
  * My solution to a Facebook interview question. It uses a state machine to do the matching. However it fails for the
  * use cases where a second regex on the right can supplant the one on the left.
- * <p>
+ * The Question: 4_STAR
  * TODO: redesign the state machine to remove state from Regex. Handling the failed cases may require a different approach altogether
  * <p>
  * Pattern Matching

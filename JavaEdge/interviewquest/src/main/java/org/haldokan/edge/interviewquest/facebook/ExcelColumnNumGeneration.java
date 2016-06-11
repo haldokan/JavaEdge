@@ -5,7 +5,7 @@ import static org.junit.Assert.assertThat;
 
 /**
  * My solution to a Facebook interview question
- * <p>
+ * The Question: 4_STAR
  * Microsoft Excel numbers cells as 1...26 and after that AA, AB.... AAA, AAB...BBA, BBB,...., ZZA....ZZZ.
  * Given a number, convert it to that format and vice versa.
  * <p>

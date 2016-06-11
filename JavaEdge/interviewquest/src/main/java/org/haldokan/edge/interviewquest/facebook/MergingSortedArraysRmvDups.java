@@ -7,7 +7,7 @@ import static org.junit.Assert.assertThat;
 
 /**
  * My solution to a Facebook interview question
- * <p>
+ * The Question: 4_STAR
  * Given two arrays of sorted integers, merge them keeping in mind that there might be common elements in the arrays
  * and that common elements must only appear once in the merged array.
  * <p>

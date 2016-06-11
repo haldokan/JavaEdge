@@ -7,7 +7,7 @@ import java.util.Set;
 /**
  * My solution to a Facebook interview question - solution is inspired by the {1,...,n} permutations which I implemented
  * in java (ConstructingPermutation) based on a C implementation in Algorithm Design Manual by Steven Skiena.
- * <p>
+ * The Question: 4_STAR
  * Write Program for String Permutations using most efficient algorithm. Can you solve problem in O(n) time?
  */
 public class StringPermutations {

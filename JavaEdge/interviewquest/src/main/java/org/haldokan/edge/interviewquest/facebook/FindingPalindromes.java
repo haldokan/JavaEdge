@@ -9,7 +9,7 @@ import static org.junit.Assert.assertThat;
 
 /**
  * My solution to a Facebook interview question - O(n + m) where n is the number of words, and m is the length of a word
- * <p>
+ * The Question: 3_STAR
  * Given a list of strings, return a list of lists of strings that groups all anagrams.
  * <p>
  * Ex. given {trees, bike, cars, steer, arcs}

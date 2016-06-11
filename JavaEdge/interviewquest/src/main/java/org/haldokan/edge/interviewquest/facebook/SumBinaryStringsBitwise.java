@@ -6,7 +6,7 @@ import static org.junit.Assert.assertThat;
 /**
  * My solution to a Facebook interview question - I provide another solution SumBinaryStrings.java that solves the
  * problem in a more conventional way using array of chars
- * <p>
+ * The Question: 4_STAR
  * Code a function that gets two strings representing binary numbers (so the only possible characters are '1' and '0',
  * and returns a third string representing the sum of the input.
  * The input strings don't necessarily have of the same length.

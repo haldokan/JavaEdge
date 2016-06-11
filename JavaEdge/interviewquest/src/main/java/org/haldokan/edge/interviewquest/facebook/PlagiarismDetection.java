@@ -8,7 +8,7 @@ import static org.junit.Assert.assertThat;
 /**
  * My solution to a Facebook interview question - I present 2 solutions: one using the String utilities and another that
  * uses char arrays and implements 'substring' and 'contains' methods
- * <p>
+ * The Question: 4_STAR
  * A professor wants to see if two students have cheated when writing a paper. Design a function:
  * hasCheated(String s1,String s2, int N) that evaluates to true if two strings have a common substring of length N.
  * Additional question after implementation. Assume you don't have the possibility of using

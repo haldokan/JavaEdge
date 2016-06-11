@@ -6,7 +6,7 @@ import static org.junit.Assert.assertThat;
 /**
  * My solution to a Facebook interview question - completely in situ w/o using any of Java Character methods to identify
  * alphabet or letters, etc.
- * <p>
+ * The Question: 4_STAR
  * Given a string containing letter, digit, and other characters, write a function to check palindrome for only
  * letter and digit. The implementation need to be in-place, no extra memory is allowed to create another string or array.
  * For example:

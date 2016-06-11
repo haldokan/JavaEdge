@@ -6,7 +6,7 @@ import java.util.Iterator;
 
 /**
  * My solution to a Facebook interview question
- * <p>
+ * The Question: 3_STAR
  * Print all paths of a binary tree from root to leaf.
  * <p>
  * Later, extend the solution to work with graphs, careful attention to cycles which you should print as paths as well

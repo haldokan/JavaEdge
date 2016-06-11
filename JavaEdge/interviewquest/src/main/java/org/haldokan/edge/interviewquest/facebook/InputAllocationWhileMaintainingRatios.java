@@ -10,7 +10,7 @@ import static org.junit.Assert.assertThat;
 /**
  * My solution to a Facebook interview question - solution is generalized to account for
  * increasing or decreasing the number of rooms and/or changing rooms assigned ratios.
- * <p>
+ * The Question: 5_STAR
  * There are 3 romms in which party is going on lets say room A, B, C.
  * Guests are coming one by one and you have to tell the guest
  * which room to enter. At any point of time each room has to maintain a percentage Lets say the percentage that each

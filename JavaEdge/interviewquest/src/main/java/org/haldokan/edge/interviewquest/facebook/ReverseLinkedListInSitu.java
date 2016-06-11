@@ -9,7 +9,7 @@ import static org.junit.Assert.assertThat;
 
 /**
  * My solution to a Facebook interview question
- * <p>
+ * The Question: 3_STAR
  * Write a program that reverses a linked list without using more than O(1) storage.
  * Created by haytham.aldokanji on 5/12/16.
  */

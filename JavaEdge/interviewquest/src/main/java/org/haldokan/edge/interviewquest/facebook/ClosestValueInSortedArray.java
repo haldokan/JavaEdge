@@ -2,14 +2,14 @@ package org.haldokan.edge.interviewquest.facebook;
 
 /**
  * My solution to a Facebook interview question
- * <p>
+ * The Question: 3_STAR
  * Given - a number (n) and a sorted array
  * Find a number in the array having least difference with the given number (n).
  * Created by haytham.aldokanji on 4/23/16.
  */
-public class ClosetValueInSortedArray {
+public class ClosestValueInSortedArray {
     public static void main(String[] args) {
-        ClosetValueInSortedArray driver = new ClosetValueInSortedArray();
+        ClosestValueInSortedArray driver = new ClosestValueInSortedArray();
 
         int[] arr = driver.getSortedArr();
         System.out.println(driver.closestVal(arr, 13, arr[0], 0, arr.length));

@@ -5,7 +5,7 @@ import static org.junit.Assert.assertThat;
 
 /**
  * My solution to a Facebook interview question
- * <p>
+ * The Question: 3_STAR
  * Given an array and a value, find min sub array whose sum is no less than value. Solution must be in O(n)
  * Created by haytham.aldokanji on 5/4/16.
  */

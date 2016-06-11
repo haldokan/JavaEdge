@@ -13,8 +13,8 @@ import static org.junit.Assert.assertThat;
  * My solution to a Facebook interview question - used counting sort which is appropriate if the data is
  * randomly distributed since that means duplicates which we only update their counts. Solution becomes inefficient if data
  * is sparse (less dups).
- * <p>
- * <p>
+ * <p
+ * The Question: 5_STAR
  * Create the data structure for a component that will receive a series of numbers over time and, when asked,
  * returns the median of all received elements.
  * <p>

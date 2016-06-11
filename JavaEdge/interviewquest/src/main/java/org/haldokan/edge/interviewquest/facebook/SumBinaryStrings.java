@@ -8,7 +8,7 @@ import static org.junit.Assert.assertThat;
 /**
  * My solution to a Facebook interview question - I provide another solution SumBinaryStringsBitwise.java that solves the
  * problem using bitwise programming (I assume the strings fit in a long word of 64 bit).
- * <p>
+ * The Question: 4_STAR
  * Code a function that gets two strings representing binary numbers (so the only possible characters are '1' and '0',
  * and returns a third string representing the sum of the input.
  * The input strings don't necessarily have of the same length.

@@ -6,7 +6,7 @@ import java.util.Set;
 
 /**
  * My solution to a Facebook interview question - silly question!
- * <p>
+ * The Question: 1_STAR
  * Code a function that receives an array with duplicates and returns a new array keeping the original order of
  * the elements but with the duplicates removed.
  * <p>

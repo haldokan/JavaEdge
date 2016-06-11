@@ -4,7 +4,7 @@ import java.util.Arrays;
 
 /**
  * My solution to a Facebook interview question
- * <p>
+ * The Question: 3_STAR
  * You are given an array of 1's 2's and 3's. Sort this list so the 1's are first, the 2's come second, and the 3's come third.
  * <p>
  * Ex: Input [1, 3, 3, 2, 1]

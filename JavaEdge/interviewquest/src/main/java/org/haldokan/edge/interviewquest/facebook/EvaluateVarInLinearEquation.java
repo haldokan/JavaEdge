@@ -8,7 +8,7 @@ import static org.junit.Assert.assertThat;
 
 /**
  * My solution to a Facebook interview question - parses linear equations and resolve the value of the variable
- * <p>
+ * The Question: 5_STAR
  * Given an expression (in a single variable) like 4x+13(x-(4x+x/3)) = 9, evaluate x
  * The expression is a string and the variable is always x.
  * <p>

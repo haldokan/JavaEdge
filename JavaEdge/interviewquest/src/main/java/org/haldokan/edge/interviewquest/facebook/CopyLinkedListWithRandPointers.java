@@ -8,7 +8,7 @@ import static org.junit.Assert.assertThat;
 
 /**
  * My solution to a Facebook interview question - used IdentityHashMap to keep track of random pointers
- * <p>
+ * The Question: 4_STAR
  * Given a linked list where apart from the next pointer, every node also has a pointer named random which can point
  * to any other node in the linked list. Make a copy of the linked list.
  * <p>

@@ -8,7 +8,9 @@ import java.util.TreeSet;
 /**
  * My solution to a Facebook interview question. I used permutation with a set for excluding triplets that permutate to the
  * same triplet. There may be a better solution than using permutation but I cannot find it.
- * <p>
+ *
+ * The Question: 2_STAR
+ *
  * Given an array write a function to print all triplets in the array which sum to 0.
  * e.g:
  * Input:

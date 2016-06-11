@@ -12,7 +12,7 @@ import static org.junit.Assert.assertThat;
  * backtracking algorithms. Figuring out how to construct the backtracking machinery is tricky. The solution here draws
  * on the the org.haldokan.edge.dynamicprog.AllSubSetsInSet.java I present in this repo which in turn is a port from a C
  * implementation presented by Steven S. Skiena in his book Algorithm Design Manual.
- * <p>
+ * The Question: 4_STAR
  * Write a program that answers YES/NO search queries containing * placeholders (this is not regex)
  * Example: if the data you have is (hazem, ahmed, moustafa, fizo), then you should answer as follows for:
  *  ahmed: YES

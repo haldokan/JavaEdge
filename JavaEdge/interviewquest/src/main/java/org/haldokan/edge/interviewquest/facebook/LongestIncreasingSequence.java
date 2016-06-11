@@ -5,7 +5,7 @@ import static org.junit.Assert.assertThat;
 
 /**
  * My solution to a Facebook interview question
- * <p>
+ * The Question: 3_STAR
  * You are going to take some numbers as an input from a file. You need to write
  * a program to find longest increasing sequence. You should process it as soon as you are taking an input.
  * After finishing the last input immediately you should be able to tell the sequence. Input: 1 5 3 4 6 4 Output: 3 4 6

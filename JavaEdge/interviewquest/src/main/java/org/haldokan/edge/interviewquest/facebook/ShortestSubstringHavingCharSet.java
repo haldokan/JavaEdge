@@ -10,7 +10,7 @@ import static org.junit.Assert.assertThat;
 
 /**
  * My solution to a Facebook interview question
- * <p>
+ * The Question: 4_STAR
  * You are given a set of unique characters and a string.
  * <p>
  * Find the smallest substring of the string containing all the characters in the set.

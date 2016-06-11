@@ -9,7 +9,7 @@ import static org.junit.Assert.assertThat;
 /**
  * My solution to a Facebook interview question - I used a conventional solution with an evaluation stack. There must
  * be a way to solve this question using dynamic programming which perhaps give more optimal cost (i.e # modifications)
- * <p>
+ * The Question: 4_STAR
  * Imagine x is an operand and * is a binary operator. We say a string of x and * follows Reverse Polish notation
  * if it is a postfix notation.
  * <p>

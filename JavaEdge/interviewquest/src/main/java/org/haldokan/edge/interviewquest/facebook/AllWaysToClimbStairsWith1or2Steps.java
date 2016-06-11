@@ -9,7 +9,9 @@ import java.util.stream.Collectors;
  * My solution to a Facebook interview question - piggy-back on backtracking for permutation while using
  * the pruning technique to cut off the permutations not summing to number of steps. Permutations algorithms complexity is
  * n! (oh boy!). I will try to provide a solution based on dynamic programming which normally reduces complexity to O(n3).
- * <p>
+ *
+ * The Question: 3_STAR
+ *
  * Implement stairs(N) that (collect the solutions in a list) prints all the ways to climb up a N-step-stairs
  * where one can either take a single step or double step.
  * We'll use 1 to represent a single step, and 2 to represent a double step.

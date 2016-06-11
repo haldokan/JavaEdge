@@ -4,7 +4,7 @@ import java.util.Arrays;
 
 /**
  * My solution of a Facebook interview question - used quick sort with a twist. Look at SortingByIndex.java for a better solution
- * <p>
+ * The Question: 3_STAR
  * We have an array of objects A and an array of indexes B. Reorder objects in array A with given indexes in array B.
  * Do not change array A's length.
  * <p>

@@ -6,7 +6,7 @@ import static org.junit.Assert.assertThat;
 /**
  * My solution to a Facebook interview question - Solution uses dynamic programming: a recurrence with an initial step is
  * found and each subsequent step is obtained based on the step that proceeds it
- * <p>
+ * The Question: 4_STAR
  * input [2,3,1,4]
  * output [12,8,24,6]
  * <p>

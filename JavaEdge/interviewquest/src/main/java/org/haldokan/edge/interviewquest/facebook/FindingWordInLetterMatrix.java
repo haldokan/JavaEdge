@@ -7,7 +7,7 @@ import static org.junit.Assert.assertThat;
 
 /**
  * My solution to a Facebook interview question - suggestive of some graph algorithms (MST for instance)
- *
+ * The Question: 5_STAR
  * Given a matrix of letters and a word, check if the word is present in the matrix. E,g., suppose matrix is:
  * a b c d e f
  * z n a b c f

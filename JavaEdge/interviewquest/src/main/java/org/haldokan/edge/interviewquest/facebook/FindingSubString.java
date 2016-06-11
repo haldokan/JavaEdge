@@ -2,7 +2,7 @@ package org.haldokan.edge.interviewquest.facebook;
 
 /**
  * My solution to a Facebook interview question
- *
+ * The Question: 3_STAR
  * Given a string (ex: "ABCSC") Check whether it contains a Substring (ex: "ABC"). If the substring is found remove it
  * and return the remaining string (in our ex "SC").
  */

@@ -6,7 +6,7 @@ import static org.junit.Assert.assertThat;
 /**
  * My solution to a Facebook interview question - Look at org.haldokan.edge.interviewquest.google.BSTreeKthElement for
  * another solution using iteration instead of recursion
- * <p>
+ * The Question: 3_STAR
  * Find the kth largest element in a binary search tree. Write code for
  * struct Node {
  * int val;

@@ -6,7 +6,7 @@ import java.util.List;
 
 /**
  * My solution to a Facebook interview question
- * <p>
+ * The Question: 3_STAR
  * Given an array of positive, unique, increasingly sorted numbers A, e.g. A = [1, 2, 3, 5, 6, 8, 9, 11, 12, 13].
  * Given a positive value K, e.g. K = 3. Output all pairs in A that differ exactly by K.
  * Example:

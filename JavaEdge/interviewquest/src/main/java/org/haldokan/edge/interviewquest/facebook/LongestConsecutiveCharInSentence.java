@@ -10,7 +10,7 @@ import static org.junit.Assert.assertThat;
 
 /**
  * My solution to a Facebook interview question
- * <p>
+ * The Question: 3_STAR
  * Get longest consecutive chars in a sentence.
  * Examples:
  * heeeello Worldddd => {e, d}

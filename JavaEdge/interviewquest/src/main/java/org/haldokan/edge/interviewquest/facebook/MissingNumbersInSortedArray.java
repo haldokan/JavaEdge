@@ -8,7 +8,7 @@ import static org.junit.Assert.assertThat;
 
 /**
  * My solution to a Facebook interview question
- * <p>
+ * The Question: 3_STAR
  * Array of size (n-m) with numbers from 1..n with m of them missing. Find all of the missing numbers in O(logn).
  * Array is sorted.
  * <p>

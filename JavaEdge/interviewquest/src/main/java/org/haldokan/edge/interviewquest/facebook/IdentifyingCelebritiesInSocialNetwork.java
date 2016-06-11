@@ -15,7 +15,7 @@ import static org.junit.Assert.assertThat;
 /**
  * My solution to a Facebook interview question - I think I mis-read the question so I did not use the know(a, b) function
  * TODO: provide another impl that uses the know(a, b) func.
- *
+ * The Question: 3_STAR
  * Given a function KNOWS(A,B), which returns 1 if A knows B and 0 if A does not know B.
  * <p>
  * A Celebrity is one who does not know anyone,
