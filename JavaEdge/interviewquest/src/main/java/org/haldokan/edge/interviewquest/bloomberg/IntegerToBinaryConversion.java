@@ -6,6 +6,7 @@ import java.util.stream.Collectors;
 
 /**
  * My solution to a Bloomberg interview question
+ * The Question: 3_STAR
  * convert an Integer to binary
  */
 public class IntegerToBinaryConversion {

@@ -4,7 +4,7 @@ import java.util.Arrays;
 
 /**
  * My solution to a Bloomberg interview question
- * <p>
+ * The Question: 3_STAR
  * You have an array of ints. Move all elements of a specific value to the left while keep the sequence.
  * Ex: move all 2s to the left in [5, 2, 3, 2, 2, 7, 5, 2, 9, 8]
  */

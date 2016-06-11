@@ -3,7 +3,7 @@ package org.haldokan.edge.interviewquest.bloomberg;
 /**
  * My solution to a JET (a company located in Hoboken/NJ) interview question - grouped with Bloomberg because it is at
  * the same level of complexity of a Bloomberg interview question
- * <p>
+ * The Question: 3_STAR
  * Find out the max value in an array using recursion
  * <p>
  * Created by haytham.aldokanji on 4/27/16.

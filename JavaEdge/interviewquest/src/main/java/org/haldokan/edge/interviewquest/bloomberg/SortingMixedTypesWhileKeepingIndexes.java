@@ -5,9 +5,9 @@ import java.util.stream.Collectors;
 
 /**
  * My solution to a Bloomberg interview question
- * <p>
+ * The Question: 3_STAR
  * streaming byte data coming which can be digits or or letters
- * you have to sort both the digits and letters with there index intact.
+ * you have to sort both the digits and letters with their index intact.
  * for e.g you have c6b2e4a
  * your sorted array should be a2b4c6e
  */

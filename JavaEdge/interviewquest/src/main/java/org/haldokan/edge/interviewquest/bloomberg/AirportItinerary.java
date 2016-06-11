@@ -5,7 +5,7 @@ import java.util.stream.Collectors;
 
 /**
  * My solution to a Bloomberg interview question
- * <p>
+ * The Question: 3_STAR
  * you have an vector like this
  * <p>
  * [JFK, LXA, SNA, RKJ, LXA, SNA, NWK, LGR]
