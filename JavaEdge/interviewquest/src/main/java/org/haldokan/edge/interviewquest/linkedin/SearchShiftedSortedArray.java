@@ -4,7 +4,7 @@ import org.junit.Assert;
 
 /**
  * My solutoin to a Linkedin interview question
- * <p>
+ * The Question: 3_STAR
  * If a sorted array is shifted left by unknown number, modify existing binary search to find an element in the modified
  * array
  * <p>

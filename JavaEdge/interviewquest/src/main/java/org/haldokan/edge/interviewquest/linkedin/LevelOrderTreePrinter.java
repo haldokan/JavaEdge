@@ -5,8 +5,8 @@ import java.util.Queue;
 
 
 /**
- * My solution to a Linkedin interview question found on Careercup
- * <p>
+ * My solution to a Linkedin interview question
+ * The Question: 3_STAR
  * Print a tree in Level Order with a newline after each depth
  * <p>
  * Sample input:

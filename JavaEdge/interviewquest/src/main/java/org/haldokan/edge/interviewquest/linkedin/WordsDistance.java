@@ -5,7 +5,7 @@ import java.util.List;
 
 /**
  * My solution to a Linkedin interview question. Complexity O(n^2). I doubt it can be solved in better time
- * <p>
+ * The Question: 3_STAR
  * This class will be given a list of words (such as might be tokenized from a paragraph of text), and will provide a
  * method that takes two words and returns the shortest distance (in words) between those two words in the provided
  * text.

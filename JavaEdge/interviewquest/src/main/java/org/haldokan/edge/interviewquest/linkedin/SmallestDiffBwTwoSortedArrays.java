@@ -2,7 +2,7 @@ package org.haldokan.edge.interviewquest.linkedin;
 
 /**
  * My solution to a LinkedIn interview question
- * <p>
+ * The Question: 3_STAR
  * You have two arrays of integers, where the integers do not repeat and the two arrays have no common integers.
  * <p>
  * Let x be any integer in the first array, y any integer in the second. Find min(Abs(x-y)). That is, find the smallest

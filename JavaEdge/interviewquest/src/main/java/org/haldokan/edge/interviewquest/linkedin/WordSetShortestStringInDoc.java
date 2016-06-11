@@ -7,7 +7,7 @@ import java.util.List;
 
 /**
  * My solution to a Linkedin interview question
- * <p>
+ * The Question: 1_STAR
  * Given a large document and a short pattern consisting of a few words (eg. W1 W2 W3), find the shortest string that
  * has all the words in any order (for eg. W2 foo bar dog W1 cat W3 -- is a valid pattern)
  * <p>

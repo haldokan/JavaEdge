@@ -5,7 +5,7 @@ import java.util.Random;
 
 /**
  * My solution to a Linkedin interview question
- * <p>
+ * The Question: 3_STAR
  * Shuffle an array to make its elements equally likely
  *
  * @author haldokan

@@ -4,7 +4,7 @@ package org.haldokan.edge.interviewquest.linkedin;
 /**
  * My solution to a Linkedin interview question.
  * <p>
- * <p>
+ * The Question: 3_STAR
  * Convert a character string into a value based on the radix or base.
  * <p>
  * Input parameters:

@@ -5,7 +5,7 @@ import java.util.Set;
 
 /**
  * Here are my 2 solutions to a Linkedin interview question
- * <p>
+ * The Question: 3_STAR
  * Write a program that gives count of common characters presented in an array of strings..(or array of character
  * arrays)
  * <p>

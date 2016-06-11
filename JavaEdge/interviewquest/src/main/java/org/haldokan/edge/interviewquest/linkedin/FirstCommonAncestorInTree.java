@@ -3,7 +3,7 @@ package org.haldokan.edge.interviewquest.linkedin;
 
 /**
  * My solution to a Linkedin interview question.
- * <p>
+ * The Question: 3_STAR
  * Given two nodes of a tree,
  * method should return the deepest common ancestor of those nodes.
  * <p>

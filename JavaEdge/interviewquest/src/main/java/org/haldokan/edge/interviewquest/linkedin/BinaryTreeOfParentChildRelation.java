@@ -6,7 +6,7 @@ import java.util.*;
 
 /**
  * My solution to a Linkedin interview question. I believe there is no nice recursive solution for this problem
- * <p>
+ * The Question: 4_STAR
  * Given a list of child->parent relationships, build a binary tree out of it. All the element Ids inside the tree are unique.
  * <p>
  * Example:
@@ -49,7 +49,7 @@ public class BinaryTreeOfParentChildRelation {
         Relation r9 = new Relation(31, 19, false);
 
         BinaryTreeOfParentChildRelation treeBuilder = new BinaryTreeOfParentChildRelation();
-        List<Relation> rels = Arrays.asList(new Relation[]{r1, r2, r3, r4, r5, r6, r7, r8, r9});
+        List<Relation> rels = Arrays.asList(r1, r2, r3, r4, r5, r6, r7, r8, r9);
         List<Integer> nodeIds = new ArrayList<>();
         treeBuilder.walkTree(treeBuilder.buildTree(rels), nodeIds);
 

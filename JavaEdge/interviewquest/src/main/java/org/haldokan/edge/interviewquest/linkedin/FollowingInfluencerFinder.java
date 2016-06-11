@@ -5,7 +5,7 @@ import java.util.Random;
 
 /**
  * My solution to a LinkedIn interview Question. It handles a more general case of non-square matrixes
- * <p>
+ * The Question: 3_STAR
  * Given a matrix of following between N LinkedIn users (with ids from 0 to N-1): followingMatrix[i][j] == true iff user
  * i is following user j thus followingMatrix[i][j] doesn't imply followingMatrix[j][i]. Let's also agree that
  * followingMatrix[i][i] == false

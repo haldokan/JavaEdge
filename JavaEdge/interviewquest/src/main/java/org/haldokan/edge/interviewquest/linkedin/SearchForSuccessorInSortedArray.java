@@ -5,9 +5,8 @@ import java.util.Collections;
 import java.util.List;
 
 /**
- * My solution to a Linkedin question. It is solved by knowing the antiques of Java binsearch (not fair for an
- * interview). Or May be the solution should not rely on binsearch; hard to tell what they wanted.
- * <p>
+ * My solution to a Linkedin question.
+ * The Question: 3_STAR
  * Return the smallest character that is strictly larger than the search character, If no such character exists, return
  * the smallest character in the array. We can assume the array/list is sorted in ascending order
  * <p>

@@ -5,7 +5,7 @@ import java.util.Arrays;
 /**
  * My solution to a Linkedin interview question. I present 2 solutions: general sln, and another sln when we can assume
  * that triangle sides are adjacent in the segments array
- * <p>
+ * The Question: 3_STAR
  * Three segments of lengths A, B, C form a triangle iff
  * <p>
  * A + B > C
@@ -39,8 +39,6 @@ public class Triangle {
     /**
      * The general case is for the sides not to be adjacent which makes complexity O(n^3)
      *
-     * @param s
-     * @return
      */
     public int[] getTriangleSides(int[] s) {
         for (int i = 0; i < s.length; i++) {
@@ -60,8 +58,6 @@ public class Triangle {
     /**
      * assuming the sides are adjacent the problem can be solved in O(n^2)
      *
-     * @param s
-     * @return
      */
     public int[] getTriangleSides_sidesAdjacent(int[] s) {
         int[] notfound = new int[]{};

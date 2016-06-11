@@ -6,9 +6,9 @@ import java.util.*;
  * My solution to a Linkedin interview question. Description is in method comments (1st 2 methods). Solution distinguish
  * b/w existing centers and non-existing centers assuming we want the calculation to be done quickly for existing
  * centers. Solution can be simplified if we do not store the calculated distances (for efficiency).
- * <p>
- * Solution can be made nicer using Guava Table data structure
  *
+ * Solution can be made nicer using Guava Table data structure
+ * The Question: 4_STAR
  * @author haldokan
  */
 public class PlanePointsProximityFinder {

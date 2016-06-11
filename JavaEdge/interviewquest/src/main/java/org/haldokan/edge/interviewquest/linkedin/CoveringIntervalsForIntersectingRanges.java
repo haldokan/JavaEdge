@@ -6,7 +6,7 @@ import java.util.TreeSet;
 
 /**
  * My solution to a Linkedin interview question. Problem description is provided in comments to the 1st 2 methods
- *
+ * The Question: 4_STAR
  * @author haldokan
  */
 public class CoveringIntervalsForIntersectingRanges {

@@ -5,7 +5,7 @@ import java.util.Collections;
 
 /**
  * My solution to a Linkedin interview question
- * <p>
+ * The Question: 3_STAR
  * Write a program to find the element in an array that is repeated more than half number of times. Return -1 if no such
  * element is found.
  *

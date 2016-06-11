@@ -2,7 +2,7 @@ package org.haldokan.edge.interviewquest.linkedin;
 
 /**
  * My solution to a Linkedin interview question
- * <p>
+ * The Question: 3_STAR
  * Given a string , "This is a test" reverse it: "tset a si sihT" Do this recursively.
  *
  * @author haldokan

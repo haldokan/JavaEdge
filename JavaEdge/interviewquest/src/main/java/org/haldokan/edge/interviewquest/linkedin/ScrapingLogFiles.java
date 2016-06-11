@@ -6,21 +6,8 @@ import java.nio.file.Paths;
 import java.util.*;
 
 /**
- * My solution to a Linkedin interview question. Running the program against the file pasted on the bottom of the class
- * produces this output:
- * <p>
- * { autosuggest_backend : solrsearch10_01{212:2, 200:2, 526:2} }
- * <p>
- * { autofeedback_backend : solrsearch10_01{200:1, 333:1, 526:1} }
- * <p>
- * { navigtracking_backend : solrsearch10_01{212:1, 200:1, 526:1} }
- * <p>
- * { recommendshare_backend : fe02{246:1, 200:1, 3291:1} }
- * <p>
- * { imageshare_backend : fe01{451:1, 200:1, 296:1} }
- * <p>
- * { slideshare_backend : fe02{246:3, 999:1, 200:3, 3291:2} fe01{451:3, 200:2, 296:3, 777:1} }
- * <p>
+ * My solution to a Linkedin interview question.
+ * The Question: 4_STAR
  * Program to count all Response codes individually per database (slideshare_backend_fe01 is one db) in the given log
  * file
  * <p>

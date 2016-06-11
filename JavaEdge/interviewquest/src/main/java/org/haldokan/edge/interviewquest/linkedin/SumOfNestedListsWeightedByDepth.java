@@ -5,7 +5,7 @@ import java.util.List;
 /**
  * My solution to a Linkedin interview question. It is hard to test it since they provide on an interface w/o
  * implementation. But I think I present here a valid approach that relies on recursion b/w 2 methods
- *
+ * The Question: 3_STAR
  * @author haldokan
  */
 public class SumOfNestedListsWeightedByDepth {

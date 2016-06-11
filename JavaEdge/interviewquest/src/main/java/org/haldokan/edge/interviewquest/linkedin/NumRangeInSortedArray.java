@@ -6,7 +6,7 @@ import java.util.Objects;
 
 /**
  * My solution to a Linkedin interview question
- * <p>
+ * The Question: 3_STAR
  * Given a sorted array with duplicates and a number, find the range in the form of (startIndex, endIndex) of that
  * number. For example,
  * <p>
@@ -28,7 +28,7 @@ public class NumRangeInSortedArray {
         System.out.println(Arrays.toString(range.findRange(arr, 6)));
     }
 
-    // we can implement the binary search ourself which is an easy thing but I will use Java's
+    // we can implement the binary search ourselves which is an easy thing but I will use Java's
     private int[] findRange(Integer[] arr, Integer num) {
         int[] range = new int[]{-1, -1};
         int index = Collections.binarySearch(Arrays.asList(arr), num);

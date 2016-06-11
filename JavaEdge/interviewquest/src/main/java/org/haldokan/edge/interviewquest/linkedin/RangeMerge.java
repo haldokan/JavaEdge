@@ -6,8 +6,8 @@ import java.util.Iterator;
 import java.util.List;
 
 /**
- * My implementation of a Linkedin interview question found on Careercup.
- * <p>
+ * My implementation of a Linkedin interview question.
+ * The Question: 3_STAR
  * Given a collection of pair representing intervals write a function which inserts new interval into collection and
  * merges overlapping intervals. Example: [-10, -1], [0,2], [4,10] insert [-5, 1] output: [-10, 2], [4, 10]
  *

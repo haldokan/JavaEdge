@@ -7,7 +7,7 @@ import java.util.Set;
 
 /**
  * My solution to a Linkedin interview question.
- * <p>
+ * The Question: 2_STAR
  * The question is describe in comments for each method
  *
  * @author haldokan

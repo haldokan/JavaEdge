@@ -8,7 +8,7 @@ import java.util.stream.Collectors;
 
 /**
  * My solution to a Linkedin interview question
- * <p>
+ * The Question: 3_STAR
  * Find all the repeating sub-string sequence of specified length in a large string sequence. The sequences returned
  * i.e. the output must be sorted alphabetically.
  * <p>

@@ -4,10 +4,9 @@ import java.util.Deque;
 import java.util.LinkedList;
 
 /**
- * My implementation of a linkedin-interview-question
- * <p>
+ * My Solution to Linkedin interview question
  * I think using a stack to track the empty spots is a valid idea. However somehow when I try to translate that to
- * available spots some use cases don't pass. I give up on this little sh*t.
+ * available spots some use cases don't pass. I give up on this little sucker.
  * <p>
  * Suppose you have a long flowerbed in which some of the plots are planted and some are not. However, flowers cannot be
  * planted in adjacent plots - they would compete for water and both would die. Given a flowerbed (represented as an

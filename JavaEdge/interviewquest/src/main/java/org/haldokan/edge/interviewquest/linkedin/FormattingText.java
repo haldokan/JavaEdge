@@ -3,7 +3,7 @@ package org.haldokan.edge.interviewquest.linkedin;
 /**
  * My solution to a Linkedin interview question. There must be a better way to solve it. However, I think manipulating
  * the text in a StringBuilder is a valid approach.
- * <p>
+ * The Question: 3_STAR
  * Given a long text, print the formatted text such that each line has at most L characters and the text is left-right
  * justified. No breaking of words are allowed.
  *

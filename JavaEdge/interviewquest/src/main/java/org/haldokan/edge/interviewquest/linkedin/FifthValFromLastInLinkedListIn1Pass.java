@@ -6,7 +6,7 @@ import java.util.List;
 
 /**
  * My solution to a Linkedin interview question
- * <p>
+ * The Question: 3_STAR
  * Write a function that would return the 5th element from the tail (or end) of a singly linked list of integers, in one
  * pass, and then provide a set of test cases against that function (please do not use any list manipulation functions
  * that you do not implement yourself).

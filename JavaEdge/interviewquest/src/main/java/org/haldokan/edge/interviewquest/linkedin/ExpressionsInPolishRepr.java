@@ -5,7 +5,7 @@ import java.util.LinkedList;
 
 /**
  * My implementation to a Linkedin interview question found on Careercup.
- * <p>
+ * The Question: 4_STAR
  * Compute the value of an expression in Reverse Polish Notation. Supported operators are "+", "-", "*" and "/". Reverse
  * Polish is a postfix mathematical notation in which each operator immediately follows its operands. Each operand may
  * be a number or another expression.

@@ -4,7 +4,7 @@ import java.util.Arrays;
 
 /**
  * My solution to a Linkedin interview question.
- * <p>
+ * The Question: 3_STAR
  * Implement a method which takes an integer array and returns an integer
  * array (of equal size) in which each element is the product of every number in the input array with the exception of
  * the number at that index.
