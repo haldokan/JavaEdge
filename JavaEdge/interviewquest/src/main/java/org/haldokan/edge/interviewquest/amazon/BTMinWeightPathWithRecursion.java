@@ -6,7 +6,7 @@ import java.util.Deque;
 /**
  * My solution to an Amazon interview question. Look at the other solution I provide using iteration and w/o the need
  * to have 'parent' in the node definition (BTMinWeightPathWithIteration).
- *
+ * The Question: 3_STAR
  * In a binary tree, find and print the path with smallest weight.
  * <p>
  * Criteria: the tree contains integer values in the nodes. It may not be balanced tree. Weight is calculated by sum

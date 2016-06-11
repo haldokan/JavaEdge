@@ -8,7 +8,7 @@ import java.util.List;
  * My solution to an Amazon interview question - done w/o extra space or auxiliary data structures, and it supports non
  * rectangular mazes
  * <p>
- * <p>
+ * The Question: 5_STAR
  * Suppose you are given a puzzle that is represented as a matrix with 0s and 1s, where a 0 indicates you’re allowed to
  * move into that position and 1 means you’re not allowed to move in that position. Write a function that given a start
  * position and an end position, returns a boolean value indicating if there exists a path from start to end.

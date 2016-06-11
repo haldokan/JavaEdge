@@ -4,7 +4,7 @@ import java.util.*;
 
 /**
  * My solution to an Amazon interview question
- * <p>
+ * The Question: 4_STAR
  * In a Binary tree calculate and return array with a sum of every level.
  * <p>
  * For example,

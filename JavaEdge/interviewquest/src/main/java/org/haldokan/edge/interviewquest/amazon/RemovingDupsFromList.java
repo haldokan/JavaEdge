@@ -4,7 +4,7 @@ import java.util.*;
 
 /**
  * My Solution to an Amazon interview question. Assume we don't have the Set data structure
- * <p>
+ * The Question: 3_STAR
  * 1. Write a function that removes the duplicate of a collection of numbers and returns the number of elements
  * remaining in the collection after the duplicates have been removed.
  */

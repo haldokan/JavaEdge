@@ -5,7 +5,7 @@ import java.util.Deque;
 
 /**
  * My solution to an Amazon interview question
- * <p>
+ * The Question: 3_STAR
  * Given a postfix expression as a string, evaluate it and return the result.
  * Example : "423+*" ->20. The Postfix expression is well formed(need not check for bad expression)
  */

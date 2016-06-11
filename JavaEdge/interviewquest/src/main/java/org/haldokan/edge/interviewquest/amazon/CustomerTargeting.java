@@ -9,7 +9,7 @@ import java.util.stream.Collectors;
 /**
  * My solution to an Amazon interview question - using pure functional programming
  * <p>
- * <p>
+ * The Question: 4_STAR
  * Company will start a new marketing campaign targeting the users according
  * to their purchasing profiles.
  * <p>

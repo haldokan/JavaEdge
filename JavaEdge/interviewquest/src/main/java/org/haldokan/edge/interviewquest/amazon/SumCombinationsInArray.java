@@ -5,7 +5,7 @@ import java.util.Map;
 
 /**
  * My solution to an Amazon interview question in O(n)
- *
+ * The Question: 3_STAR
  * Given an integer array, find all pair combinations which sum to a given number.
  * If a number is used once, it must not be used again.
  * eg if input array is 6444 and sum =10

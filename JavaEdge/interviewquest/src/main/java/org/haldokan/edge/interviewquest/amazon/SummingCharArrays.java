@@ -4,7 +4,7 @@ import java.util.Arrays;
 
 /**
  * My solution to an Amazon interview question
- * <p>
+ * The Question: 5_STAR
  * Write a function that accepts two character arrays each represents a floating point number and return their sum in character array.
  * For example function accepts "23.45" and "2.5" and return their sum "25.95".
  * Restriction: We cannot use predefined functions / methods or parsing. We have to go with basic operations.

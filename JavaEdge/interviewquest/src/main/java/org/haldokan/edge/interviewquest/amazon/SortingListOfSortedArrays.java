@@ -7,7 +7,7 @@ import java.util.List;
 
 /**
  * My solution to an Amazon interview question (this is basically the merge part of merge-sort).
- * <p>
+ * The Question: 3_STAR
  * Given a list of sorted arrays, like List<int[]>. Prepare and return a single sorted list.
  */
 

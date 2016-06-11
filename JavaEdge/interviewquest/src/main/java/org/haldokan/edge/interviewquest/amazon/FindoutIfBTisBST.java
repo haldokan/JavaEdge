@@ -2,7 +2,7 @@ package org.haldokan.edge.interviewquest.amazon;
 
 /**
  * My colleague's solution to an Amazon interview question
- * <p>
+ * The Question: 3_STAR
  * Implement a function that checks if the given binary tree is binary search tree(BST).
  * Use tree operations to solve this. do not try solving by pre-order traversal of the tree and then checking
  * if the array is sorted.
