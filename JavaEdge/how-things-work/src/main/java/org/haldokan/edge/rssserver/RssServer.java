@@ -3,7 +3,10 @@ package org.haldokan.edge.rssserver;
 import java.util.concurrent.*;
 
 /**
- * Created by haytham.aldokanji on 9/24/15.
+ * This is an approximate port to the GO RssServer shown in GoEdge RssServer. I found out that it is as easy to implement the
+ * features that such a server supports in Java as in GO.
+ * The Question: 3_STAR
+ *
  */
 public class RssServer {
     private static final Item POISON_PILL = new Item(null, null, null);

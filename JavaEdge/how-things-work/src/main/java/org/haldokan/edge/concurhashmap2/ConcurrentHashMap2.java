@@ -8,7 +8,7 @@ import java.util.function.Function;
  * Concurrent hash map that supports multiple hash spaces to increase concurrency. It resolves collisions using open
  * addressing (vs chaining). The hash function is provided to the map as a function. The hash function is implemented
  * using bitwise in BitwiseHasher.
- *
+ * The Question: 5_STAR
  * @param <K>
  * @param <V>
  * @author haldokan

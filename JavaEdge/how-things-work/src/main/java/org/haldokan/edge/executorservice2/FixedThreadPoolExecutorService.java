@@ -8,7 +8,7 @@ import java.util.concurrent.*;
  * (callables) are added to a service queue. The executor takes the tasks from the service queue and hands them over to
  * an available warm thread from the pool returning a future immediately to the calling client code. Blocking on
  * unavailable resources (when all threads are in usage for example) is done using blocking queues.
- *
+ * The Question: 4_STAR
  * @param <V>
  * @author haldokan
  */

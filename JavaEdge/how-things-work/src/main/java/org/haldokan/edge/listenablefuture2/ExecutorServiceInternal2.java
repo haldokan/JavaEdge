@@ -6,7 +6,7 @@ import java.util.concurrent.TimeUnit;
 
 /**
  * The implementation of the Executor returns our own ListenableFuture2 instead of plain JDK Future
- *
+ * The Question: 5_STAR
  * @author haldokan
  */
 public class ExecutorServiceInternal2 implements ExecutorService2 {

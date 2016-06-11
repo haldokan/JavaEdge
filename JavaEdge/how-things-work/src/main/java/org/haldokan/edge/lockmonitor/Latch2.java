@@ -2,7 +2,7 @@ package org.haldokan.edge.lockmonitor;
 
 /**
  * Latch implementation using wait and notify
- *
+ * The Question: 3_STAR
  * @author haldokan
  */
 public class Latch2 {

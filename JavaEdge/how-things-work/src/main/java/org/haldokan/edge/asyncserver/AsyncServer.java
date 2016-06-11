@@ -16,10 +16,8 @@ import static java.util.stream.Collectors.counting;
 import static java.util.stream.Collectors.groupingBy;
 
 /**
- * In progress...
- * <p>
  * Simulate how asynchronous sockets work
- *
+ * The Question: 5_STAR
  * @author haldokan
  */
 public class AsyncServer {

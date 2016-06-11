@@ -10,6 +10,7 @@ import java.util.concurrent.atomic.AtomicInteger;
  * Sliding window keeps updates for a specified interval (say last 15 mins) while shifting the window at specified ticks
  * (say every 10 seconds). If we have very high volume of updates there will be high contention on b/w add &
  * remove threads: this is a blocking queue. The WindowShard is designed to reduce such contention.
+ * The Question: 4_STAR
  */
 public class SlidingTimeWindow {
     // window length in seconds

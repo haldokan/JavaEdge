@@ -4,7 +4,7 @@ import java.util.function.Function;
 
 /**
  * Hash function that uses bitwise programming to hash strings and native values.
- *
+ * The Question: 3_STAR
  * @author haldokan
  */
 public class BitwiseHasher implements Function<Object, Integer> {
