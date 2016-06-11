@@ -8,7 +8,7 @@ import java.util.Map;
 /**
  * BST that show in-order, pre-order and post order walk if the tree, number of nodes, number of nodes greater that a
  * value. It also presents a somewhat tricky problem of finding all the tree nodes that fall wihin a value range.
- *
+ * The Question: 3_STAR
  * @param <E>
  * @author haldokan
  */

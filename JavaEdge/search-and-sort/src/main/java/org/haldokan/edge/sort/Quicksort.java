@@ -6,7 +6,7 @@ import java.util.Arrays;
  * Nice and concise algorithm for quick sort that relies on the idea of swapping a smaller value with the pivot.
  * Note how the sort is done "in situ" which is great because no extra buffering is needed. I should note that merge sort
  * cannot be done "in situ". The algorithm is presented by Steven S. Skiena in his book Algorithm Design Manual.
- *
+ * The Question: 3_STAR
  * @author haldokan
  */
 public class Quicksort {

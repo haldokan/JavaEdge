@@ -4,7 +4,7 @@ import java.util.Random;
 
 /**
  * BST that show find, successor and insert operations. We can pass to the methods any Comparable classes
- *
+ * The Question: 3_STAR
  * @param <E>
  * @author haldokan
  */

@@ -6,7 +6,7 @@ import static org.junit.Assert.assertThat;
 /**
  * My implementation of a prefix trie inspired by descriptions of the algorithm on-line - chars are not stored explicitely
  * in the  They are rather represented by their ascii codes in each node children
- * <p>
+ * The Question: 4_STAR
  * Created by haytham.aldokanji on 5/18/16.
  */
 public class PrefixTrie {

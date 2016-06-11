@@ -8,7 +8,7 @@ import java.util.Queue;
 /**
  * Implementation of all heap operations: pop, push, heapify and bubbleup. In the JDK PriorityQueue is implemented using
  * the heap data structure
- *
+ * The Question: 3_STAR
  * @author haldokan
  */
 public class HeapSort {
