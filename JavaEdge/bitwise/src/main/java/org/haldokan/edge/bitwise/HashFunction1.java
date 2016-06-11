@@ -4,7 +4,7 @@ import java.nio.ByteBuffer;
 
 /**
  * Hash function that uses our checksum class. I also show how to hash a long to an int value
- *
+ * The Question: 3_STAR
  * @author haldokan
  */
 public class HashFunction1 {

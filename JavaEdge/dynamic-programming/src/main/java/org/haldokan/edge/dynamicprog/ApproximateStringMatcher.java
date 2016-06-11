@@ -15,9 +15,8 @@ import com.google.common.collect.Table;
  * <p>
  * Running the program on these 2 strings 'thou shalt not' and 'you should not' shows the cost of converting the first
  * string to the second and how to do that (D delete, S substitute, I insert, M match):
- * <p>
  * matching cost: 5, DSMMMMMISMSMMMM
- *
+ * The Question: 5_STAR
  * @author haldokan
  */
 public class ApproximateStringMatcher {

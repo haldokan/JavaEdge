@@ -3,7 +3,7 @@ package org.haldokan.edge.dynamicprog;
 /**
  * Solution is based on the dynamic programming implementation presented by Steven S. Skiena in his book Algorithm
  * Design Manual
- *
+ * The Question: 3_STAR
  * @author haldokan
  */
 public class DynamicFibonacci {

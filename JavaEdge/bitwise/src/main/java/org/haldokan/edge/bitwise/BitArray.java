@@ -2,7 +2,7 @@ package org.haldokan.edge.bitwise;
 
 /**
  * Implement a Bit array that supports some of the java.util.BitSet operations.
- *
+ * The Question: 3_STAR
  * @author haldokan
  */
 public class BitArray {

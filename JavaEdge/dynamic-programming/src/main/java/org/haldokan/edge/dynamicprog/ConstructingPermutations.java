@@ -3,6 +3,7 @@ package org.haldokan.edge.dynamicprog;
 /**
  * Constructing permutations of {1,....,n}. I ported the C solution given by Steven Skiena in his book Algorithm Design Manual
  * to Java. The solution uses back tracking.
+ * The Question: 3_STAR
  */
 public class ConstructingPermutations {
 

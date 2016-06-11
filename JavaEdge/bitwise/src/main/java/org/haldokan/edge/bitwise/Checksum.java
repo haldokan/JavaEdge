@@ -6,7 +6,7 @@ import java.nio.file.Paths;
 
 /**
  * 64-bit checksum algorithm. It can be extended to any length easily
- *
+ * The Question: 4_STAR
  * @author haldokan
  */
 public class Checksum {

@@ -4,7 +4,7 @@ package org.haldokan.edge.dynamicprog;
  * All subsets of {1,....,n}
  * This algo is actually belongs in "Backtracking" and is not dynamic programming. Should be removed to an appropriate
  * folder
- * <p>
+ * The Question: 3_STAR
  * Solution is a port from the C implementation presented by Steven S. Skiena in his Book Algorithm Design Manual
  *
  * @author haldokan

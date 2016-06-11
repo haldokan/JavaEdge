@@ -4,7 +4,7 @@ import java.util.function.Function;
 
 /**
  * hash function that can be the target of a lambda in functional Java. Note how longs and strings are hashed
- *
+ * The Question: 3_STAR
  * @author haldokan
  */
 public class HashFunction2 implements Function<Object, Integer> {
