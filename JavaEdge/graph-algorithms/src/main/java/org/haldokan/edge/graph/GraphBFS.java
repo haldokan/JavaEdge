@@ -4,7 +4,7 @@ import java.util.*;
 
 /**
  * Breadth Frist Search of a graph. Iteration (not recursion) is used for BFS.
- *
+ * The Question: 4_STAR
  * @param <E>
  * @author haldokan
  */

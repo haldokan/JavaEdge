@@ -10,7 +10,7 @@ import java.util.*;
  * <p>
  * An interesting take on this algorithm is that it is a flavor of dynamic programming: every step provides enough info
  * for the next step (recurrence relationship). Same goes for Graph MST.
- *
+ * The Question: 5_STAR
  * @param <E>
  * @author haldokan
  */

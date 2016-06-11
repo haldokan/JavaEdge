@@ -8,7 +8,7 @@ import java.util.Map;
 /**
  * Use DFS to detect cycles in directed graphs. Cycle exist when a graph has a backward edge: An edge that points back to
  * an ancestor vertex in the DFS tree that is not the parent of the edge's start vertex.
- *
+ * The Question: 4_STAR
  * @param <E>
  * @author haldokan
  */
