@@ -12,8 +12,9 @@ import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
 
 /**
- * My solution to a Google interview question - Space O(n), time complexity O(n^3).
- * (todo) I believe there must be an O(n^2) solution using dynamic programming.
+ * My solution to a Google interview question - Space O(n), time complexity O(n^3). I present another solution using
+ * dynamic programming here: GenerifiedLongestSubsequence. Time complexity is reduced to O(n^2).
+ *
  * <p>
  * The Question: 3_STAR
  * A circus is designing a tower routine consisting of people standing atop one another’s
