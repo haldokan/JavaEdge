@@ -4,7 +4,7 @@ import java.util.ArrayDeque;
 import java.util.Deque;
 
 /**
- * My solution to a Google interview question - trick is to spot that that problem can be thought of as a tree that is
+ * My solution to a Google interview question - trick is to spot that the problem can be thought of as a tree that is
  * printed using BFS.
  * <p>
  * The Question: 4_STAR
