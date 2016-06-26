@@ -27,7 +27,7 @@ import java.util.Deque;
  * 9 6
  * 5
  * <p>
- * Created by haytham.aldokanji on 6/25/16.
+ * Created by haytham.aldokanji  on 6/25/16.
  */
 public class PrintMatrixDiagonally {
 
