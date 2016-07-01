@@ -41,9 +41,9 @@ public class ServerRequestCountInSlidingWindow {
             requestCounter.countRequest(System.currentTimeMillis() / 1000);
             Thread.sleep(10);
 
-            System.out.printf("last second: %d%n", requestCounter.numberRequestInLastTimeUnit(TimeUnit.SECONDS));
-            System.out.printf("last minute: %d%n", requestCounter.numberRequestInLastTimeUnit(TimeUnit.MINUTES));
-            System.out.printf("last hour: %d%n", requestCounter.numberRequestInLastTimeUnit(TimeUnit.HOURS));
+            System.out.printf("last second: %d%n", requestCounter.getNumberOfRequestsInLastTimeUnit(TimeUnit.SECONDS));
+            System.out.printf("last minute: %d%n", requestCounter.getNumberOfRequestsInLastTimeUnit(TimeUnit.MINUTES));
+            System.out.printf("last hour: %d%n", requestCounter.getNumberOfRequestsInLastTimeUnit(TimeUnit.HOURS));
             System.out.printf("----------------%n");
         }
     }
@@ -81,7 +81,7 @@ public class ServerRequestCountInSlidingWindow {
         requestCounter[index].getAndIncrement();
     }
 
-    public int numberRequestInLastTimeUnit(TimeUnit timeUnit) {
+    public int getNumberOfRequestsInLastTimeUnit(TimeUnit timeUnit) {
         if (timeUnit == TimeUnit.SECONDS) {
             int index = currentIndex;
             return requestCounter[index].get();
