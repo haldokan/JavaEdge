@@ -110,12 +110,13 @@ public class SlidingWindowServerRequestCounter {
         int j = 0;
         int interval = Math.min(windowLength - 1, intervalInSeconds);
 
-        for (int i = currentIndex; i >= 0 && j < interval; i--) {
+        int tmpIndex = currentIndex; // currentIndex is being changed by another thread
+        for (int i = tmpIndex; i >= 0 && j < interval; i--) {
             j++;
-            sum += requestCounter[currentIndex - i].intValue();
+            sum += requestCounter[tmpIndex - i].intValue();
         }
 
-        for (int i = requestCounter.length - 1; i > currentIndex && j < interval; i--) {
+        for (int i = requestCounter.length - 1; i > tmpIndex && j < interval; i--) {
             sum += requestCounter[i].intValue();
             j++;
         }
