@@ -12,11 +12,11 @@ import java.util.stream.IntStream;
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
 
-
 /**
  * My solution to an Amazon interview question - solved nicely using min heap. I don't support here listing users with
  * the same number of logins as one group. For that look at the other version I provide for this question:
- * TopKUsersBasedOnNumOfLogins2
+ * TopKUsersBasedOnNumOfLogins2.
+ * The Question: 4_STAR
  * <p>
  * Given a file (which can be considered as a String with comma delimiter for the complexity of the question)
  * of usernames and a value k, find top k usernames (with number of logins) who logged into the system the most.
@@ -36,6 +36,7 @@ import static org.junit.Assert.assertThat;
  * Write a java method to find the output with best time and space complexity.
  * Created by haytham.aldokanji on 7/5/16.
  */
+
 public class TopKUsersBasedOnNumOfLogins1 {
 
     public static void main(String[] args) {
