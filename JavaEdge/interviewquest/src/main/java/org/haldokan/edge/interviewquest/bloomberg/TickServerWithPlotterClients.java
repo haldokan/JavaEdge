@@ -8,7 +8,7 @@ import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
 
 /**
- * My solution to a Bloomberg interview question - for the plotter I used a min heap but since the same ticker should
+ * My solution to a Bloomberg interview question - for the plotter I used a min heap but since the same ticker can
  * be added to the heap more than one time we have to find the ticker first which makes heap add/remove O(n) time
  * The Question: 4_STAR
  * <p>
@@ -263,13 +263,10 @@ public class TickServerWithPlotterClients {
                 tickCount.increment();
                 minHeap.remove(tickCount);
                 minHeap.add(tickCount);
-                // here we can notify the plotter GUI to 'update' the tick count
             } else if (minHeap.size() < topSampleSize || count > minHeap.peek().count) {
                 TickCount tickCount = new TickCount(tick, count);
                 minHeap.add(tickCount);
-                // notify plotter GUI to add a tick count
                 if (minHeap.size() > topSampleSize) {
-                    // notify plotter GUI to remove tick count
                     minHeap.remove();
                 }
             }
