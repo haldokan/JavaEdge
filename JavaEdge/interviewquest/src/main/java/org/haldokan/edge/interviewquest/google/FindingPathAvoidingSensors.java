@@ -8,7 +8,8 @@ import java.util.List;
 /**
  * My solution to a Google interview question - here simplified to make coordinates integers so the rectangle can be
  * mapped to a matrix. I also ignore the sensor radius and reduce it to an obstacle coordinate in the matrix.
- * I provide another solution where the coordinates are doubles and sensors have radius in FindingPathAvoidingSensors2.
+ * Solving the question as stated originally requires some geometry to establish whether a path segment intersects with
+ * any sensor circle. More work than I'm willing to spend on it.
  * The Question: 4_STAR
  * <p>
  * Given a rectangle with top-left(a,b) and bottom-right(c,d) coordinates. Also given some coordinates (m,n) of sensors
@@ -35,14 +36,14 @@ import java.util.List;
  * <p>
  * Created by haytham.aldokanji on 7/11/16.
  */
-public class FindingPathAvoidingSensors1 {
+public class FindingPathAvoidingSensors {
     private static final int[] INDEX_OFFSETS = new int[]{-1, 1};
     private static final char SENSOR = 'S';
     private static final char PATH = 'P';
     private static final char VISITED = 'V';
 
     public static void main(String[] args) {
-        FindingPathAvoidingSensors1 driver = new FindingPathAvoidingSensors1();
+        FindingPathAvoidingSensors driver = new FindingPathAvoidingSensors();
         driver.test1();
         driver.test2();
     }
