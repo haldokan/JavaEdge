@@ -2,6 +2,8 @@ package org.haldokan.edge.cucumber;
 
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
+// TODO: NEED work mobile number, and office address
+
 @JsonPropertyOrder(value = {"id", "firstName", "lastName", "externalId", "workEmail", "recordType",
         "location1", "country1", "city1", "state1", "postalCode1", "country2", "workPhone", "sms1", "personalPhone", "sms2"})
 public class Contact {

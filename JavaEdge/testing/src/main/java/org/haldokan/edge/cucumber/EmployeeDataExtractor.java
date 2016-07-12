@@ -28,7 +28,6 @@ import java.util.Map;
 
 /**
  * Extract all employee data from ConnectION and sftp it to Everbridge
- *
  */
 public class EmployeeDataExtractor {
     private static final String USERNAME_KEY = "uname";
@@ -112,7 +111,6 @@ public class EmployeeDataExtractor {
 
         String dataUrl = runConfigsTable.get(URL_KEY) + runConfigsTable.get(DATA_ENDPOINT_KEY);
         ResponseEntity<String> response = restTemplate.exchange(dataUrl, HttpMethod.GET, request, String.class);
-
         List<Contact> contacts = jsonMapper.readValue(response.getBody(), new TypeReference<List<Contact>>() {
         });
 
