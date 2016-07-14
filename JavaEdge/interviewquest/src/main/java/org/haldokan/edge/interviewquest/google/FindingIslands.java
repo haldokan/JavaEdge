@@ -6,7 +6,8 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 
 /**
- * My solution to a Google interview question - solution works for non square arrays.
+ * My solution to a Google interview question - solution works for non square matrices and it returns the islands (not
+ * just their count).
  *
  * The Question: 5_STAR
  * <p>
