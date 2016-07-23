@@ -4,7 +4,8 @@ import java.util.Random;
 
 /**
  * My solution to an Amazon interview question - Random sampling with equal probability from streams of data is done using
- * Knuth's Reservoir algorithm - This post on Stackoverflow gives a good explanation on why the algorithm works
+ * Knuth's Reservoir algorithm - This post on Stack Overflow gives a good explanation on why the algorithm works:
+ * http://stackoverflow.com/questions/12732982/design-a-storage-algorithm/12733515#12733515
  * <p>
  * The Question: 4_STAR
  * <p>
