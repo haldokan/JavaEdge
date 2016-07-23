@@ -18,6 +18,7 @@ public class SummingNumberOccurrencesInString {
     public static void main(String[] args) {
         SummingNumberOccurrencesInString driver = new SummingNumberOccurrencesInString();
         assertThat(driver.sum("11aa22bb33dd44"), is(110));
+        assertThat(driver.sum("11aa-22bb33dd44"), is(66));
     }
 
     public int sum(String str) {
