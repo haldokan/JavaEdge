@@ -5,8 +5,8 @@ import java.util.List;
 import java.util.Random;
 
 /**
- * My implementation of an interval tree based on descriptions of the algorithm found online - interval tree enables finding
- * interval intersection in O(log n) where n is the number of intervals. It has space complexity of O(n)
+ * My generic implementation of an interval tree based on descriptions of the algorithm found online - interval tree
+ * enables finding interval intersection in O(log n) where n is the number of intervals. It has space complexity of O(n)
  * The Question: 4_STAR
  * <p>
  * Created by haytham.aldokanji on 7/25/16.
