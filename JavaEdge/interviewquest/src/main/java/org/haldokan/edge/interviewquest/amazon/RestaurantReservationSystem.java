@@ -15,7 +15,7 @@ import java.util.concurrent.TimeUnit;
  * The Question: 4_STAR
  * <p>
  * Model a restaurant reservation system, where staff can book, find or cancel a reservation. The reservation
- * system is very simple local to just one terminal at the restaurant not connected to network.
+ * system is very simple local to just one terminal at the restaurant not connected to network
  * <p>
  * Created by haytham.aldokanji on 7/25/16.
  */
