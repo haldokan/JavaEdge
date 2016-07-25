@@ -6,9 +6,11 @@ import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
 
 /**
- * My solution to an Amazon interview question - the question is under specified. My solution assumes that the word
- * occurrences don't overlap. todo: support overlapping words.
- * The Question: 3_STAR
+ * My solution to an Amazon interview question - I solved the question taking the more complex assumptions and returning
+ * the word coordinate instead of just the count. The assumption I worked with is that the letters comprising the search
+ * word can participate in all the word occurrences. I use DFS to find the word occurrences. As recursion probes the
+ * matrix we keep track of visited coordinates and of the substrings that form part of multiple occurrences.
+ * The Question: 5_STAR
  * <p>
  * Suppose you have a 2 dimensional Array and you have a String say"Amazon"inside the Array such that the individual
  * characters can be present from Left to Right,Right to Left,Top to down and down to up.
@@ -36,17 +38,19 @@ public class FindingWordOccurrencesInMatrix {
         FindingWordOccurrencesInMatrix driver = new FindingWordOccurrencesInMatrix();
         driver.test1();
         driver.test2();
+        driver.test3();
     }
 
     public List<Coordinate[]> countWordOccurrences(char[][] matrix, char[] word) {
         Deque<Coordinate> visitedDeck = new ArrayDeque<>();
         List<Coordinate[]> occurrences = new ArrayList<>();
+        // 'dfs' insures that the matrix is returned to original state after each iteration of the inner loop below
+        boolean[][] visitedMatrix = new boolean[matrix.length][matrix[0].length];
 
         for (int i = 0; i < matrix.length; i++) {
             char[] row = matrix[i];
             for (int j = 0; j < row.length; j++) {
                 Coordinate coordinate = new Coordinate(i, j);
-                boolean[][] visitedMatrix = new boolean[matrix.length][matrix[0].length];
                 if (matrix[coordinate.row][coordinate.col] == word[0]) {
                     dfs(matrix, visitedMatrix, coordinate, word, visitedDeck, 1, occurrences);
                 }
@@ -66,25 +70,26 @@ public class FindingWordOccurrencesInMatrix {
         visited.addFirst(coordinate);
 
         if (index == word.length) {
-            int i = 0;
             Coordinate[] occurrence = new Coordinate[word.length];
-            while (!visited.isEmpty()) {
+            for (int i = word.length - 1; i >= 0; i--) {
                 Coordinate visitedCoord = visited.remove();
-                occurrence[i++] = visitedCoord;
+                occurrence[i] = visitedCoord;
+            }
+            // necessary to stack back the coordinate and let them removed as recursive calls return
+            for (Coordinate coord : occurrence) {
+                visited.addFirst(coord);
             }
             occurrences.add(occurrence);
+            visitedMatrix[coordinate.row][coordinate.col] = false;
             return;
         }
         Coordinate[] neighbors = getNeighbors(coordinate, matrix, visitedMatrix, word[index]);
-        if (neighbors.length == 0) {
-            while (!visited.isEmpty()) {
-                Coordinate visitedCoord = visited.remove();
-                visitedMatrix[visitedCoord.row][visitedCoord.col] = false;
-            }
-        }
         for (Coordinate neighbor : neighbors) {
             dfs(matrix, visitedMatrix, neighbor, word, visited, index + 1, occurrences);
+            visited.remove();
+            visitedMatrix[coordinate.row][coordinate.col] = false;
         }
+        visitedMatrix[coordinate.row][coordinate.col] = false;
     }
 
     private Coordinate[] getNeighbors(Coordinate coordinate,
@@ -139,7 +144,19 @@ public class FindingWordOccurrencesInMatrix {
         List<Coordinate[]> occurrences = countWordOccurrences(matrix, new char[]{'A', 'M', 'A', 'Z', 'O', 'N'});
         occurrences.stream().forEach(occurrence -> System.out.printf("%s%n", Arrays.toString(occurrence)));
         System.out.printf("%s%n", "--------------");
-        assertThat(occurrences.size(), is(3));
+        assertThat(occurrences.size(), is(8));
+    }
+
+    private void test3() {
+        char[][] matrix = {
+                // palindrome
+                {'r', 'a', 'c', 'e', 'c', 'a', 'r'},
+                {'a', 'c', 'e', 'c', 'a', 'r', 'x'}
+        };
+        List<Coordinate[]> occurrences = countWordOccurrences(matrix, new char[]{'r', 'a', 'c', 'e', 'c', 'a', 'r'});
+        occurrences.stream().forEach(occurrence -> System.out.printf("%s%n", Arrays.toString(occurrence)));
+        System.out.printf("%s%n", "--------------");
+        assertThat(occurrences.size(), is(22));
     }
 
     private static final class Coordinate {
@@ -148,23 +165,6 @@ public class FindingWordOccurrencesInMatrix {
         public Coordinate(int row, int col) {
             this.row = row;
             this.col = col;
-        }
-
-        @Override
-        public boolean equals(Object o) {
-            if (this == o) return true;
-            if (o == null || getClass() != o.getClass()) return false;
-
-            Coordinate that = (Coordinate) o;
-
-            return row == that.row && col == that.col;
-        }
-
-        @Override
-        public int hashCode() {
-            int result = row;
-            result = 31 * result + col;
-            return result;
         }
 
         @Override
