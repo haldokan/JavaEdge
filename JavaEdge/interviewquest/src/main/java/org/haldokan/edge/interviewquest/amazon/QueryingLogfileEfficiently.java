@@ -7,7 +7,9 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.stream.Collectors;
 
 /**
- * My solution to an Amazon interview question
+ * My solution to an Amazon interview question - used a composite map of  year -> day of the year -> page url -> UserVisit
+ * as a data structure.
+ *
  * The Question: 4_STAR
  * <p>
  * Entry in the log file is like this:
