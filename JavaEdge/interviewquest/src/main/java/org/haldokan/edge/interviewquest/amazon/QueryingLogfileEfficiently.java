@@ -92,10 +92,10 @@ public class QueryingLogfileEfficiently {
         }
         System.out.printf("log: %s%n", pageVisitsLog);
 
-        Set<String> pagesVisited = pagesVisited(LocalDate.now(), 5, 10, Collections.emptySet());
+        Set<String> pagesVisited = pagesVisited(LocalDate.now(), 3, 5, Collections.emptySet());
         System.out.printf("pages: %s%n", pagesVisited);
 
-        Set<String> pagesVisitedForUser = pagesVisitedByUserMinNumberOfTimes("username1", 2, 2016);
+        Set<String> pagesVisitedForUser = pagesVisitedByUserMinNumberOfTimes("username9", 5, 2016);
         System.out.printf("pages4User: %s%n", pagesVisitedForUser);
     }
 
