@@ -1,5 +1,7 @@
 package org.haldokan.edge.interviewquest.amazon;
 
+import com.google.common.collect.ImmutableMap;
+
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.*;
@@ -68,6 +70,8 @@ public class QueryingLogfileEfficiently {
                 .collect(Collectors.toSet());
     }
 
+    // looking at this method, is it hard to conclude that 'nested' functional call is an anti-pattern? It is hard to
+    // understand what this long nested pipe does. Perhaps the nested parts should be extracted out
     public Set<String> pagesVisitedByUserMinNumberOfTimes(String username, int minNumOfVisits, int year) {
         Set<String> pages = new HashSet<>();
         pageVisitsLog.get(year).values().stream()
@@ -167,7 +171,9 @@ public class QueryingLogfileEfficiently {
         }
 
         public Map<String, List<PageVisit>> getUserVisits() {
-            return userVisits;
+            // in a real app copying this much data can prove costly. returning the actual map is not a good idea: it
+            // can be modified by the client code. Also doing that in a multi-threaded environment is not possible
+            return ImmutableMap.copyOf(userVisits);
         }
 
         @Override
