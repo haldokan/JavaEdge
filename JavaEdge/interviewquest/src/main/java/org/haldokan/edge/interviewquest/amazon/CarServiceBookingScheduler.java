@@ -209,7 +209,7 @@ public class CarServiceBookingScheduler {
             return node;
         }
 
-        private void findOverlapping(Interval<T> interval, List<Node<T>> overlapping) {
+        public void findOverlapping(Interval<T> interval, List<Node<T>> overlapping) {
             findOverlapping(node, interval, overlapping);
         }
 
