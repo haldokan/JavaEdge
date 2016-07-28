@@ -30,17 +30,16 @@ public class IntervalTree<T extends Comparable<T>> {
         driver.preOrder(driver.node);
 
         List<Node<Integer>> overlapping = new ArrayList<>();
-        driver.findOverlapping(driver.node, new Interval<>(1800, 1835), overlapping);
+        driver.findOverlapping(new Interval<>(1800, 1835), overlapping);
         System.out.printf("overlapping: %s%n", overlapping);
 
         overlapping = new ArrayList<>();
-        driver.findOverlapping(driver.node, new Interval<>(11, 35), overlapping);
+        driver.findOverlapping(new Interval<>(11, 35), overlapping);
         System.out.printf("overlapping: %s%n", overlapping);
     }
 
     private void insert(Interval<T> interval) {
         if (node == null) {
-            interval.max = interval.end;
             node = new Node<>(interval);
         } else {
             insert(node, interval);
@@ -61,6 +60,10 @@ public class IntervalTree<T extends Comparable<T>> {
             node.interval.max = interval.max;
         }
         return node;
+    }
+
+    public void findOverlapping(Interval<T> interval, List<Node<T>> overlapping) {
+        findOverlapping(node, interval, overlapping);
     }
 
     private void findOverlapping(Node<T> node, Interval<T> interval, List<Node<T>> overlapping) {
