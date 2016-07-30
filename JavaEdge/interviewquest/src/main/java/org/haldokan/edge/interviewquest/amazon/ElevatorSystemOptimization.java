@@ -8,10 +8,7 @@ import java.util.Random;
  * My solution to an Amazon interview question - Designed and implemented the scheduling logic
  * If all elevators are going in the same direction and all passed the requester location, requester
  * will have to wait until the first elevator becomes stationary. The retry logic and the elevator resetting its
- * direction to STATIONARY when no stops are requested from it insures that happening
- * The question can be made more interesting and harder if we are to consider the number of stops an elevator has. Also to
- * support calling an elevator that is going in the opposite direction of that of the requester direction however can
- * reach the requester sooner based on the number of stops, etc.
+ * direction to STATIONARY when no stops are requested from it, insures that happening.
  * <p>
  * The Question: 4_STAR
  * <p>
@@ -46,12 +43,12 @@ public class ElevatorSystemOptimization {
     }
 
     public Optional<Elevator> doRequestElevator(int floor, Direction requesterDirection) {
-        // closest stationary
+        // closest stationary stationary
         Optional<Elevator> closestStationaryElevator = Arrays.stream(elevators)
                 .filter(elevator -> elevator.getDirection() == Direction.STATIONARY)
                 .min((e1, e2) -> (Math.abs(e1.getLocation() - floor) - Math.abs(e2.getLocation() - floor)));
 
-        // closest moving in the same direction but has not passed the requester
+        // closest elevator moving in the same direction but has not passed the requester
         Optional<Elevator> closestMovingElevator = Arrays.stream(elevators)
                 .filter(elevator -> elevator.direction == requesterDirection)
                 .filter(elevator1 -> requesterDirection == Direction.UP ? elevator1.getLocation() <= floor
@@ -84,7 +81,7 @@ public class ElevatorSystemOptimization {
             stopAtFloors[floor] = true;
         }
 
-        // reasonable to assume that the elevator should know it's location based on signals it receives at each floor
+        // reasonable to assume that the elevator should know it's location
         public int getLocation() {
             return new Random().nextInt(stopAtFloors.length);
         }
