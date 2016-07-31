@@ -5,6 +5,7 @@ import com.google.common.collect.SetMultimap;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 import java.util.Set;
 
 /**
@@ -61,6 +62,10 @@ public class ProductAvailabilityNotificationSystem {
         }
         productStocks.computeIfPresent(productId, (k, v) -> v - amount);
         return true; // congratulations!
+    }
+
+    public Optional<Integer> getProductShortage(String productId) {
+        return Optional.ofNullable(productShortage.get(productId));
     }
 
     private static final class Client {
