@@ -9,7 +9,8 @@ import static org.junit.Assert.assertThat;
  * My solution to an Amazon interview question - BFS and updating the accumulate cost of each coordinate with the minimum
  * cost of the different paths that pass thru the coordinate. Using Integer accumulate cost matrix with null initial values
  * plays nicely to mark the coordinates that have not yet traversed.
- * I solve this question again but instead return the shorted path: Look at WalkMatrixInMinCost2
+ * I solve this question again but instead return the shorted path along with the min cost for every coordinate in the
+ * path: Look at WalkMatrixInMinCost2
  * <p>
  * The Question: 4_STAR
  * <p>
