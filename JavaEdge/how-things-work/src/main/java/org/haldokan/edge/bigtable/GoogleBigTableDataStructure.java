@@ -66,6 +66,8 @@ public class GoogleBigTableDataStructure {
     }
 
     // Going to assume for now that both start and end keys fall in the same tablet (todo: support ranges spanning multiple tablets)
+    // approximately the way it is done in Google Big Table is to keep memory indexes to the data blocks in SSTables that
+    // are the building blocks of tablets
     public Map<String, ListMultimap<String, String>> findValuesInKeyRange(String startRowKey,
                                                                           String endRowKey,
                                                                           Set<String> qualifiedColumns) {
