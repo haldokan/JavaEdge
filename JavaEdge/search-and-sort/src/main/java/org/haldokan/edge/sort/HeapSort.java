@@ -158,7 +158,6 @@ public class HeapSort<T> {
 
         int leftChildIndex = getLeftIndex(index);
         if (leftChildIndex < heap.size() && heapFunc.apply(heap.get(leftChildIndex), swapValue)) {
-//        if (leftChildIndex < heap.size() && heapFunc.apply(heap.get(leftChildIndex), swapValue)) {
             swapValue = heap.get(leftChildIndex);
             swapIndex = leftChildIndex;
         }
