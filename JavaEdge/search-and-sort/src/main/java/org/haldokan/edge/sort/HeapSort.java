@@ -10,9 +10,13 @@ import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
 
 /**
- * Implementation of all heap operations: pop, push, dribbleDown and bubbleup.
- * In the JDK PriorityQueue is implemented using
- * the heap data structure
+ * My Implementation of all the heap data structure operations: pop, push, dribbleDown and bubbleUp. Data stored in the heap
+ * is made generic so it can be anything. Also we use a Java8 BiFunction to designate a created heap as max or min heap.
+ * We can be more specify and make the BiFunction a Comparator but I find the -1, 0, +1 return values of the Comparator
+ * to be less expressive than implementing less/greater than in the BiFunction.
+ * <p>
+ * In the JDK PriorityQueue is implemented using the heap data structure
+ * <p>
  * The Question: 4_STAR
  * <p>
  * Created by haytham.aldokanji on 8/4/16.
@@ -27,7 +31,7 @@ public class HeapSort<T> {
     }
 
     public static void main(String[] args) {
-        // jdkheap();
+        jdkHeap();
         testMinHeap();
         testMaxHeap();
     }
@@ -45,6 +49,8 @@ public class HeapSort<T> {
         heap.push(2001);
         heap.push(1941);
 
+        assertThat(heap.peek(), is(1492));
+
         Integer val;
         List<Integer> result = new ArrayList<>();
         do {
@@ -54,6 +60,7 @@ public class HeapSort<T> {
             }
         } while (val != null);
         System.out.printf("%s%n", result);
+
         assertThat(result.toArray(new Integer[result.size()]), is(result.stream().sorted().toArray(Integer[]::new)));
     }
 
@@ -70,6 +77,8 @@ public class HeapSort<T> {
         heap.push(2001);
         heap.push(1941);
 
+        assertThat(heap.peek(), is(2001));
+
         Integer val;
         List<Integer> result = new ArrayList<>();
         do {
@@ -79,13 +88,14 @@ public class HeapSort<T> {
             }
         } while (val != null);
         System.out.printf("%s%n", result);
+
         assertThat(result.toArray(new Integer[result.size()]),
                 is(result.stream().sorted((v1, v2) -> v2 - v1).toArray(Integer[]::new)));
     }
 
     // heap maintains weak order: elements are not sorted but we can always get
     // the min (or max) in log(n)
-    private static void jdkheap() {
+    private static void jdkHeap() {
         Queue<Integer> heap = new PriorityQueue<>();
         heap.add(12);
         heap.add(10);
@@ -100,9 +110,12 @@ public class HeapSort<T> {
 
     public void push(T e) {
         heap.add(e);
-        bubbleup(heap.size() - 1);
+        bubbleUp(heap.size() - 1);
     }
 
+    public T peek() {
+        return heap.get(0);
+    }
 
     public T pop() {
         if (heap.isEmpty())
@@ -120,28 +133,32 @@ public class HeapSort<T> {
     }
 
     // called after adding a new element at the bottom of the heap (index size - 1)
-    private void bubbleup(int index) {
-        if (index == 0)
+    private void bubbleUp(int index) {
+        if (index == 0) {
             return;
-        T newelem = heap.get(index);
-        int px = (index - 1) / 2;
-        if (px >= 0) {
-            if (heapFunc.apply(newelem, heap.get(px))) {
-                heap.set(index, heap.get(px));
-                heap.set(px, newelem);
-                bubbleup(px);
+        }
+        T value = heap.get(index);
+        int parentIndex = getParentIndex(index);
+
+        if (parentIndex >= 0) {
+            if (heapFunc.apply(value, heap.get(parentIndex))) {
+                heap.set(index, heap.get(parentIndex));
+                heap.set(parentIndex, value);
+
+                bubbleUp(parentIndex);
             }
         }
     }
 
-    // called after popping an element from heap top and replacing it with the element on the bottom
+    // called after popping an element from the top of the heap and replacing it with the element on the bottom
     private void dribbleDown(int index) {
-        T newEntry = heap.get(index);
+        T currentValue = heap.get(index);
         T swapValue = heap.get(index);
-
         int swapIndex = -1;
+
         int leftChildIndex = getLeftIndex(index);
         if (leftChildIndex < heap.size() && heapFunc.apply(heap.get(leftChildIndex), swapValue)) {
+//        if (leftChildIndex < heap.size() && heapFunc.apply(heap.get(leftChildIndex), swapValue)) {
             swapValue = heap.get(leftChildIndex);
             swapIndex = leftChildIndex;
         }
@@ -151,10 +168,10 @@ public class HeapSort<T> {
             swapValue = heap.get(rightChildIndex);
             swapIndex = rightChildIndex;
         }
-
+        // if swap index is -1 it means that the currentValue has found its proper place and the heap property is established
         if (swapIndex != -1) {
             heap.set(index, swapValue);
-            heap.set(swapIndex, newEntry);
+            heap.set(swapIndex, currentValue);
             dribbleDown(swapIndex);
         }
     }
@@ -165,5 +182,9 @@ public class HeapSort<T> {
 
     private int getRightIndex(int parentIndex) {
         return parentIndex * 2 + 2;
+    }
+
+    private int getParentIndex(int childIndex) {
+        return (childIndex - 1) / 2;
     }
 }
