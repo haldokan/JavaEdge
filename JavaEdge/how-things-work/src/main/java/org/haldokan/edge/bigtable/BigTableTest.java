@@ -11,6 +11,11 @@ import java.util.stream.IntStream;
 /**
  * TODO: add asserts
  * Created by haytham.aldokanji on 8/3/16.
+ *
+ * SSTable with 64K blocks with index to them at the end of the SStable. Index loaded into memory and binary search is done
+ * to find out the block location which can be retrieved with a single seek. SSTable can alternatively be loaded into memory
+ *
+ * Initially we start with one tablet and split it when it gets too big
  */
 public class BigTableTest {
     private static final int NUM_TABLETS = 16;
