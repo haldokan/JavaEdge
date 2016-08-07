@@ -1,6 +1,5 @@
 package org.haldokan.edge.interviewquest.bloomberg;
 
-
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
 
