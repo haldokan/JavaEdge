@@ -10,7 +10,7 @@ import static org.junit.Assert.assertThat;
 
 /**
  * My solution to a Bloomberg interview question - BFS while keeping track of level height. Time and space is O(n) where
- * n is the number of nodes in the tree;
+ * n is the number of nodes in the tree. I also include a much more elegant recursive solution I found on line.
  * <p>
  * The Question: 3_STAR
  * <p>
@@ -29,10 +29,11 @@ public class BinaryTreeMaxDepth {
 
     public static void main(String[] args) {
         BinaryTreeMaxDepth driver = new BinaryTreeMaxDepth();
-        assertThat(driver.treeMaxHeight(driver.makeTree()), is(6));
+        assertThat(driver.treeMaxHeightBFS(driver.makeTree()), is(6));
+        assertThat(driver.treeMaxHeightDFS(driver.makeTree()), is(6));
     }
 
-    public int treeMaxHeight(Node tree) {
+    public int treeMaxHeightBFS(Node tree) {
         Map<Integer, Integer> nodeHeight = new HashMap<>();
         Deque<Node> evalDeck = new ArrayDeque<>();
 
@@ -63,6 +64,11 @@ public class BinaryTreeMaxDepth {
             }
         }
         return maxHeight;
+    }
+
+    // Elegant! I should've thought of it b4 I went to the more clunky solution of BFS
+    public int treeMaxHeightDFS(Node head) {
+        return head == null ? 0 : Math.max(treeMaxHeightDFS(head.left), treeMaxHeightDFS(head.right)) + 1;
     }
 
     private Node makeTree() {
