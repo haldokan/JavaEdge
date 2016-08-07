@@ -6,7 +6,7 @@ import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
 
 /**
- * My solution to a Bloomberg interview question - the array index dance!
+ * My solution to a Bloomberg interview question
  * <p>
  * The Question: 3_STAR
  * <p>
@@ -36,28 +36,15 @@ public class RemoveDupsFromSortedArrayInSitu {
         if (arr == null || arr.length == 0) {
             throw new IllegalArgumentException("arr is null or empty");
         }
-        int i = 0;
-        int j = i + 1;
-        int arrLen = arr.length;
-        // not how dynamically we change the array length at each iteration by subtracting the shift
-        while (i < arrLen) {
-            while (j < arrLen && arr[i] == arr[j]) {
-                j++;
-            }
-            int shift = j - i - 1;
 
-            if (shift > 0) {
-                for (int k = j; k < arrLen; k++) {
-                    arr[k - shift] = arr[k];
-                }
+        int i = 0;
+        for (int j = 1; j < arr.length; j++) {
+            if (arr[i] != arr[j]) {
+                arr[++i] = arr[j];
             }
-            // the last j index has to be moved back by the shift len
-            j -= shift;
-            arrLen -= shift;
-            // now i is at the the next non equal element, accounting for the shift
-            i = j;
         }
-        return arrLen;
+        // return the length of the new array
+        return i + 1;
     }
 
     private void test1() {
