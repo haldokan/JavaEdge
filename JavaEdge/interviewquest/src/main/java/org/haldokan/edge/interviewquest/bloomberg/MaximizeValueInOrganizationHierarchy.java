@@ -7,7 +7,11 @@ import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
 
 /**
- * @InProgress You are given an organization hierarchy tree (n-ary tree). Every employee (node) has some value (can be -ve or +ve).
+ * My solution to a Bloomberg interview question (still needs tidying up and adding tests/asserts)
+ *
+ * The Question: 3_STAR + 1/2
+ *
+ * You are given an organization hierarchy tree (n-ary tree). Every employee (node) has some value (can be -ve or +ve).
  * You have to host a party and have to invite employees such that the total value (summation of each node value) of all
  * the employees is maximum.
  * there is a rule: no one likes to see their bosses in the party. So you cant invite an employee's immediate boss and
@@ -22,65 +26,75 @@ public class MaximizeValueInOrganizationHierarchy {
         driver.test();
     }
 
-    public int maximize(Employee employee) {
+    // todo: break up this little monster -
+    public Set<Employee> maximize(Employee employee) {
         Deque<Employee> evalDeck = new ArrayDeque<>();
-        Set<Employee> invited = new HashSet<>();
+        Set<Employee> invited = new LinkedHashSet<>();
+
+        Integer maxNegativeValue = null;
+        Integer maxValue = null;
 
         evalDeck.add(employee);
-        int maxValue = employee.getValue();
-        invited.add(employee);
+        if (employee.getValue() >= 0) {
+            maxValue = employee.getValue();
+            invited.add(employee);
+        } else {
+            maxNegativeValue = employee.getValue();
+        }
 
         while (!evalDeck.isEmpty()) {
             Employee boss = evalDeck.remove();
             List<Employee> subordinates = boss.getSubordinates();
             subordinates.stream().forEach(evalDeck::add);
 
-            subordinates = subordinates.stream().sorted((e1, e2) ->
-                    e2.getValue() - e1.getValue()).collect(Collectors.toList());
-
             int subordinateValues = 0;
-            if (!subordinates.isEmpty()) {
-                subordinateValues = subordinates.get(0).getValue();
-                subordinates.remove(0);
-            }
-
             List<Employee> valuedSubordinates = new ArrayList<>();
             for (Employee subordinate : subordinates) {
                 int subordinateValue = subordinate.getValue();
-                int currentValue = subordinateValues + subordinateValue;
 
-                if (currentValue > subordinateValues) {
-                    subordinateValues = currentValue;
+                if (subordinateValue > 0) {
+                    subordinateValues += subordinateValue;
                     valuedSubordinates.add(subordinate);
-                } else {
-                    break;
+                } else if (subordinateValue < 0 && maxNegativeValue == null ||
+                        subordinateValue < 0 && subordinateValue > maxNegativeValue) {
+                    maxNegativeValue = subordinateValue;
                 }
+
             }
 
             if (!valuedSubordinates.isEmpty()) {
-                if (invited.contains(boss) && subordinateValues > boss.getValue()) {
-                    invited.remove(boss);
-                    maxValue = maxValue - boss.getValue() + subordinateValues;
-                    valuedSubordinates.stream().forEach(invited::add);
+                if (invited.contains(boss)) {
+                    if (subordinateValues > boss.getValue()) {
+                        invited.remove(boss);
+                        maxValue = maxValue - boss.getValue() + subordinateValues;
+                        valuedSubordinates.stream().forEach(invited::add);
+                    }
                 } else if (subordinateValues > 0) {
                     maxValue += subordinateValues;
                     valuedSubordinates.stream().forEach(invited::add);
                 }
             }
         }
-        System.out.printf("invited: %s%n", invited);
-        return maxValue;
+        return invited;
     }
 
+    // todo add more tests
     private void test() {
         Employee hierarchy = makeEmployeeHierarchy();
-        int maxValue = maximize(hierarchy);
-        System.out.printf("%d%n", maxValue);
-
+        Set<Employee> invited = maximize(hierarchy);
+        System.out.printf("%s%n", invited);
+        System.out.printf("%d%n", invited.stream().collect(Collectors.summingInt(Employee::getValue)));
+        // todo add asserts
         assertThat(1, is(1));
     }
 
     private Employee makeEmployeeHierarchy() {
+        /**
+         *              f(7)
+         *          b(-1)     g(5)
+         *     a(13)    d(-3)      i(-11)
+         *           c(17) e(-8)         h(19)
+         */
         Employee f = new Employee("F", 7);
         Employee b = new Employee("B", -1);
         Employee a = new Employee("A", 13);
