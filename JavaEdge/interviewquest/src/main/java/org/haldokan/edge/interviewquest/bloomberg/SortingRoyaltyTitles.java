@@ -17,7 +17,7 @@ import static org.junit.Assert.assertThat;
  * Royal titles consist of name followed by space and a Roman numeral. Example: Richard IV. The Roman numeral in the title
  * can go to L (50). You are given the roman numerals from 1 to 10:
  * I II III IV V VI VII VIII IX X. And you are given the 10 multiples up to 50: XX XXX IL L. Numbers between 10 and 50 that
- * are not given can be formed from 10 multiples and a numeral b/w 1 and 9. Example: 48 is XLVIII wichi is XL (40) plus
+ * are not given can be formed from 10 multiples and a numeral b/w 1 and 9. Example: 48 is XLVIII which is XL (40) plus
  * VIII (8).
  * <p>
  * You are given an array of Roman titles sort it as follows: sort it on the name unless the names are equal, in which
