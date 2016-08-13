@@ -6,10 +6,9 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 
 /**
- * My solution to a Google interview question - solution works for non square matrices and it returns the islands (not
- * just their count).
- *
- * The Question: 5_STAR
+ * My solution to a Google interview question - loop thru the matrix doing BFS while marking visited islands
+ * <p>
+ * The Question: 4_STAR
  * <p>
  * Given a map N x N, 2-D array
  * 0 - sea
@@ -47,88 +46,66 @@ import static org.junit.Assert.assertThat;
  * Created by haytham.aldokanji on 04/29/16.
  */
 public class FindingIslands {
+    private static final int[] INDEX_OFFSETS = new int[]{-1, 1};
+    private static final char ISLAND = 'X';
+    private static final char VISITED = 'V';
+
     public static void main(String[] args) {
         FindingIslands driver = new FindingIslands();
 
         char[][] topography = driver.makeTopography();
+
+        int numOfIslands = driver.findNumberOfIslands(topography);
         driver.printTopography(topography);
 
-        List<Set<Land>> islands = driver.islands(topography);
-        driver.assertResults(islands);
+        assertThat(numOfIslands, is(6));
     }
 
-    public List<Set<Land>> islands(char[][] topography) {
-        List<Set<Land>> islands = new ArrayList<>();
+    public int findNumberOfIslands(char[][] topography) {
+        int numberOfIslands = 0;
 
         for (int i = 0; i < topography.length; i++) {
             char[] row = topography[i];
+
             for (int j = 0; j < row.length; j++) {
                 char chr = row[j];
 
-                if (isLand(chr)) {
-                    Land land = new Land(i, j);
-                    boolean attached = false;
-                    if (land.x > 0 && isLand(topography[land.x - 1][land.y])) {
-                        attache(islands, land, new Land(land.x - 1, land.y));
-                        attached = true;
-                    }
-                    if ((land.y > 0 && isLand(topography[land.x][land.y - 1]))) {
-                        attache(islands, land, new Land(land.x, land.y - 1));
-                        attached = true;
-                    }
-                    if (!attached) {
-                        islands.add(makeIsland(land));
+                if (chr == ISLAND) {
+                    numberOfIslands++;
+                    Deque<Land> evalDeque = new ArrayDeque<>();
+                    evalDeque.add(Land.create(i, j));
+
+                    while (!evalDeque.isEmpty()) {
+                        Land land = evalDeque.remove();
+                        topography[land.x][land.y] = VISITED;
+
+                        Land[] neighbors = getNeighbors(land, topography);
+                        Arrays.stream(neighbors).forEach(evalDeque::add);
                     }
                 }
             }
         }
-        return islands;
+        return numberOfIslands;
     }
 
-    private void attache(List<Set<Land>> islands, Land newLand, Land neighbor) {
-        Set<Land> islandForNewLand = getIslandForLand(islands, newLand);
-        Set<Land> islandForNeighbor = getIslandForLand(islands, neighbor);
+    private Land[] getNeighbors(Land land, char[][] matrix) {
+        int numRows = matrix.length;
+        int numCols = matrix[0].length;
 
-        if (!islandForNewLand.equals(islandForNeighbor)) {
-            islandForNeighbor.addAll(islandForNewLand);
-            islands.remove(islandForNewLand);
+        List<Land> neighbors = new ArrayList<>();
+        for (int offset : INDEX_OFFSETS) {
+            neighbors.add(new Land(land.x + offset, land.y));
+            neighbors.add(new Land(land.x, land.y + offset));
         }
-    }
 
-    private Set<Land> getIslandForLand(List<Set<Land>> islands, Land land) {
-        for (Set<Land> island : islands) {
-            if (island.contains(land)) {
-                return island;
-            }
-        }
-        return makeIsland(land);
-    }
-
-    private Set<Land> makeIsland(Land... lands) {
-        Set<Land> newIsland = new HashSet<>();
-        Arrays.stream(lands).forEach(newIsland::add);
-        return newIsland;
-    }
-
-    private boolean isLand(char chr) {
-        return chr == 'X';
-    }
-
-    private void assertResults(List<Set<Land>> islands) {
-        String expectedResult = "[0,0][0,5][3,0][3,19][4,18][4,19][4,20][3,5][3,6][3,7][3,8][4,8][5,3][5,8][6,3]" +
-                "[6,4][6,5][6,6][6,8][7,6][7,7][7,8][8,21][9,19][9,21][9,22][10,19][10,20][10,21]";
-
-        StringBuilder result = new StringBuilder();
-        islands.stream().forEach(island -> {
-            island.stream()
-                    .sorted((land1, land2) -> land1.x == land2.x ? land1.y - land2.y : land1.x - land2.x)
-                    .forEach(land -> {
-                        result.append(land.toString());
-                        System.out.print(land);
-                    });
-            System.out.println();
-        });
-        assertThat(result.toString(), is(expectedResult));
+        return neighbors.stream().filter(neighbor -> {
+            int row = neighbor.x;
+            int col = neighbor.y;
+            return row >= 0 &&
+                    row < numRows &&
+                    col >= 0 && col < numCols &&
+                    matrix[row][col] == ISLAND;
+        }).toArray(Land[]::new);
     }
 
     private void printTopography(char[][] topography) {
@@ -184,23 +161,8 @@ public class FindingIslands {
             this.y = y;
         }
 
-        @Override
-        public boolean equals(Object o) {
-            if (this == o) return true;
-            if (o == null || getClass() != o.getClass()) return false;
-
-            Land land = (Land) o;
-
-            if (x != land.x) return false;
-            return y == land.y;
-
-        }
-
-        @Override
-        public int hashCode() {
-            int result = x;
-            result = 31 * result + y;
-            return result;
+        public static Land create(int x, int y) {
+            return new Land(x, y);
         }
 
         @Override
