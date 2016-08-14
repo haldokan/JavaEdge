@@ -26,10 +26,15 @@ public class CarSpeedMonitoringSystem {
      * that we will need another table in the data store keyed by location that has the number of violations versioned by
      * the timestamp. We can do aggregations on the data in this table based on location, time, and number of violations.
      *
-     * 5- Speed violation data can be sent from the cameras to web applications via http requests.
+     * 5- Speed violation data can be sent from the cameras to web applications via http requests. But I think using RPC
+     * would be preferred for performance reasons (for one requests have less auxiliary data like headers, etc.). RPC is
+     * the protocol used for high frequency and throughput scenarios. For example clients to Google internal streaming app
+     * MillWhell (open source equivalents Storm or Spark) use RPC to stream data in to the system.
      *
      * 6- We have to accommodate high throughput from the cameras thus we need multiple instances of the web apps running
-     * on different servers. We use a load balancer to distribute the load.
+     * on different servers. We use a load balancer to distribute the load. Load balancer can be configured to distribute
+     * the load based on location ranges but when cpu or memory pressure is detected on a server (using standard server monitoring
+     * processes) the load balancer can then adjust the location range assignment to server dynamically.
      *
      * 7- In a high frequency scenario we cannot update the data store on each request from the cameras because that will
      * create latency and possibly lead to failed/timed-out requests. NOSQL data stores can handle that better because they
