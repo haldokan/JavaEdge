@@ -6,7 +6,8 @@ import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
 
 /**
- * My solution to a Bloomberg interview question
+ * My solution to a Bloomberg interview question - my solution 'move' is actually crap! It runs in O(n^2). I include
+ * a neat solution I found on careercup 'move2' that runs in O(n)
  *
  * The Question: 3_STAR
  * Given an unsorted integer array, place all zeros to the end of the array without changing the sequence of non-zero
