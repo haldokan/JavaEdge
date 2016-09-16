@@ -50,7 +50,7 @@ import java.util.concurrent.atomic.AtomicReferenceFieldUpdater;
  * @author Doug Lea
  * @since 1.5
  */
-public class ConcurrentLinkedQueue<E> extends AbstractQueue<E>
+public class ConcurrentLinkedQueue_Copy<E> extends AbstractQueue<E>
         implements Queue<E>, java.io.Serializable {
     private static final long serialVersionUID = 196745693267521676L;
 
@@ -70,93 +70,32 @@ public class ConcurrentLinkedQueue<E> extends AbstractQueue<E>
      * pointers" or related techniques seen in versions used in
      * non-GC'ed settings.
      */
-
-    private static class Node<E> {
-        private static final
-        AtomicReferenceFieldUpdater<Node, Node>
-                nextUpdater =
-                AtomicReferenceFieldUpdater.newUpdater
-                        (Node.class, Node.class, "next");
-        private static final
-        AtomicReferenceFieldUpdater<Node, Object>
-                itemUpdater =
-                AtomicReferenceFieldUpdater.newUpdater
-                        (Node.class, Object.class, "item");
-        private volatile E item;
-        private volatile Node<E> next;
-
-        Node(E x) {
-            item = x;
-        }
-
-        Node(E x, Node<E> n) {
-            item = x;
-            next = n;
-        }
-
-        E getItem() {
-            return item;
-        }
-
-        void setItem(E val) {
-            itemUpdater.set(this, val);
-        }
-
-        boolean casItem(E cmp, E val) {
-            return itemUpdater.compareAndSet(this, cmp, val);
-        }
-
-        Node<E> getNext() {
-            return next;
-        }
-
-        void setNext(Node<E> val) {
-            nextUpdater.set(this, val);
-        }
-
-        boolean casNext(Node<E> cmp, Node<E> val) {
-            return nextUpdater.compareAndSet(this, cmp, val);
-        }
-
-    }
-
     private static final
-    AtomicReferenceFieldUpdater<ConcurrentLinkedQueue, Node>
+    AtomicReferenceFieldUpdater<ConcurrentLinkedQueue_Copy, Node>
             tailUpdater =
             AtomicReferenceFieldUpdater.newUpdater
-                    (ConcurrentLinkedQueue.class, Node.class, "tail");
+                    (ConcurrentLinkedQueue_Copy.class, Node.class, "tail");
     private static final
-    AtomicReferenceFieldUpdater<ConcurrentLinkedQueue, Node>
+    AtomicReferenceFieldUpdater<ConcurrentLinkedQueue_Copy, Node>
             headUpdater =
             AtomicReferenceFieldUpdater.newUpdater
-                    (ConcurrentLinkedQueue.class, Node.class, "head");
-
-    private boolean casTail(Node<E> cmp, Node<E> val) {
-        return tailUpdater.compareAndSet(this, cmp, val);
-    }
-
-    private boolean casHead(Node<E> cmp, Node<E> val) {
-        return headUpdater.compareAndSet(this, cmp, val);
-    }
-
-
+                    (ConcurrentLinkedQueue_Copy.class, Node.class, "head");
     /**
      * Pointer to header node, initialized to a dummy node.  The first
      * actual node is at head.getNext().
      */
     private transient volatile Node<E> head = new Node<E>(null, null);
-
     /**
      * Pointer to last node on list
      **/
     private transient volatile Node<E> tail = head;
 
-
     /**
      * Creates a <tt>ConcurrentLinkedQueue</tt> that is initially empty.
      */
-    public ConcurrentLinkedQueue() {
+    public ConcurrentLinkedQueue_Copy() {
     }
+
 
     /**
      * Creates a <tt>ConcurrentLinkedQueue</tt>
@@ -167,12 +106,18 @@ public class ConcurrentLinkedQueue<E> extends AbstractQueue<E>
      * @throws NullPointerException if the specified collection or any
      *                              of its elements are null
      */
-    public ConcurrentLinkedQueue(Collection<? extends E> c) {
+    public ConcurrentLinkedQueue_Copy(Collection<? extends E> c) {
         for (Iterator<? extends E> it = c.iterator(); it.hasNext(); )
             add(it.next());
     }
 
-    // Have to override just to update the javadoc
+    private boolean casTail(Node<E> cmp, Node<E> val) {
+        return tailUpdater.compareAndSet(this, cmp, val);
+    }
+
+    private boolean casHead(Node<E> cmp, Node<E> val) {
+        return headUpdater.compareAndSet(this, cmp, val);
+    }
 
     /**
      * Inserts the specified element at the tail of this queue.
@@ -183,6 +128,8 @@ public class ConcurrentLinkedQueue<E> extends AbstractQueue<E>
     public boolean add(E e) {
         return offer(e);
     }
+
+    // Have to override just to update the javadoc
 
     /**
      * Inserts the specified element at the tail of this queue.
@@ -280,7 +227,6 @@ public class ConcurrentLinkedQueue<E> extends AbstractQueue<E>
             }
         }
     }
-
 
     /**
      * Returns <tt>true</tt> if this queue contains no elements.
@@ -453,73 +399,7 @@ public class ConcurrentLinkedQueue<E> extends AbstractQueue<E>
      * @return an iterator over the elements in this queue in proper sequence
      */
     public Iterator<E> iterator() {
-        return new Itr();
-    }
-
-    private class Itr implements Iterator<E> {
-        /**
-         * Next node to return item for.
-         */
-        private Node<E> nextNode;
-
-        /**
-         * nextItem holds on to item fields because once we claim
-         * that an element exists in hasNext(), we must return it in
-         * the following next() call even if it was in the process of
-         * being removed when hasNext() was called.
-         */
-        private E nextItem;
-
-        /**
-         * Node of the last returned item, to support remove.
-         */
-        private Node<E> lastRet;
-
-        Itr() {
-            advance();
-        }
-
-        /**
-         * Moves to next valid node and returns item to return for
-         * next(), or null if no such.
-         */
-        private E advance() {
-            lastRet = nextNode;
-            E x = nextItem;
-
-            Node<E> p = (nextNode == null) ? first() : nextNode.getNext();
-            for (; ; ) {
-                if (p == null) {
-                    nextNode = null;
-                    nextItem = null;
-                    return x;
-                }
-                E item = p.getItem();
-                if (item != null) {
-                    nextNode = p;
-                    nextItem = item;
-                    return x;
-                } else // skip over nulls
-                    p = p.getNext();
-            }
-        }
-
-        public boolean hasNext() {
-            return nextNode != null;
-        }
-
-        public E next() {
-            if (nextNode == null) throw new NoSuchElementException();
-            return advance();
-        }
-
-        public void remove() {
-            Node<E> l = lastRet;
-            if (l == null) throw new IllegalStateException();
-            // rely on a future traversal to relink.
-            l.setItem(null);
-            lastRet = null;
-        }
+        return new LinkedQueueIterator();
     }
 
     /**
@@ -546,6 +426,77 @@ public class ConcurrentLinkedQueue<E> extends AbstractQueue<E>
         s.writeObject(null);
     }
 
+    /**
+     * Reconstitute the Queue instance from a stream (that is,
+     * deserialize it).
+     *
+     * @param s the stream
+     */
+    private void readObject(java.io.ObjectInputStream s)
+            throws java.io.IOException, ClassNotFoundException {
+        // Read in capacity, and any hidden stuff
+        s.defaultReadObject();
+        head = new Node<E>(null, null);
+        tail = head;
+        // Read in all elements and place in queue
+        for (; ; ) {
+            E item = (E) s.readObject();
+            if (item == null)
+                break;
+            else
+                offer(item);
+        }
+    }
+
+    private static class Node<E> {
+        private static final
+        AtomicReferenceFieldUpdater<Node, Node>
+                nextUpdater =
+                AtomicReferenceFieldUpdater.newUpdater
+                        (Node.class, Node.class, "next");
+        private static final
+        AtomicReferenceFieldUpdater<Node, Object>
+                itemUpdater =
+                AtomicReferenceFieldUpdater.newUpdater
+                        (Node.class, Object.class, "item");
+        private volatile E item;
+        private volatile Node<E> next;
+
+        Node(E x) {
+            item = x;
+        }
+
+        Node(E x, Node<E> n) {
+            item = x;
+            next = n;
+        }
+
+        E getItem() {
+            return item;
+        }
+
+        void setItem(E val) {
+            itemUpdater.set(this, val);
+        }
+
+        boolean casItem(E cmp, E val) {
+            return itemUpdater.compareAndSet(this, cmp, val);
+        }
+
+        Node<E> getNext() {
+            return next;
+        }
+
+        void setNext(Node<E> val) {
+            nextUpdater.set(this, val);
+        }
+
+        boolean casNext(Node<E> cmp, Node<E> val) {
+            return nextUpdater.compareAndSet(this, cmp, val);
+        }
+
+    }
+
     private class Itr implements Iterator<E> {
         /**
          * Next node to return item for.
@@ -612,25 +563,69 @@ public class ConcurrentLinkedQueue<E> extends AbstractQueue<E>
         }
     }
 
-    /**
-     * Reconstitute the Queue instance from a stream (that is,
-     * deserialize it).
-     *
-     * @param s the stream
-     */
-    private void readObject(java.io.ObjectInputStream s)
-            throws java.io.IOException, ClassNotFoundException {
-        // Read in capacity, and any hidden stuff
-        s.defaultReadObject();
-        head = new Node<E>(null, null);
-        tail = head;
-        // Read in all elements and place in queue
-        for (; ; ) {
-            E item = (E) s.readObject();
-            if (item == null)
-                break;
-            else
-                offer(item);
+    private class LinkedQueueIterator implements Iterator<E> {
+        /**
+         * Next node to return item for.
+         */
+        private Node<E> nextNode;
+
+        /**
+         * nextItem holds on to item fields because once we claim
+         * that an element exists in hasNext(), we must return it in
+         * the following next() call even if it was in the process of
+         * being removed when hasNext() was called.
+         */
+        private E nextItem;
+
+        /**
+         * Node of the last returned item, to support remove.
+         */
+        private Node<E> lastRet;
+
+        LinkedQueueIterator() {
+            advance();
+        }
+
+        /**
+         * Moves to next valid node and returns item to return for
+         * next(), or null if no such.
+         */
+        private E advance() {
+            lastRet = nextNode;
+            E x = nextItem;
+
+            Node<E> p = (nextNode == null) ? first() : nextNode.getNext();
+            for (; ; ) {
+                if (p == null) {
+                    nextNode = null;
+                    nextItem = null;
+                    return x;
+                }
+                E item = p.getItem();
+                if (item != null) {
+                    nextNode = p;
+                    nextItem = item;
+                    return x;
+                } else // skip over nulls
+                    p = p.getNext();
+            }
+        }
+
+        public boolean hasNext() {
+            return nextNode != null;
+        }
+
+        public E next() {
+            if (nextNode == null) throw new NoSuchElementException();
+            return advance();
+        }
+
+        public void remove() {
+            Node<E> l = lastRet;
+            if (l == null) throw new IllegalStateException();
+            // rely on a future traversal to relink.
+            l.setItem(null);
+            lastRet = null;
         }
     }
 
