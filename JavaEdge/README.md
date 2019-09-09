@@ -2,7 +2,7 @@ The purpose of the Java code in this module is to present and understand the iss
 
 Rough run-down:
 
-Interview Questions: 100s of interview questions that I resolved mostly from Google, Facebook, and Amazon.
+Interview Questions: 100s of interview questions that I resolved mostly from Google, Facebook, Amazon and Linkedin.
 
 Graph algorithms: implementations of classic graph algorithms
 
