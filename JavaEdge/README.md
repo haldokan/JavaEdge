@@ -1,5 +1,5 @@
 The purpose of the Java code in this module is to present and understand the issues involved in designing algorithms. Some code is 
-Just learning libs an apis by example.
+Just learning libs and apis by example.
 
 Rough run-down:
    
