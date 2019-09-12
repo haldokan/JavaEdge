@@ -1,6 +1,7 @@
 /target/
 /bin/
 *.prefs
+*.iml
 .classpath
 /.idea/
 

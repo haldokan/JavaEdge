@@ -42,9 +42,9 @@ public class CarServiceBookingScheduler {
     }
 
     public static void main(String[] args) {
-        test1();
+//        test1();
         test2();
-        test3();
+//        test3();
     }
 
     private static void test1() {
@@ -90,7 +90,6 @@ public class CarServiceBookingScheduler {
         assertThat(scheduler.getBooking("customer1").get().numberOfCars, is(2));
 
         assertThat(scheduler.getBookings("customer1").size(), is(3));
-
     }
 
     public boolean book(LocalDateTime start, LocalDateTime end, String customer, int numberOfRequestedCars) {
@@ -99,8 +98,7 @@ public class CarServiceBookingScheduler {
         List<Node<LocalDateTime>> overlapping = new ArrayList<>();
         schedule.findOverlapping(booking, overlapping);
 
-        int availableCars = fleetSize - overlapping.stream().collect(Collectors.summingInt(
-                node -> ((Booking) node.interval).numberOfCars()));
+        int availableCars = fleetSize - overlapping.stream().mapToInt(node -> ((Booking) node.interval).numberOfCars()).sum();
 
         if (availableCars >= numberOfRequestedCars) {
             schedule.insert(booking);
@@ -182,6 +180,7 @@ public class CarServiceBookingScheduler {
     }
 
     public static class IntervalTree<T extends Comparable<? super T>> {
+        private static final int COUNT = 10;
         private Node<T> node;
 
         private void insert(Interval<T> interval) {
@@ -191,6 +190,8 @@ public class CarServiceBookingScheduler {
             } else {
                 insert(node, interval);
             }
+            printTree(node, 15);
+            System.out.println("--------------");
         }
 
         private Node<T> insert(Node<T> node, Interval<T> interval) {
@@ -203,6 +204,7 @@ public class CarServiceBookingScheduler {
             } else {
                 node.right = insert(node.right, interval);
             }
+            // we can ask any node for the max range since it is set on all of them
             if (node.interval.max().compareTo(interval.max()) < 0) {
                 node.interval.setMax(interval.max());
             }
@@ -218,13 +220,31 @@ public class CarServiceBookingScheduler {
                 return;
             }
             if (interval.start().compareTo(node.interval.end()) <= 0
-                    && node.interval.start().compareTo(interval.end()) <= 0) {
+                && node.interval.start().compareTo(interval.end()) <= 0) {
                 overlapping.add(node);
             }
+            // optimization using the max range: If the max range on the left is less than the interval start then no point in descending left
             if (node.left != null && node.left.interval.max().compareTo(interval.start()) >= 0) {
                 findOverlapping(node.left, interval, overlapping);
             }
             findOverlapping(node.right, interval, overlapping);
+        }
+
+        // borrowed from some code I found online
+        public void printTree(Node root, int space) {
+            if (root == null) {
+                return;
+            }
+
+            space += COUNT;
+            printTree(root.right, space);
+
+            System.out.print("\n");
+            for (int i = COUNT; i < space; i++) {
+                System.out.print(" ");
+            }
+            System.out.print(root.interval.max() + "\n");
+            printTree(root.left, space);
         }
     }
 

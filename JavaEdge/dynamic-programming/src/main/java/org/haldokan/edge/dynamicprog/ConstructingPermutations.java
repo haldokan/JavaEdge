@@ -35,7 +35,6 @@ public class ConstructingPermutations {
         }
     }
 
-
     private int candidates(int[] data, int k, int[] candidates) {
         boolean[] inPermutation = new boolean[data.length];
 

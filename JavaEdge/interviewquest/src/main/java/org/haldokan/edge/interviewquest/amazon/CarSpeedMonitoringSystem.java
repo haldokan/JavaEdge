@@ -44,7 +44,7 @@ public class CarSpeedMonitoringSystem {
      * a memory cache. For example an LRU cache that keeps data for the last 24 hours.
      *
      * 9- The statistics we collect about the violations per locations over time can be aged and removed. Cassandra for example
-     * provides the option of stetting TTL on each row of data. A background sweeper process remove aged data.
+     * provides the option of setting TTL on each row of data. A background sweeper process removes aged data.
      *
      * 10- We are collecting large amount of data so we should do data compaction to reduce size. Having stored the data sorted
      * by the key, compacting it is usually more effective: for example if all New Jersey plates starts with NJ-GS-7A,
@@ -53,7 +53,7 @@ public class CarSpeedMonitoringSystem {
      * 11- Users may want to know in real-time of the hot spots of speed violations (item 4). They don't want to run a job
      * that may take a long time to query the data store for this info. We can support that using stream processing systems
      * like Storm or Spark. As requests come from the cameras they are sorted out by location and sent out to processing
-     * nodes (called bolts in Storm). Each node counts violations for a single locations over a sliding window of let's say
+     * nodes (called bolts in Storm). Each node counts violations for a single location over a sliding window of let's say
      * an hour. All these counting nodes report their counts to a reducing node that simply sort the reported data based
      * on the number of violations and stores the top 10 (storage can be in memory or disk). Monitoring apps can query the
      * reducing node any time to get the top offenders overs the last hour or what have you. Or we can have the reducing

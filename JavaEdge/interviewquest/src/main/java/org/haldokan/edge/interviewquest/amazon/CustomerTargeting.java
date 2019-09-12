@@ -1,6 +1,7 @@
 package org.haldokan.edge.interviewquest.amazon;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -64,7 +65,7 @@ public class CustomerTargeting {
                         Collectors.reducing((Order o1, Order o2) ->
                                 new Order(o1.getCustomer(), o1.getAmount() + o2.getAmount()))))
                 .values()
-                .stream().sorted((o1, o2) -> o1.get().getAmount().compareTo(o2.get().getAmount()))
+                .stream().sorted(Comparator.comparing(o -> o.get().getAmount()))
                 .collect(Collectors.toList());
 
         int trancheLen = groupedOrders.size() / 4;
