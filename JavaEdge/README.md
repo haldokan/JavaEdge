@@ -1,8 +1,9 @@
-The purpose of the Java code in this module is to present and understand the issues involved in designing algorithms. Some code is 
-Just learning libs an apis by example.
+The purpose of the Java code in this module is to present and understand the issues involved in designing algorithms. Some code is just learning libs and apis by example.
 
 Rough run-down:
-   
+
+Interview Questions: 100s of interview questions that I resolved mostly from Google, Facebook, Amazon and Linkedin.
+
 Graph algorithms: implementations of classic graph algorithms
 
 How things work: has some interesting re-implementations of Java/guava/etc constructs: Executor service, 
