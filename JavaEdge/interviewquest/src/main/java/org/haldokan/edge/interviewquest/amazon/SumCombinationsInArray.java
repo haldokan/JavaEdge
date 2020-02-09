@@ -12,20 +12,20 @@ import java.util.Map;
  * output must be just 6 4
  * Give an O(n) solution
  */
-
 public class SumCombinationsInArray {
 
     public static void main(String[] args) {
-        pairCombs(new int[]{6, 4, 4, 3, 2, 7, 6, 8, 7, 3}, 10);
+        pairCombs(new int[]{7, 6, 4, 4, 3, 2, 7, 6, 8, 7, 3, 3, 3}, 10);
         pairCombs(new int[]{-6, -4, -4, -3, -2, -7, -6, -8, -7, -3}, -10);
+        pairCombs(new int[]{4, 4, 6, 6, 6, 6, 6, 2, 2, 2, 2, 4, 8}, 10);
     }
 
-    private static void pairCombs(int[] nums, int k) {
+    private static void pairCombs(int[] nums, int sum) {
         Map<Integer, Integer> complements = new HashMap<>();
 
         for (int num : nums) {
             if (complements.containsKey(num)) {
-                System.out.println(k - num + ", " + num);
+                System.out.println(sum - num + ", " + num);
 
                 int howmany = complements.get(num);
                 if (howmany == 1) {
@@ -34,7 +34,7 @@ public class SumCombinationsInArray {
                     complements.put(num, howmany - 1);
                 }
             } else {
-                complements.put(k - num, 1);
+                complements.compute(sum - num, (k, v) -> v == null ? 1 : v + 1);
             }
         }
 

@@ -39,8 +39,8 @@ public class InvoiceSystem {
 
     public void createInvoice(Client client, LocalDate dueDate, List<Product> products, List<Service> services) {
         Invoice invoice = Invoice.create(client, dueDate, taxCalculator);
-        invoice.addProducts(products.toArray(new Product[products.size()]));
-        invoice.addServices(services.toArray(new Service[services.size()]));
+        invoice.addProducts(products.toArray(new Product[0]));
+        invoice.addServices(services.toArray(new Service[0]));
         invoice.calculate();
 
         invoiceLedger.put(invoice.getId(), invoice);
@@ -68,7 +68,7 @@ public class InvoiceSystem {
 
     // this would be called from a scheduler
     public void addChargesToOverdueInvoices(double chargesRate) {
-        LocalDate[] overDueDates = overdueInvoices.keySet().stream().toArray(LocalDate[]::new);
+        LocalDate[] overDueDates = overdueInvoices.keySet().toArray(new LocalDate[0]);
         for (LocalDate date : overDueDates) {
             int daysOverdue = (LocalDate.now().getDayOfYear() - date.getDayOfYear());
             List<Invoice> overdueInvoicesForDate = Lists.newArrayList(overdueInvoices.get(date));
@@ -114,14 +114,12 @@ public class InvoiceSystem {
         public void calculate() {
             if (!finalized) {
                 finalized = true;
-                products.stream().forEach(product ->
+                products.forEach(product ->
                         product.setTax(taxCalculator.getTax(product.getCost(), client.getAddress().getZip())));
-                amount = products.stream()
-                        .collect(Collectors.summingDouble(product ->
-                                (product.getCost() + product.getTax()) * product.getQuantity()));
-                amount += services.stream()
-                        .collect(Collectors.summingDouble(service ->
-                                service.getCost() * service.getQuantity()));
+                amount = products.stream().mapToDouble(product ->
+                    (product.getCost() + product.getTax()) * product.getQuantity()).sum();
+                amount += services.stream().mapToDouble(service ->
+                    service.getCost() * service.getQuantity()).sum();
             }
         }
 

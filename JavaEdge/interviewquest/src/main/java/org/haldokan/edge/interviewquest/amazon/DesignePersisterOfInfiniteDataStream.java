@@ -21,6 +21,10 @@ public class DesignePersisterOfInfiniteDataStream {
      * 1- Since we have limited memory and the html content can be arbitrarily large we do not want to queue the incoming
      * data. We rather want to parse the needed parts and throw away the rest of each tuple.
      *
+     * Based on the data volume and SLAs we may consider saving the raw data to disk directly and reading it back to
+     * memory for processing. It helps in this regard to use a data store that helps retrieve the data efficiently based
+     * on timestamps (usually non-sql dbs like Cassandra)
+     *
      * 2- We want to parse the tuples as soon as we receive them. Since there is no ordering involved we can do the
      * processing in parallel.
      *

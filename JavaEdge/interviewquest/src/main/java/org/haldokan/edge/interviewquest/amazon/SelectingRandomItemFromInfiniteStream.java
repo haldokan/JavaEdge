@@ -7,7 +7,7 @@ import java.util.Random;
  * Knuth's Reservoir algorithm - This post on Stack Overflow gives a good explanation on why the algorithm works:
  * http://stackoverflow.com/questions/12732982/design-a-storage-algorithm/12733515#12733515
  * <p>
- * The Question: 4_STAR
+ * The Question: 3_STAR + 1/2
  * <p>
  * You have a stream of sentences. you don't know total number of sentences until you exhaust the stream. you have to
  * choose one sentence randomly with equal probability from the input stream.

@@ -14,48 +14,39 @@ public class PostfixExpressions {
 
     public static void main(String[] args) {
         System.out.println(eval("32423+*/-")); //should be 7: (2 + 3) * 4 / 2 - 3
+        System.out.println(eval("423+*")); //should be 20
     }
 
     private static Double eval(String expr) {
         Deque<String> stack = new ArrayDeque<>();
-
-        for (int i = expr.length() - 1; i >= 0; i--) {
+        for (int i = 0; i < expr.length(); i++) {
             String chr = String.valueOf(expr.charAt(i));
             if (isOperator(chr)) {
-                stack.push(chr);
+                stack.push(apply(stack.pop(), stack.pop(), chr));
             } else {
-                String topChr = stack.peek();
-                if (!isOperator(topChr)) {
-                    stack.pop();
-                    String operator = stack.pop();
-                    String val = apply(chr, topChr, operator);
-                    stack.push(val);
-//                    System.out.println("pushed: " + val);
-                } else {
-                    stack.push(chr);
-                }
+                stack.push(chr);
             }
         }
         return Double.valueOf(stack.pop());
     }
 
-    private static String apply(String chr, String topChr, String operator) {
+    private static String apply(String chr1, String chr2, String operator) {
         if (operator.equals(M)) {
-            return String.valueOf(Double.valueOf(chr) * Double.valueOf(topChr));
+            return String.valueOf(Double.valueOf(chr1) * Double.valueOf(chr2));
         }
         if (operator.equals(A)) {
-            return String.valueOf(Double.valueOf(chr) + Double.valueOf(topChr));
+            return String.valueOf(Double.valueOf(chr1) + Double.valueOf(chr2));
         }
         if (operator.equals(S)) {
-            return String.valueOf(Double.valueOf(topChr) - Double.valueOf(chr));
+            return String.valueOf(Double.valueOf(chr1) - Double.valueOf(chr2));
         }
         if (operator.equals(D)) {
-            return String.valueOf(Double.valueOf(topChr) / Double.valueOf(chr));
+            return String.valueOf(Double.valueOf(chr1) / Double.valueOf(chr2));
         }
         throw new IllegalArgumentException("Invalid operator: " + operator);
     }
 
     private static boolean isOperator(String chr) {
-        return chr.equals(M) || chr.equals(A) || chr.equals(S) || chr.equals(D);
+        return chr != null && (chr.equals(M) || chr.equals(A) || chr.equals(S) || chr.equals(D));
     }
 }

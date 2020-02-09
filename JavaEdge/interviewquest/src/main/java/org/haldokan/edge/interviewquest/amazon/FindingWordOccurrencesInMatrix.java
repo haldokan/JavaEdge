@@ -7,12 +7,12 @@ import static org.junit.Assert.assertThat;
 
 /**
  * My solution to an Amazon interview question - I solved the question taking the more complex assumptions and returning
- * the word coordinate instead of just the count. The assumption I worked with is that the letters comprising the search
+ * the word coordinates instead of just the count. The assumption I worked with is that the letters comprising the search
  * word can participate in all the word occurrences. I use DFS to find the word occurrences. As recursion probes the
  * matrix we keep track of visited coordinates and of the substrings that form part of multiple occurrences.
  * The Question: 5_STAR
  * <p>
- * Suppose you have a 2 dimensional Array and you have a String say"Amazon"inside the Array such that the individual
+ * Suppose you have a 2 dimensional Array and you have a String say "Amazon" inside the Array such that the individual
  * characters can be present from Left to Right,Right to Left,Top to down and down to up.
  * <p>
  * I will explain with example:
@@ -41,7 +41,7 @@ public class FindingWordOccurrencesInMatrix {
         driver.test3();
     }
 
-    public List<Coordinate[]> countWordOccurrences(char[][] matrix, char[] word) {
+    public List<Coordinate[]> listWordOccurrences(char[][] matrix, char[] word) {
         Deque<Coordinate> visitedDeck = new ArrayDeque<>();
         List<Coordinate[]> occurrences = new ArrayList<>();
         // 'dfs' insures that the matrix is returned to original state after each iteration of the inner loop below
@@ -126,7 +126,7 @@ public class FindingWordOccurrencesInMatrix {
                 {'B', 'B', 'B', 'B', 'B', 'M'},
                 {'B', 'B', 'B', 'B', 'B', 'A'}
         };
-        List<Coordinate[]> occurrences = countWordOccurrences(matrix, new char[]{'A', 'M', 'A', 'Z', 'O', 'N'});
+        List<Coordinate[]> occurrences = listWordOccurrences(matrix, new char[]{'A', 'M', 'A', 'Z', 'O', 'N'});
         occurrences.stream().forEach(occurrence -> System.out.printf("%s%n", Arrays.toString(occurrence)));
         System.out.printf("%s%n", "--------------");
         assertThat(occurrences.size(), is(2));
@@ -141,7 +141,7 @@ public class FindingWordOccurrencesInMatrix {
                 {'B', 'B', 'B', 'B', 'B', 'M'},
                 {'B', 'B', 'B', 'B', 'B', 'A'}
         };
-        List<Coordinate[]> occurrences = countWordOccurrences(matrix, new char[]{'A', 'M', 'A', 'Z', 'O', 'N'});
+        List<Coordinate[]> occurrences = listWordOccurrences(matrix, new char[]{'A', 'M', 'A', 'Z', 'O', 'N'});
         occurrences.stream().forEach(occurrence -> System.out.printf("%s%n", Arrays.toString(occurrence)));
         System.out.printf("%s%n", "--------------");
         assertThat(occurrences.size(), is(8));
@@ -153,7 +153,7 @@ public class FindingWordOccurrencesInMatrix {
                 {'r', 'a', 'c', 'e', 'c', 'a', 'r'},
                 {'a', 'c', 'e', 'c', 'a', 'r', 'x'}
         };
-        List<Coordinate[]> occurrences = countWordOccurrences(matrix, new char[]{'r', 'a', 'c', 'e', 'c', 'a', 'r'});
+        List<Coordinate[]> occurrences = listWordOccurrences(matrix, new char[]{'r', 'a', 'c', 'e', 'c', 'a', 'r'});
         occurrences.stream().forEach(occurrence -> System.out.printf("%s%n", Arrays.toString(occurrence)));
         System.out.printf("%s%n", "--------------");
         assertThat(occurrences.size(), is(22));

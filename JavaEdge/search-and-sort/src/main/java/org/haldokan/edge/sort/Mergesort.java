@@ -9,18 +9,22 @@ import java.util.ListIterator;
  * The Question: 3_STAR
  */
 public class Mergesort {
+    private static int index;
     public static void main(String[] args) {
 
     }
 
     public static void mergesort(Integer[] d, int low, int high) {
-        // if we have a slice of 1 element or an empty slice return (1 element
-        // is sorted!)
+        // if we have a slice of 1 element or an empty slice return (1 element is sorted!)
         if (high - low > 1) {
             int mid = (low + high) / 2;
+            System.out.printf("left %d %d %d\n", low, mid, high);
             mergesort(d, low, mid);
+            System.out.printf("right %d %d %d\n", low, mid, high);
             mergesort(d, mid, high);
             mergeArrays(d, low, mid, high);
+        } else {
+            System.out.printf("stop recursion: %d %d\n", low, high);
         }
     }
 
@@ -45,6 +49,8 @@ public class Mergesort {
     // m has the data. Copy data b/w low, mid and mid, high to 2 buffs then
     // update the d array a merge buffer is needed when merging arrays
     public static <E extends Comparable<E>> void mergeArrays(E[] d, int low, int mid, int high) {
+        System.out.printf("%d) merge %d-%d\n", ++index, low, high);
+//        System.out.println("before:" + Arrays.toString(d));
         List<E> buf1 = copy(d, low, mid);
         List<E> buf2 = copy(d, mid, high);
         int x = low;
@@ -59,12 +65,11 @@ public class Mergesort {
             d[x++] = e;
         for (E e : buf2)
             d[x++] = e;
+//        System.out.println("after :" + Arrays.toString(d));
     }
 
     private static <E> List<E> copy(E[] d, int start, int end) {
-        List<E> l = new LinkedList<E>();
-        l.addAll(Arrays.asList(d).subList(start, end));
-        return l;
+        return new LinkedList<E>(Arrays.asList(d).subList(start, end));
     }
 
     // a merge buffer is needed when merging arrays
@@ -72,12 +77,12 @@ public class Mergesort {
         int mi = 0;
         int j = 0;
         int k = 0;
-        for (int i = 0; i < c1.length; i++) {
-            for (k = j; k < c2.length && c1[i].compareTo(c2[k]) > 0; k++) {
+        for (E e : c1) {
+            for (k = j; k < c2.length && e.compareTo(c2[k]) > 0; k++) {
                 m[mi] = c2[k];
                 mi++;
             }
-            m[mi++] = c1[i];
+            m[mi++] = e;
             j = k;
         }
         for (int i = k; i < c2.length; i++) {

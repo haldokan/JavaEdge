@@ -1,11 +1,13 @@
 package org.haldokan.edge.sort;
 
+import org.junit.Test;
+
 import java.util.Arrays;
 
 //TODO where on earth are the asserts? 
 public class MergesortTest {
-
-    public void testMergesort() throws Exception {
+    @Test
+    public void test1() throws Exception {
         Integer[] c1 = new Integer[]{3, 4, 7, 8};
         Integer[] c2 = new Integer[]{1, 2, 5, 6, 9, 10};
         Integer[] c = new Integer[c1.length + c2.length];
@@ -25,5 +27,13 @@ public class MergesortTest {
         cc = new Integer[]{7, 4, 1, 3, 9, 3, 2, 8, 0, 5, 6};
         Mergesort.mergesort(cc, 0, cc.length);
         System.out.println(Arrays.toString(cc));
+    }
+
+    @Test
+    public void test2() {
+        Integer[] array = new Integer[]{10, 9, 8, 7, 6, 5, 4, 3, 2, 1, 20, 17, 15, 13, 12, 16, 18, 19, 25, 26, 24, 27, 23, 28, 22, 30, 20};
+        System.out.printf("array len %d\n", array.length);
+        Mergesort.mergesort(array, 0, array.length);
+        System.out.println(Arrays.toString(array));
     }
 }

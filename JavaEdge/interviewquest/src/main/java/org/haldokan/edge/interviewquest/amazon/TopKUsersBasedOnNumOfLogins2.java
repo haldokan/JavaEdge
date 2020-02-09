@@ -62,7 +62,7 @@ public class TopKUsersBasedOnNumOfLogins2 {
         Map<String, Integer> loginsPerUser = logins.stream()
                 .collect(Collectors.groupingBy(login -> login, Collectors.summingInt(v -> 1)));
 
-        Queue<Integer> minHeap = new PriorityQueue<>((e1, e2) -> e1 - e2);
+        Queue<Integer> minHeap = new PriorityQueue<>(Comparator.comparingInt(e -> e));
         Multimap<Integer, String> usersPerLogin = HashMultimap.create();
 
         for (Map.Entry<String, Integer> entry : loginsPerUser.entrySet()) {
@@ -87,7 +87,6 @@ public class TopKUsersBasedOnNumOfLogins2 {
         while (!minHeap.isEmpty()) {
             Integer count = minHeap.remove();
             usersPerLogin.get(count)
-                    .stream()
                     .forEach(user -> loginCounts.add(0, new UserLoginCount(user, count)));
         }
         return loginCounts;

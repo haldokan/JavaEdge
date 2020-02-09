@@ -12,16 +12,16 @@ import java.util.stream.IntStream;
  * My solution to an Amazon interview question - An array of size 24 * 60 * 60 (seconds in 1 day)
  * can be used to map the order time to an index within the day. We use LongAdder to increase concurrency. I extended
  * the solution to map dates to day of the year with each day serving as an index to the array above. Basically 2
- * dimensional arrays with day-of-year as the row index and the second of the day as the column index. The solution
- * supports retrieving order volumes b/w any 2 dates (not just times within the same day). Contention b/w threads is limite
+ * dimensional array with day-of-year as the row index and the second of the day as the column index. The solution
+ * supports retrieving order volumes b/w any 2 dates (not just times within the same day). Contention b/w threads is limited
  * to updating the LongAdder which is designed specifically to lessen contention (read javadocs for LongAdder).
  * <p>
  * The Question: 5_STAR
  * <p>
  * Write an app that stores total order numbers arrived at different times. For example, at 1.15 pm the app got 15 order, at
  * 1.30 pm, the app got 20 order and so on. Now we need to design the data structures so that we can query the total
- * orders we got in a time range efficiently. For this example, we can query as How many orders we have got
- * between 1 and 2 pm? Ans will be 15+ 20 = 35
+ * orders we got in a time range efficiently. For this example, we can query how many orders we got
+ * between 1 and 2 pm; answer will be 15+ 20 = 35
  * <p>
  * Created by haytham.aldokanji on 7/22/16.
  */

@@ -10,7 +10,7 @@ import java.util.Deque;
  * In a binary tree, find and print the path with smallest weight.
  * <p>
  * Criteria: the tree contains integer values in the nodes. It may not be balanced tree. Weight is calculated by sum
- * of values in the nodes in that path. Write code that returns the path as well as the minweight.
+ * of values in the nodes in that path. Write code that returns the path as well as the minimum weight.
  */
 public class BTMinWeightPathWithRecursion {
 
@@ -49,7 +49,7 @@ public class BTMinWeightPathWithRecursion {
         minWeightPath(tree.right, path);
 
         if (tree.leaf()) {
-            Deque<Node> currPath = path(tree);
+            Deque<Node> currPath = buildPath(tree);
             if (path.isEmpty() || pathWeight(currPath) < pathWeight(path)) {
                 path.clear();
                 path.addAll(currPath);
@@ -58,7 +58,7 @@ public class BTMinWeightPathWithRecursion {
         return path;
     }
 
-    private static Deque<Node> path(Node node) {
+    private static Deque<Node> buildPath(Node node) {
         Deque<Node> deck = new ArrayDeque<>();
 
         Node currNode = node;

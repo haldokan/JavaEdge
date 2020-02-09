@@ -151,8 +151,8 @@ public class SummingCharArrays {
         Arrays.fill(aligned, 0);
 
         int index = 0;
-        for (int i = 0; i < arr.length; i++) {
-            aligned[index++] = arr[i];
+        for (int value : arr) {
+            aligned[index++] = value;
         }
         return aligned;
     }

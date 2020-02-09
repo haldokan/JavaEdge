@@ -55,17 +55,16 @@ public class BTMinWeightPathWithIteration {
                 parents.put(right, node);
             }
             if (node.leaf()) {
-                Deque<Node> path = path(node, parents);
+                Deque<Node> path = buildPath(node, parents);
                 if (minPath == null || pathWeight(path) < pathWeight(minPath)) {
                     minPath = path;
                 }
-//                System.out.println(path);
             }
         }
         return minPath;
     }
 
-    private static Deque<Node> path(Node leaf, Map<Node, Node> parents) {
+    private static Deque<Node> buildPath(Node leaf, Map<Node, Node> parents) {
         Deque<Node> path = new ArrayDeque<>();
 
         Node node = leaf;

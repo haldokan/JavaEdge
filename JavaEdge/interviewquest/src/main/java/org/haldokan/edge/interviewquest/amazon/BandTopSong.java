@@ -8,7 +8,7 @@ import static org.junit.Assert.assertThat;
 
 /**
  * My solution to an Amazon interview question
- * The Question: 4_STAR
+ * The Question: 3_STAR + 1/2
  * <p>
  * A radio station calls you webservice using api: played(bandname, songname). Users of your webservice want to query for
  * for a band's top song using api topSong(bandname).

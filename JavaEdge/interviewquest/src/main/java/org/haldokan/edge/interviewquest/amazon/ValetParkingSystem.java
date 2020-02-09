@@ -18,7 +18,7 @@ import static org.junit.Assert.assertThat;
  * free. reserving or cancelling the reservation of a parking lot involves moving the lot b/w these 2 sets which is an
  * O(1) operation.
  * Finding a parking lot based on it's id (an operation that is uncommon) is done in O(n) where n is the number of
- * parking lots (it does not warrant an optimization that will required more space complexity). The solution space
+ * parking lots (it does not warrant an optimization that will require more space complexity). The solution space
  * complexity is O(n) in the number of parking lots.
  * <p>
  * Note: the question can be made more interesting (and much harder) by adding the concept of parking intervals
@@ -28,10 +28,10 @@ import static org.junit.Assert.assertThat;
  * car to the small lot and thus freeing the large lot for the large car.
  * I think a dynamic-programming based solution is possible for this much harder (Google-type) problem.
  * <p>
- * The Question: 5_STAR (booking, cancelling or finding a reservation is done in O(1), hence the 5 stars).
+ * The Question: 4_STAR
  * <p>
  * Design a valet parking system. Requirements of the valet parking system should be:
- * 1. Customer are given a ticket that they can use to get their vehicle back
+ * 1. Customers are given a ticket that they can use to get their vehicle back
  * 2. Parking spots come in three sizes, small, med, large
  * 3. Thee types of vehicles, small, med, large
  * a. Small vehicle can park in a small, medium, and large spot
@@ -111,7 +111,7 @@ public class ValetParkingSystem {
                 assertThat(ticket.isPresent(), is(false));
             }
         });
-        Arrays.stream(tickets).filter(t -> t != null).forEach(this::cancelReservation);
+        Arrays.stream(tickets).filter(Objects::nonNull).forEach(this::cancelReservation);
         Arrays.fill(tickets, null);
 
         // large cars
@@ -124,7 +124,7 @@ public class ValetParkingSystem {
                 assertThat(ticket.isPresent(), is(false));
             }
         });
-        Arrays.stream(tickets).filter(t -> t != null).forEach(this::cancelReservation);
+        Arrays.stream(tickets).filter(Objects::nonNull).forEach(this::cancelReservation);
         Arrays.fill(tickets, null);
         //===========================
         // small cars again
@@ -194,6 +194,7 @@ public class ValetParkingSystem {
         Reservation reservation = reservations.get(ticket);
         ParkingLot parkingLot = reservation.getParkingLot();
         parkingGround.get(parkingLot.sizeType).freeParkingLot(parkingLot);
+        // we remove the reservation but in an actual system we may want to mark it as cancelled instead in a different data structure
         reservations.remove(ticket);
     }
 
@@ -323,6 +324,10 @@ public class ValetParkingSystem {
 
         public void addParkingLot(ParkingLot parkingLot) {
             free.add(parkingLot);
+        }
+
+        public SizeType getSizeType() {
+            return sizeType;
         }
     }
 

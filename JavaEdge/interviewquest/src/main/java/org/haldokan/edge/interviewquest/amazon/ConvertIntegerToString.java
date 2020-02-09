@@ -7,7 +7,7 @@ import static org.junit.Assert.assertThat;
  * My solution to an Amazon interview question
  * The Question: 3_STAR
  * <p>
- * With input as a integer, write an algorithm to convert that to string without using any built in functions.
+ * With input as integer, write an algorithm to convert that to string without using any built in functions.
  * It is a signed number.
  * <p>
  * Equivalent to String.valueOf(-123); //java

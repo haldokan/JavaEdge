@@ -39,7 +39,6 @@ public class BTSumNodesAtSameLevel {
         Map<Integer, Integer> nodeLevels = new HashMap<>();
 
         nodes.add(tree);
-
         nodeLevels.put(tree.val, 0);
 
         while (!nodes.isEmpty()) {
@@ -61,7 +60,7 @@ public class BTSumNodesAtSameLevel {
             }
         }
 //        System.out.println(nodeLevels);
-        return levelSums.values().toArray(new Integer[levelSums.size()]);
+        return levelSums.values().toArray(new Integer[0]);
     }
 
     private static void addToLevel(Map<Integer, Integer> map, Integer val, Integer level) {

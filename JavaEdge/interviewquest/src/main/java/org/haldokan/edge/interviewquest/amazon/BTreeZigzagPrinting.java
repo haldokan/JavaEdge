@@ -46,12 +46,12 @@ public class BTreeZigzagPrinting {
 
         BiConsumer<Deque<Node>, Node> stackFunc = Deque::push;
 
-        while (!leftToRightStack.isEmpty() || !rightToLeftStack.isEmpty()) {
+        while (!leftToRightStack.isEmpty()) {
             while (!leftToRightStack.isEmpty()) {
                 Node node = leftToRightStack.pop();
                 zigzag.add(node);
 
-                // note hot the order of right/left nodes is swapped b/w the two while loops
+                // note that the order of right/left nodes is swapped b/w the two while loops
                 addNode(stackFunc, rightToLeftStack, node.right);
                 addNode(stackFunc, rightToLeftStack, node.left);
             }

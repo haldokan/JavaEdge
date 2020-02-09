@@ -5,8 +5,8 @@ import java.util.Arrays;
 import java.util.List;
 
 /**
- * My solution to an Amazon interview question - done w/o extra space or auxiliary data structures, and it supports non
- * rectangular mazes
+ * My solution to an Amazon interview question - done using iteration + recursion w/o extra space or auxiliary data structures,
+ * and it supports non-rectangular mazes
  * <p>
  * The Question: 5_STAR
  * Suppose you are given a puzzle that is represented as a matrix with 0s and 1s, where a 0 indicates you’re allowed to
@@ -94,18 +94,14 @@ public class MazeJointsConnectedness {
 //        System.out.println(joint1[0] + "," + joint1[1]);
         int row = joint1[0];
         int col = joint1[1];
-        // mark joint1 as visited. If the cell contains 1 leave it as is but if it contains 1 change it to 2;
+        // mark joint1 as visited. If the cell contains 1 leave it as is but if it contains 0 change it to 2;
         maze[row][col] = (maze[row][col] ^ 0X1) + 1;
 
         List<int[]> joint1Neighbors = getNeighbors(maze, joint1);
 
         if (Arrays.equals(joint1, joint2)) {
             return true;
-        } else if (joint1Neighbors.stream()
-                .filter(j -> maze[j[0]][j[1]] == 0)
-                .toArray()
-                .length == 0
-                ) {
+        } else if (joint1Neighbors.stream().filter(j -> maze[j[0]][j[1]] == 0).toArray().length == 0) {
             return false;
         }
         boolean connected = false;

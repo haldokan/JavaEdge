@@ -75,8 +75,8 @@ public class ScientistsAndBlackholes {
             blackholes.put(blackholeId, new Blackhole(blackholeId, random.nextDouble(), random.nextDouble(), random.nextInt()));
         });
 
-        String[] allScientists = scientists.keySet().toArray(new String[scientists.size()]);
-        String[] allBlackholes = blackholes.keySet().toArray(new String[blackholes.size()]);
+        String[] allScientists = scientists.keySet().toArray(new String[0]);
+        String[] allBlackholes = blackholes.keySet().toArray(new String[0]);
 
         IntStream.range(0, 1000).forEach(index -> {
             String scientist = allScientists[random.nextInt(allScientists.length)];

@@ -110,7 +110,7 @@ public class WalkMatrixInMinCost2 {
     }
 
     private Coordinate createCoordinate(Map<String, Coordinate> coordinateCache, int row, int col) {
-        String key = String.valueOf(row) + String.valueOf(col);
+        String key = row + String.valueOf(col);
         return coordinateCache.computeIfAbsent(key, v -> new Coordinate(row, col));
     }
 

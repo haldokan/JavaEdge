@@ -52,9 +52,7 @@ public class SortingListOfSortedArrays {
             }
             merged.add(num);
         }
-        for (int i = ndx; i < arr.length; i++) {
-            merged.add(arr[i]);
-        }
+        merged.addAll(Arrays.asList(arr).subList(ndx, arr.length));
         return merged;
     }
 

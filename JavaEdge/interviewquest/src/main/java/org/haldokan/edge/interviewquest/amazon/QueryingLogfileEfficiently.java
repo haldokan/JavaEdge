@@ -70,12 +70,11 @@ public class QueryingLogfileEfficiently {
                 .collect(Collectors.toSet());
     }
 
-    // looking at this method, is it hard to conclude that 'nested' functional call is an anti-pattern? It is hard to
-    // understand what this long nested pipe does. Perhaps the nested parts should be extracted out
     public Set<String> pagesVisitedByUserMinNumberOfTimes(String username, int minNumOfVisits, int year) {
         Set<String> pages = new HashSet<>();
-        pageVisitsLog.get(year).values().stream()
-                .forEach(yearVisits -> yearVisits.values().stream()
+        // todo should check for NP; skipped for brevity
+        pageVisitsLog.get(year).values()
+                .forEach(yearVisits -> yearVisits.values()
                         .forEach(userVisits ->
                                 userVisits.getUserVisits().entrySet().stream()
                                         .filter(e -> e.getKey().equals(username))
@@ -101,7 +100,7 @@ public class QueryingLogfileEfficiently {
         Set<String> pagesVisited = pagesVisited(LocalDate.now(), 3, 5, Collections.emptySet());
         System.out.printf("pages: %s%n", pagesVisited);
 
-        Set<String> pagesVisitedForUser = pagesVisitedByUserMinNumberOfTimes("username9", 5, 2016);
+        Set<String> pagesVisitedForUser = pagesVisitedByUserMinNumberOfTimes("username9", 5, 2019);
         System.out.printf("pages4User: %s%n", pagesVisitedForUser);
     }
 

@@ -2,6 +2,7 @@ package org.haldokan.edge.interviewquest.amazon;
 
 import com.google.common.collect.Lists;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 import java.util.PriorityQueue;
@@ -65,7 +66,7 @@ public class TopKUsersBasedOnNumOfLogins1 {
                 .collect(Collectors.groupingBy(login -> login, Collectors.summingInt(v -> 1)));
 
         Queue<UserLoginCount> minHeap =
-                new PriorityQueue<>((e1, e2) -> e1.numberOfLogins - e2.numberOfLogins);
+                new PriorityQueue<>(Comparator.comparingInt(e -> e.numberOfLogins));
 
         for (Map.Entry<String, Integer> entry : loginsPerUser.entrySet()) {
             UserLoginCount loginCount = new UserLoginCount(entry.getKey(), entry.getValue());

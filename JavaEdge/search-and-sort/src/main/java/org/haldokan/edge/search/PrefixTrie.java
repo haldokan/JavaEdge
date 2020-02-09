@@ -4,8 +4,8 @@ import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
 
 /**
- * My implementation of a prefix trie inspired by descriptions of the algorithm on-line - chars are not stored explicitely
- * in the  They are rather represented by their ascii codes in each node children
+ * My implementation of a prefix trie inspired by descriptions of the algorithm on-line - chars are not stored explicitly
+ * in the Trie. They are rather represented by their ascii codes in each node children
  * The Question: 4_STAR
  * Created by haytham.aldokanji on 5/18/16.
  */
@@ -18,6 +18,7 @@ public class PrefixTrie {
 
     public static void main(String[] args) {
         PrefixTrie trie = new PrefixTrie();
+        trie.insert("Hello There!");
         trie.testExactMatches();
         trie.testApproximateMatches();
     }
@@ -64,7 +65,7 @@ public class PrefixTrie {
     // the DFS code in this method is copied from code I found online in response to a Google interview question
     // Note that this works only if the search string shares prefixes and of length equal or greater than the strings
     // in the prefix tree (look at the test case to see).
-    private boolean dfs(Node node, String string, int position, int count, int maxDiff) {
+    private boolean approximateMatch(Node node, String string, int position, int count, int maxDiff) {
         if (count > maxDiff) {
             return false;
         }
@@ -77,9 +78,9 @@ public class PrefixTrie {
             Node currentChild = node.children[i];
             if (currentChild != null) {
                 if (string.charAt(position) == i
-                        && dfs(currentChild, string, position + 1, count, maxDiff)
+                        && approximateMatch(currentChild, string, position + 1, count, maxDiff)
                         || string.charAt(position) != i
-                        && dfs(currentChild, string, position + 1, count + 1, maxDiff)) {
+                        && approximateMatch(currentChild, string, position + 1, count + 1, maxDiff)) {
                     return true;
                 }
             }
@@ -88,7 +89,6 @@ public class PrefixTrie {
     }
 
     private void testExactMatches() {
-        insert("Hello There!");
         assertThat(hasString("H"), is(true));
         assertThat(hasString("Hell"), is(true));
         assertThat(hasString("Hello"), is(true));
@@ -108,13 +108,13 @@ public class PrefixTrie {
     }
 
     private void testApproximateMatches() {
-        assertThat(dfs(root, "Hallo", 0, 0, 1), is(true));
-        assertThat(dfs(root, "Holla", 0, 0, 2), is(true));
-        assertThat(dfs(root, "Howdy", 0, 0, 4), is(true));
+        assertThat(approximateMatch(root, "Hallo", 0, 0, 1), is(true));
+        assertThat(approximateMatch(root, "Holla", 0, 0, 2), is(true));
+        assertThat(approximateMatch(root, "Howdy", 0, 0, 4), is(true));
 
-        assertThat(dfs(root, "Hell", 0, 0, 1), is(false));
-        assertThat(dfs(root, "xHello", 0, 0, 1), is(false));
-        assertThat(dfs(root, "Helloxx", 0, 0, 2), is(true));
+        assertThat(approximateMatch(root, "Hell", 0, 0, 1), is(false));
+        assertThat(approximateMatch(root, "xHello", 0, 0, 1), is(false));
+        assertThat(approximateMatch(root, "Helloxx", 0, 0, 2), is(true));
     }
 
 

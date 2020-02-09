@@ -47,7 +47,7 @@ public class SwappingItemsInLinkedList<E> {
         Node<Integer> list = swapper.makeIntegerList(10);
 
         int listLen = swapper.getListLength(list);
-        List<Node<Integer>> swapNodes = swapper.findSwapNodesPredecessors(list, 3, listLen);
+        List<Node<Integer>> swapNodes = swapper.findTargetNodesPredecessors(list, 3, listLen);
 
         assertThat(swapNodes.get(0).value, is(2));
         assertThat(swapNodes.get(1).value, is(7));
@@ -144,12 +144,12 @@ public class SwappingItemsInLinkedList<E> {
             return node;
         }
         if (ordinal == listLen) {
-            // it is the same as swapping 1 and last element - think of it. this assignment saves us accounting of corner cases
+            // it is the same as swapping 1 and last element - think of it. this assignment saves us accounting for corner cases
             ordinal = 1;
         }
 
         Node<E> start = node;
-        List<Node<E>> swapNodesPredecessors = findSwapNodesPredecessors(node, ordinal, listLen);
+        List<Node<E>> swapNodesPredecessors = findTargetNodesPredecessors(node, ordinal, listLen);
         Node<E> swapNode1Predecessor = swapNodesPredecessors.get(0);
         Node<E> swapNode2Predecessor = swapNodesPredecessors.get(1);
 
@@ -169,7 +169,7 @@ public class SwappingItemsInLinkedList<E> {
         return start;
     }
 
-    private List<Node<E>> findSwapNodesPredecessors(Node<E> node, int k, int listLen) {
+    private List<Node<E>> findTargetNodesPredecessors(Node<E> node, int k, int listLen) {
         Node<E> current = node;
         Node<E> swapNode1 = node;
         Node<E> swapNode2 = node;

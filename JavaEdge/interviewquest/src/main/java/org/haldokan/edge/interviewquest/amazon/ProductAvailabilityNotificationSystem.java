@@ -35,16 +35,16 @@ public class ProductAvailabilityNotificationSystem {
         if (shortage != null) {
             // return empty set if there's no waiting list
             Set<Client> waitingList = productWaitingList.get(productId);
-            // only of stocks are replenished to meet the shortage we update remove the waiting list and product from
+            // only if stocks are replenished to meet the shortage we update remove the waiting list and product from
             // the shortage map
             if (shortage <= 0) {
                 productWaitingList.removeAll(productId);
                 productShortage.remove(productId);
             }
             // notify clients that their products are now available - stocks might not be replenished to the point of
-            // meeting all shortage but we can always see that we ran again of stocks. Clients who manage to buy their
+            // meeting all shortage but we can always say that we ran again of stocks. Clients who manage to buy their
             // products before the exhaustion of stocks might get another email of the availability of their product
-            // whe we replenish a partially stocked store but that is ok (they may be interested in buying more of the
+            // when we replenish a partially stocked store but that is ok (they may be interested in buying more of the
             // same product!)
             waitingList.forEach(client -> emailer.email(client.getEmail(),
                     productStore.get(productId).getName() + " is available now"));

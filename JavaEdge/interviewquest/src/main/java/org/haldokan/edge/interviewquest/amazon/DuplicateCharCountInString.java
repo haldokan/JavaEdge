@@ -5,7 +5,7 @@ import static org.junit.Assert.assertThat;
 
 /**
  * My solution to an Amazon interview question
- * The Question: 2_STAR
+ * The Question: 3_STAR
  * <p>
  * Print the count of duplicate char in a given string in same order. Ex: Input- 'abbaccdbac', Output- 'a3b3c3d1'
  * <p>

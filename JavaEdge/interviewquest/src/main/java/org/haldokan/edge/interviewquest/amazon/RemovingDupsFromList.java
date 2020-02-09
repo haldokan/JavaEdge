@@ -14,6 +14,7 @@ public class RemovingDupsFromList {
         System.out.println(removeDups(new LinkedList<>(Arrays.asList(1, 1, 1, 3, 3, 4, 5, 6, 5, 6, 2))));
     }
 
+    // todo there might exist a bit logic operator and shift that can tell if the same numbers is used twice...
     private static List<Integer> removeDups(List<Integer> list) {
         // using a BitSet is very space efficient
         BitSet bitSet = new BitSet();

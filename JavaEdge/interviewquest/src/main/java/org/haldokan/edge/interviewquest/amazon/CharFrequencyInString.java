@@ -8,7 +8,7 @@ import java.util.stream.Collectors;
 /**
  * My solution to an Amazon interview question
  * The Question: 3_STAR
- * given a string, calculate the frequency of characters, output the array with the letter and frequency.
+ * given a string calculate the frequency of characters, output the array with the letter and frequency.
  * (such as: for “abbcdc”, the output should be (a,1),(b,2),(c,2),(d,1))
  */
 public class CharFrequencyInString {

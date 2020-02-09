@@ -11,17 +11,17 @@ import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * My solution to an Amazon interview question - design and in-process implementation. Finding a tweet from an account
- * is O(log n) where n is the number of tweets from that account. I utilized that fact that tweets from the same account
+ * is O(log n) where n is the number of tweets from that account. I utilized the fact that tweets from the same account
  * are naturally sorted by the timestamp which I used to identify a tweet: the combination of an account id and the tweet
- * timestamp is the tweet id. Using binary search on the list of tweets that are naturally sorted by the time stamp enables
- * the O(log n) time complexity of finding a tweet. I also used a flavor of the Observer pattern. The solution can
+ * timestamp is the tweet id. Using binary search on the list of tweets that are naturally sorted by the timestamp enables
+ * the O(log n) time complexity for finding a tweet. I also used a flavor of the Observer pattern; the solution can
  * be made to use Guava message bus.
  * <p>
  * The Question: 5_STAR
  * <p>
  * Design Twitter Timeline
  * Twitter Timeline displays a stream of Tweets from accounts you have chosen to follow on Twitter. You may see
- * suggested content powered by a variety of signals. You can reply, retweet, or like a Tweet from within the timeline.
+ * suggested content powered by a variety of signals. You can reply, re-tweet, or like a Tweet from within the timeline.
  * <p>
  * Created by haytham.aldokanji on 7/25/16.
  */
@@ -120,7 +120,7 @@ public class TwitterTimeline {
         public Tweet findTweet(String accountId, LocalDateTime tweetTime) {
             List<Tweet> tweets = tweetsByAccount.get(accountId);
             int index = Collections.binarySearch(tweets, Tweet.makeIdentifier(accountId, tweetTime),
-                    (t1, t2) -> t1.time.compareTo(t2.time));
+                Comparator.comparing(t -> t.time));
 
             return tweets.get(index);
         }
