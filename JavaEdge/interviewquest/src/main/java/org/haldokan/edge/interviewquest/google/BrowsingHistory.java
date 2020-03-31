@@ -10,10 +10,10 @@ import static org.junit.Assert.assertThat;
  * My solution to a Google interview question - circular array to keep the history
  * The Question: 4_STAR
  * <p>
- * Design a component that will implement web browser history. the user goes to different site and once he press on
+ * Design a component that will implement web browser history. The user goes to different site and once he presses on
  * history button you should display the last 5 (no duplicates allowed, and 5 can be any N later) if duplicates occur
- * display the most recent one. so if user visit : G,A,B,C,A,Y and than press "history" we will display Y,A,C,B,G. and
- * of course he can go later to two other websites and than press "history" we will show them then the previous 3.
+ * display the most recent one. so if user visit : G,A,B,C,A,Y and than presses "history" we will display Y,A,C,B,G. and
+ * of course he can go later to two other websites and then press "history" we will show them then the previous 3.
  * <p>
  * Created by haytham.aldokanji on 6/28/16.
  */
