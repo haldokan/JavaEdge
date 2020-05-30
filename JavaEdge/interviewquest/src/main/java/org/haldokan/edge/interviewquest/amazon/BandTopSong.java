@@ -7,10 +7,11 @@ import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
 
 /**
+ * NOTE: this can also be solved using PriorityQueue trading time complexity for space complexity
  * My solution to an Amazon interview question
  * The Question: 3_STAR + 1/2
  * <p>
- * A radio station calls you webservice using api: played(bandname, songname). Users of your webservice want to query for
+ * A radio station calls your webservice using api: played(bandname, songname). Users of your webservice want to query for
  * for a band's top song using api topSong(bandname).
  * Implement the API to answer the query in O(1)
  * <p>

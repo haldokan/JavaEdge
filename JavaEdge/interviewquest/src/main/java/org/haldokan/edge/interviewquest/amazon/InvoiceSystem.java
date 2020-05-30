@@ -17,7 +17,7 @@ import java.util.stream.Collectors;
  * <p>
  * The Question: 4_STAR
  * <p>
- * You as a developer are tasked to create an application that builds invoices that are send out to the company’s
+ * You as a developer is tasked to create an application that builds invoices that are sent  out to the company’s
  * clients. Invoices are sent to the client’s address and the client should pay the invoice amount by a given date
  * otherwise fees could incur. The client should be able to see detailed information about the items they are being
  * billed for, like item cost, tax, quantity, etc. The client can be billed for products and/or services. Services are

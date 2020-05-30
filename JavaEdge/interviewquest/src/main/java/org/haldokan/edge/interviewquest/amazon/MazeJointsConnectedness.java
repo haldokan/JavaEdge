@@ -35,6 +35,7 @@ public class MazeJointsConnectedness {
         MazeJointsConnectedness driver = new MazeJointsConnectedness();
         driver.test1();
         driver.test2();
+        driver.test3();
     }
 
     private void test1() {
@@ -49,7 +50,7 @@ public class MazeJointsConnectedness {
         System.out.println("true->" + connected(maze, new int[]{3, 3}, new int[]{0, 1}));
     }
 
-    // maze doesn't have to be regtangular
+    // maze doesn't have to be rectangular
     private void test2() {
         int[][] maze = new int[][]{
                 {0, 0, 1, 0},
@@ -62,6 +63,16 @@ public class MazeJointsConnectedness {
         System.out.println("true->" + connected(maze, new int[]{3, 3}, new int[]{0, 1}));
         resetMaze(maze);
         System.out.println("false->" + connected(maze, new int[]{3, 3}, new int[]{0, 3}));
+    }
+
+    private void test3() {
+        int[][] maze = new int[][]{
+            {0, 0, 1, 1, 0},
+            {0, 1, 0, 0, 0},
+            {0, 1, 1, 0, 1},
+            {0, 0, 0, 0, 0}
+        };
+        System.out.println("true->" + connected(maze, new int[]{0, 4}, new int[]{0, 1}));
     }
 
     public List<int[]> getNeighbors(int[][] maze, int[] joint) {

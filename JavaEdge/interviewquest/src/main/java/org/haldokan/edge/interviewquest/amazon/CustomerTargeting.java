@@ -8,6 +8,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 /**
+ * NOTE: faulty solution in that purchases of the same value can fall into different tranches - Check CustomerTargeting2 for a valid solution
  * My solution to an Amazon interview question - using pure functional programming
  * <p>
  * The Question: 4_STAR
@@ -54,7 +55,7 @@ public class CustomerTargeting {
 
         System.out.println(customerMessages(orders).entrySet()
                 .stream()
-                .sorted((e1, e2) -> e1.getKey().getAmount().compareTo(e2.getKey().getAmount()))
+                .sorted(Comparator.comparing(e -> e.getKey().getAmount()))
                 .collect(Collectors.toList()));
     }
 

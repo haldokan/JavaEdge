@@ -67,8 +67,17 @@ public class BinaryTreeMaxDepth {
     }
 
     // Elegant! I should've thought of it b4 I went to the more clunky solution of BFS
+    // is this actually DFS?
     public int treeMaxHeightDFS(Node head) {
         return head == null ? 0 : Math.max(treeMaxHeightDFS(head.left), treeMaxHeightDFS(head.right)) + 1;
+    }
+
+    // yet another variation that's easier to understand than the one above
+    public int maxDepth(Node tree, int depth) {
+        if (tree == null) {
+            return depth;
+        }
+        return Math.max(maxDepth(tree.left, depth + 1), maxDepth(tree.right, depth + 1));
     }
 
     private Node makeTree() {

@@ -40,36 +40,36 @@ public class BrowsingHistory {
 
         browsingHistory.addUrl(url1);
         Set<String> history = browsingHistory.history();
-        String[] historyArr = history.toArray(new String[history.size()]);
+        String[] historyArr = history.toArray(new String[0]);
         assertThat(historyArr, is(new String[]{url1}));
 
         browsingHistory.addUrl(url2);
         browsingHistory.addUrl(url3);
         history = browsingHistory.history();
-        historyArr = history.toArray(new String[history.size()]);
+        historyArr = history.toArray(new String[0]);
         assertThat(historyArr, is(new String[]{url3, url2, url1}));
 
         browsingHistory.addUrl(url4);
         browsingHistory.addUrl(url5);
         history = browsingHistory.history();
-        historyArr = history.toArray(new String[history.size()]);
+        historyArr = history.toArray(new String[0]);
         assertThat(historyArr, is(new String[]{url5, url4, url3}));
 
         browsingHistory.addUrl(url1);
         browsingHistory.addUrl(url4);
         history = browsingHistory.history();
-        historyArr = history.toArray(new String[history.size()]);
+        historyArr = history.toArray(new String[0]);
         assertThat(historyArr, is(new String[]{url4, url1, url5}));
 
         browsingHistory.addUrl(url1);
         browsingHistory.addUrl(url4);
         history = browsingHistory.history();
-        historyArr = history.toArray(new String[history.size()]);
+        historyArr = history.toArray(new String[0]);
         assertThat(historyArr, is(new String[]{url4, url1, url5}));
 
         browsingHistory.addUrl(url4);
         history = browsingHistory.history();
-        historyArr = history.toArray(new String[history.size()]);
+        historyArr = history.toArray(new String[0]);
         assertThat(historyArr, is(new String[]{url4, url1}));
     }
 
@@ -82,22 +82,22 @@ public class BrowsingHistory {
         browsingHistory.addUrl(url3);
         browsingHistory.addUrl(url4);
         Set<String> history = browsingHistory.history();
-        String[] historyArr = history.toArray(new String[history.size()]);
+        String[] historyArr = history.toArray(new String[0]);
         assertThat(historyArr, is(new String[]{url4, url3, url2}));
 
         browsingHistory.removeUrlAtIndex(2);
         history = browsingHistory.history();
-        historyArr = history.toArray(new String[history.size()]);
+        historyArr = history.toArray(new String[0]);
         assertThat(historyArr, is(new String[]{url4, url2, url1}));
 
         browsingHistory.removeUrlAtIndex(0);
         history = browsingHistory.history();
-        historyArr = history.toArray(new String[history.size()]);
+        historyArr = history.toArray(new String[0]);
         assertThat(historyArr, is(new String[]{url4, url2}));
 
         browsingHistory.removeUrlAtIndex(3);
         history = browsingHistory.history();
-        historyArr = history.toArray(new String[history.size()]);
+        historyArr = history.toArray(new String[0]);
         assertThat(historyArr, is(new String[]{url2}));
     }
 

@@ -127,7 +127,7 @@ public class FindingWordOccurrencesInMatrix {
                 {'B', 'B', 'B', 'B', 'B', 'A'}
         };
         List<Coordinate[]> occurrences = listWordOccurrences(matrix, new char[]{'A', 'M', 'A', 'Z', 'O', 'N'});
-        occurrences.stream().forEach(occurrence -> System.out.printf("%s%n", Arrays.toString(occurrence)));
+        occurrences.forEach(occurrence -> System.out.printf("%s%n", Arrays.toString(occurrence)));
         System.out.printf("%s%n", "--------------");
         assertThat(occurrences.size(), is(2));
     }
@@ -142,7 +142,7 @@ public class FindingWordOccurrencesInMatrix {
                 {'B', 'B', 'B', 'B', 'B', 'A'}
         };
         List<Coordinate[]> occurrences = listWordOccurrences(matrix, new char[]{'A', 'M', 'A', 'Z', 'O', 'N'});
-        occurrences.stream().forEach(occurrence -> System.out.printf("%s%n", Arrays.toString(occurrence)));
+        occurrences.forEach(occurrence -> System.out.printf("%s%n", Arrays.toString(occurrence)));
         System.out.printf("%s%n", "--------------");
         assertThat(occurrences.size(), is(8));
     }
@@ -154,7 +154,7 @@ public class FindingWordOccurrencesInMatrix {
                 {'a', 'c', 'e', 'c', 'a', 'r', 'x'}
         };
         List<Coordinate[]> occurrences = listWordOccurrences(matrix, new char[]{'r', 'a', 'c', 'e', 'c', 'a', 'r'});
-        occurrences.stream().forEach(occurrence -> System.out.printf("%s%n", Arrays.toString(occurrence)));
+        occurrences.forEach(occurrence -> System.out.printf("%s%n", Arrays.toString(occurrence)));
         System.out.printf("%s%n", "--------------");
         assertThat(occurrences.size(), is(22));
     }

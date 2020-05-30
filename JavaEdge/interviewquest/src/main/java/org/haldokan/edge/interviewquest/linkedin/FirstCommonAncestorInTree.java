@@ -50,23 +50,33 @@ public class FirstCommonAncestorInTree {
         k.p = c;
 
         FirstCommonAncestorInTree fca = new FirstCommonAncestorInTree();
-        System.out.println("(d, f)-> " + fca.commonAncestor(d, f)); // b
-        System.out.println("(e, f)-> " + fca.commonAncestor(e, f)); // b
-        System.out.println("(e, g)-> " + fca.commonAncestor(e, g)); // b
-        System.out.println("(e, d)-> " + fca.commonAncestor(e, d)); // b
-        System.out.println("(c, g)-> " + fca.commonAncestor(c, g)); // root
-        System.out.println("(b, f)-> " + fca.commonAncestor(b, f)); // root
-        System.out.println("(c, k)-> " + fca.commonAncestor(c, k)); // root
-        System.out.println("(g, k)-> " + fca.commonAncestor(g, k)); // root
+        System.out.println("(d, f)-> " + fca.commonAncestor1(d, f)); // b
+        System.out.println("(e, f)-> " + fca.commonAncestor1(e, f)); // b
+        System.out.println("(e, g)-> " + fca.commonAncestor1(e, g)); // b
+        System.out.println("(e, d)-> " + fca.commonAncestor1(e, d)); // b
+        System.out.println("(c, g)-> " + fca.commonAncestor1(c, g)); // root
+        System.out.println("(b, f)-> " + fca.commonAncestor1(b, f)); // root
+        System.out.println("(c, k)-> " + fca.commonAncestor1(c, k)); // root
+        System.out.println("(g, k)-> " + fca.commonAncestor1(g, k)); // root
+        
+        System.out.println("(d, f)-> " + fca.commonAncestor2(d, f)); // b
+        System.out.println("(e, f)-> " + fca.commonAncestor2(e, f)); // b
+        System.out.println("(e, g)-> " + fca.commonAncestor2(e, g)); // b
+        System.out.println("(e, d)-> " + fca.commonAncestor2(e, d)); // b
+        System.out.println("(c, g)-> " + fca.commonAncestor2(c, g)); // root
+        System.out.println("(b, f)-> " + fca.commonAncestor2(b, f)); // root
+        System.out.println("(c, k)-> " + fca.commonAncestor2(c, k)); // root
+        System.out.println("(g, k)-> " + fca.commonAncestor2(g, k)); // root
     }
-
-    public Node commonAncestor(Node n1, Node n2) {
+    
+    public Node commonAncestor1(Node n1, Node n2) {
         if (n1 == null || n2 == null)
             return null;
         Node n = n1.p;
         while (n != null) {
-            if (isAncestor(n, n2))
+            if (isAncestor(n, n2)) {
                 return n;
+            }
             n = n.p;
         }
         throw new IllegalStateException("Ancestor must have been found since root is the ultimate ancestor");
@@ -75,11 +85,31 @@ public class FirstCommonAncestorInTree {
     public boolean isAncestor(Node n1, Node n2) {
         Node n = n2.p;
         while (n != null) {
-            if (n == n1)
+            if (n == n1) {
                 return true;
+            }
             n = n.p;
         }
         return false;
+    }
+    
+    // this is a bit more interesting way to do it
+    private Node commonAncestor2(Node node1, Node node2) {
+        if (node1.p == null) {
+            return node1;
+        }
+        if (node2.p ==  null) {
+            return node2;
+        }
+        if (node1.p == node2.p) {
+            return node1.p;
+        }
+        Node ancestor1 = commonAncestor2(node1.p, node2);
+        Node ancestor2 = commonAncestor2(node1, node2.p);
+        if (ancestor1.p != null) {
+            return ancestor1;
+        }
+        return ancestor2;
     }
 
     private static class Node {

@@ -68,9 +68,9 @@ public class SumBinaryStringsBitwise {
 
 
     private void testBinStringAdd() {
-        Long num1 = 798798343L;
-        Long num2 = 907937L;
-        Long sum = num1 + num2;
+        long num1 = 798798343L;
+        long num2 = 907937L;
+        long sum = num1 + num2;
         assertThat(binStringAdd(Long.toBinaryString(num1), Long.toBinaryString(num2)),
                 is(Long.toBinaryString(sum)));
 

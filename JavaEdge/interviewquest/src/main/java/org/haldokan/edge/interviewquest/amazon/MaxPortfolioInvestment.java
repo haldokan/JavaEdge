@@ -6,6 +6,7 @@ import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
 
 /**
+ * NOTE: this is maybe a faulty solution
  * My solution to an Amazon interview question (in fact it is a Black Rock interview question but somewhat similar to another
  * Amazon question that I resolved elsewhere in this repository).
  * <p>
@@ -42,11 +43,11 @@ public class MaxPortfolioInvestment {
         evalDeck.add(index);
         selectedPortfolios.add(index);
 
-        int maxInvestment = Integer.valueOf(portfolios[index]);
+        int maxInvestment = Integer.parseInt(portfolios[index]);
 
         while (!evalDeck.isEmpty()) {
             Integer parentIndex = evalDeck.remove();
-            Integer childPortfoliosSum = 0;
+            int childPortfoliosSum = 0;
 
             Optional<Integer> child1Funds = evaluatePortfolio(portfolios, ++index);
             if (child1Funds.isPresent()) {
@@ -61,7 +62,7 @@ public class MaxPortfolioInvestment {
             }
 
             int parentPortfolioFunds = selectedPortfolios.contains(parentIndex) ?
-                    Integer.valueOf(portfolios[parentIndex]) : 0;
+                    Integer.parseInt(portfolios[parentIndex]) : 0;
 
             if (childPortfoliosSum > parentPortfolioFunds) {
                 maxInvestment = maxInvestment - parentPortfolioFunds + childPortfoliosSum;
@@ -98,5 +99,8 @@ public class MaxPortfolioInvestment {
 
         max = findMax("3 4 5 1 1 # 6 # 7 # # 2 3");
         assertThat(max, is(17));
+
+        max = findMax("3 4 5 1 # # 1 # 7 # # 5 8");
+        assertThat(max, is(29));
     }
 }

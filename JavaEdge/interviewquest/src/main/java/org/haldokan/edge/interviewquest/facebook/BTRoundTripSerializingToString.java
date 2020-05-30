@@ -63,8 +63,7 @@ public class BTRoundTripSerializingToString {
         if (input == null || input.isEmpty()) {
             return null;
         }
-        Deque<String> formattedNodesQueue = new ArrayDeque<>();
-        Arrays.stream(input.split(AT)).forEach(formattedNodesQueue::add);
+        Deque<String> formattedNodesQueue = new ArrayDeque<>(Arrays.asList(input.split(AT)));
 
         Node root = makeNodes(formattedNodesQueue.remove())[0];
         Deque<Node> evalQueue = new ArrayDeque<>();
@@ -93,7 +92,7 @@ public class BTRoundTripSerializingToString {
 
         int index = 0;
         for (String val : nodeValues) {
-            nodes[index++] = val.equals(NULL_NODE_VAL) ? null : new Node(Integer.valueOf(val));
+            nodes[index++] = val.equals(NULL_NODE_VAL) ? null : new Node(Integer.parseInt(val));
 
         }
         return nodes;
