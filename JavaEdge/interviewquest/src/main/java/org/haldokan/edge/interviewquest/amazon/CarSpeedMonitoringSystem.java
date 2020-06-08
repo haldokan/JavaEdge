@@ -1,6 +1,7 @@
 package org.haldokan.edge.interviewquest.amazon;
 
 /**
+ * My solution to an Amazon interview question
  * We have cameras installed all over the city to detect speeding. The cameras snap pictures of the plates of speeding
  * cars and feed the data into the system that keep track of violations.
  * Design such a system.

@@ -3,6 +3,7 @@ package org.haldokan.edge.interviewquest.amazon;
 import java.math.BigInteger;
 import java.security.SecureRandom;
 import java.time.LocalDateTime;
+import java.util.Comparator;
 import java.util.Map;
 import java.util.Optional;
 import java.util.concurrent.ConcurrentHashMap;
@@ -60,7 +61,7 @@ public class RestaurantReservationSystem {
             // reservation is active now
             return true;
         }
-        // checked in too late; there table might have been re-booked and they need to reserve again if possible
+        // checked in too late; their table might have been re-booked and they need to reserve again if possible
         return false;
     }
 
@@ -71,7 +72,7 @@ public class RestaurantReservationSystem {
         }
     }
 
-    // cancel reservation if customer is too late or their allotted time slot for has expired
+    // cancel reservation if customer is too late or their allotted time slot has expired
     public void runReservationMonitor() {
         ScheduledExecutorService monitor = Executors.newSingleThreadScheduledExecutor();
         LocalDateTime now = LocalDateTime.now();
@@ -96,14 +97,10 @@ public class RestaurantReservationSystem {
     // gets a table that best matches the number of guests; sorting and getting first matching table insures best fit
     private Optional<Table> bookTable(int numberOfGuests) {
         Optional<Table> table = tables.values().stream()
-                .filter(t -> !t.reserved)
-                .filter(t -> t.numberOfSeats >= numberOfGuests)
-                .sorted((t1, t2) -> t1.numberOfSeats - t2.numberOfSeats)
-                .findFirst();
+            .filter(t -> !t.reserved)
+            .filter(t -> t.numberOfSeats >= numberOfGuests).min(Comparator.comparingInt(t -> t.numberOfSeats));
 
-        if (table.isPresent()) {
-            table.get().reserved = true;
-        }
+        table.ifPresent(value -> value.reserved = true);
         return table;
     }
 

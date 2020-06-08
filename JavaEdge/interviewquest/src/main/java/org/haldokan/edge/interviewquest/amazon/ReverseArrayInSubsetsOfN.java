@@ -1,5 +1,7 @@
 package org.haldokan.edge.interviewquest.amazon;
 
+import java.util.Arrays;
+
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
 
@@ -18,7 +20,7 @@ public class ReverseArrayInSubsetsOfN {
         ReverseArrayInSubsetsOfN driver = new ReverseArrayInSubsetsOfN();
 
         driver.testReverseRange();
-        driver.testReverse();
+//        driver.testReverse();
     }
 
     public void reverse(int[] arr, int n) {

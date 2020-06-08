@@ -126,7 +126,7 @@ public class SummingCharArrays {
     }
 
     private int[][] alignArrays(int[] arr1, int[] arr2, ArrayAlign align) {
-        int maxLen = arr1.length > arr2.length ? arr1.length : arr2.length;
+        int maxLen = Math.max(arr1.length, arr2.length);
 
         if (align == ArrayAlign.RIGHT) {
             return new int[][]{alignRight(arr1, maxLen), alignRight(arr2, maxLen)};

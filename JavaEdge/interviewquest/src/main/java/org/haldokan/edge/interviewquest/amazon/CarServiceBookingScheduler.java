@@ -10,7 +10,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
@@ -19,6 +18,7 @@ import static org.junit.Assert.assertThat;
  * My solution to an Amazon interview question - I implemented an interval tree so finding out whether a booking interval
  * intersects with any other already booked intervals is done in O(log n) instead of O(n). Finding a customer's last booking
  * is done in O(1) using a mapping b/w customer and their bookings.
+ * NOTE: another way (maybe simpler) to do it is in CarServiceBookingScheduler2
  * <p>
  * The idea is to consult the interval tree at each booking and find all the intervals that intersect with the new booking
  * interval then subtract the sum of the booked cars for all the intersecting intervals from the fleet size.

@@ -1,5 +1,6 @@
 package org.haldokan.edge.interviewquest.amazon;
 
+import java.util.Comparator;
 import java.util.Map;
 import java.util.Random;
 import java.util.SortedSet;
@@ -16,9 +17,9 @@ import java.util.concurrent.ConcurrentHashMap;
  */
 
 public class DataStructureToQueryAndUpdateLargeDataset {
-    private static Random random = new Random();
+    private static final Random random = new Random();
     private final Map<Integer, Record> map = new ConcurrentHashMap<>();
-    private final SortedSet<Record> mostAccessed = new TreeSet<>((r1, r2) -> r1.count - r2.count);
+    private final SortedSet<Record> mostAccessed = new TreeSet<>(Comparator.comparingInt(r -> r.count));
     private final int limit;
 
     public DataStructureToQueryAndUpdateLargeDataset(int limit) {
@@ -37,11 +38,11 @@ public class DataStructureToQueryAndUpdateLargeDataset {
         }
 
         driver.mostAccessed.stream()
-                .sorted((r1, r2) -> r1.count - r2.count)
+                .sorted(Comparator.comparingInt(r -> r.count))
                 .forEach(System.out::println);
 
         driver.map.entrySet().stream()
-                .sorted((e1, e2) -> e1.getValue().getCount() - e2.getValue().getCount())
+                .sorted(Comparator.comparingInt(e -> e.getValue().getCount()))
                 .forEach(System.out::println);
 
     }

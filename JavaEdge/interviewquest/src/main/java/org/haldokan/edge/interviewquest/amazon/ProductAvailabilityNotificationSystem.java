@@ -31,7 +31,7 @@ public class ProductAvailabilityNotificationSystem {
     public void stockProduct(String productId, int amount) {
         productStocks.compute(productId, (k, v) -> v == null ? amount : v + amount);
         Integer shortage = productShortage.computeIfPresent(productId, (k, v) -> v - amount);
-        // null shortage indicates that tha product has never been in shortage
+        // null shortage indicates that product has never been in shortage
         if (shortage != null) {
             // return empty set if there's no waiting list
             Set<Client> waitingList = productWaitingList.get(productId);

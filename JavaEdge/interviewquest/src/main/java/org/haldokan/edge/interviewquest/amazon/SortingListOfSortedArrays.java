@@ -16,7 +16,7 @@ public class SortingListOfSortedArrays {
     public static void main(String[] args) {
         Integer[] a1 = new Integer[]{1, 3, 5, 7, 9, 11};
         Integer[] a2 = new Integer[]{2, 4, 6, 8, 10, 12, 14, 16};
-        Integer[] a3 = new Integer[]{20, 22};
+        Integer[] a3 = new Integer[]{0, 20, 22};
         Integer[] a4 = new Integer[]{-22, -20};
 
         List<Integer[]> list = new ArrayList<>();
@@ -25,10 +25,10 @@ public class SortingListOfSortedArrays {
         list.add(a3);
         list.add(a4);
 
-        System.out.println(sort(list));
+        System.out.println(merge(list));
     }
 
-    private static List<Integer> sort(List<Integer[]> sortedArrs) {
+    private static List<Integer> merge(List<Integer[]> sortedArrs) {
         List<Integer> rs = new LinkedList<>();
         for (Integer[] arr : sortedArrs) {
             rs = merge(rs, arr);

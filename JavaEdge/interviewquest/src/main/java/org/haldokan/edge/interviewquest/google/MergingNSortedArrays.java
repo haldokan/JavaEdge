@@ -11,7 +11,7 @@ import static org.junit.Assert.assertThat;
  *  My solution to a Google interview question - examine the generified version in GenerifiedNWaySortedArrayMerge.java
  * I used a dynamic-programming-flavored solution to do n-way merge among
  * the arrays. Space and time complexity are (O(n)) where n is the sum of the arrays lengths. This solution is better than
- * the one proposed on Careercup suggesting using a min heap since the cost of other other algorithm is O(nlogn).
+ * the one proposed on Careercup suggesting using a min heap since the cost of other algorithm is O(nlogn).
  *
  * The Question: 4_STAR
  * <p>

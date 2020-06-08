@@ -23,7 +23,7 @@ import static org.junit.Assert.assertThat;
  * <p>
  * Note: the question can be made more interesting (and much harder) by adding the concept of parking intervals
  * and by asking for parking optimization as new parking lots become available at the intervals' expiry times. For example
- * when there are 2 lots one small and the another is large. The small lot is free and the large lot is occupied by a
+ * when there are 2 lots one small and another is large. The small lot is free and the large lot is occupied by a
  * small car. Now we have to reserve a lot for a large car. The reservation is possible only when we re-assign the small
  * car to the small lot and thus freeing the large lot for the large car.
  * I think a dynamic-programming based solution is possible for this much harder (Google-type) problem.
@@ -33,7 +33,7 @@ import static org.junit.Assert.assertThat;
  * Design a valet parking system. Requirements of the valet parking system should be:
  * 1. Customers are given a ticket that they can use to get their vehicle back
  * 2. Parking spots come in three sizes, small, med, large
- * 3. Thee types of vehicles, small, med, large
+ * 3. Three types of vehicles, small, med, large
  * a. Small vehicle can park in a small, medium, and large spot
  * b. Medium vehicle can park in a medium and large spot
  * c. Large vehicle can park in a large spot
@@ -49,7 +49,7 @@ public class ValetParkingSystem {
                     .put(SizeType.LARGE, SizeType.LARGE)
                     .build();
     private final Map<SizeType, ParkingSegment> parkingGround = new HashMap<>();
-    // I am assuming that the ticket id is not the same as the lot id. Adding this level of in-direction allows the system
+    // I am assuming that the ticket id is not the same as the lot id. Adding this level of indirection allows the system
     // to re-assign cars to different parking lots as more fitting lot sizes become available and thus increasing the parking
     // ground capacity to park larger cars
     private final Map<String, Reservation> reservations = new ConcurrentHashMap<>();
