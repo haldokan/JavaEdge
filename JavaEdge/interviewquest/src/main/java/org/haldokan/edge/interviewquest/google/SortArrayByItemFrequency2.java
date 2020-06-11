@@ -19,7 +19,7 @@ import static org.junit.Assert.assertThat;
  * N is passed as parameter.
  * <p>
  * For Ex:
- * Array -> [0, 0, 100, 3, 5, 4, 6, 4, 2, 100, 2, 100]
+ * Array -> [0, 0, 100, 3, 5, 4, 6, 2, 100, 2, 100]
  * n -> 2
  * Output -> [100, 0] or [100, 2], here's why:
  * <p>

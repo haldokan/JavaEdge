@@ -5,8 +5,8 @@ import java.util.stream.Stream;
 
 /**
  * My solution to a Google interview question
- *
- * The Question: 3_STAR
+ * NOTE: examine my other solution in StreamMovingAverage2 which is probably better (circular array)
+ * The Question: 3.5_STAR
  *
  * Consider a setup where a program is continuously receiving floats as inputs (a stream of numbers).
  * Write a method that at any given time returns a moving average. That is the average of the last K numbers received.
@@ -28,10 +28,10 @@ public class StreamMovingAverage {
     public static void main(String[] args) {
         List<Float> nums = new ArrayList<>(Arrays.asList(6f, 3f, 6f, 9f, 12f, 24f, 30f, 7f, 33f));
         StreamMovingAverage driver = new StreamMovingAverage(3);
-        driver.steamIn(nums.stream());
+        driver.streamIn(nums.stream());
     }
 
-    public void steamIn(Stream<Float> stream) {
+    public void streamIn(Stream<Float> stream) {
         stream.forEach(f -> {
             if (samplingSize == sample.size()) {
                 movingAverage -= sample.removeFirst() / samplingSize;
