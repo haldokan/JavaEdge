@@ -9,18 +9,15 @@ import static org.junit.Assert.assertThat;
  * <p>
  * The Question (4_STARS):
  *
- * Given a string and array of strings, find whether the array contains a string with one character difference from the
- * given string. Array may contain string of different lengths.
+ * Given a string and an array of strings, find whether the array contains a string with one character difference from the
+ * given string. Array may contain strings of different lengths.
  * <p>
  * Ex: Given string
- * <p>
- * <p>
  * banana
  * and array is
- * <p>
- * <p>
  * [bana, apple, banaba, bonanza, banamf]
- * and the outpost should be true as banana and banaba are one character difference.
+ * </p>
+ * he output should be true as banana and banaba are one character difference.
  * Created by haytham.aldokanji on 5/18/16.
  */
 public class IdentifyStringsDiffByOneChar {

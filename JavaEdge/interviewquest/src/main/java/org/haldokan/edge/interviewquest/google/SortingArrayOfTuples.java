@@ -58,7 +58,7 @@ public class SortingArrayOfTuples {
 
         public Tuple2(String id, String value) {
             this.id = id;
-            this.value = Integer.valueOf(value);
+            this.value = Integer.parseInt(value);
         }
 
         @Override

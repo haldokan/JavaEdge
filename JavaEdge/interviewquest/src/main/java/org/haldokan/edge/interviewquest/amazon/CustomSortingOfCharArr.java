@@ -6,12 +6,13 @@ import java.util.stream.Stream;
 /**
  * My solution to an Amazon interview question. Resolved in O(nlogn) using sort.
  * Not resolved in O(n) - seems to be about the dexterity in which one can track different indexes
+ * NOTE: in CustomSortingOfCharArr2 I implemented a quick sort solution to solve this question
  * The Question: 3_STAR
  * A string contains a-z, A-Z and spaces. Sort the string so that all lower cases are at the beginning, spaces in
  * the middle and upper cases at the end. Original order among lower and upper cases needs to remain the same.
  * For example: a cBd LkmY becomes acdkm BLY. Is there a way in O(n) without extra space?
  */
-public class StringSorting_On {
+public class CustomSortingOfCharArr {
 
     public static void main(String[] args) {
 //        sort_On("cBd LkmY");

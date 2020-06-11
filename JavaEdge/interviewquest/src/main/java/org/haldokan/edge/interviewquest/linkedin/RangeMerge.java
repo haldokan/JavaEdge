@@ -7,7 +7,7 @@ import java.util.List;
 
 /**
  * My implementation of a Linkedin interview question.
- * The Question: 3_STAR
+ * The Question: 3.5_STAR
  * Given a collection of pair representing intervals write a function which inserts new interval into collection and
  * merges overlapping intervals. Example: [-10, -1], [0,2], [4,10] insert [-5, 1] output: [-10, 2], [4, 10]
  *
@@ -33,13 +33,7 @@ public class RangeMerge {
     }
 
     public void insertRange(List<int[]> ranges, int[] nrange) {
-        Iterator<int[]> it = ranges.iterator();
-        while (it.hasNext()) {
-            int[] range = it.next();
-            if (merge(range, nrange)) {
-                it.remove();
-            }
-        }
+        ranges.removeIf(range -> merge(range, nrange));
         // we are traversing the list for the 2nd time. There must be a way to find the insertIndex on the 1st pass
         int insertIndex = 0;
         for (int[] range : ranges) {
@@ -53,8 +47,8 @@ public class RangeMerge {
     private boolean merge(int[] r1, int[] r2) {
         if (r1[0] >= r2[0] && r1[0] <= r2[1] || r1[1] >= r2[0] && r1[1] <= r2[1]) {
             int[] merged = new int[2];
-            merged[0] = r1[0] < r2[0] ? r1[0] : r2[0];
-            merged[1] = r1[1] > r2[1] ? r1[1] : r2[1];
+            merged[0] = Math.min(r1[0], r2[0]);
+            merged[1] = Math.max(r1[1], r2[1]);
             r2[0] = merged[0];
             r2[1] = merged[1];
             return true;

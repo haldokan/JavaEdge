@@ -9,6 +9,8 @@ import static org.junit.Assert.assertThat;
 
 /**
  * My solution to a Google interview question - O(n) space and O(nlogn) time.
+ * NOTE: examine SortArrayByItemFrequency2 where I have a better solution that avoids sorting a possible long array where
+ * we are only interested in a top N where N could be small.
  *
  * The Question: 3_STAR
  *
@@ -54,7 +56,7 @@ public class SortArrayByItemFrequency {
             frequency.compute(num, (k, v) -> v == null ? 1 : v + 1);
         }
 
-        int effectiveTopN = topN > frequency.size() ? frequency.size() : topN;
+        int effectiveTopN = Math.min(topN, frequency.size());
         return frequency.entrySet()
                 .stream()
                 .sorted((e1, e2) -> e2.getValue() - e1.getValue())

@@ -54,7 +54,7 @@ public class GenerifiedNWaySortedArrayMerge<T extends Comparable<T>> {
 
         @SuppressWarnings("unchecked")
         T[] mergedArr = (T[]) Array.newInstance(klass,
-                Arrays.stream(arrays).collect(Collectors.summingInt(array -> array.length)));
+            Arrays.stream(arrays).mapToInt(array -> array.length).sum());
 
         int[] activeIndexes = new int[arrays.length];
         int mergeIndex = 0;

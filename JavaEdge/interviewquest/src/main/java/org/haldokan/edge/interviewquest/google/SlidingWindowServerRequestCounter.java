@@ -90,7 +90,7 @@ public class SlidingWindowServerRequestCounter {
         }, 0, 1, TimeUnit.SECONDS);
     }
 
-    // note that is starts after a delay equal to window length
+    // note that it starts after a delay equal to window length
     private void runCountResetIndexer() {
         ScheduledExecutorService executorService = Executors.newSingleThreadScheduledExecutor();
         executorService.scheduleAtFixedRate(() -> {
