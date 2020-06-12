@@ -10,7 +10,8 @@ import static org.junit.Assert.assertThat;
 
 /**
  * My solution to a Google interview question - idea is to create a dependency tree and do a DFS. The DFS insures that
- * the children are processed before their parents which enables us to calculate the subtrees weights
+ * the children are processed before their parents which enables us to calculate the subtrees weights.
+ * NOTE: examine the other solution I provide in SubTreeWeight2. I think it is simpler/better
  * <p>
  * The Question: 4_STAR
  * <p>
@@ -28,7 +29,7 @@ import static org.junit.Assert.assertThat;
  * which describes a tree-like structure -- each line is a node, 'parent' refers to 'id' of another node.
  * <p>
  * Print out, for each node, the total weight of a subtree below this node (by convention, the weight of a subtree for
- * node X includes the own weight of X).
+ * node X includes own weight of X).
  * <p>
  * You may assume that the input comes pre-parsed as a sequence of Node objects
  * (substitute the appropriate syntax for java/python/c++):

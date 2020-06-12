@@ -9,7 +9,7 @@ import static org.junit.Assert.assertThat;
  * My solution to a Google interview question - find the 2 nodes and their parents using recursion then swap them
  * The Question: 4_STAR
  * <p>
- * Swap 2 nodes in a Binary tree.(May or Maynot be a BST)
+ * Swap 2 nodes in a Binary tree.(May or may not be a BST)
  * Swap the nodes NOT just their values.
  * ex:
  * 5

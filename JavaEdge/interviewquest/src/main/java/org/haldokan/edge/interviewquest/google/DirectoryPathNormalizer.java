@@ -1,6 +1,7 @@
 package org.haldokan.edge.interviewquest.google;
 
 import java.io.File;
+import java.util.ArrayDeque;
 import java.util.Deque;
 import java.util.LinkedList;
 
@@ -29,27 +30,16 @@ public class DirectoryPathNormalizer {
         if (path == null)
             throw new NullPointerException("Null input");
 
-        String[] pathParts = path.split("\\" + SPRTR);
-        Deque<String> deck = new LinkedList<>();
-
-        for (String part : pathParts) {
+        Deque<String> deck = new ArrayDeque<>();
+        String[] parts = path.split(SPRTR);
+        for (String part : parts) {
             if (part.equals("..")) {
-                if (deck.isEmpty())
-                    throw new IllegalArgumentException("Malformatted path");
-                deck.pop();
+                deck.removeLast();
             } else {
-                deck.push(part);
+                deck.addLast(part);
             }
         }
-
-        StringBuilder normalizedPath = new StringBuilder();
-        while (!deck.isEmpty()) {
-            normalizedPath.append(deck.pollLast()).append(SPRTR);
-        }
-        if (!deck.isEmpty())
-            normalizedPath.deleteCharAt(normalizedPath.length() - 1);
-
-        return normalizedPath.toString();
+        return String.join("/", deck);
     }
 
 }
