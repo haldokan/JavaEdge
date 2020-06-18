@@ -1,6 +1,7 @@
 package org.haldokan.edge.interviewquest.google;
 
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.stream.IntStream;
 
 import static org.hamcrest.Matchers.is;
@@ -40,6 +41,6 @@ public class SortBasedOnCustomOrderedAlphabet {
         int[] ascii = new int[128];
         IntStream.range(0, alphabet.length).forEach(index -> ascii[alphabet[index]] = index);
         // we cannot sort char[] with a comparator; it has to be Character[]; One of Java's sucki aspects
-        Arrays.sort(input, (v1, v2) -> ascii[v1] - ascii[v2]);
+        Arrays.sort(input, Comparator.comparingInt(v -> ascii[v]));
     }
 }

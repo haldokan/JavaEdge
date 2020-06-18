@@ -5,11 +5,11 @@ import java.util.List;
 
 /**
  * My solution to a Google interview question
- *
+ *NOTE: I thin my other solution SortedNumberListCompression2 is simpler
  * The Question: 3_STAR
  *
  * Number list compression.
- * Given an sorted array (example):
+ * Given a sorted array (example):
  * 1, 2, 3,10, 25, 26, 30, 31, 32, 33
  * <p>
  * Output: find consecutive segments
@@ -21,7 +21,7 @@ public class SortedNumberListCompression<E> {
 //        int[] arr = new int[] {1, 2, 3,10, 25, 26, 30, 31, 32, 33};
 //        int[] arr = new int[] {1, 2, 3, 3, 10, 10, 25, 25, 26, 26, 30, 31, 32, 33};
         int[] arr = new int[]{1, 1, 2, 3, 3, 10, 10, 25, 25, 26, 26, 30, 31, 32, 33, 40, 40};
-        SortedNumberListCompression driver = new SortedNumberListCompression();
+        SortedNumberListCompression<Integer> driver = new SortedNumberListCompression<>();
         System.out.println(driver.compress(arr));
     }
 

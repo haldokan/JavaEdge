@@ -11,48 +11,32 @@ import java.util.ListIterator;
 public class Mergesort {
     private static int index;
     public static void main(String[] args) {
-
+        Integer[] arr = new Integer[]{7, 2, 8, 1, 4, 11, 9, 10, 3};
+        mergesort(arr, 0, arr.length);
+        System.out.println(Arrays.toString(arr));
     }
 
     public static void mergesort(Integer[] d, int low, int high) {
         // if we have a slice of 1 element or an empty slice return (1 element is sorted!)
         if (high - low > 1) {
             int mid = (low + high) / 2;
-            System.out.printf("left %d %d %d\n", low, mid, high);
+//            System.out.printf("left %d %d %d\n", low, mid, high);
             mergesort(d, low, mid);
-            System.out.printf("right %d %d %d\n", low, mid, high);
+//            System.out.printf("right %d %d %d\n", low, mid, high);
             mergesort(d, mid, high);
             mergeArrays(d, low, mid, high);
-        } else {
-            System.out.printf("stop recursion: %d %d\n", low, high);
         }
-    }
-
-    // the data is in a linked list - can we merge in situ
-    public static <E extends Comparable<E>> void mergeArrays(List<E> l, int low, int mid, int high) {
-        ListIterator<E> it1 = l.listIterator(low);
-        ListIterator<E> it2 = l.listIterator(mid);
-        while (it1.hasNext()) {
-            E e1 = it1.next();
-            while (it2.hasNext()) {
-                E e2 = it2.next();
-                if (e1.compareTo(e2) > 0) {
-                    it1.set(e2);
-                } else {
-
-                }
-            }
-        }
-
     }
 
     // m has the data. Copy data b/w low, mid and mid, high to 2 buffs then
     // update the d array a merge buffer is needed when merging arrays
     public static <E extends Comparable<E>> void mergeArrays(E[] d, int low, int mid, int high) {
-        System.out.printf("%d) merge %d-%d\n", ++index, low, high);
+        System.out.printf("merge %d, %d, %d%n", low, mid, high);
 //        System.out.println("before:" + Arrays.toString(d));
         List<E> buf1 = copy(d, low, mid);
         List<E> buf2 = copy(d, mid, high);
+//        System.out.println(buf1);
+//        System.out.println(buf2);
         int x = low;
         while (!(buf1.isEmpty() || buf2.isEmpty())) {
             if (buf1.get(0).compareTo(buf2.get(0)) < 0)
