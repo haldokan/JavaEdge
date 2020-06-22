@@ -5,6 +5,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 /**
+ * With extra space: sort asc then sort desc and weave the 2 arrays to produce a third array that has the required properties
  * Given unsorted array, sort it in such a way that the first
  * element is the largest value, the second element is the smallest,
  * the third element is the second largest element and so on.
@@ -16,47 +17,15 @@ import java.util.List;
  * Created by haldokanji on 4/16/17.
  */
 public class AlternateSort {
+    // 9 8 7 6 5 4 3 2 1 0
     public static void main(String[] args) {
-
+        // n1, n2
+        // n1 is even -> largest
+        // n1 is odd -> smallest
+        // n1=1, n2=9: arr[1]=0, arr[9]=8
+        // n1 = 2: arr[2]=8, n2 = 8, arr[8] = 7;
     }
 
     public void sortAlternate(int[] numbers) {
-        // 9 8 7 6 5 4 3 2 1 0
-        //   |
-        // 9 0 7 6 5 4 3 2 1 8
-        //     |
-        // 9 0 8 6 5 4 3 2 1 7
-        //       |
-        // 9 0 8 1 5 4 3 2 6 7
-        //         |
-        // 9 0 8 1 7 4 3 2 6 5
-        //           |
-        // 9 0 8 1 7 2 3 4 6 5
-        //             |
-        // 9 0 8 1 7 2
-    }
-
-    public static <E extends Comparable<E>> void mergeArrays(E[] d, int low, int mid, int high) {
-        System.out.printf("merge %d-%d\n", low, high);
-//        System.out.println("before:" + Arrays.toString(d));
-        List<E> buf1 = copy(d, low, mid);
-        List<E> buf2 = copy(d, mid, high);
-        int x = low;
-        while (!(buf1.isEmpty() || buf2.isEmpty())) {
-            if (buf1.get(0).compareTo(buf2.get(0)) < 0)
-                d[x++] = buf1.remove(0);
-            else
-                d[x++] = buf2.remove(0);
-
-        }
-        for (E e : buf1)
-            d[x++] = e;
-        for (E e : buf2)
-            d[x++] = e;
-//        System.out.println("after :" + Arrays.toString(d));
-    }
-
-    private static <E> List<E> copy(E[] d, int start, int end) {
-        return new LinkedList<E>(Arrays.asList(d).subList(start, end));
     }
 }

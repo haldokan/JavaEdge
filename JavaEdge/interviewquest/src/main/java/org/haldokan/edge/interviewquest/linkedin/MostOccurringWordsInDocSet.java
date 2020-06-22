@@ -10,6 +10,8 @@ import java.util.stream.Collectors;
 
 /**
  * My solution to a Linkedin interview question.
+ * NOTE: I don't think the intent of this question was to do a concurrent map reduce (like I did here). I think they wanted
+ * to see a Map<word, count> and a heap of size 100 that keeps track of the most frequent words
  * The Question: 4_STAR
  * Find the 100 most frequently occurring words in a set of documents. Optimize.
  * <p>
@@ -60,9 +62,7 @@ public class MostOccurringWordsInDocSet {
             throws InterruptedException, ExecutionException {
         List<Map.Entry<String, Integer>> words = new ArrayList<>();
         for (Future<Set<Map.Entry<String, Integer>>> futureCount : wordCounts) {
-            for (Map.Entry<String, Integer> wordCount : futureCount.get()) {
-                words.add(wordCount);
-            }
+            words.addAll(futureCount.get());
         }
 
         Collector<Map.Entry<String, Integer>, ?, Integer> countCollector = Collectors.summingInt(Map.Entry::getValue);

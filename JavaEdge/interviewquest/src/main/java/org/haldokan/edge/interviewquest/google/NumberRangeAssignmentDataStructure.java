@@ -57,7 +57,7 @@ public class NumberRangeAssignmentDataStructure {
     }
 
     /**
-     * Loop thru the ranges until a number can be optained.
+     * Loop thru the ranges until a number can be obtained.
      *
      * @return
      */
@@ -71,7 +71,7 @@ public class NumberRangeAssignmentDataStructure {
     }
 
     /**
-     * Find the range that contains the number and and assign the number
+     * Find the range that contains the number and assign the number
      *
      * @param number
      * @return

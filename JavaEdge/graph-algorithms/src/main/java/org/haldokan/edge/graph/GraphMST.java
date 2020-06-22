@@ -5,7 +5,7 @@ import com.google.common.collect.Sets;
 import java.util.*;
 
 /**
- * Prim algorithm for graph Minium Spanning Tree (MST). Greedy algorithm.
+ * Prim algorithm for graph Minimum Spanning Tree (MST). Greedy algorithm.
  * <p>
  * An interesting take on this algorithm is that it is a flavor of dynamic programming: every step provides enough info
  * for the next step (recurrence relationship). Same goes for Graph shortest path.

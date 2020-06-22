@@ -7,7 +7,9 @@ import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
 
 /**
- * My solution to a Facebook interview question - for every word we have to make all subsets of '*' from 1 - word.len and
+ * My solution to a Facebook interview question
+ * Note: this is a horrible solution with exponential cost - check MatchingStringWithPlaceHolders2 which uses a trie
+ * for every word we have to make all subsets of '*' from 1 - word.len and
  * mask the word with the subset (replace letters with '*'). Constructing subsets has O(2^n) complexity and is done using
  * backtracking algorithms. Figuring out how to construct the backtracking machinery is tricky. The solution here draws
  * on the the org.haldokan.edge.dynamicprog.AllSubSetsInSet.java I present in this repo which in turn is a port from a C

@@ -10,7 +10,7 @@ import java.util.List;
  * Post order traversal for an N-ary tree iterative way. Instead of modifying the data structure I could have kept track
  * of process nodes using a hash map
  *
- * The Question: 3_STAR
+ * The Question: 3.5_STAR
  * Given,
  * struct Node {
  * int val;

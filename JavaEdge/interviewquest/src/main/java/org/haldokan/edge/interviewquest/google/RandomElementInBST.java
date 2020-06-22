@@ -10,8 +10,8 @@ import static org.junit.Assert.assertThat;
  * My solution to a Google interview question
  * The Question: 3_STAR
  * <p>
- * Suppose we use binary search tree to implement set, design an algorithm that we can get an random element from the
- * set, while maintain all the other set operations have same complexities.
+ * Suppose we use binary search tree to implement set, design an algorithm that we can use to get a random element from the
+ * set, while maintaining all the other set operations have same complexities.
  * <p>
  * Created by haytham.aldokanji on 7/3/16.
  */

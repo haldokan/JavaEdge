@@ -5,7 +5,7 @@ import java.util.concurrent.SynchronousQueue;
 import java.util.concurrent.TimeUnit;
 
 /**
- * My solution to a Google interview question. It short-circuit traversing the trees at the first non-equal nodes.
+ * My solution to a Google interview question. It short-circuits traversing the trees at the first non-equal nodes.
  * I think it can be resolved w/o using an instance variable 'equivalent' but this would be more involved
  *
  * The Question: 4_STAR
@@ -28,7 +28,7 @@ import java.util.concurrent.TimeUnit;
  * P.S.
  * Please note, we can write inorder method call it once for first tree and then second tree, and finally compare both inorder.
  * <p>
- * We want to parallely do inorder on both tree, if there is mismatch between inorder nodes of both trees, we can stop the traversal and return false
+ * We want to do inorder on both trees in parallel, if there is mismatch between inorder nodes of both trees, we can stop the traversal and return false
  * <p>
  * Created by haytham.aldokanji on 9/28/15.
  */

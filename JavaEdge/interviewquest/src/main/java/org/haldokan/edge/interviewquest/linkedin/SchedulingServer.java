@@ -20,12 +20,7 @@ public class SchedulingServer {
     private BlockingDeque<Job> serviceQu = new LinkedBlockingDeque<>();
     private BlockingDeque<String> signalQu = new LinkedBlockingDeque<>();
     private ExecutorService executor = Executors.newCachedThreadPool();
-    private Queue<Job> schedule = new PriorityQueue<>(new Comparator<Job>() {
-        @Override
-        public int compare(Job o1, Job o2) {
-            return o1.runTime.compareTo(o2.runTime);
-        }
-    });
+    private Queue<Job> schedule = new PriorityQueue<>(Comparator.comparing(o -> o.runTime));
 
     public static void main(String[] args) throws Exception {
         SchedulingServer server = new SchedulingServer();
