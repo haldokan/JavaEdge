@@ -38,11 +38,11 @@ public class PalindromeDetectionInSitu {
 
         while (forward <= backward) {
             char c1 = string.charAt(forward);
-            while (!letterOrDigit(c1) && forward < string.length()) {
+            while (notLetterOrDigit(c1)) {
                 c1 = string.charAt(++forward);
             }
             char c2 = string.charAt(backward);
-            while (!letterOrDigit(c2) && backward >= 0) {
+            while (notLetterOrDigit(c2)) {
                 c2 = string.charAt(--backward);
             }
             if (!equals(c1, c2)) {
@@ -54,8 +54,8 @@ public class PalindromeDetectionInSitu {
         return true;
     }
 
-    private boolean letterOrDigit(char c) {
-        return isCaps(c) || isLowerCase(c) || isDigit(c);
+    private boolean notLetterOrDigit(char c) {
+        return !isCaps(c) && !isLowerCase(c) && !isDigit(c);
     }
 
     // account for ignore-case equality - I am assuming that String.toLower breaks the in-situ condition
