@@ -68,6 +68,4 @@ public class IndexOfElementInRotatedSortedArray {
         }
         return binarySearch(arr, mid + 1, end, k);
     }
-
-
 }
