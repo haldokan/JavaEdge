@@ -14,6 +14,10 @@ import static org.junit.Assert.assertThat;
 /**
  * My solution to a Facebook interview question - solution has a hint of dynamic programming in that we memorize the sets
  * intersections for each pass and update them based on values generated at each pass
+ * Note: I think the solution I implemented in FindingCompatibilityBasedOnBandSelection2 is more to the spirit of this
+ * question: number of bands can be too large and there will be repetitions. It is better to use the band name as a key
+ * in the map and update a graph of weights between different people.
+ *
  * The Question: 4_STAR
  * <p>
  * The question aims to test both your programming and analytical skills. Your implementation will be tested for both
@@ -118,7 +122,7 @@ public class FindingCompatibilityBasedOnBandSelection {
     }
 
     public Multimap<String, String> computeCompatibility() {
-        String[] names = selections.keySet().toArray(new String[selections.size()]);
+        String[] names = selections.keySet().toArray(new String[]{});
         Multimap<String, Compatibility> compatibilityMap = HashMultimap.create();
 
         for (int i = 0; i < names.length; i++) {
