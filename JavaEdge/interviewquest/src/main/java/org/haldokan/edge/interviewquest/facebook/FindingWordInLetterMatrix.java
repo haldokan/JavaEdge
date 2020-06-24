@@ -6,7 +6,10 @@ import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
 
 /**
- * My solution to a Facebook interview question - suggestive of some graph algorithms (MST for instance)
+ * My solution to a Facebook interview question - Used BFS to present a solution suggestive of some graph algorithms (MST for instance)
+ * This BFS solution is really the hard way to solve the question.
+ * NOTE: I implement a DFS-based solution in FindingWordOccurrencesInMatrix2 that probably captures the spirit of this
+ * question better and way more concise.
  * The Question: 5_STAR
  * Given a matrix of letters and a word, check if the word is present in the matrix. E,g., suppose matrix is:
  * a b c d e f

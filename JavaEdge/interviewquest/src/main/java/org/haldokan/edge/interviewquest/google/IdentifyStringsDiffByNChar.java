@@ -20,11 +20,11 @@ import static org.junit.Assert.assertThat;
  * he output should be true as banana and banaba are one character difference.
  * Created by haytham.aldokanji on 5/18/16.
  */
-public class IdentifyStringsDiffByOneChar {
+public class IdentifyStringsDiffByNChar {
     private final PrefixTrie prefixTrie = new PrefixTrie();
 
     public static void main(String[] args) {
-        IdentifyStringsDiffByOneChar driver = new IdentifyStringsDiffByOneChar();
+        IdentifyStringsDiffByNChar driver = new IdentifyStringsDiffByNChar();
         driver.test();
     }
 
