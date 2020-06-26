@@ -1,6 +1,9 @@
 package org.haldokan.edge.interviewquest.facebook;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Comparator;
+import java.util.List;
 
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
@@ -32,7 +35,7 @@ public class PlagiarismDetection {
     // 1st solution: using String utilities
     public boolean isPlagiarized1(String doc1, String doc2, int copyPasteLen) {
         String[] docs = new String[]{doc1, doc2};
-        Arrays.sort(docs, (d1, d2) -> d1.length() - d2.length());
+        Arrays.sort(docs, Comparator.comparingInt(String::length));
 
         String firstDoc = docs[0];
         String secondDoc = docs[1];
@@ -47,10 +50,35 @@ public class PlagiarismDetection {
         return false;
     }
 
-    //2nd solution: w/o using String utilities
-    public boolean isPlagiarized2(String doc1, String doc2, int copyPasteLen) {
+    // 2nd solution using string utilities but I think better than solution 1 since it assumes matches on words reducing
+    // run time from being a function of the number of chars to the number of words
+    boolean isPlagiarized2(String s1, String s2, int len) {
+        List<Integer> separatorIndexes = new ArrayList<>();
+        int index = 0;
+        separatorIndexes.add(0);
+
+        while (index != -1) {
+            index = s1.indexOf(' ', index);
+            if (index != -1) {
+                separatorIndexes.add(index);
+                index++;
+            }
+        }
+        for (int separatorIndex : separatorIndexes) {
+            String subString = s1.substring(separatorIndex, Math.min(separatorIndex + len, s1.length()));
+            if (s2.contains(subString)) {
+                System.out.println(subString);
+                return true;
+            }
+        }
+        return false;
+    }
+
+    //3rd solution: w/o using String utilities - I think it is of the order of n x m ^ 2 which leads me to think it
+    // is not the solution the interview wanted. But there does not seem another way
+    public boolean isPlagiarized4(String doc1, String doc2, int copyPasteLen) {
         String[] docs = new String[]{doc1, doc2};
-        Arrays.sort(docs, (d1, d2) -> d1.length() - d2.length());
+        Arrays.sort(docs, Comparator.comparingInt(String::length));
 
         char[] smallerDoc = docs[0].toCharArray();
         char[] largerDoc = docs[1].toCharArray();
@@ -110,15 +138,15 @@ public class PlagiarismDetection {
 
     private void test2() {
         int n = 50;
-        assertThat(isPlagiarized2(doc1, doc2, n), is(true));
+        assertThat(isPlagiarized4(doc1, doc2, n), is(true));
 
         n = 83;
-        assertThat(isPlagiarized2(doc1, doc2, n), is(true));
+        assertThat(isPlagiarized4(doc1, doc2, n), is(true));
 
         n = 84;
-        assertThat(isPlagiarized2(doc1, doc2, n), is(false));
+        assertThat(isPlagiarized4(doc1, doc2, n), is(false));
 
         n = 700;
-        assertThat(isPlagiarized2(doc1, doc2, n), is(false));
+        assertThat(isPlagiarized4(doc1, doc2, n), is(false));
     }
 }

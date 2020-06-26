@@ -13,7 +13,7 @@ import static org.junit.Assert.assertThat;
  * only the available cards. We can get the available cards and reset the deck to make all cards available (basically
  * starting a new round).
  * <p>
- * The Question: 3_STAR + 1/2
+ * The Question: 3_STAR
  * <p>
  * Design a deck of cards that can be used for different card game applications.
  * Please code out what you would need for the deck class and a card class.

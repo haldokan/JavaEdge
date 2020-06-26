@@ -4,17 +4,18 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.Map;
 import java.util.Optional;
+import java.util.TreeMap;
 import java.util.concurrent.ConcurrentSkipListMap;
 
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
 
 /**
- * My solution to a Facebook interview question - used counting sort which is appropriate if the data is
- * randomly distributed since that means duplicates which we only update their counts. Solution becomes inefficient if data
- * is sparse (less dups).
+ * My solution to a Facebook interview question - used counting sort
+ * NOTE: the correct solution is to use a combination of 2 min/max heaps as described here: https://www.geeksforgeeks.org/median-of-stream-of-integers-running-integers/
+ * It is certainly not something and interviewee can figure out on the spot.
  * <p
- * The Question: 5_STAR
+ * The Question: 4_STAR
  * Create the data structure for a component that will receive a series of numbers over time and, when asked,
  * returns the median of all received elements.
  * <p>
@@ -34,7 +35,7 @@ import static org.junit.Assert.assertThat;
  * Created by haytham.aldokanji on 5/6/16.
  */
 public class MedianOfStreamingData {
-    private final Map<Integer, Integer> data = new ConcurrentSkipListMap<>();
+    private final Map<Integer, Integer> data = new TreeMap<>();
 
     public static void main(String[] args) {
         MedianOfStreamingData driver = new MedianOfStreamingData();
@@ -52,7 +53,7 @@ public class MedianOfStreamingData {
     }
 
     public Double median() {
-        Integer dataLength = data.values().stream().reduce((v1, v2) -> v1 + v2).get();
+        Integer dataLength = data.values().stream().reduce(Integer::sum).get();
         Integer medianIndex1 = dataLength / 2 + dataLength % 2;
         Integer medianIndex2 = dataLength % 2 == 0 ? medianIndex1 + 1 : medianIndex1;
 
