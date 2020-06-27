@@ -12,8 +12,10 @@ import static org.junit.Assert.assertThat;
 
 /**
  * My solution to a Facebook interview question - used counting sort
- * NOTE: the correct solution is to use a combination of 2 min/max heaps as described here: https://www.geeksforgeeks.org/median-of-stream-of-integers-running-integers/
- * It is certainly not something and interviewee can figure out on the spot.
+ * NOTE: the correct solution is to use a combination of 2 min/max heaps as described here:
+ * https://www.geeksforgeeks.org/median-of-stream-of-integers-running-integers/
+ * It is certainly not something and interviewee can figure out on the spot. Check the implementation I provide in
+ * MedianOfStreamingData2
  * <p
  * The Question: 4_STAR
  * Create the data structure for a component that will receive a series of numbers over time and, when asked,
