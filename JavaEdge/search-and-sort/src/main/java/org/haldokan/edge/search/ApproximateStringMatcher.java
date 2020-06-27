@@ -29,8 +29,10 @@ public class ApproximateStringMatcher {
 
     public static void main(String[] args) {
         ApproximateStringMatcher matcher = new ApproximateStringMatcher();
-        String search = "thou shalt not";
-        String text = "you should not";
+        // needs a space prefix for the recurrence to work: first row and first column in the recurrence table are initialized
+        // for the insert and delete costs
+        String search = " thou shalt not";
+        String text = " you should not";
         System.out.println("search: " + search);
         System.out.println("text: " + text);
 
