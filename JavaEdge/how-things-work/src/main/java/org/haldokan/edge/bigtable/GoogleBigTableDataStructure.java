@@ -25,7 +25,7 @@ public class GoogleBigTableDataStructure {
     SetMultimap<String, String> columnFamilies = LinkedHashMultimap.create();
     // key range -> map {row -> map {column family -> map {timestamp -> content}}}
     private Map<KeyRange, NavigableMap<String, Map<String, NavigableMap<Long, String>>>> bigTable =
-            new TreeMap<>((v1, v2) -> v1.start - v2.start);
+            new TreeMap<>(Comparator.comparingInt(v -> v.start));
 
     public GoogleBigTableDataStructure(int numberOfTablets) {
         this.numberOfTablets = numberOfTablets;
@@ -41,7 +41,7 @@ public class GoogleBigTableDataStructure {
         Map<String, NavigableMap<Long, String>> columns = tablet.computeIfAbsent(rowKey, v -> new HashMap<>());
         // data is sorted in descending time stamp order to simulate how it is put on disk: last value on top of the file
         // so it can be obtained w/o disk seek
-        Map<Long, String> versionedData = columns.computeIfAbsent(columnName, v -> new TreeMap<>((v1, v2) -> v2.compareTo(v1)));
+        Map<Long, String> versionedData = columns.computeIfAbsent(columnName, v -> new TreeMap<>(Comparator.reverseOrder()));
 
         long version = System.currentTimeMillis() + System.nanoTime();
         versionedData.put(version, content);
@@ -159,7 +159,7 @@ public class GoogleBigTableDataStructure {
         }
     }
 
-    // tablet in the real Big Table are created dynamically (todo do the same)
+    // tablets in the real Big Table are created dynamically (todo do the same)
     private void segmentBigTable() {
         int tabletRangeStart = 0;
         int tabletRangeLen = OVERALL_KEY_RANGE / numberOfTablets;

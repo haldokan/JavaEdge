@@ -17,8 +17,6 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 public class GoogleSearch implements SearchService {
     private SearchDomain searchDomain;
 
-    ;
-
     @Inject
     public GoogleSearch(@WebDomain.WebBinding SearchDomain searchDomain) {
         this.searchDomain = searchDomain;
