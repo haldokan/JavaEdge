@@ -36,23 +36,23 @@ public class InputAllocationWhileMaintainingRatios {
     public void assignNewGuest() {
         totalGuestNumber++;
 
-        Room roomWithSmallestRatioDiff = rooms.get(0);
-        double smallestRatioDiff = diffBetweenActualAndAssignedRatios(roomWithSmallestRatioDiff);
+        Room roomWithLargestRatioDiff = rooms.get(0);
+        double smallestRatioDiff = diffBetweenAssignedAndActualRatios(roomWithLargestRatioDiff);
 
         for (int i = 1; i < rooms.size(); i++) {
             Room currentRoom = rooms.get(i);
-            double currentRatioDiff = diffBetweenActualAndAssignedRatios(currentRoom);
-            if (currentRatioDiff < smallestRatioDiff) {
-                roomWithSmallestRatioDiff = currentRoom;
+            double currentRatioDiff = diffBetweenAssignedAndActualRatios(currentRoom);
+            if (currentRatioDiff > smallestRatioDiff) {
+                roomWithLargestRatioDiff = currentRoom;
                 smallestRatioDiff = currentRatioDiff;
             }
         }
-        roomWithSmallestRatioDiff.addGuest();
+        roomWithLargestRatioDiff.addGuest();
     }
 
-    private double diffBetweenActualAndAssignedRatios(Room room) {
+    private double diffBetweenAssignedAndActualRatios(Room room) {
         double actualRatio = (double) room.numberOfGuests / (double) totalGuestNumber;
-        return actualRatio - room.ratio;
+        return room.ratio - actualRatio;
     }
 
     // testing helper

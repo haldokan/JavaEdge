@@ -175,7 +175,7 @@ public class ConsistentHashing {
     private static final class Machine {
         private final String id;
 
-        private Map<String, DataItem> data = new ConcurrentHashMap<>();
+        private final Map<String, DataItem> data = new ConcurrentHashMap<>();
 
         public Machine(String id) {
             this.id = id;
@@ -192,7 +192,7 @@ public class ConsistentHashing {
 
         public Set<DataItem> getDataItemsForRedistribution(Predicate<String> hashPredicate) {
             Set<String> keys = data.keySet().stream()
-                    .filter(hashPredicate::test)
+                    .filter(hashPredicate)
                     .collect(Collectors.toSet());
 
             return keys.stream().map(data::remove).collect(Collectors.toSet());
