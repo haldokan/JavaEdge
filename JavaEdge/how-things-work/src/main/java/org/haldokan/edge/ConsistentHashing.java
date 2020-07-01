@@ -33,8 +33,8 @@ public class ConsistentHashing {
     private final double HASH_SLOT_LEN = 1d / Integer.MAX_VALUE;
     private final HashFunction hashFunction;
     // we could have used 2 maps but Guava's BiMap is a more concise way to do it
-    private BiMap<Double, Machine> machineByPosition;
-    private Map<String, Machine> machineById = new HashMap<>();
+    private final BiMap<Double, Machine> machineByPosition;
+    private final Map<String, Machine> machineById = new HashMap<>();
 
     public ConsistentHashing() {
         this(Hashing.md5());
