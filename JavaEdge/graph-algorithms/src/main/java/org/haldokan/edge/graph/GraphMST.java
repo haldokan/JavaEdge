@@ -59,7 +59,7 @@ public class GraphMST<E> {
     }
 
     private void updateMinEdgeForVertex(Graph<Vertex<E>, Edge<Vertex<E>>> g, Vertex<E> v) {
-        // using a heap (priority queue) is not efficient be cool! instead
+        // using a heap (priority queue) is not efficient but cool! instead
         // we can simply get an element from the set
         // then iterate over the whole set to get the smallest weight.
         Queue<Edge<Vertex<E>>> pq = new PriorityQueue<>(new Comparator<Edge<Vertex<E>>>() {

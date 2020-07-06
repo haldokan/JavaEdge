@@ -3,48 +3,46 @@ package org.haldokan.edge.graph;
 import java.util.*;
 
 /**
- * Breadth Frist Search of a graph. Iteration (not recursion) is used for BFS.
+ * Breadth First Search of a graph. Iteration (not recursion) is used for BFS.
  * The Question: 4_STAR
  * @param <E>
  * @author haldokan
  */
 public class GraphBFS<E> {
-    public void traverse(Graph<Vertex<E>, Edge<Vertex<E>>> g, Vertex<E> start) {
+    public void traverse(Graph<Vertex<E>, Edge<Vertex<E>>> graph, Vertex<E> start) {
         Deque<Vertex<E>> undiscovered = new LinkedList<>();
         Map<Vertex<E>, Vertex<E>> parents = new HashMap<>();
-        Map<Vertex<E>, State> vstate = new HashMap<>();
+        Map<Vertex<E>, State> vertexState = new HashMap<>();
 
         parents.put(start, null);
-        vstate.put(start, State.PROCESSED);
         processVertex(start);
+        vertexState.put(start, State.PROCESSED);
 
-        for (Vertex<E> v : g.getAdjacent1(start).keySet()) {
-            undiscovered.add(v);
-            vstate.put(v, State.UNDISCOVERED);
-            parents.put(v, start);
-            processEdge(start, v, g.getEdge(start, v));
+        for (Vertex<E> vertex : graph.getAdjacent1(start).keySet()) {
+            undiscovered.add(vertex);
+            vertexState.put(vertex, State.UNDISCOVERED);
+            parents.put(vertex, start);
+            processEdge(start, vertex, graph.getEdge(start, vertex));
         }
 
         while (!undiscovered.isEmpty()) {
-            Vertex<E> vx = undiscovered.removeFirst();
+            Vertex<E> vertext = undiscovered.removeFirst();
             // System.out.println("removing: " + v.getId());
-            vstate.put(vx, State.DISCOVERED);
-            processVertex(vx);
-            for (Vertex<E> v : g.getAdjacent1(vx).keySet()) {
-                processEdge(vx, v, g.getEdge(vx, v));
-                if (vstate.get(v) != State.UNDISCOVERED) {
+            vertexState.put(vertext, State.DISCOVERED);
+            processVertex(vertext);
+            for (Vertex<E> v : graph.getAdjacent1(vertext).keySet()) {
+                processEdge(vertext, v, graph.getEdge(vertext, v));
+                if (vertexState.get(v) != null) {
                     // System.out.println("adding: " + e.getV2().getId());
                     undiscovered.add(v);
-                    vstate.put(v, State.UNDISCOVERED);
-                    parents.put(v, vx);
+                    vertexState.put(v, State.UNDISCOVERED);
+                    parents.put(v, vertext);
                 }
             }
-            vstate.put(vx, State.PROCESSED);
+            vertexState.put(vertext, State.PROCESSED);
         }
         dumpShortestPath(parents);
     }
-
-    ;
 
     // BSF give the shortest path b/w any 2 vertexes provided edges have the
     // same weight: the bfs algo does not takes weights into regard when
