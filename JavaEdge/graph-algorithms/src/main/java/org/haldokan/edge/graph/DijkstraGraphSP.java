@@ -15,9 +15,9 @@ import java.util.*;
  * @author haldokan
  */
 public class DijkstraGraphSP<E> {
-    private Map<Vertex<E>, Double> inTree = new HashMap<>();
-    private Map<Vertex<E>, Vertex<E>> parent = new HashMap<>();
-    private Map<Vertex<E>, Edge<Vertex<E>>> vertexMinEdge = new HashMap<>();
+    private final Map<Vertex<E>, Double> inTree = new HashMap<>();
+    private final Map<Vertex<E>, Vertex<E>> parent = new HashMap<>();
+    private final Map<Vertex<E>, Edge<Vertex<E>>> vertexMinEdge = new HashMap<>();
 
     public void dijkstra(Graph<Vertex<E>, Edge<Vertex<E>>> g, Vertex<E> start) {
         Set<Vertex<E>> gvertexes = g.getVertexes();
@@ -87,9 +87,10 @@ public class DijkstraGraphSP<E> {
                 return o1.getWeight() < o2.getWeight() ? -1 : 1;
             }
         });
+
         Map<Vertex<E>, Edge<Vertex<E>>> adj = g.getAdjacent1(v);
         for (Map.Entry<Vertex<E>, Edge<Vertex<E>>> entry : adj.entrySet()) {
-            if (!inTree.keySet().contains(entry.getKey())) {
+            if (!inTree.containsKey(entry.getKey())) {
                 entry.getValue().setDirection(Edge.Direction.D1_2);
                 pq.add(entry.getValue());
             }
@@ -97,7 +98,7 @@ public class DijkstraGraphSP<E> {
 
         adj = g.getAdjacent2(v);
         for (Map.Entry<Vertex<E>, Edge<Vertex<E>>> entry : adj.entrySet()) {
-            if (!inTree.keySet().contains(entry.getKey())) {
+            if (!inTree.containsKey(entry.getKey())) {
                 entry.getValue().setDirection(Edge.Direction.D2_1);
                 pq.add(entry.getValue());
             }

@@ -10,6 +10,7 @@ import static org.junit.Assert.assertThat;
 
 /**
  * My solution to a Google interview question
+ * NOTE: the solution I provide in GenerateRandomIntWithProbability2 seems more elegant
  * The Question: 4_STAR
  * <p>
  * Design and implement a class to generate random numbers in an arbitrary probability distribution given by an array
