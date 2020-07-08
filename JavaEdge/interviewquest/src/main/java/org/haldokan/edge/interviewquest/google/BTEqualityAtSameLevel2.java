@@ -3,7 +3,7 @@ package org.haldokan.edge.interviewquest.google;
 import java.util.*;
 
 /**
- * My solution to a Google interview question - another implementation the returns true/false using a different way to insure
+ * My solution to a Google interview question - another implementation that returns true/false using a different way to insure
  * that 2 nodes match the search
  *
  * The Question: 4-STAR
@@ -33,7 +33,7 @@ import java.util.*;
  * find(root, 30, 100) == false
  * find(root, 30, 70) == true
  * find(root, 70, 30) == false
- * Created by haytham.aldokanji on 5/15/16.
+ * Created by haytham.aldokanji on 7/6/20.
  */
 public class BTEqualityAtSameLevel2 {
     private static final Node a = new Node(1, 2);
