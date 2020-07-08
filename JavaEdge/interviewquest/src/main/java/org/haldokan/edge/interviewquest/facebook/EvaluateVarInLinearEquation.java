@@ -218,12 +218,10 @@ public class EvaluateVarInLinearEquation {
             }
         }
         evalStack.push("(");
-        if (var.isPresent()) {
-            evalStack.push(var.get().getStringValue());
-        }
+        var.ifPresent(operand -> evalStack.push(operand.getStringValue()));
         if (number.isPresent()) {
             if (var.isPresent()) {
-                // we push + since we negated the numbers when teh sign was -
+                // we push + since we negated the numbers when the sign was -
                 evalStack.push("+");
             }
             evalStack.push(number.get().getStringValue());
@@ -377,7 +375,7 @@ public class EvaluateVarInLinearEquation {
         }
 
         public Operand add(Operand other) {
-            return operate(other, (v1, v2) -> v1 + v2);
+            return operate(other, Double::sum);
         }
 
         public Operand subtract(Operand other) {

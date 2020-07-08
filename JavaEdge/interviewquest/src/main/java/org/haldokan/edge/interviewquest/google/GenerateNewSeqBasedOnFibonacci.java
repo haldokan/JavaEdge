@@ -11,7 +11,7 @@ import static org.junit.Assert.assertThat;
  * My solution to a Google interview question - simple when Fibonacci is solved using dynamic programming rather than
  * recursion
  *
- * the Question: 3_STAR
+ * the Question: 4_STAR
  *
  * Assume we only take the least significant digit of each value in fibonacci sequence, and form the sequence of digits
  * into pairs. In those pairs, the first value of one pair is the same as second value of its predecessor.
