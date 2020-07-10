@@ -9,20 +9,20 @@ import java.util.*;
  * @author haldokan
  */
 public class GraphBFS<E> {
-    public void traverse(Graph<Vertex<E>, Edge<Vertex<E>>> graph, Vertex<E> start) {
+    public void traverse(Graph<Vertex<E>, Edge<Vertex<E>>> graph, Vertex<E> vertex) {
         Deque<Vertex<E>> undiscovered = new LinkedList<>();
         Map<Vertex<E>, Vertex<E>> parents = new HashMap<>();
         Map<Vertex<E>, State> vertexState = new HashMap<>();
 
-        parents.put(start, null);
-        processVertex(start);
-        vertexState.put(start, State.PROCESSED);
+        parents.put(vertex, null);
+        processVertex(vertex);
+        vertexState.put(vertex, State.PROCESSED);
 
-        for (Vertex<E> vertex : graph.getAdjacent1(start).keySet()) {
-            undiscovered.add(vertex);
-            vertexState.put(vertex, State.UNDISCOVERED);
-            parents.put(vertex, start);
-            processEdge(start, vertex, graph.getEdge(start, vertex));
+        for (Vertex<E> child : graph.getAdjacent1(vertex).keySet()) {
+            undiscovered.add(child);
+            vertexState.put(child, State.UNDISCOVERED);
+            parents.put(child, vertex);
+            processEdge(vertex, child, graph.getEdge(vertex, child));
         }
 
         while (!undiscovered.isEmpty()) {

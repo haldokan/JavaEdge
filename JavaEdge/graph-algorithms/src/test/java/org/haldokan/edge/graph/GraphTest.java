@@ -43,6 +43,20 @@ public class GraphTest {
         Graph<Vertex<Integer>, Edge<Vertex<Integer>>> g = makeGraph();
         GraphDFS<Integer> dfs = new GraphDFS<>();
         dfs.traverse(g, v2);
+        System.out.println("---");
+        dfs.dumpTopoSort();
+        System.out.println("---");
+        dfs.dumpEntrytime();
+        System.out.println("---");
+        dfs.dumpExitTime();
+    }
+
+    @Test
+    public void cycleTest() {
+        Graph<Vertex<Integer>, Edge<Vertex<Integer>>> g = makeCycleGraph();
+        DirectedGraphCycleFinder<Integer> dfs = new DirectedGraphCycleFinder<>();
+        boolean cycle = dfs.traverse(g, v2);
+        System.out.printf("cycle: %s%n", cycle);
     }
 
     @Test
@@ -51,7 +65,6 @@ public class GraphTest {
         GraphMST<Integer> gmst = new GraphMST<>();
         gmst.mst(g, v1);
     }
-
     @Test
     public void testMST2() {
         Graph<Vertex<String>, Edge<Vertex<String>>> g = makeUSACitiesGraph();
@@ -98,6 +111,22 @@ public class GraphTest {
         g.add(v2, v4, new Edge<Vertex<Integer>>(5));
         g.add(v4, v5, new Edge<Vertex<Integer>>(6));
         g.add(v5, v6, new Edge<Vertex<Integer>>(3));
+
+        return g;
+    }
+
+    private Graph<Vertex<Integer>, Edge<Vertex<Integer>>> makeCycleGraph() {
+        Graph<Vertex<Integer>, Edge<Vertex<Integer>>> g = new Graph<>(true);
+        g.add(v2, v1, new Edge<Vertex<Integer>>(1));
+        g.add(v1, v5, new Edge<Vertex<Integer>>(7));
+        g.add(v1, v6, new Edge<Vertex<Integer>>(3));
+        g.add(v2, v3, new Edge<Vertex<Integer>>(1));
+        g.add(v2, v5, new Edge<Vertex<Integer>>(4));
+        g.add(v3, v4, new Edge<Vertex<Integer>>(5));
+        g.add(v2, v4, new Edge<Vertex<Integer>>(5));
+        g.add(v4, v5, new Edge<Vertex<Integer>>(6));
+        g.add(v5, v6, new Edge<Vertex<Integer>>(3));
+        g.add(v6, v2, new Edge<Vertex<Integer>>(8));
 
         return g;
     }
