@@ -86,6 +86,15 @@ public class GraphTest {
         System.out.println(gspath.shortestPathTo(la));
     }
 
+    @Test
+    public void heapShortestPathTest() {
+        Graph<Vertex<Integer>, Edge<Vertex<Integer>>> g = makeHeapGraph();
+        DijkstraGraphSP<Integer> gspath = new DijkstraGraphSP<>();
+        gspath.dijkstra(g, Vertex.create(90));
+
+        System.out.println(gspath.shortestPathTo(Vertex.create(50)));
+    }
+
     private Graph<Vertex<Integer>, Edge<Vertex<Integer>>> makeGraph1() {
         Graph<Vertex<Integer>, Edge<Vertex<Integer>>> g = new Graph<>(false);
         g.add(v1, v2, new Edge<Vertex<Integer>>(1));
@@ -153,6 +162,25 @@ public class GraphTest {
         g.add(washDC, ny, new Edge<Vertex<String>>(383));
         g.add(washDC, boston, new Edge<Vertex<String>>(725));
         g.add(ny, boston, new Edge<Vertex<String>>(338));
+
+        return g;
+    }
+
+    private Graph<Vertex<Integer>, Edge<Vertex<Integer>>> makeHeapGraph() {
+        Graph<Vertex<Integer>, Edge<Vertex<Integer>>> g = new Graph<>(false);
+        int[] heap = new int[]{90, 80, 30, 60, 70, 20, 10, 40, 50};
+        g.add(Vertex.create(90), Vertex.create(80), new Edge<Vertex<Integer>>(10));
+        g.add(Vertex.create(90), Vertex.create(30), new Edge<Vertex<Integer>>(60));
+        g.add(Vertex.create(80), Vertex.create(65), new Edge<Vertex<Integer>>(15));
+        g.add(Vertex.create(80), Vertex.create(70), new Edge<Vertex<Integer>>(10));
+        g.add(Vertex.create(80), Vertex.create(30), new Edge<Vertex<Integer>>(50));
+        g.add(Vertex.create(30), Vertex.create(20), new Edge<Vertex<Integer>>(10));
+        g.add(Vertex.create(30), Vertex.create(10), new Edge<Vertex<Integer>>(20));
+        g.add(Vertex.create(20), Vertex.create(10), new Edge<Vertex<Integer>>(10));
+        g.add(Vertex.create(65), Vertex.create(40), new Edge<Vertex<Integer>>(25));
+        g.add(Vertex.create(65), Vertex.create(50), new Edge<Vertex<Integer>>(15));
+        g.add(Vertex.create(65), Vertex.create(70), new Edge<Vertex<Integer>>(5));
+        g.add(Vertex.create(40), Vertex.create(50), new Edge<Vertex<Integer>>(10));
 
         return g;
     }

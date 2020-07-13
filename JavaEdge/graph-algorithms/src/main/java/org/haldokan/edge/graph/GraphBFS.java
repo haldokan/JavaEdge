@@ -3,7 +3,9 @@ package org.haldokan.edge.graph;
 import java.util.*;
 
 /**
- * Breadth First Search of a graph. Iteration (not recursion) is used for BFS.
+ * Breadth First Search of a graph. Using BFS we can construct the tree that represent the shortest path between any 2 vertexes in the graph
+ * by following the links from child nodes to their ancestors. The explanation for why that's true is intuitive: a child node that is reachable
+ * via multiple paths will link to a parent node that is closest to the start node due to the level-based (breadth) traversal of the graph
  * The Question: 4_STAR
  * @param <E>
  * @author haldokan
@@ -26,26 +28,26 @@ public class GraphBFS<E> {
         }
 
         while (!undiscovered.isEmpty()) {
-            Vertex<E> vertext = undiscovered.removeFirst();
+            Vertex<E> currentVertex = undiscovered.removeFirst();
             // System.out.println("removing: " + v.getId());
-            vertexState.put(vertext, State.DISCOVERED);
-            processVertex(vertext);
-            for (Vertex<E> v : graph.getAdjacent1(vertext).keySet()) {
-                processEdge(vertext, v, graph.getEdge(vertext, v));
-                if (vertexState.get(v) != null) {
+            vertexState.put(currentVertex, State.DISCOVERED);
+            processVertex(currentVertex);
+            for (Vertex<E> neighbor : graph.getAdjacent1(currentVertex).keySet()) {
+                processEdge(currentVertex, neighbor, graph.getEdge(currentVertex, neighbor));
+                if (vertexState.get(neighbor) == null) {
                     // System.out.println("adding: " + e.getV2().getId());
-                    undiscovered.add(v);
-                    vertexState.put(v, State.UNDISCOVERED);
-                    parents.put(v, vertext);
+                    undiscovered.add(neighbor);
+                    vertexState.put(neighbor, State.UNDISCOVERED);
+                    parents.put(neighbor, currentVertex);
                 }
             }
-            vertexState.put(vertext, State.PROCESSED);
+            vertexState.put(currentVertex, State.PROCESSED);
         }
         dumpShortestPath(parents);
     }
 
     // BSF give the shortest path b/w any 2 vertexes provided edges have the
-    // same weight: the bfs algo does not takes weights into regard when
+    // same weight: the bfs algorithm does not takes weights into regard when
     // traversing the graph.
     private void dumpShortestPath(Map<Vertex<E>, Vertex<E>> parents) {
         System.out.println("\nShortest paths:");
@@ -66,11 +68,11 @@ public class GraphBFS<E> {
     }
 
     private void processVertex(Vertex<E> v) {
-        System.out.println("processing V: " + v.getId());
+        System.out.printf("vertex: V-%s%n", v.getId());
     }
 
     private void processEdge(Vertex<E> v1, Vertex<E> v2, Edge<Vertex<E>> e) {
-        System.out.println(v1.toString() + v2.toString() + e);
+        System.out.printf("V:%s, V:%s - edge:%s%n", v1.getId(), v2.getId(), e);
     }
 
     private enum State {
