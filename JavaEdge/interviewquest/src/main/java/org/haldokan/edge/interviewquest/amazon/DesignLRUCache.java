@@ -11,12 +11,20 @@ import java.util.concurrent.*;
  */
 public class DesignLRUCache {
     Map<String, byte[]> cache = new ConcurrentHashMap<>();
-    PriorityQueue<Key> lru = new PriorityQueue<>((k1, k2) -> k1.time.isBefore(k2.time) ? 1 : -1);
+    PriorityQueue<Key> lru = new PriorityQueue<>((k1, k2) -> k1.time.isBefore(k2.time) ? 1 : -1); // min-heap on time
+
     int maxSize;
+    int parallelLevel;
+
+
+    public DesignLRUCache(int maxSize, int parallelLevel) {
+        this.maxSize = maxSize;
+        this.parallelLevel = parallelLevel;
+    }
 
     byte[] put(String key, byte[] val) {
         byte[] prevVal = cache.put(key, val);
-        lru.add(new Key(key)); // can be happen on a different thread
+        lru.add(new Key(key)); // can be made to be deposited first on a number of blocking queues to lessen contention and then added to the lru min-heap.
         return prevVal;
     }
 
@@ -25,7 +33,8 @@ public class DesignLRUCache {
         ScheduledExecutorService service = Executors.newSingleThreadScheduledExecutor();
         service.schedule(() -> {
             while (lru.size() > maxSize) {
-                lru.remove();
+                Key leastRecentlyUpdated = lru.remove();
+                cache.remove(leastRecentlyUpdated.id);
             }
         }, 10, TimeUnit.SECONDS);
     }
