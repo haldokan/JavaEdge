@@ -1,7 +1,7 @@
 package org.haldokan.edge.interviewquest.amazon;
 
 /**
- * Giving a the following:
+ * Given a the following:
  *
  * A list of a store items T={t_1, t_2,...,t_n}.
  *
