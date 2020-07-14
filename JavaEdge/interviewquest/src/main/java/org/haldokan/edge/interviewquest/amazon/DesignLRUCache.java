@@ -7,6 +7,10 @@ import java.util.PriorityQueue;
 import java.util.concurrent.*;
 
 /**
+ * My solution to an Amazon interview question
+ *
+ * The Question: 3.5-STAR
+ *
  * LRU cache. Basically started off with how would I store values and get them from memory for faster access.
  * So I mentioned HashMap. and then interviewer added more info about deleting least recently used element.
  */
@@ -38,7 +42,7 @@ public class DesignLRUCache {
         lru.remove(new Key(id)); // note that Key equality is done on the id only so it can be found in the lru heap (this is O(n) operation).
     }
 
-    // move keys from blocking queues to lru min-heap
+    // move keys from blocking queues to lru min-heap - need to run on a different thread
     void addToLru() {
         for (; ; ) {
             for (BlockingQueue<Key> queue : stagingQueues) {
