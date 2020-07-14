@@ -2,11 +2,16 @@ package org.haldokan.edge.interviewquest.amazon;
 
 import com.google.inject.internal.cglib.core.$Constants;
 
+import java.time.LocalDate;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.stream.Collectors;
 
 /**
+ * My solution of an Amazon interview question
+ *
+ * The Question: 3.5-STAR
+ *
  * Design a vending machine with following functionalities
  * Three types of users : [User, Operator, Admin]
  * <p>
@@ -22,18 +27,24 @@ import java.util.stream.Collectors;
  * Both high & low level designs were expected.
  */
 public class DesignVendingMachine {
-    Map<String, VendingMachine> vendingMachines = new HashMap<>();
-    Map<String, Map<String, Integer>> sales = new ConcurrentHashMap<>(); // machine-id -> { item-id -> number-sold }
+    List<VendingMachine> vendingMachines;
 
     public DesignVendingMachine(List<VendingMachine> vendingMachines) {
-        vendingMachines.forEach(m -> this.vendingMachines.put(m.id, m));
+        this.vendingMachines = vendingMachines;
+    }
+
+    void updatePrices(Item[] items) {
+        for (VendingMachine machine : vendingMachines) {
+            machine.updatePrices(items);
+        }
     }
 
     static class VendingMachine {
+        String id;
         Map<String, Item> itemsById;
         Set<String> expiredItems = new HashSet<>();
+        Map<String, Map<String, Integer>> sales = new HashMap<>(); // todo how should I structure this to give items sales for the past month running
         Map<String, Integer> countByItemId;
-        String id;
         List<Item> selections = new ArrayList<>();
         double total;
 
@@ -45,7 +56,11 @@ public class DesignVendingMachine {
         double buy() {
             double cost = selections.stream().mapToDouble(p -> p.price).sum();
             if (total >= cost) {
-                selections.forEach(item -> countByItemId.computeIfPresent(item.id, (k, count) -> count - 1));
+                selections.forEach(item -> {
+                    countByItemId.computeIfPresent(item.id, (k, count) -> count - 1);
+                    sales.putIfAbsent(item.id, new HashMap<>());
+
+                });
                 reset();
                 return total - cost;
             }
@@ -88,6 +103,12 @@ public class DesignVendingMachine {
 
         int stocks(String id) {
             return countByItemId.get(id);
+        }
+
+        void updatePrices(Item[] items) {
+            for (Item item : items) {
+                itemsById.put(item.id, item);
+            }
         }
     }
 
