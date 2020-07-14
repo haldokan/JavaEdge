@@ -3,6 +3,7 @@ package org.haldokan.edge.interviewquest.amazon;
 import com.google.inject.internal.cglib.core.$Constants;
 
 import java.util.*;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.stream.Collectors;
 
 /**
@@ -21,10 +22,11 @@ import java.util.stream.Collectors;
  * Both high & low level designs were expected.
  */
 public class DesignVendingMachine {
-    List<VendingMachine> vendingMachines;
+    Map<String, VendingMachine> vendingMachines = new HashMap<>();
+    Map<String, Map<String, Integer>> sales = new ConcurrentHashMap<>(); // machine-id -> { item-id -> number-sold }
 
     public DesignVendingMachine(List<VendingMachine> vendingMachines) {
-        this.vendingMachines = vendingMachines;
+        vendingMachines.forEach(m -> this.vendingMachines.put(m.id, m));
     }
 
     static class VendingMachine {
@@ -64,7 +66,7 @@ public class DesignVendingMachine {
         }
 
         void runningOutOfStock(Item item) {
-            System.out.println(item);
+            System.out.printf("machine: %s, item: %s%n", id, item);
         }
 
         // todo trigger buy after delay of 30 secs...
