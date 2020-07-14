@@ -3,7 +3,7 @@ package org.haldokan.edge.interviewquest.amazon;
 import java.time.LocalDateTime;
 import java.util.Map;
 import java.util.PriorityQueue;
-import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.*;
 
 /**
  * LRU cache. Basically started off with how would I store values and get them from memory for faster access.
@@ -12,10 +12,31 @@ import java.util.concurrent.ConcurrentHashMap;
 public class DesignLRUCache {
     Map<String, byte[]> cache = new ConcurrentHashMap<>();
     PriorityQueue<Key> lru = new PriorityQueue<>((k1, k2) -> k1.time.isBefore(k2.time) ? 1 : -1);
+    int maxSize;
+
+    byte[] put(String key, byte[] val) {
+        byte[] prevVal = cache.put(key, val);
+        lru.add(new Key(key)); // can be happen on a different thread
+        return prevVal;
+    }
+
+    // runs periodically on a lower priority thread
+    void maintainCache() {
+        ScheduledExecutorService service = Executors.newSingleThreadScheduledExecutor();
+        service.schedule(() -> {
+            while (lru.size() > maxSize) {
+                lru.remove();
+            }
+        }, 10, TimeUnit.SECONDS);
+    }
 
     static class Key {
         String id;
         LocalDateTime time;
-    }
 
+        public Key(String id) {
+            this.id = id;
+            this.time = LocalDateTime.now();
+        }
+    }
 }
