@@ -1,11 +1,6 @@
 package org.haldokan.edge.interviewquest.amazon;
 
-import com.google.inject.internal.cglib.core.$Constants;
-
-import java.time.LocalDate;
 import java.util.*;
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.stream.Collectors;
 
 /**
  * My solution of an Amazon interview question
@@ -87,7 +82,6 @@ public class DesignVendingMachine {
         // todo trigger buy after delay of 30 secs...
         void deposit(double amount) {
             total += amount;
-
         }
 
         void load(Map<Item, Integer> itemsLoad) {
@@ -97,8 +91,12 @@ public class DesignVendingMachine {
             }
         }
 
-        void expireItem(String id) {
-            expiredItems.add(id);
+        void expireItem(String id, boolean val) {
+            if (val) {
+                expiredItems.add(id);
+            } else {
+                expiredItems.remove(id);
+            }
         }
 
         int stocks(String id) {
