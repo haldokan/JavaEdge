@@ -118,7 +118,7 @@ public class BigTableTest {
         IntStream.range(0, 10).forEach(index ->
                 bigTable.update("com.cnn.www", contentColumn, "<html><body>some content " + index + "</body></html>"));
 
-        // not how columns are created dynamically
+        // note how columns are created dynamically
         String anchorColumnFamily = "anchor";
         String anchorColumn_si = "cnnsi.com";
         String anchorColumn_mylook = "my.look.ca";

@@ -24,43 +24,49 @@ import static org.junit.Assert.assertThat;
  */
 public class GetKthItemFromHeapWithoutModification {
     public static void main(String[] args) {
-        GetKthItemFromHeapWithoutModification driver = new GetKthItemFromHeapWithoutModification();
-
 //        int[] heap = new int[]{9, 8, 7, 6, 5 ,4, 3, 2, 1};
+        test1();
+//        test2();
+    }
+
+    static void test1() {
+        int[] heap = new int[]{9, 8, 3, 6, 7, 2, 1, 4, 5};
+        int kthLargest = kthLargestItem(heap, 4);
+        assertThat(kthLargest, is(6));
+    }
+
+    static void test2() {
         int[] heap = new int[]{9, 8, 3, 6, 7, 2, 1, 4, 5};
 
-        int kthLargest = driver.kthLargestItem(heap, 1);
+        int kthLargest = kthLargestItem(heap, 1);
         assertThat(kthLargest, is(9));
 
-        kthLargest = driver.kthLargestItem(heap, 2);
+        kthLargest = kthLargestItem(heap, 2);
         assertThat(kthLargest, is(8));
 
-        kthLargest = driver.kthLargestItem(heap, 3);
+        kthLargest = kthLargestItem(heap, 3);
         assertThat(kthLargest, is(7));
 
-        kthLargest = driver.kthLargestItem(heap, 4);
+        kthLargest = kthLargestItem(heap, 4);
         assertThat(kthLargest, is(6));
 
-        kthLargest = driver.kthLargestItem(heap, 5);
+        kthLargest = kthLargestItem(heap, 5);
         assertThat(kthLargest, is(5));
 
-        kthLargest = driver.kthLargestItem(heap, 6);
+        kthLargest = kthLargestItem(heap, 6);
         assertThat(kthLargest, is(4));
 
-        kthLargest = driver.kthLargestItem(heap, 7);
+        kthLargest = kthLargestItem(heap, 7);
         assertThat(kthLargest, is(3));
 
-        kthLargest = driver.kthLargestItem(heap, 8);
+        kthLargest = kthLargestItem(heap, 8);
         assertThat(kthLargest, is(2));
 
-        kthLargest = driver.kthLargestItem(heap, 9);
-        assertThat(kthLargest, is(1));
-
-        kthLargest = driver.kthLargestItem(heap, 77);
+        kthLargest = kthLargestItem(heap, 9);
         assertThat(kthLargest, is(1));
     }
 
-    public int kthLargestItem(int[] heap, int kth) {
+    static int kthLargestItem(int[] heap, int kth) {
         Deque<Integer> evalQueue = new ArrayDeque<>();
         // can use BitSet instead
         boolean[] visited = new boolean[heap.length];

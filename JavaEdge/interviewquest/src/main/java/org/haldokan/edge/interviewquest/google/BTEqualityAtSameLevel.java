@@ -49,6 +49,9 @@ public class BTEqualityAtSameLevel {
     private static final Node g = new Node(55, 65);
     private static final Node h = new Node(90, 100);
     private static final Node i = new Node(35, 120);
+    private static final Node j = new Node(210, 310);
+    private static final Node k = new Node(210, 310);
+
 
     public static void main(String[] args) {
         BTEqualityAtSameLevel driver = new BTEqualityAtSameLevel();
@@ -91,6 +94,9 @@ public class BTEqualityAtSameLevel {
         d.add(h);
         d.add(i);
 
+        e.add(j);
+        g.add(k);
+
         return a;
     }
 
@@ -109,15 +115,18 @@ public class BTEqualityAtSameLevel {
         System.out.println(Arrays.toString(matches));
         assertThat(matches, arrayContaining(f, i));
 
-        matches = find(tree, 45, 120).get();
-        System.out.println(Arrays.toString(matches));
-        assertThat(matches, arrayContaining(f, i));
-
         matches = find(tree, 35, 40).get();
         System.out.println(Arrays.toString(matches));
         assertThat(matches, arrayContaining(e, i));
 
+        matches = find(tree, 210, 310).get();
+        System.out.println(Arrays.toString(matches));
+        assertThat(matches, arrayContaining(j, k));
+
         Optional<Node[]> potentialMatches = find(tree, 35, 15);
+        assertThat(potentialMatches.isPresent(), is(false));
+
+        potentialMatches = find(tree, 5, 15);
         assertThat(potentialMatches.isPresent(), is(false));
 
         potentialMatches = find(tree, 5, 100);

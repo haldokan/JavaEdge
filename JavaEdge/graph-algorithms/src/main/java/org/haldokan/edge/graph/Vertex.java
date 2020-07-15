@@ -16,6 +16,10 @@ public class Vertex<E> {
         this.y = y;
     }
 
+    public static <E> Vertex<E> create(E id) {
+        return new Vertex<>(id, 0, 0);
+    }
+
     public E getId() {
         return id;
     }

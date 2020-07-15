@@ -70,7 +70,7 @@ public class ClosestGuardOnMuseumFloor {
                 int[][] actualNeighbors = Arrays.stream(neighbors).filter(neighbor -> {
                     String potentialDistance = solution[neighbor[0]][neighbor[1]];
                     return potentialDistance.equals(String.valueOf(PATH))
-                            || Integer.valueOf(potentialDistance) > currentSpotDistance + 1;
+                            || Integer.parseInt(potentialDistance) > currentSpotDistance + 1;
                 }).toArray(int[][]::new);
 
                 Arrays.stream(actualNeighbors).forEach(neighbor -> {
@@ -135,7 +135,7 @@ public class ClosestGuardOnMuseumFloor {
         if (potentialDistance.equals(String.valueOf(GUARD))) {
             return 0;
         }
-        return Integer.valueOf(solution[spot[0]][spot[1]]);
+        return Integer.parseInt(solution[spot[0]][spot[1]]);
     }
 
     private char[][] makeFloor() {

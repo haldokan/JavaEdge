@@ -33,8 +33,8 @@ public class ConsistentHashing {
     private final double HASH_SLOT_LEN = 1d / Integer.MAX_VALUE;
     private final HashFunction hashFunction;
     // we could have used 2 maps but Guava's BiMap is a more concise way to do it
-    private BiMap<Double, Machine> machineByPosition;
-    private Map<String, Machine> machineById = new HashMap<>();
+    private final BiMap<Double, Machine> machineByPosition;
+    private final Map<String, Machine> machineById = new HashMap<>();
 
     public ConsistentHashing() {
         this(Hashing.md5());
@@ -175,7 +175,7 @@ public class ConsistentHashing {
     private static final class Machine {
         private final String id;
 
-        private Map<String, DataItem> data = new ConcurrentHashMap<>();
+        private final Map<String, DataItem> data = new ConcurrentHashMap<>();
 
         public Machine(String id) {
             this.id = id;
@@ -192,7 +192,7 @@ public class ConsistentHashing {
 
         public Set<DataItem> getDataItemsForRedistribution(Predicate<String> hashPredicate) {
             Set<String> keys = data.keySet().stream()
-                    .filter(hashPredicate::test)
+                    .filter(hashPredicate)
                     .collect(Collectors.toSet());
 
             return keys.stream().map(data::remove).collect(Collectors.toSet());

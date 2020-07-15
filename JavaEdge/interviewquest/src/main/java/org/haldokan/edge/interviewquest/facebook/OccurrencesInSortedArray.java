@@ -9,7 +9,7 @@ import static org.junit.Assert.assertThat;
 
 /**
  * My solution to a Facebook interview question - solved in log(n). I implemented the binary search that does
- * the trick. While the binary search in Java behaves similarly I assumed that it does not
+ * the trick: when an item is not found in a sorted array the (negative) index is returned for its position if it were in the array
  * The Question: 4_STAR
  * Given an array of ages (integers) sorted lowest to highest, output the number of occurrences for each age.
  * For instance:

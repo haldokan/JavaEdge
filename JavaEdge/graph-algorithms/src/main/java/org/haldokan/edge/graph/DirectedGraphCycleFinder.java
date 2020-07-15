@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
+ * NOTE: the algorithm has a problem and detects more cycles than exist in the graph
  * Use DFS to detect cycles in directed graphs. Cycle exist when a graph has a backward edge: An edge that points back to
  * an ancestor vertex in the DFS tree that is not the parent of the edge's start vertex.
  * The Question: 4_STAR
@@ -19,25 +20,28 @@ public class DirectedGraphCycleFinder<E> {
     private Map<Vertex<E>, State> vstate = new HashMap<>();
     private Integer time = 0;
 
-    public void traverse(Graph<Vertex<E>, Edge<Vertex<E>>> g, Vertex<E> vx) {
+    public boolean traverse(Graph<Vertex<E>, Edge<Vertex<E>>> g, Vertex<E> currentVertex) {
         time++;
-        vstate.put(vx, State.DISCOVERED);
-        entryTime.put(vx, time);
+        vstate.put(currentVertex, State.DISCOVERED);
+        parent.put(currentVertex, currentVertex);
+        entryTime.put(currentVertex, time);
         // processVertexEarly(vx);
-        for (Vertex<E> v : g.getAdjacent1(vx).keySet()) {
-            if (vstate.get(v) == null) {
-                parent.put(v, vx);
-                processEdge(vx, v, g.getEdge(vx, v));
-                traverse(g, v);
-            } else if (vstate.get(v) != State.PROCESSED && !parent.get(vx).equals(v) || g.isDirected()) {
-                processEdge(vx, v, g.getEdge(vx, v));
+        for (Vertex<E> child : g.getAdjacent1(currentVertex).keySet()) {
+            if (vstate.get(child) == null) {
+                parent.put(child, currentVertex);
+                processEdge(currentVertex, child, g.getEdge(currentVertex, child));
+                traverse(g, child);
+            } else if (vstate.get(child) == State.DISCOVERED && !parent.get(currentVertex).equals(child) || g.isDirected()) {
+                boolean cycle = processEdge(currentVertex, child, g.getEdge(currentVertex, child));
+                if (cycle) {
+                    return true; // todo this will not terminate execution and return true to the caller - fix
+                }
             }
         }
         // processVertexLate(vx);
-        exitTime.put(vx, time);
-        vstate.put(vx, State.PROCESSED);
-        time++;
-
+        exitTime.put(currentVertex, time);
+        vstate.put(currentVertex, State.PROCESSED);
+        return false;
     }
 
     public void dumpEntrytime() {
@@ -58,8 +62,8 @@ public class DirectedGraphCycleFinder<E> {
 
     private boolean processEdge(Vertex<E> v1, Vertex<E> v2, Edge<Vertex<E>> e) {
         System.out.println("processing edge: " + v1.toString() + v2.toString() + e);
-        if (vstate.get(v2) == State.DISCOVERED && !parent.get(v1).equals(v2)) {
-            System.out.println("found cycle: b/w: " + v2.toString() + v1.toString());
+        if (vstate.get(v2) == State.DISCOVERED && !parent.get(v2).equals(v1)) {
+            System.out.println("found cycle: b/w: " + v1.toString() + v2.toString());
             System.out.println("cycle path: " + getCyclePath(v2, v1));
             return true;
         }

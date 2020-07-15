@@ -10,6 +10,7 @@ import static org.junit.Assert.assertThat;
 
 /**
  * My solution to a Facebook interview question
+ * NOTE: the solution I provide in ShortestSubstringHavingCharSet2 is much more simpler
  * The Question: 4_STAR
  * You are given a set of unique characters and a string.
  * <p>
@@ -112,7 +113,7 @@ public class ShortestSubstringHavingCharSet {
         string = "abbxyzcbcbzza1234343343433bzac";
         shortest = shortestSubstring(string, charset).get();
         System.out.println(shortest);
-        assertThat(shortest, is(string.substring(string.length() - 4, string.length())));
+        assertThat(shortest, is(string.substring(string.length() - 4)));
 
         string = "axxbcaxb";
         shortest = shortestSubstring(string, charset).get();

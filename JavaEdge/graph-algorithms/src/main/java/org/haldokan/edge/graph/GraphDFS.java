@@ -6,7 +6,10 @@ import java.util.LinkedList;
 import java.util.Map;
 
 /**
- * Depth First Search of graph. DFS uses recursion
+ * Depth First Search of graph (DFS). Used usually with directed acyclical graphs (DAGs)
+ * sample applications:
+ * Loading interdependent libs in an app insuring a lib is loaded only when all its dependencies did
+ * Topographical sorting: traverse a DAG from start to end in the reverse order of dependencies
  * The Question: 4_STAR
  * @param <E>
  * @author haldokan
@@ -19,26 +22,24 @@ public class GraphDFS<E> {
     private Integer time = 0;
     private Deque<Vertex<E>> topoSort = new LinkedList<>();
 
-    public void traverse(Graph<Vertex<E>, Edge<Vertex<E>>> g, Vertex<E> vx) {
+    public void traverse(Graph<Vertex<E>, Edge<Vertex<E>>> g, Vertex<E> currentVertex) {
         time++;
-        vstate.put(vx, State.DISCOVERED);
-        entryTime.put(vx, time);
-        processVE(vx);
-        for (Vertex<E> v : g.getAdjacent1(vx).keySet()) {
-            if (vstate.get(v) == null) {
-                processE(vx, v, g.getEdge(vx, v));
-                parent.put(v, vx);
-                traverse(g, v);
-            } else if (vstate.get(v) != State.PROCESSED && !parent.get(vx).equals(v) || g.isDirected()) {
-                processE(vx, v, g.getEdge(vx, v));
+        vstate.put(currentVertex, State.DISCOVERED);
+        entryTime.put(currentVertex, time);
+        processVE(currentVertex);
+        for (Vertex<E> child : g.getAdjacent1(currentVertex).keySet()) {
+            if (vstate.get(child) == null) {
+                processE(currentVertex, child, g.getEdge(currentVertex, child));
+                parent.put(child, currentVertex);
+                traverse(g, child);
+            } else if (vstate.get(child) == State.DISCOVERED && !parent.get(currentVertex).equals(child) || g.isDirected()) {
+                processE(currentVertex, child, g.getEdge(currentVertex, child));
             }
         }
-        processVL(vx);
-        exitTime.put(vx, time);
-        vstate.put(vx, State.PROCESSED);
-        topoSort.addFirst(vx);
-        time++;
-
+        processVL(currentVertex);
+        exitTime.put(currentVertex, time);
+        vstate.put(currentVertex, State.PROCESSED);
+        topoSort.addFirst(currentVertex);
     }
 
     public void dumpTopoSort() {

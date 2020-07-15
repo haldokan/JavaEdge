@@ -108,7 +108,7 @@ public class ProbabilityStringGeneration2 {
             Map<Vertex, Edge> adjacentVertexes = probabilityGraph.getAdjacent(vertex);
             double probabilityRange = 0d;
             double adjacentWeightSum = adjacentVertexes.values()
-                    .stream().collect(Collectors.summingDouble(edge -> edge.weight));
+                    .stream().mapToDouble(edge -> edge.weight).sum();
 
             for (Map.Entry<Vertex, Edge> entry : adjacentVertexes.entrySet()) {
                 double probability = entry.getValue().weight / adjacentWeightSum;

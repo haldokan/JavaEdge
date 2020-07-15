@@ -14,7 +14,6 @@ import static org.junit.Assert.assertThat;
  * Get longest consecutive chars in a sentence.
  * Examples:
  * heeeello Worldddd => {e, d}
- * Hi There => {H, i, ,T, h, e ,r, e}
  * <p>
  * Created by haytham.aldokanji on 5/15/16.
  */
@@ -50,6 +49,26 @@ public class LongestConsecutiveCharInSentence {
             index1 = index2;
         }
         return longestSequences;
+    }
+
+    // this other solution is much simpler if we order of chars in the returned results does not have to match the order in the input
+    String longestSameCharSeq2(String input) {
+        int[] ascii = new int[128];
+        int longest = 0;
+
+        for (char chr : input.toCharArray()) {
+            ascii[chr] = ascii[chr] + 1;
+            if (ascii[chr] > longest) {
+                longest = ascii[chr];
+            }
+        }
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < ascii.length; i++) {
+            if (ascii[i] == longest) {
+                sb.append((char) i).append(",");
+            }
+        }
+        return sb.toString();
     }
 
     private void test() {

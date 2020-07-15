@@ -1,15 +1,13 @@
 package org.haldokan.edge.interviewquest.facebook;
 
-import java.util.ArrayDeque;
-import java.util.Deque;
-import java.util.Optional;
+import java.util.*;
 
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
 
 /**
  * My solution to a Facebook interview question
- * The Question: 3_STAR
+ * The Question: 4_STAR
  * You are given an array of non-negative integers (0, 1, 2 etc). The value in each element represents the
  * number of hops you may take to the next destination. Write a function that determines when you start
  * from the first element whether you will be able to reach the last element of the array.
@@ -50,6 +48,27 @@ public class HoppingInArray {
             }
         }
         return hop.atDestination(arr);
+    }
+
+    // I think this is simpler than the one above
+    public boolean canHopToEnd2(int[] arr) {
+        List<Integer> stack = new ArrayList<>();
+        for (int i = 0; i <= arr[0]; i++) {
+            stack.add(i);
+        }
+        while (!stack.isEmpty()) {
+            int index = stack.remove(stack.size() - 1);
+            if (index == arr.length - 1) {
+                return true;
+            }
+            for (int i = 1; i <= arr[index]; i++) {
+                int index2 = index + i;
+                if (index2 < arr.length) {
+                    stack.add(index2);
+                }
+            }
+        }
+        return false;
     }
 
     private void test() {
