@@ -1,9 +1,17 @@
 package org.haldokan.edge.interviewquest.amazon;
 
-import java.util.*;
+import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
+import java.util.Set;
 
 /**
- * My solution of an Amazon interview question
+ * My solution of an Amazon interview question - I provide a rough-edged design/implementation
  *
  * The Question: 3.5-STAR
  *
@@ -34,11 +42,30 @@ public class DesignVendingMachine {
         }
     }
 
+    Map<String, Integer> salesReport(int numDays) {
+        Map<String, Integer> salesPerItem = new HashMap<>();
+
+        int doy = LocalDate.now().getDayOfYear();
+        for (int i = 1; i <= numDays; i++) {
+            for (VendingMachine machine : vendingMachines) {
+                Map<String, Integer> salesForDoy = machine.sales.get(doy);
+                if (salesForDoy != null) {
+                    for (String item : salesForDoy.keySet()) {
+                        int saleForItem = salesForDoy.get(item);
+                        salesPerItem.compute(item, (k, count) -> count == null ? saleForItem : count + saleForItem);
+                    }
+                }
+                doy = LocalDate.now().minus(i, ChronoUnit.DAYS).getDayOfYear();
+            }
+        };
+        return salesPerItem;
+    }
+
     static class VendingMachine {
         String id;
         Map<String, Item> itemsById;
         Set<String> expiredItems = new HashSet<>();
-        Map<String, Map<String, Integer>> sales = new HashMap<>(); // todo how should I structure this to give items sales for the past month running
+        Map<Integer, Map<String, Integer>> sales = new HashMap<>(); // day-of-year->item->quantity
         Map<String, Integer> countByItemId;
         List<Item> selections = new ArrayList<>();
         double total;
@@ -53,8 +80,10 @@ public class DesignVendingMachine {
             if (total >= cost) {
                 selections.forEach(item -> {
                     countByItemId.computeIfPresent(item.id, (k, count) -> count - 1);
-                    sales.putIfAbsent(item.id, new HashMap<>());
 
+                    int doy = LocalDate.now().getDayOfYear();
+                    sales.putIfAbsent(doy, new HashMap<>());
+                    sales.get(doy).compute(item.id, (k, count) -> count == null ? 1 : count + 1);
                 });
                 reset();
                 return total - cost;
@@ -79,9 +108,13 @@ public class DesignVendingMachine {
             System.out.printf("machine: %s, item: %s%n", id, item);
         }
 
-        // todo trigger buy after delay of 30 secs...
         void deposit(double amount) {
             total += amount;
+            double cost = selections.stream().mapToDouble(p -> p.price).sum();
+
+            if (amount >= cost) {
+                buy();
+            }
         }
 
         void load(Map<Item, Integer> itemsLoad) {
@@ -108,8 +141,11 @@ public class DesignVendingMachine {
                 itemsById.put(item.id, item);
             }
         }
-    }
 
+        double price(Item item) {
+            return item.price;
+        }
+    }
 
     static class Item {
         String id;
