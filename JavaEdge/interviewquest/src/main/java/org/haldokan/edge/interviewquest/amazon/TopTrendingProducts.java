@@ -27,8 +27,6 @@ public class TopTrendingProducts {
     }
 
     List<Product> trending(int hours) {
-        // check if hours > index and get entries from both sides of array
-        // if trending[index] != null => trending[index].get(firstKey)
         Map<String, Integer> topSellers = new HashMap<>();
         int diff = index - hours;
         if (diff >= 0) {
