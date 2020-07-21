@@ -19,34 +19,34 @@ public class DijkstraGraphSP<E> {
     private final Map<Vertex<E>, Vertex<E>> parent = new HashMap<>();
     private final Map<Vertex<E>, Edge<Vertex<E>>> vertexMinEdge = new HashMap<>();
 
-    public void dijkstra(Graph<Vertex<E>, Edge<Vertex<E>>> g, Vertex<E> start) {
-        Set<Vertex<E>> gvertexes = g.getVertexes();
+    public void dijkstra(Graph<Vertex<E>, Edge<Vertex<E>>> graph, Vertex<E> currentVertex) {
+        Set<Vertex<E>> vertexes = graph.getVertexes();
 
-        inTree.put(start, 0d);
-        while (!Sets.difference(gvertexes, inTree.keySet()).isEmpty()) {
+        inTree.put(currentVertex, 0d);
+        while (!Sets.difference(vertexes, inTree.keySet()).isEmpty()) {
             Edge<Vertex<E>> minEdgeForTree = null;
-            Vertex<E> minEdgeStartVertex = null;
+            Vertex<E> minEdgeCurrentVertex = null;
 
-            for (Vertex<E> v : inTree.keySet()) {
-                Edge<Vertex<E>> minEdgeForVertex = vertexMinEdge.get(v);
-                if (minEdgeForVertex == null)
-                    updateMinEdgeForVertex(g, v);
+            for (Vertex<E> inTreeVertex : inTree.keySet()) {
+                Edge<Vertex<E>> minEdgeForVertex = vertexMinEdge.get(inTreeVertex);
+                if (minEdgeForVertex == null) {
+                    updateMinEdgeForVertex(graph, inTreeVertex);
+                }
                 // see if update found an outgoing edge from v
-                minEdgeForVertex = vertexMinEdge.get(v);
+                minEdgeForVertex = vertexMinEdge.get(inTreeVertex);
 
                 if (minEdgeForVertex != null) {
                     if (minEdgeForTree == null
-                            || minEdgeForTree.getWeight() + inTree.get(minEdgeStartVertex) > minEdgeForVertex
-                            .getWeight() + inTree.get(v)) {
+                            || minEdgeForTree.getWeight() + inTree.get(minEdgeCurrentVertex) > minEdgeForVertex.getWeight() + inTree.get(inTreeVertex)) {
                         minEdgeForTree = minEdgeForVertex;
-                        minEdgeStartVertex = v;
+                        minEdgeCurrentVertex = inTreeVertex;
                     }
                 }
             }
             if (minEdgeForTree != null) {
-                inTree.put(minEdgeForTree.getEndVertex(), inTree.get(minEdgeStartVertex) + minEdgeForTree.getWeight());
-                parent.put(minEdgeForTree.getEndVertex(), minEdgeStartVertex);
-                reassigneCosts(g, minEdgeForTree.getEndVertex());
+                inTree.put(minEdgeForTree.getEndVertex(), inTree.get(minEdgeCurrentVertex) + minEdgeForTree.getWeight());
+                parent.put(minEdgeForTree.getEndVertex(), minEdgeCurrentVertex);
+                reassigneCosts(graph, minEdgeForTree.getEndVertex());
             }
         }
     }
@@ -77,38 +77,34 @@ public class DijkstraGraphSP<E> {
             updateMinEdgeForVertex(g, v);
     }
 
-    private void updateMinEdgeForVertex(Graph<Vertex<E>, Edge<Vertex<E>>> g, Vertex<E> v) {
-        // using a heap (priority queue) is not efficient be cool! instead
+    private void updateMinEdgeForVertex(Graph<Vertex<E>, Edge<Vertex<E>>> graph, Vertex<E> vertex) {
+        // using a heap (priority queue) is not efficient but cool! instead
         // we can simply get an element from the set
         // then iterate over the whole set to get the smallest weight.
-        Queue<Edge<Vertex<E>>> pq = new PriorityQueue<>(new Comparator<Edge<Vertex<E>>>() {
-            @Override
-            public int compare(Edge<Vertex<E>> o1, Edge<Vertex<E>> o2) {
-                return o1.getWeight() < o2.getWeight() ? -1 : 1;
-            }
-        });
+        Queue<Edge<Vertex<E>>> edgesHeap = new PriorityQueue<>((e1, e2) -> e1.getWeight() < e2.getWeight() ? -1 : 1);
 
-        Map<Vertex<E>, Edge<Vertex<E>>> adj = g.getAdjacent1(v);
-        for (Map.Entry<Vertex<E>, Edge<Vertex<E>>> entry : adj.entrySet()) {
+        Map<Vertex<E>, Edge<Vertex<E>>> adjacentEdges = graph.getAdjacent1(vertex);
+        for (Map.Entry<Vertex<E>, Edge<Vertex<E>>> entry : adjacentEdges.entrySet()) {
             if (!inTree.containsKey(entry.getKey())) {
                 entry.getValue().setDirection(Edge.Direction.D1_2);
-                pq.add(entry.getValue());
+                edgesHeap.add(entry.getValue());
             }
         }
 
-        adj = g.getAdjacent2(v);
-        for (Map.Entry<Vertex<E>, Edge<Vertex<E>>> entry : adj.entrySet()) {
+        adjacentEdges = graph.getAdjacent2(vertex);
+        for (Map.Entry<Vertex<E>, Edge<Vertex<E>>> entry : adjacentEdges.entrySet()) {
             if (!inTree.containsKey(entry.getKey())) {
                 entry.getValue().setDirection(Edge.Direction.D2_1);
-                pq.add(entry.getValue());
+                edgesHeap.add(entry.getValue());
             }
         }
 
-        Edge<Vertex<E>> minEdge = pq.poll();
+        Edge<Vertex<E>> minEdge = edgesHeap.peek();
 
-        if (minEdge != null)
-            vertexMinEdge.put(v, minEdge);
-        else
-            vertexMinEdge.remove(v);
+        if (minEdge != null) {
+            vertexMinEdge.put(vertex, minEdge);
+        } else {
+            vertexMinEdge.remove(vertex);
+        }
     }
 }

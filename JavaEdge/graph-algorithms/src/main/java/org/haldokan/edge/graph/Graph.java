@@ -16,7 +16,7 @@ import java.util.Set;
  * @author haldokan
  */
 public class Graph<V, E extends IEdge<V>> {
-    private Table<V, V, E> adjList = HashBasedTable.create();
+    private Table<V, V, E> graph = HashBasedTable.create();
     private boolean directed;
     private Set<E> edges = new HashSet<>();
 
@@ -25,7 +25,7 @@ public class Graph<V, E extends IEdge<V>> {
     }
 
     public void add(V v1, V v2, E e) {
-        adjList.put(v1, v2, e);
+        graph.put(v1, v2, e);
         e.setV1(v1);
         e.setV2(v2);
         edges.add(e);
@@ -36,23 +36,23 @@ public class Graph<V, E extends IEdge<V>> {
     }
 
     public E getEdge(V v1, V v2) {
-        return adjList.get(v1, v2);
+        return graph.get(v1, v2);
     }
 
     public Set<V> getVertexes() {
-        return Sets.union(adjList.rowKeySet(), adjList.columnKeySet());
+        return Sets.union(graph.rowKeySet(), graph.columnKeySet());
     }
 
     public Map<V, E> getAdjacent1(V v) {
-        return adjList.row(v);
+        return graph.row(v);
     }
 
     public Map<V, E> getAdjacent2(V v) {
-        return adjList.column(v);
+        return graph.column(v);
     }
 
     @Override
     public String toString() {
-        return "Graph [adjList=" + adjList + "]";
+        return graph.toString();
     }
 }

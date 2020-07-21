@@ -7,6 +7,8 @@ package org.haldokan.edge.interviewquest.amazon;
  * For every path from TOP-LEFT to BOTTOM-RIGHT, find the minimum weight you come across.(Minimum per path.)
  * Now from all those minimum weights, find the Maximum.
  * You can move in all 9 directions.
+ *
+ * 07/17/20
  */
 public class MatrixMinPath {
 }
