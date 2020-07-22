@@ -8,7 +8,7 @@ import java.util.List;
 
 /**
  * My solution to an Amazon interview question - the core of the problem is to merge n-sorted-arrays which is what I implemented w/o
- * worrying too much about the stream aspect. I assumed that the streams are written to growing array lists and the merging is done into
+ * worrying too much about the streaming aspect. I assumed that the streams are written to growing array lists and the merging is done into
  * a result stream that grows as the input streams keep on running.
  *
  * The Question: 4-STAR
