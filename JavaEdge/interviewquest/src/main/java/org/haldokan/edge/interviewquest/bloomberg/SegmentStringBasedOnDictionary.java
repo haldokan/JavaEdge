@@ -8,8 +8,8 @@ import java.util.Set;
 
 /**
  * My implementation to a Bloomberg interview question - hard to tell what the question is looking for. The solution I
- * present here in O(n^2) in the lenght of input. Alternative solutions include using a special prefix tree to represent
- * the dictionary marking words boundaries with special char. W/o context it is hard to to figure out what solutions to favor.
+ * present here in O(n^2) in the length of input. Alternative solutions can include using a special prefix tree to represent
+ * the dictionary marking words boundaries with special char. W/o context it is hard to figure out what solution to favor.
  *
  * The Question: 3-STAR
  *
