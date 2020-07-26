@@ -1,7 +1,7 @@
 package org.haldokan.edge.interviewquest.amazon;
 
 /**
- * My solution to an Amazon interview question
+ * My solution to an Amazon interview question - one liner, aint too bad!
  *
  * The Question 3.5-STAR
  *
