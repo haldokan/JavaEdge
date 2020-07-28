@@ -1,11 +1,14 @@
 package org.haldokan.edge.interviewquest.amazon;
 
 /**
- * Someone's solution to an Amazon interview question - very smart and makes me feel like shit because I did not figure it out
+ * Someone's solution to an Amazon interview question - very smart and makes me feel like shit because I did not figure it out. I
+ * I started along the same lines this solution followed but ended up concluding that may be we need to re-balance the tree as
+ * we inserted which makes the solution monstrously more complicated
  *
  * The Question: 5-STAR
  *
  * convert a sorted array to balanced BST
+ * 07/27/20
  */
 public class ConvertSortedArrayToBST {
     public static void main(String[] args) {
