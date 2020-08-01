@@ -4,8 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * My solution to a Google interview question - leverage in order traversal to build an array and quit recursion
- * once the node is found. There can be a more elegant solution that does not require the array but I cannot think of one.
+ * My solution to a Google interview question - leverage in order traversal to build an array of length 2 that at any time
+ * holds the last 2 sorted elements. Quit recursion once the node is found. Runtime is O(n) and space O(1).
+ *
+ * There can be a more elegant solution that runs in O(log n) and does not require the array but I cannot think of one.
+ * todo: try to find a solution that runs in O(log n)
  *
  * The Question: 4-STAR
  *
@@ -20,18 +23,24 @@ public class NextLargestNumberInBST {
     void test() {
         int[] values = new int[]{7, 4, 9, 6, 1, 12, 10};
         for (int value : values) {
-            List<Integer> numbers = new ArrayList<>();
+            List<Integer> numbers = new ArrayList<>(2);
             int nextLargest = inOrder(makeTree(), value, numbers);
             System.out.printf("%d -> %d%n", value, nextLargest);
         }
     }
+
     Integer inOrder(Node node, int val, List<Integer> numbers) {
         if (node == null) {
             return null;
         }
         inOrder(node.left, val, numbers);
         if (node.val <= val) {
-            numbers.add(node.val);
+            if (numbers.size() < 2) {
+                numbers.add(node.val);
+            } else {
+                numbers.set(0, numbers.get(1));
+                numbers.set(1, node.val);
+            }
         }
         // no more work after finding the value
         if (numbers.get(numbers.size() - 1) != val) {
