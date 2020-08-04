@@ -17,7 +17,9 @@ import java.util.stream.Collectors;
  * My implementation of Consistent Hashing with support for removing and adding hash buckets (I use a cluster
  * of machines arranged in a ring for the concrete implementation).
  *
- * todo: add machine aliases to mitigate the case where 2 machines are too close to each other in the hash ring
+ * I could easily add machine aliasing to improve distribution of hashed keys among machines: the idea is for each machine
+ * (example machine-A) to add virtual machines (aliases: machine-A-1, machine-A-2) to the ring hashed at different hash
+ * spots but the key values hashed to these spots are physically stored on the actual machine-A.
  *
  * The Question: 5_STAR
  *
