@@ -1,10 +1,9 @@
 package org.haldokan.edge.search;
 
 /**
- * find an element in a sorted array using binary search.
+ * find an element in a sorted array using binary search - made array generic so any value that implements Comparable
+ * can use the function
  *
- * @param <E>
- * @author haldokan
  */
 public class BinarySearch<E extends Comparable<E>> {
 
@@ -23,18 +22,13 @@ public class BinarySearch<E extends Comparable<E>> {
     }
 
     public int findIndex(E element, E[] arr, int start, int end) {
-        if (end <= start) {
-            return -1;
+        if (start >= end) {
+            return -start; // negative value of where it would have been if it existed in the array
         }
-
         int mid = (start + end) / 2;
         if (element.compareTo(arr[mid]) == 0) {
             return mid;
         }
-
-        if (element.compareTo(arr[mid]) < 0)
-            return findIndex(element, arr, start, mid - 1);
-        else
-            return findIndex(element, arr, mid + 1, end);
+        return element.compareTo(arr[mid]) < 0 ? findIndex(element, arr, start, mid) : findIndex(element, arr, mid + 1, end);
     }
 }
