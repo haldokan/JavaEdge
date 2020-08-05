@@ -7,8 +7,7 @@ import java.util.List;
  * My solution to a Google interview question - leverage in order traversal to build an array of length 2 that at any time
  * holds the last 2 sorted elements. Quit recursion once the node is found. Runtime is O(n) and space O(1).
  *
- * There can be a more elegant solution that runs in O(log n) and does not require the array but I cannot think of one.
- * todo: try to find a solution that runs in O(log n)
+ *  Note: examine my other solution NextLargestNumberInBST2 which is more elegant and runs in log(n)
  *
  * The Question: 4-STAR
  *
