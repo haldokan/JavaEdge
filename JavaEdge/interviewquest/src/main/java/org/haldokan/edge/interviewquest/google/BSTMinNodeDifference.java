@@ -1,14 +1,12 @@
 package org.haldokan.edge.interviewquest.google;
 
-import static org.hamcrest.Matchers.is;
-import static org.junit.Assert.assertThat;
-
+import java.util.ArrayList;
+import java.util.List;
 /**
- * My solution to a Google interview question - a bit lame since while doing the inorder traversal I maintain the
- * previous node in an array of size 1 to avoid null values for 'previous' node when the recursive calls are popped off
- * the call stack. There must be a better solution
+ * My solution to a Google interview question - piggyback on in-order traversal while maintaining O(1) space complexity
+ * Runtime complexity is O(n) and I don't think it can be made better.
  * <p>
- * The Question: 3_STAR
+ * The Question: 4_STAR
  * Given an input BST, find the minimum value difference between any two nodes in the tree.
  * <p>
  * e.g:
@@ -17,38 +15,33 @@ import static org.junit.Assert.assertThat;
  * ........12 20
  * answer: 2 (it happens between nodes 12 and 10)
  * <p>
- * describe the test cases you would use here?
  * <p>
- * Created by haytham.aldokanji on 5/15/16.
+ * 08/06/20
  */
 public class BSTMinNodeDifference {
     public static void main(String[] args) {
         BSTMinNodeDifference driver = new BSTMinNodeDifference();
 
         Node tree = driver.makeTree();
-        // min difference must be less than the max value in the bst (better than using Integer.MAX_VALUE)
         int maxVal = driver.getMaxNode(tree).val;
-        int minDiff = driver.minDiff(tree, new Node[1], maxVal);
-        System.out.println(minDiff);
-        assertThat(minDiff, is(1));
+        System.out.println(driver.minDiff(tree, new ArrayList<>(2), maxVal));
     }
 
-    public int minDiff(Node tree, Node[] previousNode, int minDiff) {
-        if (tree == null) {
-            return 0;
+    int minDiff(Node node, List<Integer> numbers, int minDiff) {
+        if (node == null) {
+            return minDiff;
         }
-        minDiff(tree.left, previousNode, minDiff);
+        minDiff(node.left, numbers, minDiff);
 
-        int updatedMinDif = minDiff;
-        if (previousNode[0] != null) {
-            int diff = Math.abs(tree.val - previousNode[0].val);
-            if (diff < updatedMinDif) {
-                updatedMinDif = diff;
-            }
+        if (numbers.size() == 2) {
+            numbers.set(0, numbers.get(1));
+            numbers.set(1, node.val);
+        } else {
+            numbers.add(node.val);
         }
-        previousNode[0] = tree;
-        minDiff(tree.right, previousNode, updatedMinDif);
-        return updatedMinDif;
+
+        int newMinDiff = numbers.size() == 2 ? numbers.get(1) - numbers.get(0) : minDiff;
+        return Math.min(newMinDiff, minDiff(node.right, numbers, Math.min(minDiff, newMinDiff)));
     }
 
     private Node getMaxNode(Node tree) {
@@ -63,7 +56,7 @@ public class BSTMinNodeDifference {
     }
 
     private Node makeTree() {
-        Node root = new Node(7);
+        Node root = new Node(8);
         Node n2 = new Node(4);
         Node n3 = new Node(9);
         Node n4 = new Node(6);
