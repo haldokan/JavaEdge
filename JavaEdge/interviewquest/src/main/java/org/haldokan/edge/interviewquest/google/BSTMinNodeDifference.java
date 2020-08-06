@@ -52,7 +52,6 @@ public class BSTMinNodeDifference {
             return tree;
         }
         return getMaxNode(tree.right);
-
     }
 
     private Node makeTree() {
