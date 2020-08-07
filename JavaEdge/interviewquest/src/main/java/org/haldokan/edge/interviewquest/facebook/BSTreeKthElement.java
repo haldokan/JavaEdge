@@ -4,9 +4,13 @@ import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
 
 /**
- * My solution to a Facebook interview question - Look at org.haldokan.edge.interviewquest.google.BSTreeKthElement for
- * another solution using iteration instead of recursion
- * The Question: 3_STAR
+ * My solution to a Facebook interview question - could not make it work passing k by value so I passed by reference. I think
+ * there is no way to solve this question passing k by value. I leveraged in-order reverse traversal (node.right then node.left)
+ *
+ * Look at org.haldokan.edge.interviewquest.google.BSTreeKthElement for another solution using iteration instead of recursion
+ *
+ * The Question: 3.5_STAR
+ *
  * Find the kth largest element in a binary search tree. Write code for
  * struct Node {
  * int val;
@@ -15,7 +19,8 @@ import static org.junit.Assert.assertThat;
  * } Node;
  * <p>
  * Node * kth_largest(Node *root, unsigned int k);
- * Created by haytham.aldokanji on 4/28/16.
+ *
+ * 08/06/20
  */
 public class BSTreeKthElement {
 
@@ -35,32 +40,25 @@ public class BSTreeKthElement {
         n6.left = n7;
 
         BSTreeKthElement driver = new BSTreeKthElement();
-        assertThat(driver.kthElement(root, 1), is(n5));
-        assertThat(driver.kthElement(root, 2), is(n2));
-        assertThat(driver.kthElement(root, 3), is(n4));
-        assertThat(driver.kthElement(root, 4), is(root));
-        assertThat(driver.kthElement(root, 5), is(n3));
-        assertThat(driver.kthElement(root, 6), is(n7));
-        assertThat(driver.kthElement(root, 7), is(n6));
+        assertThat(driver.kthElement(root, new int[]{1}), is(n6));
+        assertThat(driver.kthElement(root, new int[]{2}), is(n7));
+        assertThat(driver.kthElement(root, new int[]{3}), is(n3));
+        assertThat(driver.kthElement(root, new int[]{4}), is(root));
+        assertThat(driver.kthElement(root, new int[]{5}), is(n4));
+        assertThat(driver.kthElement(root, new int[]{6}), is(n2));
+        assertThat(driver.kthElement(root, new int[]{7}), is(n5));
     }
 
-
-    public Node kthElement(Node node, int k) {
-        return doKthElement(node, new int[]{k}, new Node[1]);
-    }
-
-    private Node doKthElement(Node node, int[] k, Node[] arr) {
+    Node kthElement(Node node, int[] k) {
         if (node == null) {
             return null;
         }
+        Node node1 = kthElement(node.right, k);
+        if (node1 != null) return node1; // so it returns w/o traversing right as recursion calls return
 
-        doKthElement(node.left, k, arr);
-        k[0] -= 1;
-        if (k[0] >= 0) {
-            arr[0] = node;
-            doKthElement(node.right, k, arr);
-        }
-        return arr[0];
+        k[0] = k[0] - 1;
+        System.out.printf("%s, k: %d%n", node, k[0]);
+        return k[0] == 0 ? node : kthElement(node.left, k);
     }
 
     private static class Node {
@@ -74,7 +72,7 @@ public class BSTreeKthElement {
 
         @Override
         public String toString() {
-            return "{" + String.valueOf(val) + "}";
+            return String.format("node->%d", val);
         }
     }
 }
