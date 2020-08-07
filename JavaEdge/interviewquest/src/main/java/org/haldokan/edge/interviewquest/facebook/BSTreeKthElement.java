@@ -4,7 +4,7 @@ import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
 
 /**
- * My solution to a Facebook interview question - could not make it work passing k by value so I passed by reference. I think
+ * My solution to a Facebook interview question - could not make it work passing k by value so I passed it by reference. I think
  * there is no way to solve this question passing k by value. I leveraged in-order reverse traversal (node.right then node.left)
  *
  * Look at org.haldokan.edge.interviewquest.google.BSTreeKthElement for another solution using iteration instead of recursion
@@ -54,7 +54,7 @@ public class BSTreeKthElement {
             return null;
         }
         Node node1 = kthElement(node.right, k);
-        if (node1 != null) return node1; // so it returns w/o traversing right as recursion calls return
+        if (node1 != null) return node1; // so it returns w/o traversing left as recursion calls return
 
         k[0] = k[0] - 1;
         System.out.printf("%s, k: %d%n", node, k[0]);
