@@ -1,5 +1,7 @@
 package org.haldokan.edge;
 
+import java.util.stream.IntStream;
+
 /**
  * My implementation of Robin Karp algorithm for pattern matching in a text using rolling hash
  *
@@ -18,7 +20,8 @@ package org.haldokan.edge;
  * position would be too slow.
  */
 public class RobinKarpPatternSearch {
-    private final int hashSeed = 31;
+    private final int HASH_SEED = 31;
+    private final long MODULO = Double.doubleToLongBits(Math.pow(2, 32));
 
     public static void main(String[] args) {
         RobinKarpPatternSearch driver = new RobinKarpPatternSearch();
@@ -41,7 +44,7 @@ public class RobinKarpPatternSearch {
 
         for (int i = 0; i < text.length - pattern.length + 1; i++) {
             // mostly when the hash is the same the strings should match (for good hash func)
-            if(patternHash == textSnippetHash && assertEqual(text, i, i + pattern.length - 1, pattern)) {
+            if(patternHash == textSnippetHash && assertEqual(text, i, i + pattern.length, pattern)) {
                 return i;
             }
             if (i < text.length - pattern.length) {
@@ -51,33 +54,33 @@ public class RobinKarpPatternSearch {
         return -1;
     }
 
-    // that's why we need rolling hash functions: the hash can be updated cheaply when we replace a char in the string we are hashing
-    // oldIndex: is the text index that increases by one every time the snippet does not match the pattern
-    // newIndex is the text index at the end of the snippet that increases by 1 every time there is no match
-    private long updateHash(char[] text, int oldIndex, int newIndex, long currentHash, int patternLen) {
-        long newHash = (currentHash - text[oldIndex]) / hashSeed; // this removes the hash of the first char and reduce the power factor of the hash seeds by one
-        newHash += text[newIndex] * Math.pow(hashSeed, patternLen - 1); // add the hash of the new char
-        return newHash;
-    }
-
     // rolling hash function - check docs at the top
     // this hash func enables us to remove a char from the begin of the hash string and add a char to the end of it and
     // the resulting hash is equal to the hash of the new string.
     private long createHash(char[] input, int patternLen){
         long hash = 0;
         for (int i = 0; i < patternLen; i++) {
-            hash += input[i] * Math.pow(hashSeed, i);
+            hash += input[i] * Math.pow(HASH_SEED, i) % MODULO; // use modulo arithmetics to avoid working with huge numbers
         }
         return hash;
     }
 
+    // that's why we need rolling hash functions: the hash can be updated cheaply when we replace a char in the string we are hashing
+    // oldIndex: is the text index that increases by one every time the snippet does not match the pattern
+    // newIndex is the text index at the end of the snippet that increases by 1 every time there is no match
+    private long updateHash(char[] text, int oldIndex, int newIndex, long currentHash, int patternLen) {
+        long newHash = (currentHash - text[oldIndex]) / HASH_SEED; // this removes the hash of the first char and reduce the power factor of the hash seeds by one
+        newHash += text[newIndex] * Math.pow(HASH_SEED, patternLen - 1) % MODULO; // add the hash of the new char
+        return newHash;
+    }
+
     private boolean assertEqual(char[] text, int start, int end, char[] pattern){
-        if(end - start != pattern.length - 1) {
+        if(end - start != pattern.length) {
             return false;
         }
         int index = 0;
-        while(start <= end){
-            if(text[start++] != pattern[index++]){
+        for (int i = start; i < end; i++) {
+            if (text[i] != pattern[index++]) {
                 return false;
             }
         }
