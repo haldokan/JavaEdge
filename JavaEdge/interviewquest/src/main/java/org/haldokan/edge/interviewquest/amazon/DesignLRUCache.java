@@ -31,11 +31,11 @@ public class DesignLRUCache {
         byte[] prevVal = cache.put(id, val);
 
         Key key = new Key(id);
-        stagingQueues[id.hashCode() % stagingQueues.length].offer(key); // reduce contention by usign a number of blocking queues
+        stagingQueues[id.hashCode() % stagingQueues.length].offer(key); // reduce contention by using a number of blocking queues
         return prevVal;
     }
 
-    // uncommon operation in caches generally
+    // uncommon operation to be initiated by users generally
     void remove(String id) {
         cache.remove(id);
         // alternatively we can let the key age in the lru heap so and removed later by the cache maintainer thread
