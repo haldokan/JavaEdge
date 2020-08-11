@@ -38,7 +38,7 @@ public class DesignLRUCache {
     // uncommon operation to be initiated by users generally
     void remove(String id) {
         cache.remove(id);
-        // alternatively we can let the key age in the lru heap so and removed later by the cache maintainer thread
+        // alternatively we can let the key age in the lru heap and remove later by the cache maintainer thread
         lru.remove(new Key(id)); // note that Key equality is done on the id only so it can be found in the lru heap (this is O(n) operation).
     }
 
