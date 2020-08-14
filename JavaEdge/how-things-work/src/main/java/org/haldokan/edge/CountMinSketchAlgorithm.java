@@ -30,7 +30,6 @@ public class CountMinSketchAlgorithm {
             Hashing.adler32(),
     };
 
-    // Table<hashFuncIndex, dataValue, frequency>
     private final int[][] sketch;
     private final SketchParams sketchParams;
 
