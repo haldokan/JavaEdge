@@ -8,9 +8,9 @@ import java.util.*;
 
 /**
  * My implementation of the Algorithm Count-Min-Sketch. Tested with some real data sizes of youtube video views.
- * I chose delta = 0.05 which yields 3 hash functions (rows),
- * and epsilon = 0.0000027 which yields 1_006_771 rows. The test runs using a number of iterations equal to the number of youtube
- * views per minute: 347_256_947 and assuming 1000_000 unique videos per minute.
+ * I chose delta = 0.05 which yields 3 hash functions (rows), and epsilon = 0.0000027 which yields 1_006_771 rows.
+ * The test runs using a number of iterations equal to the number of youtube views per minute: 347_256_947 and
+ * assuming 1000_000 unique videos per minute.
  *
  * In the test I provide, the printed heap of the top 1000 videos shows 133 that are not among the 10_000 that have
  * skewed probability of 10% (this is attributed to hash collisions).
