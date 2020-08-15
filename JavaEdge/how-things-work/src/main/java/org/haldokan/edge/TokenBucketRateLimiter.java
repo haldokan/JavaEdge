@@ -6,7 +6,7 @@ import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
 
 /**
- * My basic implementation of a Token-Bucket-Rate-Limiter. Note that AtomicInteger methods are synchronized which can pause
+ * My basic implementation of a Token-Bucket-Rate-Limiter. Note that AtomicInteger methods are synchronized which can pose
  * problems for very high level of request rates. How to improve the implementation? In general how rate limiting is designed
  * in distributed systems with millions of requests per second?
  * todo: update with answers to the 2 questions above
