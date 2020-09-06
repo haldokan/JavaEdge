@@ -1,9 +1,7 @@
 package org.haldokan.edge;
 
-import java.util.stream.IntStream;
-
 /**
- * My implementation of Robin Karp algorithm for pattern matching in a text using rolling hash
+ * My implementation of Rabin-Karp algorithm for pattern matching in a text using rolling hash
  *
  * The Question: 5-STAR
  *
@@ -19,12 +17,12 @@ import java.util.stream.IntStream;
  * can be quickly updated from each position of the text to the next. Recomputing the hash function from scratch at each
  * position would be too slow.
  */
-public class RobinKarpPatternSearch {
+public class RabinKarpPatternSearch {
     private final int HASH_SEED = 31;
     private final long MODULO = Double.doubleToLongBits(Math.pow(2, 32));
 
     public static void main(String[] args) {
-        RobinKarpPatternSearch driver = new RobinKarpPatternSearch();
+        RabinKarpPatternSearch driver = new RabinKarpPatternSearch();
         driver.test1();
     }
 
