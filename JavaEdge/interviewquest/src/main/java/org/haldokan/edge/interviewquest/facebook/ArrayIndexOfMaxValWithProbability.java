@@ -35,8 +35,8 @@ public class ArrayIndexOfMaxValWithProbability {
         driver.test();
     }
 
-    public ArrayIndexOfMaxValWithProbability(int[] input) {
-        this.arr = input;
+    public ArrayIndexOfMaxValWithProbability(int[] arr) {
+        this.arr = arr;
         this.maxValueIndexesSoFarByIndex = mapMaxValIndexes();
     }
 
