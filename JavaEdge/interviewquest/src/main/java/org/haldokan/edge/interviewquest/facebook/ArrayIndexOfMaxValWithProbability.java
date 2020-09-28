@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Random;
 
 /**
- * My solution of a Facebook interview question
+ * My solution to a Facebook interview question
  *
  * The Question: 4-STAR
  *
@@ -20,6 +20,7 @@ import java.util.Random;
  * are indices of 30 - the max value so far. Each index should have a 1/4 chance to get picked.
  *
  * Having iterated through the entire array, randomly give an index between 8 and 9 which are indices of the max value 62.
+ * 09/27/20
  */
 public class ArrayIndexOfMaxValWithProbability {
     private final Random random = new Random();
