@@ -61,9 +61,8 @@ public class ArrayIndexOfMaxValWithProbability {
                 maxValueIndexesByValue.put(currentVal, i);
                 maxValueIndexesSoFarByIndex.put(i, i);
             } else if (currentVal == maxVal) {
-                maxValueIndexesSoFarByIndex.putAll(i, maxValueIndexesByValue.get(currentVal));
-                maxValueIndexesSoFarByIndex.put(i, i);
                 maxValueIndexesByValue.put(currentVal, i);
+                maxValueIndexesSoFarByIndex.putAll(i, maxValueIndexesByValue.get(currentVal));
             } else {
                 maxValueIndexesSoFarByIndex.putAll(i, maxValueIndexesByValue.get(maxVal));
             }
