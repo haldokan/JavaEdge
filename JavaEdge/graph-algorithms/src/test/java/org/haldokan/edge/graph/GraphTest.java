@@ -10,7 +10,7 @@ public class GraphTest {
     private Vertex<Integer> v5 = new Vertex<>(5, 0, 0);
     private Vertex<Integer> v6 = new Vertex<>(6, 0, 0);
 
-    // we assigne coords to 0 since they don't play part in this solution
+    // we assign coords to 0 since they don't play part in this solution
     private Vertex<String> seattle = new Vertex<>("Seattle", 0, 0);
     private Vertex<String> sf = new Vertex<>("San-Francisco", 0, 0);
     private Vertex<String> minneapolis = new Vertex<>("Minneapolis", 0, 0);
@@ -52,11 +52,18 @@ public class GraphTest {
     }
 
     @Test
-    public void cycleTest() {
+    public void undirectedGraphCycleTest() {
         Graph<Vertex<Integer>, Edge<Vertex<Integer>>> g = makeCycleGraph();
-        DirectedGraphCycleFinder<Integer> dfs = new DirectedGraphCycleFinder<>();
+        UndirectedGraphCycleFinder<Integer> dfs = new UndirectedGraphCycleFinder<>();
         boolean cycle = dfs.traverse(g, v2);
         System.out.printf("cycle: %s%n", cycle);
+    }
+
+    @Test
+    public void directedGraphCycleTest() {
+        Graph<Vertex<Integer>, Edge<Vertex<Integer>>> g = makeCycleGraph();
+        DirectedGraphCycleFinder<Integer> cycleFinder = new DirectedGraphCycleFinder<>(g);
+        System.out.printf("isCyclic: %s%n", cycleFinder.isCyclic());
     }
 
     @Test
@@ -97,71 +104,71 @@ public class GraphTest {
 
     private Graph<Vertex<Integer>, Edge<Vertex<Integer>>> makeGraph1() {
         Graph<Vertex<Integer>, Edge<Vertex<Integer>>> g = new Graph<>(false);
-        g.add(v1, v2, new Edge<Vertex<Integer>>(1));
-        g.add(v1, v5, new Edge<Vertex<Integer>>(1));
-        g.add(v1, v6, new Edge<Vertex<Integer>>(1));
-        g.add(v2, v3, new Edge<Vertex<Integer>>(1));
-        g.add(v2, v5, new Edge<Vertex<Integer>>(1));
-        g.add(v3, v4, new Edge<Vertex<Integer>>(1));
-        g.add(v5, v4, new Edge<Vertex<Integer>>(1));
-        g.add(v6, v5, new Edge<Vertex<Integer>>(1));
+        g.add(v1, v2, new Edge<>(1));
+        g.add(v1, v5, new Edge<>(1));
+        g.add(v1, v6, new Edge<>(1));
+        g.add(v2, v3, new Edge<>(1));
+        g.add(v2, v5, new Edge<>(1));
+        g.add(v3, v4, new Edge<>(1));
+        g.add(v5, v4, new Edge<>(1));
+        g.add(v6, v5, new Edge<>(1));
 
         return g;
     }
 
     private Graph<Vertex<Integer>, Edge<Vertex<Integer>>> makeGraph() {
         Graph<Vertex<Integer>, Edge<Vertex<Integer>>> g = new Graph<>(true);
-        g.add(v2, v1, new Edge<Vertex<Integer>>(1));
-        g.add(v1, v5, new Edge<Vertex<Integer>>(7));
-        g.add(v1, v6, new Edge<Vertex<Integer>>(3));
-        g.add(v2, v3, new Edge<Vertex<Integer>>(1));
-        g.add(v2, v5, new Edge<Vertex<Integer>>(4));
-        g.add(v3, v4, new Edge<Vertex<Integer>>(5));
-        g.add(v2, v4, new Edge<Vertex<Integer>>(5));
-        g.add(v4, v5, new Edge<Vertex<Integer>>(6));
-        g.add(v5, v6, new Edge<Vertex<Integer>>(3));
+        g.add(v2, v1, new Edge<>(1));
+        g.add(v1, v5, new Edge<>(7));
+        g.add(v1, v6, new Edge<>(3));
+        g.add(v2, v3, new Edge<>(1));
+        g.add(v2, v5, new Edge<>(4));
+        g.add(v3, v4, new Edge<>(5));
+        g.add(v2, v4, new Edge<>(5));
+        g.add(v4, v5, new Edge<>(6));
+        g.add(v5, v6, new Edge<>(3));
 
         return g;
     }
 
     private Graph<Vertex<Integer>, Edge<Vertex<Integer>>> makeCycleGraph() {
         Graph<Vertex<Integer>, Edge<Vertex<Integer>>> g = new Graph<>(true);
-        g.add(v2, v1, new Edge<Vertex<Integer>>(1));
-        g.add(v1, v5, new Edge<Vertex<Integer>>(7));
-        g.add(v1, v6, new Edge<Vertex<Integer>>(3));
-        g.add(v2, v3, new Edge<Vertex<Integer>>(1));
-        g.add(v2, v5, new Edge<Vertex<Integer>>(4));
-        g.add(v3, v4, new Edge<Vertex<Integer>>(5));
-        g.add(v2, v4, new Edge<Vertex<Integer>>(5));
-        g.add(v4, v5, new Edge<Vertex<Integer>>(6));
-        g.add(v5, v6, new Edge<Vertex<Integer>>(3));
-        g.add(v6, v2, new Edge<Vertex<Integer>>(8));
+        g.add(v2, v1, new Edge<>(1));
+        g.add(v1, v5, new Edge<>(7));
+        g.add(v1, v6, new Edge<>(3));
+        g.add(v2, v3, new Edge<>(1));
+        g.add(v2, v5, new Edge<>(4));
+        g.add(v3, v4, new Edge<>(5));
+        g.add(v2, v4, new Edge<>(5));
+        g.add(v4, v5, new Edge<>(6));
+        g.add(v5, v6, new Edge<>(3));
+        g.add(v6, v2, new Edge<>(8));
 
         return g;
     }
 
     private Graph<Vertex<String>, Edge<Vertex<String>>> makeUSACitiesGraph() {
         Graph<Vertex<String>, Edge<Vertex<String>>> g = new Graph<>(false);
-        g.add(seattle, sf, new Edge<Vertex<String>>(1306));
-        g.add(seattle, minneapolis, new Edge<Vertex<String>>(2661));
-        g.add(seattle, denver, new Edge<Vertex<String>>(2161));
-        g.add(sf, la, new Edge<Vertex<String>>(629));
-        g.add(sf, lv, new Edge<Vertex<String>>(919));
-        g.add(la, lv, new Edge<Vertex<String>>(435));
-        g.add(lv, denver, new Edge<Vertex<String>>(1225));
-        g.add(lv, dallas, new Edge<Vertex<String>>(1983));
-        g.add(denver, dallas, new Edge<Vertex<String>>(1258));
-        g.add(denver, minneapolis, new Edge<Vertex<String>>(1483));
-        g.add(minneapolis, chicago, new Edge<Vertex<String>>(661));
-        g.add(chicago, boston, new Edge<Vertex<String>>(1613));
-        g.add(chicago, washDC, new Edge<Vertex<String>>(1145));
-        g.add(dallas, miami, new Edge<Vertex<String>>(2161));
-        g.add(dallas, washDC, new Edge<Vertex<String>>(2113));
-        g.add(miami, washDC, new Edge<Vertex<String>>(1709));
-        g.add(miami, ny, new Edge<Vertex<String>>(2145));
-        g.add(washDC, ny, new Edge<Vertex<String>>(383));
-        g.add(washDC, boston, new Edge<Vertex<String>>(725));
-        g.add(ny, boston, new Edge<Vertex<String>>(338));
+        g.add(seattle, sf, new Edge<>(1306));
+        g.add(seattle, minneapolis, new Edge<>(2661));
+        g.add(seattle, denver, new Edge<>(2161));
+        g.add(sf, la, new Edge<>(629));
+        g.add(sf, lv, new Edge<>(919));
+        g.add(la, lv, new Edge<>(435));
+        g.add(lv, denver, new Edge<>(1225));
+        g.add(lv, dallas, new Edge<>(1983));
+        g.add(denver, dallas, new Edge<>(1258));
+        g.add(denver, minneapolis, new Edge<>(1483));
+        g.add(minneapolis, chicago, new Edge<>(661));
+        g.add(chicago, boston, new Edge<>(1613));
+        g.add(chicago, washDC, new Edge<>(1145));
+        g.add(dallas, miami, new Edge<>(2161));
+        g.add(dallas, washDC, new Edge<>(2113));
+        g.add(miami, washDC, new Edge<>(1709));
+        g.add(miami, ny, new Edge<>(2145));
+        g.add(washDC, ny, new Edge<>(383));
+        g.add(washDC, boston, new Edge<>(725));
+        g.add(ny, boston, new Edge<>(338));
 
         return g;
     }
@@ -169,18 +176,18 @@ public class GraphTest {
     private Graph<Vertex<Integer>, Edge<Vertex<Integer>>> makeHeapGraph() {
         Graph<Vertex<Integer>, Edge<Vertex<Integer>>> g = new Graph<>(false);
         int[] heap = new int[]{90, 80, 30, 60, 70, 20, 10, 40, 50};
-        g.add(Vertex.create(90), Vertex.create(80), new Edge<Vertex<Integer>>(10));
-        g.add(Vertex.create(90), Vertex.create(30), new Edge<Vertex<Integer>>(60));
-        g.add(Vertex.create(80), Vertex.create(65), new Edge<Vertex<Integer>>(15));
-        g.add(Vertex.create(80), Vertex.create(70), new Edge<Vertex<Integer>>(10));
-        g.add(Vertex.create(80), Vertex.create(30), new Edge<Vertex<Integer>>(50));
-        g.add(Vertex.create(30), Vertex.create(20), new Edge<Vertex<Integer>>(10));
-        g.add(Vertex.create(30), Vertex.create(10), new Edge<Vertex<Integer>>(20));
-        g.add(Vertex.create(20), Vertex.create(10), new Edge<Vertex<Integer>>(10));
-        g.add(Vertex.create(65), Vertex.create(40), new Edge<Vertex<Integer>>(25));
-        g.add(Vertex.create(65), Vertex.create(50), new Edge<Vertex<Integer>>(15));
-        g.add(Vertex.create(65), Vertex.create(70), new Edge<Vertex<Integer>>(5));
-        g.add(Vertex.create(40), Vertex.create(50), new Edge<Vertex<Integer>>(10));
+        g.add(Vertex.create(90), Vertex.create(80), new Edge<>(10));
+        g.add(Vertex.create(90), Vertex.create(30), new Edge<>(60));
+        g.add(Vertex.create(80), Vertex.create(65), new Edge<>(15));
+        g.add(Vertex.create(80), Vertex.create(70), new Edge<>(10));
+        g.add(Vertex.create(80), Vertex.create(30), new Edge<>(50));
+        g.add(Vertex.create(30), Vertex.create(20), new Edge<>(10));
+        g.add(Vertex.create(30), Vertex.create(10), new Edge<>(20));
+        g.add(Vertex.create(20), Vertex.create(10), new Edge<>(10));
+        g.add(Vertex.create(65), Vertex.create(40), new Edge<>(25));
+        g.add(Vertex.create(65), Vertex.create(50), new Edge<>(15));
+        g.add(Vertex.create(65), Vertex.create(70), new Edge<>(5));
+        g.add(Vertex.create(40), Vertex.create(50), new Edge<>(10));
 
         return g;
     }
