@@ -7,7 +7,7 @@ import java.util.Set;
  * Adapted from this geeks4geeks post: https://www.geeksforgeeks.org/detect-cycle-in-a-graph/?ref=rp
  * I generified the implementation and used better data-structures
  *
- * Note that this algorithm/implementation bales once once a cycle is found. The graph can still have many other cycles
+ * Note that this algorithm/implementation bales out once a cycle is found. The graph can still have many other cycles
  *
  * The Question: 4.5-STAR
  *
