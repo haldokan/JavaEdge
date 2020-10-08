@@ -11,6 +11,8 @@ package org.haldokan.edge.interviewquest.google;
  *
  * todo: take up in the future if inspiration comes to town!
  *
+ * The Question:
+ *
  * There are multiple transactions from payee to payer. Consolidate all these transactions to minimum number of possible transactions.
  * HINT: Consolidate transitive transactions along with similar transactions
  *
