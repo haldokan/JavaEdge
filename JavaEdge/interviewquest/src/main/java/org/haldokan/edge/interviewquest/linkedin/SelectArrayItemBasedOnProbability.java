@@ -12,6 +12,7 @@ import java.util.Random;
  *
  * Given an array frequency where freq[i] represents the occurrence frequency of the ith element in the array, how to randomly
  * select an element in the array based on its frequency.
+ * 11/1/20
  */
 public class SelectArrayItemBasedOnProbability<T> {
     private final static Random random = new Random();
