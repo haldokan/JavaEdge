@@ -31,7 +31,6 @@ public class SelectArrayItemBasedOnProbability<T> {
             selectFreq.compute(selected, (k, v) -> v == null ? 1 : v + 1);
         }
         System.out.printf("%s%n,", selectFreq);
-
     }
 
     public SelectArrayItemBasedOnProbability(T[] arr, int[] freq) {
