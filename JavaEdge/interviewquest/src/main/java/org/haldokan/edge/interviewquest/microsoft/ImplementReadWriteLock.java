@@ -6,6 +6,8 @@ import java.util.Map;
 /**
  * My solution to a Microsoft interview question
  *
+ * The Question: 3.5-STAR
+ *
  * Use synchronized, wait() and notify() to write a program such that below mentioned conditions are fulfilled while
  * reading and writing data to a shared resource.
  *
