@@ -106,5 +106,6 @@
         <module>lunch-box</module>
         <module>interviewquest</module>
         <module>testing</module>
+        <module>algorithms</module>
     </modules>
 </project>
