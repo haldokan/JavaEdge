@@ -50,6 +50,7 @@ public class UnionFind3 {
         }
         return item;
     }
+
     public static final class Tester {
         @Test
         public void testUnion1() {
@@ -64,12 +65,12 @@ public class UnionFind3 {
             unionFind.union(4, 8);
             System.out.println("(4, 8)->" + Arrays.toString(items));
             System.out.println("sizes->" + Arrays.toString(unionFind.treeSize));
-            assertEquals(8, items[4]);
+            assertEquals(4, items[8]);
 
             unionFind.union(2, 4);
             System.out.println("(2, 4)->" + Arrays.toString(items));
             System.out.println("sizes->" + Arrays.toString(unionFind.treeSize));
-            assertEquals(8, items[2]); // note how it got the grandpa
+            assertEquals(4, items[2]);
         }
 
         @Test
