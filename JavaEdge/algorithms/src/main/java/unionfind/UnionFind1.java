@@ -1,3 +1,5 @@
+package unionfind;
+
 import org.junit.Test;
 
 import java.util.Arrays;
@@ -7,12 +9,11 @@ import java.util.Map;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
-// todo will evolve this algorithm form n2 (for union) to log(n)
-public class UnionFind {
+public class UnionFind1 {
     private final int[] items;
     private final Map<String, Integer> indexByItem = new HashMap<>();
 
-    public UnionFind(String[] items) { // passed array param can be of any type
+    public UnionFind1(String[] items) { // passed array param can be of any type
         this.items = new int[items.length];
         for (int i = 0; i < items.length; i++) {
             this.items[i] = i;
@@ -20,6 +21,7 @@ public class UnionFind {
         }
     }
 
+    // O(N)
     public void union(String item1, String item2) {
         int item1Val = items[indexByItem.get(item1)];
         for (int i = 0; i < items.length; i++) {
@@ -29,6 +31,7 @@ public class UnionFind {
         }
     }
 
+    // O(1)
     public boolean find(String item1, String item2) {
         return items[indexByItem.get(item1)] == items[indexByItem.get(item2)];
     }
@@ -37,7 +40,7 @@ public class UnionFind {
         @Test
         public void testUnionFind() {
             String[] items = new String[]{"v0", "v1", "v2", "v3", "v4", "v5", "v6", "v7", "v8", "v9"};
-            UnionFind unionFind = new UnionFind(items);
+            UnionFind1 unionFind = new UnionFind1(items);
 
             assertFalse(unionFind.find("v0", "v4"));
             unionFind.union("v0", "v4");
