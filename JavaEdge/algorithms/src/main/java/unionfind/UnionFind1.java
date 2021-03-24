@@ -9,6 +9,7 @@ import java.util.Map;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
+// take 1: naive solution N^2
 public class UnionFind1 {
     private final int[] items;
     private final Map<String, Integer> indexByItem = new HashMap<>();

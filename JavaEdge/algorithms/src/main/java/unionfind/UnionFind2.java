@@ -6,6 +6,10 @@ import java.util.Arrays;
 
 import static org.junit.Assert.*;
 
+/**
+ * Based on the algorithm described in Algorithms: 24-part Lecture Series by Professor Robert Sedgewick.
+ */
+
 public class UnionFind2 {
     private final int[] items;
     public UnionFind2(int[] items) {
