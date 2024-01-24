@@ -18,7 +18,7 @@ import static org.junit.Assert.assertThat;
  * Created by haytham.aldokanji on 6/28/16.
  */
 public class BrowsingHistory {
-    // circular array
+    // circular array -
     private final String[] history;
     private final int displayLen;
     private int lastIndex;
