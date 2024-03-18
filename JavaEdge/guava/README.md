@@ -10,6 +10,6 @@ Optional
 
 Event bus
 
-Cache
+Caching
 
 String operations
