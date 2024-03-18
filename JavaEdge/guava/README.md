@@ -12,4 +12,4 @@ Event bus
 
 Cache
 
-String ops
+String operations
