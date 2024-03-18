@@ -4,7 +4,7 @@ Listenable futures
 
 Multi maps/sets, Table
 
-Bloom filter
+Bloom filters
 
 Optional
 
