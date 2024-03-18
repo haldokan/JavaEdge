@@ -1,4 +1,4 @@
-Examples of using Guava cool data structures and constructs including among others
+Examples of using Guava cool data structures and constructs including among other things:
 
 Listenable futures
 
