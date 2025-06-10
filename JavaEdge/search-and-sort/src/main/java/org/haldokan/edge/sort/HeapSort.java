@@ -114,19 +114,19 @@ public class HeapSort<T> {
     }
 
     public T peek() {
-        return heap.get(0);
+        return heap.getFirst();
     }
 
     public T pop() {
         if (heap.isEmpty())
             return null;
         if (heap.size() == 1)
-            return heap.remove(0);
+            return heap.removeFirst();
 
-        T top = heap.get(0);
-        heap.set(0, heap.remove(heap.size() - 1));
+        T top = heap.getFirst();
+        heap.set(0, heap.removeLast());
 
-        if (heapFunc.apply(top, heap.get(0))) {
+        if (heapFunc.apply(top, heap.getFirst())) {
             dribbleDown(0);
         }
         return top;
