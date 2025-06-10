@@ -5,7 +5,7 @@ import java.util.List;
 
 /**
  * My solution to a Facebook interview question - used DFS to descend the matrix at every point to find the word. It is
- * more elegant and concise that using BFS (check my other implementation: FindingWordInLetterMatrixFacebook)
+ * more elegant and concise than using BFS (check my other implementation: FindingWordInLetterMatrixFacebook)
  * The Question: 5_STAR
  * Given a matrix of letters and a word, check if the word is present in the matrix. E,g., suppose matrix is:
  * a b c d e f

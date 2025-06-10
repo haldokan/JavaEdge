@@ -12,10 +12,10 @@ import static org.junit.Assert.assertThat;
 /**
  * My Implementation of all the heap data structure operations: pop, push, dribbleDown and bubbleUp. Data stored in the heap
  * is made generic so it can be anything. I use a Java-8 BiFunction to designate a created heap as max or min heap.
- * We can be more specific and make the BiFunction a Comparator but I find the -1, 0, +1 return values of the Comparator
+ * We can be more specific and make the BiFunction a Comparator, but I find the -1, 0, +1 return values of the Comparator
  * to be less expressive than implementing less/greater than in the BiFunction.
  * <p>
- * In the JDK PriorityQueue is implemented using the heap data structure
+ * The JDK PriorityQueue is implemented using the heap data structure
  * <p>
  * The Question: 4_STAR
  * <p>

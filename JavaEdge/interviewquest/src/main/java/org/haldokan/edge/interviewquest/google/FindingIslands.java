@@ -136,7 +136,6 @@ public class FindingIslands {
         topography[4][19] = 'X';
         topography[4][20] = 'X';
         topography[5][3] = 'X';
-        topography[5][3] = 'X';
         topography[6][3] = 'X';
         topography[6][4] = 'X';
         topography[6][5] = 'X';

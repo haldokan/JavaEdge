@@ -39,7 +39,7 @@ public class CarSpeedMonitoringSystem {
      *
      * 7- In a high frequency scenario we cannot update the data store on each request from the cameras because that will
      * create latency and possibly lead to failed/timed-out requests. NOSQL data stores can handle that better because they
-     * normally do a fast write to a commit log and update a memory cache that is backed to disk when it grows big.
+     * normally do a fast write to a commit log and update   a memory cache that is backed to disk when it grows big.
      *
      * 8- In order to improve application responsiveness to multiple users we can keep most recent speed violation data in
      * a memory cache. For example an LRU cache that keeps data for the last 24 hours.
@@ -57,7 +57,7 @@ public class CarSpeedMonitoringSystem {
      * nodes (called bolts in Storm). Each node counts violations for a single location over a sliding window of let's say
      * an hour. All these counting nodes report their counts to a reducing node that simply sort the reported data based
      * on the number of violations and stores the top 10 (storage can be in memory or disk). Monitoring apps can query the
-     * reducing node any time to get the top offenders overs the last hour or what have you. Or we can have the reducing
+     * reducing node any time to get the top offenders over the last hour or what have you. Or we can have the reducing
      * node push the data to subscribing apps and components.
      *
      */

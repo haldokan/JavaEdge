@@ -8,7 +8,7 @@ import static org.junit.Assert.assertThat;
 
 /**
  * My solution to a Google interview question - basically for each guard construct an n-arry tree (at most 4 children per
- * node) and BFS it increasing the distance from the root (guard). Including child nodes in the BFS depends on whether they are
+ * node) and do BFS while increasing the distance from the root (guard). Including child nodes in the BFS depends on whether they are
  * 'block', 'guard', or 'path'; and the child distance (computed in the same or a different guard BFS) compared to the new distance.
  *
  * The Question: 5_STAR
