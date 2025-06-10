@@ -109,5 +109,20 @@ public class PrefixTrieCanDo {
         System.out.println(search("Aztec"));
         System.out.println(search("Carts"));
         System.out.println(search("Romans"));
+
+        System.out.println(search("Car")); // My search covers prefixes
+        System.out.println(searchAI("Car")); // The AI's makes sure the 'word' is there
+    }
+
+    @Test
+    public void testStartsWith() {
+        insert("Cartoon");
+        insert("Cart");
+        insert("Cartoons");
+        insert("Carpool");
+        insert("Aztec");
+
+        System.out.println(startsWith("Car"));
+        System.out.println(startsWithAI("Car"));
     }
 }
