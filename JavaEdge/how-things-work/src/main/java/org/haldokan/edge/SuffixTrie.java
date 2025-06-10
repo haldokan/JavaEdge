@@ -6,7 +6,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Suffix tries are very space-heavy, hence in practice, suffix trees or suffix automata are used.
+ * Suffix tries are very space-heavy, hence in practice, suffix trees or suffix automata are.
  * | Suffix Trie                     | Suffix Tree                |
  * | ------------------------------- | -------------------------- |
  * | Explicitly stores all suffixes  | Compresses repeated edges  |
