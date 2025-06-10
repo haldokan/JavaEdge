@@ -66,4 +66,21 @@ public class SuffixTrie {
 
         System.out.println(containsSuffix("ab"));
     }
+
+    @Test
+    public void detectPlagiarism() {
+        var essay1 = "Einstein found out that the speed of light is e = mc2 and nothing can go faster";
+        var cheeter = "I discovered that the speed of light is e = mc2";
+
+        insert(essay1);
+
+        String longestSuffix = "";
+        for (int i = 0; i < cheeter.length(); i++) {
+            var suffix = cheeter.substring(i);
+            if (containsSuffix(suffix) && suffix.length() > longestSuffix.length()) {
+                longestSuffix = suffix;
+            }
+        }
+        System.out.println(longestSuffix); // that the speed of light is e = mc2
+    }
 }
