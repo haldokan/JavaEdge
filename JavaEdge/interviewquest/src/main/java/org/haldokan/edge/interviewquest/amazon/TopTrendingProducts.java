@@ -116,7 +116,7 @@ public class TopTrendingProducts {
         public ProductRank(String product) {
             this(product, 1);
         }
-
+        //
         public ProductRank(String product, int count) {
             this.product = product;
             this.count = count;
