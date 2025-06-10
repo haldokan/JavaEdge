@@ -18,11 +18,11 @@ public class HeapCanDo {
 
     private Integer pop() {
         if (!heap.isEmpty()) {
-            var top = heap.get(0);
-            var tail = heap.get(heap.size() - 1);
+            var top = heap.getFirst();
+            var tail = heap.getLast();
 
             heap.set(0, tail);
-            heap.remove(heap.size() - 1);
+            heap.removeLast();
             dribbleDown();
             return top;
         }
@@ -30,7 +30,7 @@ public class HeapCanDo {
     }
 
     private int peek() {
-        return heap.get(0);
+        return heap.getFirst();
     }
 
     // Max heap: this is O(n) algo; should be O(log n)
