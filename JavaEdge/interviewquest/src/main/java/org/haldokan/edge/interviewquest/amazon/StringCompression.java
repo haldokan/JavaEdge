@@ -1,7 +1,7 @@
 package org.haldokan.edge.interviewquest.amazon;
 
 import static org.hamcrest.Matchers.equalTo;
-import static org.junit.Assert.assertThat;
+import static org.hamcrest.MatcherAssert.assertThat;
 
 /**
  * My solution to an Amazon interview question - for handling strings that include numbers I used a metadata section of the

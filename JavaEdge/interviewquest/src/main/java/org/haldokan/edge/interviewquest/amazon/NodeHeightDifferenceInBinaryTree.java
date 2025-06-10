@@ -6,7 +6,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import static org.hamcrest.Matchers.is;
-import static org.junit.Assert.assertThat;
+import static org.hamcrest.MatcherAssert.assertThat;
 
 /**
  * My solution to an Amazon interview question - Easy kill! BFS while keeping track of nodes level in a map

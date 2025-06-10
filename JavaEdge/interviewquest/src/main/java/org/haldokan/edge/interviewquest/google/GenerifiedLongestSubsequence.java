@@ -7,7 +7,7 @@ import java.util.Comparator;
 import java.util.Deque;
 
 import static org.hamcrest.Matchers.is;
-import static org.junit.Assert.assertThat;
+import static org.hamcrest.MatcherAssert.assertThat;
 
 /**
  * My solution to a Google interview question - using dynamic programming to solve the problem at every new element of

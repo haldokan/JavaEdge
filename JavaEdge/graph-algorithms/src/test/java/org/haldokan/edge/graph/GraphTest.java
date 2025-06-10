@@ -1,6 +1,6 @@
 package org.haldokan.edge.graph;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 public class GraphTest {
     private Vertex<Integer> v1 = new Vertex<>(1, 0, 0);

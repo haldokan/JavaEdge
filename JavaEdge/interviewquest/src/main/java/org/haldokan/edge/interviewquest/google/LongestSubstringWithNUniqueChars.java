@@ -1,7 +1,7 @@
 package org.haldokan.edge.interviewquest.google;
 
 import static org.hamcrest.Matchers.is;
-import static org.junit.Assert.assertThat;
+import static org.hamcrest.MatcherAssert.assertThat;
 
 /**
  * This one is NOT my solution but that of someone posted on Careercup. I am putting it here because the concept of what he

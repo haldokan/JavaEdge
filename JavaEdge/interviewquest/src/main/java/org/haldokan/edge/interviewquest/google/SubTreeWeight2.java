@@ -17,7 +17,7 @@ import java.util.Objects;
 import java.util.Set;
 
 import static org.hamcrest.Matchers.hasEntry;
-import static org.junit.Assert.assertThat;
+import static org.hamcrest.MatcherAssert.assertThat;
 
 /**
  * My solution to a Google interview question - I build the tree adding children based on parents and proceed with a BFS

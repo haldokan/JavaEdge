@@ -6,7 +6,7 @@ import java.util.*;
 import java.util.stream.IntStream;
 
 import static org.hamcrest.Matchers.is;
-import static org.junit.Assert.assertThat;
+import static org.hamcrest.MatcherAssert.assertThat;
 
 /**
  * My solution to an Amazon interview question - I provide 2 solutions: one using standard Java api and another using Guava

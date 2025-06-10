@@ -6,8 +6,8 @@ import java.util.PriorityQueue;
 import java.util.Queue;
 import java.util.function.BiFunction;
 
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
-import static org.junit.Assert.assertThat;
 
 /**
  * My Implementation of all the heap data structure operations: pop, push, dribbleDown and bubbleUp. Data stored in the heap

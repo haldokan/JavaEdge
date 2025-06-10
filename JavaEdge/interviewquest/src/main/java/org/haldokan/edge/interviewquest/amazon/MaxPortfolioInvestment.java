@@ -3,7 +3,7 @@ package org.haldokan.edge.interviewquest.amazon;
 import java.util.*;
 
 import static org.hamcrest.Matchers.is;
-import static org.junit.Assert.assertThat;
+import static org.hamcrest.MatcherAssert.assertThat;
 
 /**
  * NOTE: this is maybe a faulty solution

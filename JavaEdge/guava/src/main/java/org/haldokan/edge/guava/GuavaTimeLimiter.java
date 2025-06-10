@@ -4,11 +4,13 @@ import com.google.common.util.concurrent.SimpleTimeLimiter;
 import com.google.common.util.concurrent.TimeLimiter;
 import com.google.common.util.concurrent.UncheckedTimeoutException;
 
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
 public class GuavaTimeLimiter implements IGuavaTimeLimiter {
     public static void main(String[] args) throws Exception {
-        TimeLimiter tl = new SimpleTimeLimiter();
+        TimeLimiter tl = SimpleTimeLimiter.create(Executors.newSingleThreadExecutor());
         IGuavaTimeLimiter proxy = tl.newProxy(new GuavaTimeLimiter(), IGuavaTimeLimiter.class, 100,
                 TimeUnit.MILLISECONDS);
         try {

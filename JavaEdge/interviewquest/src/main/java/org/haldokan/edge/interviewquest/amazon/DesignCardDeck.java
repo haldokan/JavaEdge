@@ -5,7 +5,7 @@ import java.util.Random;
 import java.util.stream.IntStream;
 
 import static org.hamcrest.Matchers.is;
-import static org.junit.Assert.assertThat;
+import static org.hamcrest.MatcherAssert.assertThat;
 
 /**
  * My solution to an Amazon interview question - I used an array with a current index that points to the top of the deck

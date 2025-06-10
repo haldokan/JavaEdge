@@ -1,7 +1,7 @@
 package org.haldokan.edge.interviewquest.google;
 
 import static org.hamcrest.Matchers.is;
-import static org.junit.Assert.assertThat;
+import static org.hamcrest.MatcherAssert.assertThat;
 
 /**
  * My solution to a Google interview question - The problem does not state that the 1's should be connected which makes it

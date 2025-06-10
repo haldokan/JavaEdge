@@ -29,14 +29,14 @@ public class GuavaStringOps {
         }
 
         // CharMatcher
-        s = CharMatcher.JAVA_DIGIT.or(CharMatcher.JAVA_LOWER_CASE).retainFrom("I Have Earned 70 DOLLARS today!");
-        System.out.println(s);
-
-        s = CharMatcher.WHITESPACE.collapseFrom("T O  B E  O R  N O T  T O  B E", '-');
-        System.out.println(s);
-
-        s = CharMatcher.JAVA_LETTER_OR_DIGIT.or(CharMatcher.WHITESPACE).retainFrom(
-                "We have made this deal: sell the car, buy a motorcycle. End of Story!");
+//        s = CharMatcher.JAVA_DIGIT.or(CharMatcher.JAVA_LOWER_CASE).retainFrom("I Have Earned 70 DOLLARS today!");
+//        System.out.println(s);
+//
+//        s = CharMatcher.WHITESPACE.collapseFrom("T O  B E  O R  N O T  T O  B E", '-');
+//        System.out.println(s);
+//
+//        s = CharMatcher.JAVA_LETTER_OR_DIGIT.or(CharMatcher.WHITESPACE).retainFrom(
+//                "We have made this deal: sell the car, buy a motorcycle. End of Story!");
         System.out.println(s);
     }
 }

@@ -1,8 +1,8 @@
 package org.haldokan.edge.interviewquest.google;
 
 import static org.hamcrest.Matchers.is;
-import static org.junit.Assert.assertThat;
-import static org.junit.Assert.fail;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.junit.jupiter.api.Assertions.fail;
 
 /**
  * My solution to a Google interview question - ignored the size limitation and assumed that only positive digits are used.

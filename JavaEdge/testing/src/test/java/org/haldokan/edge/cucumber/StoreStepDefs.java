@@ -6,7 +6,7 @@ import cucumber.api.java.en.When;
 import cucumber.api.java8.En;
 
 import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assert.assertThat;
+import static org.hamcrest.MatcherAssert.assertThat;
 
 /**
  * Created by haytham.aldokanji on 9/10/15.

@@ -1,7 +1,7 @@
 package org.haldokan.edge.interviewquest.amazon;
 
 import static org.hamcrest.Matchers.is;
-import static org.junit.Assert.assertThat;
+import static org.hamcrest.MatcherAssert.assertThat;
 
 /**
  * My solution to an Amazon interview question - this is a simpler version of this Facebook question that I resolved here:

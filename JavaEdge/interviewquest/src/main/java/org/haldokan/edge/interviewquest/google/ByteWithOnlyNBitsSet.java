@@ -1,7 +1,7 @@
 package org.haldokan.edge.interviewquest.google;
 
 import static org.hamcrest.Matchers.is;
-import static org.junit.Assert.assertThat;
+import static org.hamcrest.MatcherAssert.assertThat;
 
 /**
  * My solution to a Google interview question - I made a general solution for checking if N bits set on a byte

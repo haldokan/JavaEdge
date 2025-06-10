@@ -1,6 +1,8 @@
 package org.haldokan.edge.bigtable;
 
-import org.junit.Test;
+//import org.junit.jupiter.api.Test;
+
+import org.junit.jupiter.api.Test;
 
 import java.util.HashMap;
 import java.util.LinkedHashSet;

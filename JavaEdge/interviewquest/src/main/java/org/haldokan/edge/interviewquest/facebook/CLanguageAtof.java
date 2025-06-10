@@ -5,7 +5,7 @@ import java.util.Arrays;
 import java.util.Deque;
 
 import static org.hamcrest.Matchers.*;
-import static org.junit.Assert.assertThat;
+import static org.hamcrest.MatcherAssert.assertThat;
 /**
  * My solution to a Facebook interview question - for good measure I made it to support formats like (e1 and -e-1) which
  * accept the number is implicitly 1. These formats are not supported in Java - not sure if C atof support them.

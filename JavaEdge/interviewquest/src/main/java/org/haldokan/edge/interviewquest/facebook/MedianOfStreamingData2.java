@@ -9,7 +9,7 @@ import java.util.PriorityQueue;
 import java.util.TreeMap;
 
 import static org.hamcrest.Matchers.is;
-import static org.junit.Assert.assertThat;
+import static org.hamcrest.MatcherAssert.assertThat;
 
 /**
  * My solution to a Facebook interview question - used a combination of min & max heaps to maintain the median at the roots

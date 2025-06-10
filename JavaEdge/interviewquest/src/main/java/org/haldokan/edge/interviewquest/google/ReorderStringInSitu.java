@@ -1,7 +1,7 @@
 package org.haldokan.edge.interviewquest.google;
 
 import static org.hamcrest.Matchers.is;
-import static org.junit.Assert.assertThat;
+import static org.hamcrest.MatcherAssert.assertThat;
 
 /**
  * My solution to a Google interview question - Space O(1) but time is O(n^2). The O(n) solution is quite involved and is

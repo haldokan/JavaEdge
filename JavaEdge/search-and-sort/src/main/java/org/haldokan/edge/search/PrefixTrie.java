@@ -1,7 +1,7 @@
 package org.haldokan.edge.search;
 
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
-import static org.junit.Assert.assertThat;
 
 /**
  * My implementation of a prefix trie inspired by descriptions of the algorithm on-line - chars are not stored explicitly

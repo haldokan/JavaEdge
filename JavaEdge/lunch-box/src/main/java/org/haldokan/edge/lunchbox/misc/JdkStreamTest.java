@@ -1,7 +1,7 @@
 package org.haldokan.edge.lunchbox.misc;
 
-import org.junit.BeforeClass;
-import org.junit.Test;
+
+import org.junit.jupiter.api.Test;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -13,7 +13,7 @@ public class JdkStreamTest {
     private static Random rand = new Random();
     private static String[] abteilungen = new String[]{"Technology", "Arbeitsstaerke", "Herstellung", "Verwaltung"};
 
-    @BeforeClass
+    
     public static void bereiten() {
         for (int i = 0; i < grosse; i++) {
             Geschlecht g = rand.nextInt(100) % 2 == 0 ? Geschlecht.Mann : Geschlecht.Frau;

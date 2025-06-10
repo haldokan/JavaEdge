@@ -3,7 +3,7 @@ package org.haldokan.edge.interviewquest.google;
 import java.util.Arrays;
 
 import static org.hamcrest.Matchers.is;
-import static org.junit.Assert.assertThat;
+import static org.hamcrest.MatcherAssert.assertThat;
 
 /**
  * My solution to a Google interview question - I solved for the general case of N words. In this solution I used another

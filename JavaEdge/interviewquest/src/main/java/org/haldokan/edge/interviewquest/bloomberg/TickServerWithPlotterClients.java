@@ -5,7 +5,7 @@ import java.util.*;
 import java.util.concurrent.*;
 
 import static org.hamcrest.Matchers.is;
-import static org.junit.Assert.assertThat;
+import static org.hamcrest.MatcherAssert.assertThat;
 
 /**
  * My solution to a Bloomberg interview question - for the plotter I used a min heap but since the same ticker can

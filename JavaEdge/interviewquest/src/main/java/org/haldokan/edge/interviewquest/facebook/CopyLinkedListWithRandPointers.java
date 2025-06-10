@@ -4,7 +4,7 @@ import java.util.IdentityHashMap;
 import java.util.Map;
 
 import static org.hamcrest.Matchers.is;
-import static org.junit.Assert.assertThat;
+import static org.hamcrest.MatcherAssert.assertThat;
 
 /**
  * My solution to a Facebook interview question - used IdentityHashMap to keep track of random pointers

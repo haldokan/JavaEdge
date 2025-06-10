@@ -5,7 +5,7 @@ import com.google.common.collect.Lists;
 import java.util.*;
 
 import static org.hamcrest.Matchers.lessThan;
-import static org.junit.Assert.assertThat;
+import static org.hamcrest.MatcherAssert.assertThat;
 
 /**
  * My solution to a Google interview question

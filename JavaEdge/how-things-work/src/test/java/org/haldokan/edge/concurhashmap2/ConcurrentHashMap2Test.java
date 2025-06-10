@@ -1,11 +1,11 @@
 package org.haldokan.edge.concurhashmap2;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.util.Random;
 
 import static org.hamcrest.CoreMatchers.*;
-import static org.junit.Assert.assertThat;
+import static org.hamcrest.MatcherAssert.assertThat;
 
 public class ConcurrentHashMap2Test {
     private Random rand = new Random();

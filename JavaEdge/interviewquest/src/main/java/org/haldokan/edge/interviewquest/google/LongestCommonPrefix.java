@@ -5,7 +5,7 @@ import com.google.common.collect.Lists;
 import java.util.List;
 
 import static org.hamcrest.Matchers.is;
-import static org.junit.Assert.assertThat;
+import static org.hamcrest.MatcherAssert.assertThat;
 
 /**
  * My solution to a Google interview question O(1) space and O(m x n) time where m is the length of a phrase

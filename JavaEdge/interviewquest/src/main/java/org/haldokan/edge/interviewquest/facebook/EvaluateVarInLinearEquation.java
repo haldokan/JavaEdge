@@ -4,7 +4,7 @@ import java.util.*;
 import java.util.function.BiFunction;
 
 import static org.hamcrest.Matchers.*;
-import static org.junit.Assert.assertThat;
+import static org.hamcrest.MatcherAssert.assertThat;
 
 /**
  * My solution to a Facebook interview question - parses linear equations and resolve the value of the variable

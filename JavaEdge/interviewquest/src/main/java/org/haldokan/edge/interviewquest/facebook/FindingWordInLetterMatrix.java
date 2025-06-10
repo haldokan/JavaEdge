@@ -3,7 +3,7 @@ package org.haldokan.edge.interviewquest.facebook;
 import java.util.*;
 
 import static org.hamcrest.Matchers.is;
-import static org.junit.Assert.assertThat;
+import static org.hamcrest.MatcherAssert.assertThat;
 
 /**
  * My solution to a Facebook interview question - Used BFS to present a solution suggestive of some graph algorithms (MST for instance)

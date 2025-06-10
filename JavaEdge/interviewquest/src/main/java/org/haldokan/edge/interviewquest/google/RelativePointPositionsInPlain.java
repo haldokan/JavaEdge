@@ -7,7 +7,7 @@ import java.util.Map;
 import java.util.Optional;
 
 import static org.hamcrest.Matchers.is;
-import static org.junit.Assert.assertThat;
+import static org.hamcrest.MatcherAssert.assertThat;
 
 /**
  * My NON-solution to a Google interview question. I realized too late that this solution works only if the movement in a

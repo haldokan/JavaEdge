@@ -1,6 +1,6 @@
 package org.haldokan.edge.interviewquest.linkedin;
 
-import org.junit.Assert;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
  * My solutoin to a Linkedin interview question
@@ -25,19 +25,19 @@ public class SearchShiftedSortedArray {
         for (int i = 0; i < arr1.length; i++) {
             int index = searcher.shiftedBinsearch(arr1, arr1[i], 0, arr1.length);
             System.out.print(index + ", ");
-            Assert.assertEquals(i, index);
+            assertEquals(i, index);
         }
         System.out.println();
         for (int i = 0; i < arr2.length; i++) {
             int index = searcher.shiftedBinsearch(arr2, arr2[i], 0, arr2.length);
             System.out.print(index + ", ");
-            Assert.assertEquals(i, index);
+            assertEquals(i, index);
         }
         System.out.println();
         for (int i = 0; i < arr3.length; i++) {
             int index = searcher.shiftedBinsearch(arr3, arr3[i], 0, arr3.length);
             System.out.print(index + ", ");
-            Assert.assertEquals(i, index);
+            assertEquals(i, index);
         }
         System.out.println();
         System.out.println(searcher.shiftedBinsearch(arr1, 10, 0, arr1.length));

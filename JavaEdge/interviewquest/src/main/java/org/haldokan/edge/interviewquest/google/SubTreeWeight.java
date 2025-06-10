@@ -6,7 +6,7 @@ import com.google.common.collect.Table;
 import java.util.*;
 
 import static org.hamcrest.Matchers.hasEntry;
-import static org.junit.Assert.assertThat;
+import static org.hamcrest.MatcherAssert.assertThat;
 
 /**
  * My solution to a Google interview question - idea is to create a dependency tree and do a DFS. The DFS insures that

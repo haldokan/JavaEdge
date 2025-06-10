@@ -1,7 +1,7 @@
 package org.haldokan.edge.interviewquest.facebook;
 
 import static org.hamcrest.Matchers.is;
-import static org.junit.Assert.assertThat;
+import static org.hamcrest.MatcherAssert.assertThat;
 
 /**
  * My solution to a Facebook interview question - Solution uses dynamic programming: a recurrence with an initial step is

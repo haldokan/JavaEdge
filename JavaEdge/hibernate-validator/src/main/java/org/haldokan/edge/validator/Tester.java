@@ -1,20 +1,22 @@
 package org.haldokan.edge.validator;
 
 import org.haldokan.edge.validator.ValidationGroups.OverallChecks;
-import org.junit.BeforeClass;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
 
 import javax.validation.*;
 import javax.validation.groups.Default;
 import java.util.Set;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+//import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class Tester {
     private static ValidatorFactory factory;
     private static Validator validator;
 
-    @BeforeClass
+    @BeforeAll
     public static void init() {
         factory = Validation.buildDefaultValidatorFactory();
         validator = factory.getValidator();

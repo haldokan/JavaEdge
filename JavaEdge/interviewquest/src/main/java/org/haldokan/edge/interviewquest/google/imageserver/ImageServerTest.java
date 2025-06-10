@@ -1,6 +1,6 @@
 package org.haldokan.edge.interviewquest.google.imageserver;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.time.LocalTime;
 import java.util.Random;

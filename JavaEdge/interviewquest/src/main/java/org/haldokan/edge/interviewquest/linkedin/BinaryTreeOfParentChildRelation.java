@@ -1,8 +1,8 @@
 package org.haldokan.edge.interviewquest.linkedin;
 
-import org.junit.Assert;
-
 import java.util.*;
+
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 
 /**
  * My solution to a Linkedin interview question. I believe there is no nice recursive solution for this problem
@@ -58,7 +58,7 @@ public class BinaryTreeOfParentChildRelation {
             List<Integer> ids = new ArrayList<>();
             treeBuilder.walkTree(treeBuilder.buildTree(rels), ids);
             System.out.println(ids);
-            Assert.assertArrayEquals(nodeIds.toArray(), ids.toArray());
+            assertArrayEquals(nodeIds.toArray(), ids.toArray());
         }
     }
 

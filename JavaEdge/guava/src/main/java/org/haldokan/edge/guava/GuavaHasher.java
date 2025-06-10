@@ -4,10 +4,11 @@ import com.google.common.base.Stopwatch;
 import com.google.common.hash.HashCode;
 import com.google.common.hash.HashFunction;
 import com.google.common.hash.Hashing;
-import junit.framework.Assert;
 
 import java.nio.charset.Charset;
 import java.util.concurrent.TimeUnit;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
  * Guava Hasher gives the same hash code b/w different runs of the program
@@ -22,7 +23,7 @@ public class GuavaHasher {
                 .putString("foobar", Charset.defaultCharset()).hash();
         System.out.println(hc);
         String s1 = "1d1679c150feaf9f3644b6e1bc5d7f6e";
-        Assert.assertEquals(s1, hc.toString());
+        assertEquals(s1, hc.toString());
 
         HashCode hcode = null;
         Stopwatch stopwatch = Stopwatch.createStarted();

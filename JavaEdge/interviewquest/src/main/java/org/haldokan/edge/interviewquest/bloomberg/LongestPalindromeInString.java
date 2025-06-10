@@ -2,7 +2,7 @@ package org.haldokan.edge.interviewquest.bloomberg;
 
 
 import static org.hamcrest.Matchers.is;
-import static org.junit.Assert.assertThat;
+import static org.hamcrest.MatcherAssert.assertThat;
 
 /**
  * My solution to a Bloomberg interview question - O(n^2) complexity

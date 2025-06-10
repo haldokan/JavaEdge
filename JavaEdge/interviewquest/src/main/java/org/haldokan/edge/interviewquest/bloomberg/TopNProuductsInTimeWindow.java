@@ -7,7 +7,7 @@ import java.util.concurrent.*;
 import java.util.stream.IntStream;
 
 import static org.hamcrest.Matchers.is;
-import static org.junit.Assert.assertThat;
+import static org.hamcrest.MatcherAssert.assertThat;
 
 /**
  * My solution to a Bloomberg interview question - for the moving 1 month window I use a circular array that is indexed

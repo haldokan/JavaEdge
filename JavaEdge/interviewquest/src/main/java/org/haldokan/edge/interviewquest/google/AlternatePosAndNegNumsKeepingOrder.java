@@ -3,7 +3,7 @@ package org.haldokan.edge.interviewquest.google;
 import java.util.function.Predicate;
 
 import static org.hamcrest.Matchers.is;
-import static org.junit.Assert.assertThat;
+import static org.hamcrest.MatcherAssert.assertThat;
 
 /**
  * My solution to a Google interview question - while the solution is O(1) space it is O(n^2) time. I don't think there

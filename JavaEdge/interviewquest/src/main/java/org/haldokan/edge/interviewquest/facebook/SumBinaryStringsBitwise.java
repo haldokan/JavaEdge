@@ -1,7 +1,7 @@
 package org.haldokan.edge.interviewquest.facebook;
 
 import static org.hamcrest.Matchers.is;
-import static org.junit.Assert.assertThat;
+import static org.hamcrest.MatcherAssert.assertThat;
 
 /**
  * My solution to a Facebook interview question - I provide another solution SumBinaryStrings.java that solves the
