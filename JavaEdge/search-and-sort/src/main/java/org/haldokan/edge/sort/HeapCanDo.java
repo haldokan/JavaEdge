@@ -33,19 +33,6 @@ public class HeapCanDo {
         return heap.getFirst();
     }
 
-    // Max heap: this is O(n) algo; should be O(log n)
-    private void heapify() {
-        for (var index = heap.size() - 1; index >= 0; index--) {
-            var child = heap.get(index);
-            int parentIndex = (index - 1) / 2;
-            int parent = heap.get(parentIndex);
-            if (heap.get(parentIndex) < child) {
-                heap.set(parentIndex, child);
-                heap.set(index, parent);
-            }
-        }
-    }
-
     private int parentIndex(int index) {
         return (index - 1) / 2;
     }
