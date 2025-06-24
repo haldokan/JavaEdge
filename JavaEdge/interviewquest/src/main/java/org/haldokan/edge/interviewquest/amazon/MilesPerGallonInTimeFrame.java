@@ -24,7 +24,7 @@ import java.util.*;
  *
  * Miles are recorded as floating-point numbers and gallons as integers.Create a program that allows members of this
  * group to determine the miles per gallon (MPG) of each of their cars during a specific time range.
- * Note: person may have more than one so a time range query might need to output data for one or more cars.
+ * Note: person may have more than one car, so a time range query might need to output data for one or more cars.
  *
  * A skeleton class will be provided;
  * your job will be to complete the program. The principal function for querying MPG is of the form

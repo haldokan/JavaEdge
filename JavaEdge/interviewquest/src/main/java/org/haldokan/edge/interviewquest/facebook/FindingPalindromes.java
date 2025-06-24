@@ -31,7 +31,7 @@ public class FindingPalindromes {
 
         for (int i = 0; i < words.length; i++) {
             if (excludedWords[i]) {
-                //don't much like 'continue' but it seem appropriate here
+                //don't much like 'continue' but it seems appropriate here
                 continue;
             }
             List<String> wordPalindromes = new ArrayList<>();

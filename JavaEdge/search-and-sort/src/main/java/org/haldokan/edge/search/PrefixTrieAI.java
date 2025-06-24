@@ -5,7 +5,7 @@ import org.junit.jupiter.api.Test;
 import java.util.HashMap;
 import java.util.Map;
 
-public class PrefixTrieCanDo {
+public class PrefixTrieAI {
     private final TrieNode root = new TrieNode();
 
     public void insert(String word) {
@@ -18,22 +18,6 @@ public class PrefixTrieCanDo {
     }
 
     public boolean search(String word) {
-        char[] chars = word.toCharArray();
-        TrieNode current = root;
-        int index = 0;
-        for (char c : chars) {
-            if (current.children.containsKey(c)) {
-                current = current.children.get(c);
-                index++;
-                if (index == chars.length) {
-                    return true;
-                }
-            }
-        }
-        return false;
-    }
-
-    public boolean searchAI(String word) {
         TrieNode current = root;
         for (char ch : word.toCharArray()) {
             current = current.children.get(ch);
@@ -43,10 +27,6 @@ public class PrefixTrieCanDo {
     }
 
     public boolean startsWith(String prefix) {
-        return search(prefix);
-    }
-
-    public boolean startsWithAI(String prefix) {
         TrieNode current = root;
         for (char ch : prefix.toCharArray()) {
             current = current.children.get(ch);
@@ -111,7 +91,7 @@ public class PrefixTrieCanDo {
         System.out.println(search("Romans"));
 
         System.out.println(search("Car")); // My search covers prefixes
-        System.out.println(searchAI("Car")); // The AI's makes sure the 'word' is there
+        System.out.println(search("Car")); // The AI's makes sure the 'word' is there
     }
 
     @Test
@@ -123,6 +103,6 @@ public class PrefixTrieCanDo {
         insert("Aztec");
 
         System.out.println(startsWith("Car"));
-        System.out.println(startsWithAI("Car"));
+        System.out.println(startsWith("Car"));
     }
 }
