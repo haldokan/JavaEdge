@@ -112,8 +112,8 @@ public class PrintLongestPathInBinaryTree {
         return n7;
     }
 
-    private static final class Node {
-        private int id;
+    public static final class Node {
+        private final int id;
         private Node left;
         private Node right;
 
