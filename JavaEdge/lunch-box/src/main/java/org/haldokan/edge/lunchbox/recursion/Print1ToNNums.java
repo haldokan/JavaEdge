@@ -8,7 +8,6 @@ import org.junit.jupiter.api.Test;
  * Helps to understand pre-recursion and post-recursion actions.
  */
 public class Print1ToNNums {
-
     private void print1toN(int num) {
         if (num == 0) {
             return;
