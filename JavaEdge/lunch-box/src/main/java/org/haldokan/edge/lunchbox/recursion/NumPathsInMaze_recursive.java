@@ -3,7 +3,7 @@ package org.haldokan.edge.lunchbox.recursion;
 import java.util.Arrays;
 
 /**
- * 🧩 Problem Concept: Count Paths in a Maze.
+ * 🧩 Problem Concept: Count Paths in a Maze .
  * 🎯 Goal:
  * You're given a grid or matrix (typically m x n in size). You need to determine how many distinct paths exist from the
  * top-left corner of the grid to the bottom-right corner, by moving only in certain directions (usually right and down).
