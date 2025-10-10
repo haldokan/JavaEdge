@@ -20,11 +20,25 @@
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-compiler-plugin</artifactId>
-                    <version>3.3</version>
+                    <version>3.14.1</version>
                     <configuration>
-                        <source>21</source>
-                        <target>21</target>
+                        <source>25</source>
+                        <target>25</target>
+                    <!-- This fixes a warning at compile time: starting with java23 annotation processors should be specified in order to process compile-time annotations -->
+                    <annotationProcessorPaths>
+                        <path>
+                            <groupId>org.projectlombok</groupId>
+                            <artifactId>lombok</artifactId>
+                            <version>1.18.42</version>
+                        </path>
+                    </annotationProcessorPaths>
+                    <parameters>true</parameters>
                     </configuration>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-surefire-plugin</artifactId>
+                    <version>3.5.3</version>
                 </plugin>
             </plugins>
         </pluginManagement>
@@ -75,7 +89,7 @@
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
-            <version>1.18.38</version>
+            <version>1.18.42</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
@@ -93,16 +107,11 @@
             <artifactId>junit-jupiter-api</artifactId>
             <version>5.13.1</version>
         </dependency>
+
         <dependency>
             <groupId>org.hamcrest</groupId>
             <artifactId>hamcrest</artifactId>
             <version>3.0</version>
-        </dependency>
-        <!-- https://mvnrepository.com/artifact/org.junit.platform/junit-platform-launcher -->
-        <dependency>
-            <groupId>org.junit.platform</groupId>
-            <artifactId>junit-platform-launcher</artifactId>
-            <version>1.13.1</version>
         </dependency>
     </dependencies>
     <modules>
